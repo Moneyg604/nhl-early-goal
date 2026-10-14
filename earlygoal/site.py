@@ -18,10 +18,17 @@ from __future__ import annotations
 import json
 import re
 import shutil
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from .config import OUT_DIR, ROOT
+
+
+def slate_today(now: datetime | None = None) -> str:
+    """The slate day: Eastern date, rolling over at 4 am so late West Coast games still belong to the night before."""
+    now = now or datetime.now(timezone.utc)
+    return (now.astimezone(ZoneInfo("America/Toronto")) - timedelta(hours=4)).strftime("%Y-%m-%d")
 
 SITE_DIR = ROOT / "docs"
 
@@ -46,6 +53,15 @@ DAYSLOT = """<span class="lbl2">Slate</span><select id="daysel" aria-label="slat
 SITE_SCRIPT = """<script>
 (function(){{
   var s=document.getElementById('daysel'); if(s) s.onchange=function(){{ location.href=this.value; }};
+  // relabel the slate switcher relative to the viewer's own day (Eastern, rolling over at 4 am)
+  try {{
+    var t=new Date(Date.now()-4*3600*1000).toLocaleDateString('en-CA',{{timeZone:'America/Toronto'}});
+    var tm=new Date(Date.now()+20*3600*1000).toLocaleDateString('en-CA',{{timeZone:'America/Toronto'}});
+    var ys=new Date(Date.now()-28*3600*1000).toLocaleDateString('en-CA',{{timeZone:'America/Toronto'}});
+    if(s) Array.prototype.forEach.call(s.options, function(o){{ var d=o.getAttribute('data-date'); if(!d) return;
+      var l=o.getAttribute('data-label'), p=d===t?'Today':(d===tm?'Tomorrow':'');
+      o.textContent = p ? p+' · '+l.replace(/^\S+\s/,'') : l; }});
+  }} catch(e) {{}}
   var ua=navigator.userAgent||''; var standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
   if(!standalone && /iPhone|iPad|Android/.test(ua)){{ var h=document.getElementById('installhint'); if(h) h.style.display='inline'; }}
   if('serviceWorker' in navigator){{ navigator.serviceWorker.register('{base}sw.js').catch(function(){{}}); }}
@@ -166,19 +182,29 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: in
         except ValueError:
             return d
 
+    today = slate_today()
+
+    def label(d: str) -> str:
+        k = (datetime.strptime(d, "%Y-%m-%d") - datetime.strptime(today, "%Y-%m-%d")).days
+        return ("Today · " if k == 0 else ("Tomorrow · " if k == 1 else "")) + (nice(d).split(" ", 1)[1] if k in (0, 1) else nice(d))
+
     def options(selected: str, base: str) -> str:
         return "".join(
-            f'<option value="{base}days/{d}.html" {"selected" if d == selected else ""}>{nice(d)}{" (latest)" if i == 0 else ""}</option>'
-            for i, d in enumerate(days)
+            f'<option value="{base}days/{d}.html" data-date="{d}" data-label="{nice(d)}" {"selected" if d == selected else ""}>{label(d)}</option>'
+            for d in days
         )
+
+    # the front page is today's slate; before the first build of a day it is the most recent one
+    past_or_today = [d for d in local_days if d <= today]
+    index_day = today if today in local_days else (past_or_today[0] if past_or_today else local_days[-1])
 
     for raw in raws:
         d = raw.name.replace(".raw.html", "")
         html = raw.read_text(encoding="utf-8")
         (days_dir / f"{d}.html").write_text(_inject(html, options(d, "../"), published, "../"), encoding="utf-8")
-    latest = raws[0].read_text(encoding="utf-8")
-    (site_dir / "index.html").write_text(_inject(latest, options(local_days[0], "./"), published, "./"), encoding="utf-8")
-    (site_dir / "days.json").write_text(json.dumps({"days": days, "latest": local_days[0], "published": published}, indent=1))
+    latest = (days_dir / f"{index_day}.raw.html").read_text(encoding="utf-8")
+    (site_dir / "index.html").write_text(_inject(latest, options(index_day, "./"), published, "./"), encoding="utf-8")
+    (site_dir / "days.json").write_text(json.dumps({"days": days, "latest": index_day, "today": today, "published": published}, indent=1))
     if artifact:
         idx = (site_dir / "index.html").read_text(encoding="utf-8")
         start, end = idx.index("<title>"), idx.rindex("</body>")

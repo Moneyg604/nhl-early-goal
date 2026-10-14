@@ -41,6 +41,7 @@ pip install -r requirements.txt
 
 python -m earlygoal run                 # today's slate: downloads the three season files (~60 MB, first run only), tops up from the NHL API, sims, dashboard
 python -m earlygoal run --date 2026-10-14
+python -m earlygoal run --days 3        # today, tomorrow and the day after (future days use DailyFaceoff projected starters; the site labels them)
 python -m earlygoal run --demo          # synthetic data, no network, to see the layout
 python -m earlygoal backtest --season 20252026 --with-sim --save   # rebuilds the validation panel (about a minute)
 python -m earlygoal publish             # static site + installable web app in docs/ (what GitHub Pages serves)

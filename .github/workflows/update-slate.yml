@@ -43,8 +43,8 @@ jobs:
       - name: Score earlier published days (track record)
         run: python -m earlygoal scorecard --pages docs/days/*.raw.html --scorecard docs/scorecard.json || echo "nothing to score yet"
 
-      - name: Research and simulate today's slate
-        run: python -m earlygoal run || echo "no slate today or run failed; publishing what exists"
+      - name: Research and simulate today's slate plus the next two days
+        run: python -m earlygoal run --days 3 || echo "no slate today or run failed; publishing what exists"
 
       - name: Build the site
         run: python -m earlygoal publish

@@ -256,7 +256,7 @@ footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
 <section class="tab" id="tab-results">
   <div id="results-live"></div>
   <div id="results-track"></div>
-  <div class="panel"><h3>Past slates</h3><div class="daylist" id="daylist"></div></div>
+  <div class="panel"><h3>All slates</h3><p>Days ahead show projected starters until game day; past days keep the numbers that were on the page.</p><div class="daylist" id="daylist"></div></div>
 </section>
 
 <section class="tab" id="tab-about">
@@ -279,10 +279,17 @@ const fair = m => m.fair ? `<span class="fair">fair ${m.fair.toFixed(2)}</span>`
 const edge = m => (m.edge==null) ? '' : `<span class="edge ${m.edge>=0?'pos':'neg'}">${m.edge>=0?'+':''}${(m.edge*100).toFixed(1)}% vs ${m.book}</span>`;
 const byId = {}; P.games.forEach(g=>byId[g.game_id]=g);
 const niceDate = d => { try { const [y,m,dd]=d.split('-'); return new Date(+y,+m-1,+dd).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); } catch(e){ return d; } };
+// the slate day rolls over at 4 am Eastern so late West Coast games still belong to the night before
+const TODAY = new Date(Date.now()-4*3600*1000).toLocaleDateString('en-CA',{timeZone:'America/Toronto'});
+const dayDiff = (a,b) => Math.round((new Date(a+'T12:00:00Z') - new Date(b+'T12:00:00Z'))/86400000);
+const AHEAD = dayDiff(P.date, TODAY);            // 0 today, 1 tomorrow, negative for past slates
+const whenWord = AHEAD===0 ? 'tonight' : (AHEAD===1 ? 'tomorrow' : 'on '+niceDate(P.date));
 
 // ---------------------------------------------------------------- banners + status
 if (M.demo) document.getElementById('banner').innerHTML = `<div class="banner"><b>Demo data.</b> Team and goalie inputs are synthetic.</div>`;
-else if (M.data_through) { const lag = Math.round((new Date(P.date) - new Date(M.data_through)) / 86400000); if (lag > 2) document.getElementById('banner').innerHTML = `<div class="banner"><b>Data is ${lag} days behind this slate</b> (play-by-play through ${esc(M.data_through)}). Treat the numbers with extra caution until the data source catches up.</div>`; }
+else if (AHEAD > 0) document.getElementById('banner').innerHTML = `<div class="banner"><b>Looking ahead: ${niceDate(P.date)}, ${AHEAD===1?'tomorrow':AHEAD+' days out'}.</b> Starting goalies are DailyFaceoff projections until they are confirmed on game day, so every game sits at tier B or C for now. The numbers refresh three times a day and firm up as starters are confirmed; rest and travel already count ${AHEAD===1?"tonight's":'the earlier'} games.</div>`;
+else if (AHEAD < 0) document.getElementById('banner').innerHTML = `<div class="banner" style="border-color:var(--line2);background:var(--panel);color:var(--muted)"><b>Past slate, ${niceDate(P.date)}.</b> These are the numbers that were on the page before the games; the results are scored against them.</div>`;
+if (M.data_through && !M.demo) { const lag = Math.round((new Date(P.date) - new Date(M.data_through)) / 86400000) - Math.max(0, AHEAD); if (lag > 2) document.getElementById('banner').innerHTML += `<div class="banner"><b>Data is ${lag} days behind this slate</b> (play-by-play through ${esc(M.data_through)}). Treat the numbers with extra caution until the data source catches up.</div>`; }
 document.getElementById('status').innerHTML = [
   `<b>${niceDate(P.date)}</b>`, `<b>${P.games.length}</b> games`,
   (function(){ const qs=P.games.flatMap(g=>[g.goalies.home,g.goalies.away]); const c=qs.filter(q=>q.status==='confirmed').length; return `goalies: <b>${c} of ${qs.length} confirmed</b>${c?' (DailyFaceoff)':' (projected from usage)'}`; })(),
@@ -299,6 +306,7 @@ function showTab(name, push){
   window.scrollTo({top:0});
 }
 tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab, true));
+if (AHEAD!==0) tabs.querySelector('[data-tab="today"]').textContent = 'Slate';
 function tabFromHash(){ const h=(location.hash||'').replace('#',''); if(['today','picks','results','about'].includes(h)) showTab(h,false); }
 tabFromHash(); window.addEventListener('hashchange', tabFromHash);
 
@@ -409,7 +417,7 @@ function renderLiveBar(){
   const summary = `<span>${started} of ${P.games.length} started · ${finals} final · ${when} · ${src}</span><button class="rbtn">↻ Refresh</button>`;
   const head = `<div class="lhd">${finals<P.games.length?'<span class="pulse"></span>':''}<b>${finals===P.games.length?'Final results':'Live results'}</b>${summary}</div>`;
   bar.innerHTML = head + tallyHtml(); bar.style.display='block';
-  rl.innerHTML = `<div class="panel"><h3>${finals===P.games.length?'Tonight, final':'Tonight, so far'}</h3><div class="lhd">${summary}</div>${tallyHtml()}
+  rl.innerHTML = `<div class="panel"><h3>${finals===P.games.length?niceDate(P.date)+', final':niceDate(P.date)+', so far'}</h3><div class="lhd">${summary}</div>${tallyHtml()}
     <div class="gap tbl"><table class="num"><thead><tr><th>game</th><th>status</th><th>first 5</th><th>first 10</th><th>1P −0.5</th><th>1P +0.5</th><th>1P ML</th><th>FG ML</th><th>FG −1.5</th></tr></thead><tbody>
     ${P.games.filter(g=>outcomes(g)&&outcomes(g).started).map(g=>{ const o=outcomes(g); const L=liveFor(g); const c=k=>`<span class="res ${o[k]}">${RES[o[k]]}</span>`;
       return `<tr><td>${esc(g.matchup)}</td><td>${L.final?('FINAL '+L.away_score+'-'+L.home_score+(L.ended_in&&L.ended_in!=='REG'?' ('+L.ended_in+')':'')):(esc(clockTxt(L))+' · '+L.away_score+'-'+L.home_score)}</td><td>${c('u05_first5')}</td><td>${c('u05_first10')}</td><td>${esc(g.markets.p1_minus05.pick)} ${c('p1_minus05')}</td><td>${esc(g.markets.p1_plus05.pick)} ${c('p1_plus05')}</td><td>${esc(g.markets.p1_ml.pick)} ${c('p1_ml')}</td><td>${esc(g.markets.fg_ml.pick)} ${c('fg_ml')}</td><td>${esc(g.markets.fg_spread.pick)} ${c('fg_spread')}</td></tr>`; }).join('')}
@@ -447,14 +455,15 @@ const ps10 = P.games.map(g=>g.markets.u05_first10.p), lo10=Math.min(...ps10), hi
 function verdict(price, lo, hi){
   if(!price||price<=1) return 'Enter the price your book offers and this shows whether it beats the model.';
   const be=1/price, evLo=lo*price-1, evHi=hi*price-1; const c = evHi<0?'neg':(evLo>0?'pos':'');
-  return `Break-even <b>${pct(be)}</b>. Across tonight's games the model's EV is <b class="${c}">${(evLo*100).toFixed(1)}% to ${(evHi*100).toFixed(1)}%</b> per unit.`;
+  return `Break-even <b>${pct(be)}</b>. Across this slate the model's EV is <b class="${c}">${(evLo*100).toFixed(1)}% to ${(evHi*100).toFixed(1)}%</b> per unit.`;
 }
 function renderFeature(){
   const potd = P.pick_of_day; const f = document.getElementById('feature');
   const g = potd ? byId[potd.game_id] : null;
-  f.innerHTML = (potd ? `<div class="card"><h3>Highest probability tonight · under 0.5, first 5 minutes ${tier(potd.tier)}</h3>
+  f.innerHTML = (potd ? `<div class="card"><h3>Highest probability ${whenWord} · under 0.5, first 5 minutes ${tier(potd.tier)}</h3>
       <div class="mu">${esc(potd.matchup)}</div><div class="big num">${pct(potd.p)}${g?mark(g,'u05_first5'):''}</div>
       <div class="mk">fair price ${potd.fair.toFixed(2)} · slate range ${pct(lo5)} to ${pct(hi5)} · league rate ${P.league.p_no_goal_5_observed!=null?pct(P.league.p_no_goal_5_observed):'n/a'}</div>
+      ${AHEAD>0?`<div class="ru">Projected starters; re-check on game day once goalies are confirmed.</div>`:''}
       ${potd.runner_up?`<div class="ru">runner-up ${esc(potd.runner_up.matchup)} ${pct(potd.runner_up.p)} ${tier(potd.runner_up.tier)}</div>`:''}
       <div class="ru">The spread between games is within noise; the price is what decides whether this bet is worth placing.</div></div>` : '') +
     `<div class="card price"><h3>Price check</h3>
@@ -680,7 +689,8 @@ document.getElementById('foot').innerHTML = `Early Goal Desk v${P.model_version}
 (function(){ const tryUrl = u => fetch(u, {cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(r.status));
   tryUrl('./days.json').catch(()=>tryUrl('../days.json')).then(j=>{ const dl=document.getElementById('daylist'); if(!j||!j.days){ dl.innerHTML='<span class="small">no history yet</span>'; return; }
     const base = location.pathname.includes('/days/') ? '../days/' : './days/';
-    dl.innerHTML = j.days.map(d=>`<a class="${d===P.date?'now':''}" href="${base}${d}.html">${niceDate(d)}</a>`).join(''); }).catch(()=>{ document.getElementById('daylist').innerHTML='<span class="small">history appears once the site is published</span>'; });
+    const lab = d => { const k=dayDiff(d,TODAY); return k===0?'Today · '+niceDate(d):(k===1?'Tomorrow · '+niceDate(d):niceDate(d)); };
+    dl.innerHTML = j.days.map(d=>`<a class="${d===P.date?'now':''}" href="${base}${d}.html">${lab(d)}</a>`).join(''); }).catch(()=>{ document.getElementById('daylist').innerHTML='<span class="small">history appears once the site is published</span>'; });
 })();
 
 renderFeature(); renderPicks(); render(); loadLive();

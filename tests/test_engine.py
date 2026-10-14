@@ -118,3 +118,22 @@ def test_parse_dailyfaceoff_embedded_data():
     assert d["NJD"]["name"] == "Jake Allen" and d["NJD"]["status"] == "Likely"
     assert parse_dailyfaceoff(html, "2026-10-14") == {}
     assert parse_dailyfaceoff("<html>no data</html>") == {}
+
+
+def test_lookahead_rest_sees_unplayed_games():
+    """Tomorrow's slate must count tonight's games (not yet in the records) for back-to-backs."""
+    from earlygoal.ingest_sdv import attach_rest_from_records
+
+    tonight = [{"game_id": 1, "date": "2026-10-13", "start_utc": "2026-10-13T23:00:00Z", "home": "WSH", "away": "CAR", "state": "FUT"}]
+    tomorrow = [{"game_id": 2, "date": "2026-10-14", "start_utc": "2026-10-14T23:30:00Z", "home": "WSH", "away": "MTL", "state": "FUT"}]
+    ctx = attach_rest_from_records([], tonight + tomorrow)
+    assert ctx[2]["home"]["b2b"] is True and ctx[2]["home"]["prev_opponent"] == "CAR"
+    assert ctx[2]["away"]["days_rest"] is None or not ctx[2]["away"]["b2b"]
+
+
+def test_site_slate_day_rolls_over_at_4am_eastern():
+    from datetime import datetime, timezone
+    from earlygoal.site import slate_today
+
+    assert slate_today(datetime(2026, 10, 14, 5, 30, tzinfo=timezone.utc)) == "2026-10-13"   # 1:30 am ET: still the 13th
+    assert slate_today(datetime(2026, 10, 14, 9, 30, tzinfo=timezone.utc)) == "2026-10-14"   # 5:30 am ET: the 14th

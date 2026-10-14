@@ -96,15 +96,21 @@ def scrape_dailyfaceoff(client: NHLClient | None, date: str) -> dict[str, dict]:
         import requests  # type: ignore
     except Exception:  # pragma: no cover
         return {}
-    try:
-        r = requests.get(DFO_URL, timeout=20, headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml",
-        })
-        r.raise_for_status()
-    except Exception:
-        return {}
-    return parse_dailyfaceoff(r.text, date)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml",
+    }
+    # the dated page carries that day's slate (projected starters for days ahead); the bare page is today's
+    for url in (DFO_URL + date, DFO_URL):
+        try:
+            r = requests.get(url, timeout=20, headers=headers)
+            r.raise_for_status()
+        except Exception:
+            continue
+        found = parse_dailyfaceoff(r.text, date)
+        if found:
+            return found
+    return {}
 
 
 def resolve_starter(

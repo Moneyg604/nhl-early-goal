@@ -19,7 +19,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -74,7 +74,11 @@ def load_season(season: int, source: str, refresh: bool, client: NHLClient | Non
     return recs
 
 
-def load_slate(date: str, client: NHLClient | None, slate_file: str | None, current: list[GameRecord], extra_schedule_files: list[str] | None = None) -> list[dict]:
+def load_slate(date: str, client: NHLClient | None, slate_file: str | None, current: list[GameRecord], extra_schedule_files: list[str] | None = None,
+               prior_future: list[dict] | None = None) -> list[dict]:
+    """The games on `date` with rest/travel context. `prior_future` lists games on earlier dates that are
+    scheduled but not in the records yet (tonight's slate when building tomorrow's), so back-to-backs
+    across the look-ahead window are seen."""
     if slate_file:
         slate = json.loads(Path(slate_file).read_text())
     elif client is not None:
@@ -92,6 +96,10 @@ def load_slate(date: str, client: NHLClient | None, slate_file: str | None, curr
     # but not yet in the records (yesterday's, when the data release lags) can be supplied as extra files
     future = [{"game_id": g["game_id"], "date": g["date"], "start_utc": g.get("start_utc", f"{date}T23:00:00Z"), "home": g["home"], "away": g["away"], "state": "FUT"} for g in slate]
     known = {r.game_id for r in current} | {g["game_id"] for g in slate}
+    for g in prior_future or []:
+        if g["game_id"] not in known and g["date"] < date:
+            future.append({"game_id": g["game_id"], "date": g["date"], "start_utc": g.get("start_utc", f"{g['date']}T23:00:00Z"), "home": g["home"], "away": g["away"], "state": "FUT"})
+            known.add(g["game_id"])
     for ef in extra_schedule_files or []:
         for g in json.loads(Path(ef).read_text()):
             if g["game_id"] not in known and g["date"] < date:
@@ -118,6 +126,10 @@ def cmd_ingest(args: argparse.Namespace) -> None:
 
 def cmd_run(args: argparse.Namespace) -> None:
     date = args.date or today_et()
+    days = max(1, int(getattr(args, "days", 1) or 1))
+    if args.demo or args.backfill or args.slate_file:
+        days = 1
+    dates = [(datetime.strptime(date, "%Y-%m-%d") + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(days)]
     sims = args.sims
     meta = {"sims": sims, "model_version": MODEL_VERSION}
     if args.demo:
@@ -151,20 +163,8 @@ def cmd_run(args: argparse.Namespace) -> None:
             current = [g for g in current if g.date < date]
             meta["backfill"] = True
         lp, teams, goalies = build_profiles(current, prior, current_season=cur)
-        slate = load_slate(date, client, args.slate_file, current, args.extra_schedule)
-        if not slate:
-            raise SystemExit(f"no regular-season games on {date}")
         overrides = load_overrides()
-        dfo = {} if args.no_dfo else scrape_dailyfaceoff(client, date)
-        src = []
-        if overrides.get(date) or overrides.get("*"):
-            src.append("overrides")
-        if dfo:
-            src.append("dailyfaceoff")
-        src.append("usage heuristic for the rest")
-        meta.update({"goalie_source": " + ".join(src), "dfo_teams": len(dfo), "data_through": current[-1].date if current else "n/a"})
-        if not dfo and not args.no_dfo:
-            print("note: DailyFaceoff scrape returned nothing; goalies come from overrides.json or usage. Put starters in data/overrides.json for tier A.")
+        meta.update({"data_through": current[-1].date if current else "n/a"})
 
     bt = DATA_DIR / "backtest_latest.json"
     if bt.exists():
@@ -172,28 +172,58 @@ def cmd_run(args: argparse.Namespace) -> None:
     scf = DATA_DIR / "scorecard.json"
     if scf.exists() and not args.demo:
         meta["scorecard"] = json.loads(scf.read_text()).get("summary", {})
-    print(f"{date}: {len(slate)} games, profiles from {lp.games} games ({len(current)} this season, data through {meta.get('data_through', 'n/a')}); simulating {sims:,} paths per game ...")
     meta.update({"current_season_games": len(current), "prior_season_games": len(prior)})
-    payload, _ = run_slate(slate, lp, teams, goalies, date, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=meta)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    tag = f"{date}{'-demo' if args.demo else ''}"
-    html = write_dashboard(payload, OUT_DIR / f"dashboard-{tag}.html")
-    (OUT_DIR / f"results-{tag}.json").write_text(json.dumps(payload, indent=1))
-    write_csv(payload["games"], OUT_DIR / f"summary-{tag}.csv")
+    seen_future: list[dict] = []   # slates already built in this window, for the next day's rest context
+    built = 0
+    for i, d in enumerate(dates):
+        dmeta = dict(meta, slate_offset_days=i, built_for=dates[0])
+        if not args.demo:
+            try:
+                slate = load_slate(d, client, args.slate_file, current, args.extra_schedule, prior_future=seen_future)
+            except SystemExit as e:
+                if i == 0:
+                    raise
+                print(f"{d}: slate unavailable ({e}); stopping the look-ahead here", file=sys.stderr)
+                break
+            if not slate:
+                print(f"{d}: no regular-season games")
+                continue
+            seen_future += slate
+            dfo = {} if args.no_dfo else scrape_dailyfaceoff(client, d)
+            src = []
+            if overrides.get(d) or overrides.get("*"):
+                src.append("overrides")
+            if dfo:
+                src.append("dailyfaceoff")
+            src.append("usage heuristic for the rest")
+            dmeta.update({"goalie_source": " + ".join(src), "dfo_teams": len(dfo)})
+            if not dfo and not args.no_dfo:
+                print(f"note: DailyFaceoff returned nothing for {d}; goalies come from overrides.json or usage.")
+        print(f"{d}: {len(slate)} games, profiles from {lp.games} games ({len(current)} this season, data through {dmeta.get('data_through', 'n/a')}); simulating {sims:,} paths per game ...")
+        payload, _ = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta)
 
-    print()
-    print(f"{'#':>2} {'matchup':<10} {'tier':<4} {'U0.5 F5':>8} {'U0.5 F10':>9} {'1P -0.5':>12} {'1P +0.5':>12} {'FG ML':>12} {'FG -1.5':>12} {'proj':>11}")
-    for g in sorted(payload["games"], key=lambda x: x["rank_u05_first5"]):
-        m = g["markets"]
-        print(f"{g['rank_u05_first5']:>2} {g['matchup']:<10} {g['tier']:<4} {m['u05_first5']['p']*100:7.1f}% {m['u05_first10']['p']*100:8.1f}% "
-              f"{m['p1_minus05']['pick']:>5} {m['p1_minus05']['p']*100:5.1f}% {m['p1_plus05']['pick']:>5} {m['p1_plus05']['p']*100:5.1f}% "
-              f"{m['fg_ml']['pick']:>5} {m['fg_ml']['p']*100:5.1f}% {m['fg_spread']['pick']:>5} {m['fg_spread']['p']*100:5.1f}% "
-              f"{g['projected']['home']:5.2f}-{g['projected']['away']:<5.2f}")
-    potd = payload["pick_of_day"]
-    if potd:
-        print(f"\nPick of the day: {potd['matchup']} {potd['market']} {potd['p']*100:.1f}% (fair {potd['fair']:.2f}, tier {potd['tier']})")
-    print(f"\ndashboard: {html}\nresults:   {OUT_DIR / f'results-{tag}.json'}\ncsv:       {OUT_DIR / f'summary-{tag}.csv'}")
+        tag = f"{d}{'-demo' if args.demo else ''}"
+        html = write_dashboard(payload, OUT_DIR / f"dashboard-{tag}.html")
+        (OUT_DIR / f"results-{tag}.json").write_text(json.dumps(payload, indent=1))
+        write_csv(payload["games"], OUT_DIR / f"summary-{tag}.csv")
+        built += 1
+
+        print()
+        print(f"{'#':>2} {'matchup':<10} {'tier':<4} {'U0.5 F5':>8} {'U0.5 F10':>9} {'1P -0.5':>12} {'1P +0.5':>12} {'FG ML':>12} {'FG -1.5':>12} {'proj':>11}")
+        for g in sorted(payload["games"], key=lambda x: x["rank_u05_first5"]):
+            m = g["markets"]
+            print(f"{g['rank_u05_first5']:>2} {g['matchup']:<10} {g['tier']:<4} {m['u05_first5']['p']*100:7.1f}% {m['u05_first10']['p']*100:8.1f}% "
+                  f"{m['p1_minus05']['pick']:>5} {m['p1_minus05']['p']*100:5.1f}% {m['p1_plus05']['pick']:>5} {m['p1_plus05']['p']*100:5.1f}% "
+                  f"{m['fg_ml']['pick']:>5} {m['fg_ml']['p']*100:5.1f}% {m['fg_spread']['pick']:>5} {m['fg_spread']['p']*100:5.1f}% "
+                  f"{g['projected']['home']:5.2f}-{g['projected']['away']:<5.2f}")
+        potd = payload["pick_of_day"]
+        if potd:
+            print(f"\nPick of the day: {potd['matchup']} {potd['market']} {potd['p']*100:.1f}% (fair {potd['fair']:.2f}, tier {potd['tier']})")
+        print(f"\ndashboard: {html}\nresults:   {OUT_DIR / f'results-{tag}.json'}\ncsv:       {OUT_DIR / f'summary-{tag}.csv'}\n")
+    if not built:
+        raise SystemExit(f"no regular-season games on {dates[0]}" + (f" through {dates[-1]}" if len(dates) > 1 else ""))
 
 
 def _seasons_for_backtest(args: argparse.Namespace) -> tuple[list[GameRecord], list[GameRecord], int]:
@@ -323,6 +353,7 @@ def main(argv: list[str] | None = None) -> None:
 
     r = sub.add_parser("run", help="research the slate, simulate, write dashboard")
     r.add_argument("--date", help="slate date YYYY-MM-DD, default today ET")
+    r.add_argument("--days", type=int, default=1, help="also build the following days (3 = today, tomorrow, the day after); goalies on future days are projections")
     r.add_argument("--sims", type=int, default=CFG.sims, help="Monte Carlo paths per game (default 100000)")
     r.add_argument("--seed", type=int, default=None)
     r.add_argument("--source", choices=["auto", "sdv", "api"], default="auto")
