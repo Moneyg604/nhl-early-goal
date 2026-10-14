@@ -1,0 +1,16 @@
+name: Probe
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        default: "https://www.dailyfaceoff.com/teams/washington-capitals/line-combinations"
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python tools/probe_dfo_lines.py "${{ github.event.inputs.url }}"
