@@ -1,0 +1,35 @@
+name: Live scores
+
+on:
+  schedule:
+    # every 5 minutes from 23:00 UTC to 06:55 UTC (7pm to 2:55am Eastern during daylight time)
+    - cron: "*/5 23 * * *"
+    - cron: "*/5 0-6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-scores
+  cancel-in-progress: true
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - name: Fetch the scoreboard
+        run: python tools/fetch_live.py
+      - name: Commit live.json
+        run: |
+          git config user.name "earlygoal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/live.json
+          git commit -m "live $(date -u +'%H:%M')" || exit 0
+          git pull --rebase origin main
+          git push

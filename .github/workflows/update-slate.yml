@@ -1,0 +1,57 @@
+name: Update slate
+
+on:
+  schedule:
+    # UTC. Roughly 10:05, 15:05 and 18:35 Eastern during daylight time (one hour earlier in winter).
+    - cron: "5 14 * * *"
+    - cron: "5 19 * * *"
+    - cron: "35 22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-slate
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Restore season data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/sdv
+            data/games_*.jsonl
+            data/cache
+          key: nhl-data-${{ github.run_id }}
+          restore-keys: |
+            nhl-data-
+
+      - run: pip install -r requirements.txt
+
+      - name: Score earlier published days (track record)
+        run: python -m earlygoal scorecard --pages docs/days/*.raw.html --scorecard docs/scorecard.json || echo "nothing to score yet"
+
+      - name: Research and simulate today's slate
+        run: python -m earlygoal run || echo "no slate today or run failed; publishing what exists"
+
+      - name: Build the site
+        run: python -m earlygoal publish
+
+      - name: Commit the site
+        run: |
+          git config user.name "earlygoal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs
+          git commit -m "slate update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "nothing changed"
+          git push
