@@ -120,7 +120,9 @@ def cmd_ingest(args: argparse.Namespace) -> None:
     date = args.date or today_et()
     client = None if args.source == "sdv" else NHLClient()
     cur = season_for(date)
-    for s in prior_seasons_for(cur) + [cur]:
+    back = int(getattr(args, "back", 0) or 0)
+    seasons = [cur - 10001 * k for k in range(back, 0, -1)] if back else prior_seasons_for(cur)[::-1]
+    for s in seasons + [cur]:
         print(f"Loading {s} ...")
         load_season(s, args.source, refresh=(s == cur), client=client, up_to_date=date if s == cur else None)
     print(f"done; records in {DATA_DIR}")
@@ -491,6 +493,7 @@ def main(argv: list[str] | None = None) -> None:
     a = sub.add_parser("ingest", help="download / refresh season play-by-play records")
     a.add_argument("--date", help="reference date (YYYY-MM-DD), default today ET")
     a.add_argument("--source", choices=["auto", "sdv", "api"], default="auto")
+    a.add_argument("--back", type=int, default=0, help="how many prior seasons to load (default: the two the model uses)")
     a.set_defaults(fn=cmd_ingest)
 
     r = sub.add_parser("run", help="research the slate, simulate, write dashboard")

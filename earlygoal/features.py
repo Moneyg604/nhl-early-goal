@@ -639,11 +639,9 @@ def build_profiles(
     current: list[GameRecord], prior: list[GameRecord], cfg: ModelConfig = CFG, current_season: int | None = None
 ) -> tuple[LeagueProfile, dict[str, TeamProfile], dict[int, GoalieProfile]]:
     cur = current_season or infer_current_season(current, prior)
-    xg = None
-    if cfg.use_xg:
-        from .xg import load_xg
+    from .xg import load_xg
 
-        xg = load_xg(sorted({g.season for g in prior + current})) or None
+    xg = load_xg(sorted({g.season for g in prior + current})) or None   # loaded for the record; used only when cfg.use_xg
     lp = build_league_profile(prior + current, cfg, weights=[1.0] * len(prior) + [cfg.league_current_weight] * len(current), xg=xg)
     teams: dict[str, TeamProfile] = {}
     goalies: dict[int, GoalieProfile] = {}
