@@ -109,3 +109,16 @@ docs/             the published site (built by `publish`, committed by the GitHu
 * Re-run `backtest --with-sim --save` monthly on the current season to refresh the validation panel with games the model has actually been scored on.
 * Re-run `early-signal` once 40+ games per team exist. If a feature ever beats the constant out of sample in two seasons running, promote it; nothing has so far.
 * Track your own tickets against the stated probabilities. If your hit rate on the first-5 under sits near 66%, the model is right and the price is the whole story.
+
+## Optional connections (GitHub repository secrets)
+
+Set any of these under Settings > Secrets and variables > Actions, and the next build uses them:
+
+| secret | what it enables |
+|---|---|
+| `DISCORD_WEBHOOK_URL` | the slate, top picks and goalie changes posted to a Discord channel at every build (morning, update, two hours before puck drop) |
+| `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | the same message to a Telegram chat |
+| `ODDS_API_KEY` | full-game moneyline, puck-line and total prices from The Odds API on every game, with EV against the model |
+
+Nothing else needs configuring. The keeper workflow schedules every job, the monthly revalidation re-tests every switchable factor
+(`data/factors.json`) and refreshes the validation panel, and MoneyPuck expected-goals data is fetched on the GitHub runner.
