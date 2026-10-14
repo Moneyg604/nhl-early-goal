@@ -117,6 +117,8 @@ def resolve_starter(
 ) -> dict:
     """Pick the starter and return {'goalie': GoalieProfile|None, 'status': str, 'source': str, 'note': str}."""
     ov = (overrides.get(date, {}) or {}).get(team) or (overrides.get("*", {}) or {}).get(team)
+    if ov and team in dfo and str(ov.get("source", "")).lower().startswith("dailyfaceoff"):
+        ov = None  # an override copied from DailyFaceoff earlier never outranks a fresh DailyFaceoff read
     if ov:
         who = ov.get("starter") or ov.get("goalie")
         gp = goalies.get(who) if isinstance(who, int) else _find_by_name(str(who), team, goalies)
