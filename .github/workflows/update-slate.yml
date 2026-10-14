@@ -87,7 +87,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          NOTIFY_GITHUB_ISSUE: "1"
+          NOTIFY_GITHUB_ISSUE: "0"
         run: |
           pip install -q requests
           python tools/notify.py --reason "${{ github.event.inputs.reason || 'morning' }}" || echo "notify skipped"
