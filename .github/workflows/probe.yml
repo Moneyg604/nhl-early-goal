@@ -2,7 +2,9 @@ name: Probe
 on:
   workflow_dispatch:
     inputs:
-      url:
+      script:
+        default: "tools/probe_dfo_lines.py"
+      arg:
         default: "https://www.dailyfaceoff.com/teams/washington-capitals/line-combinations"
 permissions:
   contents: write
@@ -15,7 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q requests
-      - run: python tools/probe_dfo_lines.py "${{ github.event.inputs.url }}" > data/probe.txt 2>&1 || true
+      - run: python "${{ github.event.inputs.script }}" "${{ github.event.inputs.arg }}" > data/probe.txt 2>&1 || true
       - run: |
           git config user.name "earlygoal-bot"
           git config user.email "actions@users.noreply.github.com"
