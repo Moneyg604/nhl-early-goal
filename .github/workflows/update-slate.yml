@@ -88,7 +88,10 @@ jobs:
           GH_REPO: ${{ github.repository }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           NOTIFY_GITHUB_ISSUE: "1"
-        run: pip install -q requests && python tools/notify.py --reason "${{ github.event.inputs.reason || 'morning' }}" || echo "notify skipped"
+        run: |
+          pip install -q requests
+          python tools/notify.py --reason "${{ github.event.inputs.reason || 'morning' }}" || echo "notify skipped"
+          if [ -f data/telegram_chat.enc ]; then git add data/telegram_chat.enc && (git commit -m "telegram chat sealed" || true) && git pull --rebase origin main && git push || true; fi
 
       - name: Keep the scheduler alive
         if: always()

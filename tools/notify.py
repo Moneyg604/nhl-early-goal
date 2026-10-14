@@ -89,6 +89,10 @@ def telegram_chat_id(tok: str) -> str | None:
     chat = os.environ.get("TELEGRAM_CHAT_ID")
     if chat:
         return chat
+    if CHAT_FILE.exists():
+        chat = _unseal(tok, CHAT_FILE.read_text())
+        if chat:
+            return chat
     try:
         r = requests.get(f"https://api.telegram.org/bot{tok}/getUpdates", timeout=20)
         for u in reversed(r.json().get("result", [])):
@@ -101,16 +105,60 @@ def telegram_chat_id(tok: str) -> str | None:
     return None
 
 
-def remember_chat_id(chat: str) -> bool:
-    """Keep the discovered chat id as a repository variable (visible to collaborators only) so later runs need no getUpdates."""
+CHAT_FILE = ROOT / "data" / "telegram_chat.enc"
+
+
+def _pad(tok: str) -> bytes:
+    import hashlib
+
+    return hashlib.sha256(("egd-chat:" + tok).encode()).digest()
+
+
+def _seal(tok: str, chat: str) -> str:
+    """The chat id sealed with the bot token (XOR against a token-derived pad plus an HMAC tag). The
+    repository is public, so the id is never stored in the clear; only the holder of the token can read it."""
+    import base64, hashlib, hmac
+
+    raw = chat.encode()
+    pad = _pad(tok)
+    ct = bytes(b ^ pad[i % len(pad)] for i, b in enumerate(raw))
+    tag = hmac.new(pad, ct, hashlib.sha256).digest()[:8]
+    return base64.b64encode(tag + ct).decode()
+
+
+def _unseal(tok: str, blob: str) -> str | None:
+    import base64, hashlib, hmac
+
+    try:
+        data = base64.b64decode(blob.strip())
+        tag, ct = data[:8], data[8:]
+        pad = _pad(tok)
+        if not hmac.compare_digest(tag, hmac.new(pad, ct, hashlib.sha256).digest()[:8]):
+            return None
+        return bytes(b ^ pad[i % len(pad)] for i, b in enumerate(ct)).decode()
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def remember_chat_id(chat: str, tok: str) -> bool:
+    """Keep the discovered chat id for later runs: sealed with the token into data/telegram_chat.enc (committed by
+    the workflow), and as a repository variable when the token has that permission."""
     import subprocess
 
+    ok = False
+    try:
+        CHAT_FILE.parent.mkdir(parents=True, exist_ok=True)
+        CHAT_FILE.write_text(_seal(tok, chat) + "\n")
+        print("chat id sealed into", CHAT_FILE.name)
+        ok = True
+    except Exception as e:  # noqa: BLE001
+        print("could not write the sealed chat id:", e)
     repo = os.environ.get("GH_REPO") or os.environ.get("GITHUB_REPOSITORY")
-    if not repo or not os.environ.get("GH_TOKEN"):
-        return False
-    r = subprocess.run(["gh", "variable", "set", "TELEGRAM_CHAT_ID", "--repo", repo, "--body", chat], capture_output=True, text=True)
-    print("gh variable set:", "ok" if r.returncode == 0 else r.stderr.strip()[:200])
-    return r.returncode == 0
+    if repo and os.environ.get("GH_TOKEN"):
+        r = subprocess.run(["gh", "variable", "set", "TELEGRAM_CHAT_ID", "--repo", repo, "--body", chat], capture_output=True, text=True)
+        print("gh variable set:", "ok" if r.returncode == 0 else "not permitted (fine, the sealed file is enough)")
+        ok = ok or r.returncode == 0
+    return ok
 
 
 def send_telegram(text: str) -> bool:
@@ -123,10 +171,10 @@ def send_telegram(text: str) -> bool:
     if not chat:
         print("telegram: no chat id yet; message the bot once, then run the setup workflow")
         return False
-    discovered = not os.environ.get("TELEGRAM_CHAT_ID")
+    discovered = not os.environ.get("TELEGRAM_CHAT_ID") and not (CHAT_FILE.exists() and _unseal(tok, CHAT_FILE.read_text()) == chat)
     if discovered:
-        saved = remember_chat_id(chat)
-        text += f"\n\n(Telegram chat {chat} {'saved; alerts will arrive here from now on' if saved else 'found; add it as the TELEGRAM_CHAT_ID secret so alerts keep working'})"
+        saved = remember_chat_id(chat, tok)
+        text += f"\n\n({'Chat saved; alerts will arrive here from now on.' if saved else 'Chat found but not saved; message the bot again tomorrow.'})"
     r = requests.post(f"https://api.telegram.org/bot{tok}/sendMessage", json={"chat_id": chat, "text": text, "disable_web_page_preview": True}, timeout=20)
     print("telegram:", r.status_code)
     return r.ok
