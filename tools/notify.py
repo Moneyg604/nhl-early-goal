@@ -43,41 +43,73 @@ def pct(x: float) -> str:
     return f"{x * 100:.1f}%"
 
 
-def build_message(p: dict, reason: str) -> str:
+STATUS_ICON = {"confirmed": "✅", "expected": "🟡", "likely": "🟡", "projected": "⏳", "unconfirmed": "⏳", "unknown": "❔"}
+
+
+def _h(x) -> str:
+    return str(x).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def build_message(p: dict, reason: str, html: bool = False) -> str:
+    """The slate as a phone message. `html=True` renders Telegram's HTML flavour (bold, monospace); otherwise plain text."""
+    B = (lambda t: f"<b>{_h(t)}</b>") if html else (lambda t: str(t))
+    T = _h if html else (lambda t: str(t))
     games = p["games"]
     qs = [q for g in games for q in (g["goalies"]["home"], g["goalies"]["away"])]
     conf = sum(1 for q in qs if q.get("status") == "confirmed")
-    when = {"t120": "two hours before the first puck drop", "morning": "morning build", "update": "update"}.get(reason, reason)
-    lines = [f"Early Goal Desk, {p['date']} ({when})", f"{len(games)} games, goalies confirmed {conf}/{len(qs)}, built {p.get('generated_utc', '')}", ""]
+    try:
+        y, m, d = p["date"].split("-")
+        nice = datetime(int(y), int(m), int(d)).strftime("%a %b %-d")
+    except Exception:  # noqa: BLE001
+        nice = p["date"]
+    head_icon, head_txt = {"t120": ("⏰", "Two hours to puck drop"), "morning": ("☀️", "Morning slate"), "update": ("🔄", "Update"), "test": ("🧪", "Test message")}.get(reason, ("🔄", reason))
+    lines = [f"🏒 {B('Early Goal Desk')} · {T(nice)}", f"{head_icon} {T(head_txt)} · {len(games)} games · goalies {conf}/{len(qs)} confirmed", ""]
 
-    def best(key, label, pick=None, sides=None):
+    def rng(g):
+        u = (g.get("uncertainty") or {}).get("first5")
+        return f" · range {u['lo']*100:.0f}–{u['hi']*100:.0f}" if u else ""
+
+    top5 = sorted(games, key=lambda g: -g["markets"]["u05_first5"]["p"])[:3]
+    lines.append(f"🔒 {B('Under 0.5 · first 5 minutes')}")
+    for i, g in enumerate(top5, 1):
+        mk = g["markets"]["u05_first5"]
+        lines.append(f"{i}. {T(g['matchup'])}  {B(pct(mk['p']))}  fair {mk['fair']:.2f}{rng(g) if i == 1 else ''}")
+    lines.append("")
+
+    def best(key, sides=None):
         cands = []
         for g in games:
             if sides:
                 for k, t in ((sides[0], g["home"]), (sides[1], g["away"])):
                     cands.append((g["markets"][k]["p"], g, t))
             elif key in g["markets"]:
-                cands.append((g["markets"][key]["p"], g, g["markets"][key].get("pick") if pick else None))
-        if not cands:
-            return
-        cands.sort(key=lambda x: -x[0])
-        top = cands[:3]
-        lines.append(label + ": " + "; ".join(f"{g['matchup']}{' ' + t if t else ''} {pct(pp)}" for pp, g, t in top))
+                cands.append((g["markets"][key]["p"], g, g["markets"][key].get("pick")))
+        return max(cands, key=lambda x: x[0]) if cands else None
 
-    best("u05_first5", "Under 0.5 first 5")
-    best("fg_over45", "Over 4.5")
-    best(None, "Team over 1.5", sides=("home_over15", "away_over15"))
-    best("p1_under25", "1P under 2.5")
-    best("fg_ml", "FG moneyline", pick=True)
-    best("p1_plus05", "1P +0.5", pick=True)
+    board = [("⬆️", "Over 4.5", best("fg_over45")), ("🥅", "Team over 1.5", best(None, sides=("home_over15", "away_over15"))),
+             ("1️⃣", "1P under 2.5", best("p1_under25")), ("💰", "FG moneyline", best("fg_ml")), ("➕", "1P +0.5", best("p1_plus05"))]
+    lines.append(f"🎯 {B('Best of the board')}")
+    for icon, label, b in board:
+        if not b:
+            continue
+        pp, g, t = b
+        lines.append(f"{icon} {T(label)}: {T(g['matchup'])}{' ' + B(t) if t else ''}  {B(pct(pp))}")
+    lines.append("")
+
+    lines.append(f"🧤 {B('Starters')}")
+    for g in games:
+        a, h = g["goalies"]["away"], g["goalies"]["home"]
+        la = (a.get("name") or "unknown").split()[-1]
+        lh = (h.get("name") or "unknown").split()[-1]
+        lines.append(f"{T(g['matchup'])}  {T(la)} {STATUS_ICON.get(a.get('status'), '❔')} / {T(lh)} {STATUS_ICON.get(h.get('status'), '❔')}  {T(g.get('time_et', ''))}")
+    tired = [g["matchup"] for g in games if ((g.get("research") or {}).get("schedule") or {}).get("mutual_fatigue")]
+    if tired:
+        lines += ["", f"😴 {B('Both teams tired')} (slow-start factor on): {T(', '.join(tired))}"]
     ch = p.get("changes") or {}
     items = [x for x in (ch.get("items") or []) if x.get("kind") in ("goalie", "status", "slate", "tier")]
     if items:
-        lines += ["", f"Changed since {ch.get('since', 'the last build')}:"] + [f"- {x['game']}: {x['text']}" for x in items[:10]]
-    ahead = [g for g in games if g["tier"] == "C"]
-    if ahead:
-        lines.append(f"Tier C (something unmeasured): {', '.join(g['matchup'] for g in ahead)}")
-    lines += ["", SITE]
+        lines += ["", f"🔁 {B('Since ' + str(ch.get('since', 'the last build')))}"] + [f"• {T(x['game'])}: {T(x['text'])}" for x in items[:10]]
+    lines += ["", f"🔗 {T(SITE)}" if not html else f'🔗 <a href="{SITE}">Open the desk</a>']
     return "\n".join(lines)
 
 
@@ -175,8 +207,12 @@ def send_telegram(text: str) -> bool:
     if discovered:
         saved = remember_chat_id(chat, tok)
         text += f"\n\n({'Chat saved; alerts will arrive here from now on.' if saved else 'Chat found but not saved; message the bot again tomorrow.'})"
-    r = requests.post(f"https://api.telegram.org/bot{tok}/sendMessage", json={"chat_id": chat, "text": text, "disable_web_page_preview": True}, timeout=20)
+    r = requests.post(f"https://api.telegram.org/bot{tok}/sendMessage", json={"chat_id": chat, "text": text, "parse_mode": "HTML", "disable_web_page_preview": True}, timeout=20)
     print("telegram:", r.status_code)
+    if not r.ok:
+        # fall back to plain text if the HTML was rejected for any reason
+        r = requests.post(f"https://api.telegram.org/bot{tok}/sendMessage", json={"chat_id": chat, "text": re.sub(r"<[^>]+>", "", text), "disable_web_page_preview": True}, timeout=20)
+        print("telegram (plain):", r.status_code)
     return r.ok
 
 
@@ -258,8 +294,9 @@ def main() -> None:
     text = build_message(p, a.reason)
     if a.dry_run:
         print(text)
+        print("\n--- telegram html ---\n" + build_message(p, a.reason, html=True))
         return
-    ok = send_telegram(text) | send_discord(text)
+    ok = send_telegram(build_message(p, a.reason, html=True)) | send_discord(text)
     if use_issue:
         ok = send_github_issue(text, date, a.reason) | ok
     if not ok:
