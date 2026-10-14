@@ -213,6 +213,8 @@ svg text{font-family:var(--body)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){#fab.spin{animation:none}}
 footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
+.static{padding:14px 0}.static h1{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:.03em;margin:0 0 8px}.static p{color:var(--muted);font-size:13.5px;max-width:80ch}
+.static table{min-width:0;font-size:12.5px}.static td,.static th{padding:5px 7px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.static{overflow-x:auto}
 </style>
 </head>
 <body>
@@ -233,6 +235,7 @@ footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
 
 <div class="wrap">
 <div id="banner"></div>
+__STATIC__
 
 <section class="tab on" id="tab-today">
   <div class="status" id="status"></div>
@@ -269,6 +272,7 @@ footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
 
 <script id="payload" type="application/json">__PAYLOAD__</script>
 <script>
+(function(){ const s=document.getElementById('static'); if(s) s.remove(); })();
 const P = JSON.parse(document.getElementById('payload').textContent);
 const M = P.meta || {};
 const pct = x => (x*100).toFixed(1)+'%';
@@ -700,8 +704,45 @@ renderFeature(); renderPicks(); render(); loadLive();
 """
 
 
+def _esc(x: object) -> str:
+    return str("" if x is None else x).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def static_summary(payload: dict) -> str:
+    """A plain-HTML version of the slate for readers without JavaScript: URL fetchers, link previews,
+    screen readers, search engines. The interactive page removes it on load."""
+    games = sorted(payload["games"], key=lambda g: g["rank_u05_first5"])
+    meta = payload.get("meta", {})
+    potd = payload.get("pick_of_day")
+    pc = lambda x: f"{x*100:.1f}%"  # noqa: E731
+    rows = []
+    for g in games:
+        m = g["markets"]
+        ga, gh = g["goalies"]["away"], g["goalies"]["home"]
+        rows.append(
+            f"<tr><td>{g['rank_u05_first5']}</td><td>{_esc(g['matchup'])} ({g['tier']})</td><td>{_esc(g['time_et'])}</td>"
+            f"<td>{_esc(ga.get('name') or 'unknown')} ({_esc(ga.get('status'))}) / {_esc(gh.get('name') or 'unknown')} ({_esc(gh.get('status'))})</td>"
+            f"<td>{pc(m['u05_first5']['p'])} (fair {m['u05_first5']['fair']:.2f})</td><td>{pc(m['u05_first10']['p'])} (fair {m['u05_first10']['fair']:.2f})</td>"
+            f"<td>{_esc(m['p1_minus05']['pick'])} {pc(m['p1_minus05']['p'])}</td><td>{_esc(m['p1_plus05']['pick'])} {pc(m['p1_plus05']['p'])}</td>"
+            f"<td>{_esc(m['p1_ml']['pick'])} {pc(m['p1_ml']['p'])}</td><td>{_esc(m['fg_ml']['pick'])} {pc(m['fg_ml']['p'])}</td>"
+            f"<td>{_esc(m['fg_spread']['pick'])} -1.5 {pc(m['fg_spread']['p'])}</td><td>{g['projected']['home']:.2f} - {g['projected']['away']:.2f}</td></tr>"
+        )
+    head = (f"<h1>Early Goal Desk: NHL slate for {_esc(payload['date'])}</h1>"
+            f"<p>{len(games)} games, {meta.get('sims', 100000):,} simulated paths per game, generated {_esc(payload.get('generated_utc'))}. "
+            f"Goalies: {_esc(meta.get('goalie_source', 'projected'))}. Data through {_esc(meta.get('data_through', 'n/a'))}. "
+            f"Tier A: both goalies confirmed and both team profiles measured this season; B: a goalie not yet confirmed; C: an input unmeasured.</p>")
+    if potd:
+        head += (f"<p>Highest probability for under 0.5 goals in the first 5 minutes: {_esc(potd['matchup'])} at {pc(potd['p'])} "
+                 f"(fair price {potd['fair']:.2f}, tier {potd['tier']}). The spread between games is within noise; the price decides whether the bet is worth placing.</p>")
+    table = ("<table><thead><tr><th>#</th><th>Matchup (tier)</th><th>Start</th><th>Goalies away / home</th><th>Under 0.5, first 5 min</th>"
+             "<th>Under 0.5, first 10 min</th><th>1P -0.5</th><th>1P +0.5</th><th>1P ML</th><th>FG ML</th><th>FG spread</th><th>Projected home - away</th></tr></thead>"
+             f"<tbody>{''.join(rows)}</tbody></table>")
+    return f'<div id="static" class="static">{head}{table}<p>Open this page in a browser for live results, the price check, the ranked picks and every game\'s inputs.</p></div>'
+
+
 def render(payload: dict) -> str:
-    return TEMPLATE.replace("__PAYLOAD__", json.dumps(payload).replace("</", "<\\/"))
+    html = TEMPLATE.replace("__PAYLOAD__", json.dumps(payload).replace("</", "<\\/"))
+    return html.replace("__STATIC__", static_summary(payload), 1)
 
 
 def write_dashboard(payload: dict, path: Path) -> Path:
