@@ -6,6 +6,7 @@ from .features import GoalieProfile, LeagueProfile, TeamProfile
 from .goalies import resolve_starter
 from .model import SideInputs, build_game_model
 from .rank import build_payload, game_row, load_odds
+from .research import build_index, game_research, slate_research
 from .sim import simulate
 
 
@@ -38,10 +39,14 @@ def run_slate(
     cfg: ModelConfig = CFG,
     meta: dict | None = None,
     odds: dict | None = None,
+    records: list | None = None,
 ) -> tuple[dict, list]:
+    """`records` (all seasons on disk) enables the research dossier on every game."""
     overrides = overrides or {}
     dfo = dfo or {}
     odds = odds if odds is not None else load_odds(date)
+    ix = build_index(records) if records else None
+    season = int(date[:4]) * 10000 + int(date[:4]) + 1 if int(date[5:7]) >= 9 else (int(date[:4]) - 1) * 10000 + int(date[:4])
     rows, models = [], []
     for i, g in enumerate(slate):
         sides = {}
@@ -61,7 +66,12 @@ def run_slate(
             )
         gm = build_game_model(g, sides["home"], sides["away"], lp, cfg)
         r = simulate(gm, sims=sims, seed=None if seed is None else seed + i)
-        rows.append(game_row(gm, r, odds))
+        row = game_row(gm, r, odds)
+        if ix is not None:
+            row["research"] = game_research(ix, {"date": date, "home": g["home"], "away": g["away"]}, sides, season, lp.context_mults or {})
+        rows.append(row)
         models.append((gm, r))
     payload = build_payload(rows, date, league_summary(lp, meta.get("current_season_games", 0) if meta else 0, meta.get("prior_season_games", 0) if meta else 0), meta or {})
+    if ix is not None:
+        payload["research"] = slate_research(ix, lp.context_mults or {}, lp.context_samples or {}, meta or {})
     return payload, models

@@ -263,7 +263,32 @@ def _context_effects(games: list[GameRecord], cfg: ModelConfig) -> tuple[dict, d
         else:
             mults[name] = prior
         samples[name] = int(n_c)
+    # mutual fatigue: both teams on a back-to-back, or both on their third game in four nights. Measured on
+    # the first 10 minutes only (combined goals per game), because that is where the slow start shows up.
+    c_goals = c_games = b_goals = b_games = 0.0
+    for g in games:
+        r = g.rest or {}
+        if not r.get("home") or not r.get("away"):
+            continue
+        early = sum(1 for e in g.events if e.type == "goal" and e.minute < 10)
+        if mutual_fatigue(r["home"], r["away"]):
+            c_goals += early; c_games += 1
+        else:
+            b_goals += early; b_games += 1
+    n_c = 2 * c_games   # team-games, to keep the shrinkage scale of the other effects
+    if c_games >= 5 and b_games >= 50 and b_goals > 0:
+        ratio = (c_goals / c_games) / (b_goals / b_games)
+        mults["mutual_fatigue_early"] = (n_c * ratio + cfg.k_context * cfg.prior_mutual_fatigue_mult) / (n_c + cfg.k_context)
+    else:
+        mults["mutual_fatigue_early"] = cfg.prior_mutual_fatigue_mult
+    samples["mutual_fatigue_early"] = int(c_games)
     return mults, samples
+
+
+def mutual_fatigue(rest_home: dict, rest_away: dict) -> bool:
+    """Both teams on the second night of a back-to-back, or both on their third game in four nights."""
+    rh, ra = rest_home or {}, rest_away or {}
+    return bool((rh.get("b2b") and ra.get("b2b")) or (rh.get("three_in_four") and ra.get("three_in_four")))
 
 
 # -------------------------------------------------------------- team profile

@@ -44,7 +44,7 @@ jobs:
           force_orphan: true
           commit_message: "site ${{ github.run_number }}"
 
-      - name: Keep the scheduler alive (starts a keeper only while GitHub's cron is not firing)
+      - name: Keep the scheduler alive
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

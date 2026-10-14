@@ -1,9 +1,10 @@
 """Scheduler of last resort for the GitHub workflows.
 
-GitHub's cron can take hours to start on a new repository and may be delayed at any time.
-This script runs inside the `keeper` workflow: it sleeps until the next job is due, dispatches
-it with `gh workflow run`, and before the 6-hour job limit hands over to a fresh keeper run.
-When it sees that cron-triggered runs have resumed on their own, it stands down.
+GitHub's cron can take hours to start on a new repository and may be delayed at any time, and it
+cannot fire at a time that depends on the day's schedule. This script runs inside the `keeper`
+workflow: it sleeps until the next job is due (the fixed slate updates, a refresh two hours before
+the first puck drop, and the live-score snapshots), dispatches it with `gh workflow run`, and hands
+over to a fresh keeper run before the 6-hour job limit. Jobs that cron already started are skipped.
 
     python tools/keeper.py            # loop (needs GH_TOKEN with actions:write)
     python tools/keeper.py --status   # print the next due jobs and whether cron is healthy
@@ -36,6 +37,34 @@ def gh(*args: str) -> str:
     return r.stdout
 
 
+_T120_CACHE: dict[str, datetime | None] = {}
+
+
+def t120_for(day: str) -> datetime | None:
+    """Two hours before the earliest regular-season puck drop on `day` (UTC), from the NHL schedule; None if no games."""
+    if day in _T120_CACHE:
+        return _T120_CACHE[day]
+    try:
+        import json as _json
+        import urllib.request
+
+        with urllib.request.urlopen(f"https://api-web.nhle.com/v1/schedule/{day}", timeout=20) as r:
+            data = _json.load(r)
+        starts = []
+        for wk in data.get("gameWeek", []):
+            if wk.get("date") != day:
+                continue
+            for g in wk.get("games", []):
+                if g.get("gameType") == 2 and g.get("startTimeUTC"):
+                    starts.append(datetime.fromisoformat(g["startTimeUTC"].replace("Z", "+00:00")))
+        t = (min(starts) - timedelta(hours=2)).replace(second=0, microsecond=0) if starts else None
+    except Exception as e:  # noqa: BLE001
+        print(f"  schedule lookup failed for {day}: {e}", flush=True)
+        t = None
+    _T120_CACHE[day] = t
+    return t
+
+
 def next_event(now: datetime) -> tuple[datetime, str]:
     """The next due (time, workflow file)."""
     cands: list[tuple[datetime, str]] = []
@@ -44,6 +73,11 @@ def next_event(now: datetime) -> tuple[datetime, str]:
         if t <= now:
             t += timedelta(days=1)
         cands.append((t, "update-slate.yml"))
+    # a refresh two hours before the first puck drop, today or tomorrow (Eastern days roll at 04:00 UTC-ish; use the UTC date and the next one)
+    for d in (now.date(), (now + timedelta(days=1)).date()):
+        t = t120_for(d.isoformat())
+        if t is not None and t > now:
+            cands.append((t, "update-slate.yml"))
     # next 5-minute tick that falls inside the live window
     t = (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
     t += timedelta(minutes=(-t.minute) % LIVE_STEP_MIN)
@@ -103,10 +137,8 @@ def main() -> None:
         print("next:", next_event(now), "| cron healthy:", cron_healthy(now), "| keeper alive:", keeper_alive())
         return
     if "--ensure" in sys.argv:
-        # called at the end of the scheduled workflows: start a keeper only when cron is not doing its job
-        if cron_healthy(now):
-            print("cron is running on its own; no keeper needed")
-        elif keeper_alive():
+        # called at the end of the scheduled workflows: make sure a keeper is alive
+        if keeper_alive():
             print("a keeper is already running")
         else:
             dispatch("keeper.yml")
@@ -132,12 +164,8 @@ def main() -> None:
         else:
             dispatch(wf)
         time.sleep(61)   # never dispatch the same minute twice
-    now = datetime.now(timezone.utc)
-    if cron_healthy(now):
-        print("cron-triggered runs are back; standing down without a successor")
-    else:
-        print("handing over to a fresh keeper")
-        dispatch("keeper.yml")
+    print("handing over to a fresh keeper")
+    dispatch("keeper.yml")
 
 
 if __name__ == "__main__":

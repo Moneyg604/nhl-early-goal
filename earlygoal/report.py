@@ -195,6 +195,7 @@ svg text{font-family:var(--body)}
 .panel table{min-width:0;width:100%}
 .panel td,.panel th{padding:7px 8px;font-size:13px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 .panel td:first-child,.panel th:first-child{text-align:left;position:sticky;left:0;background:var(--panel);z-index:1}
+.panel table.kv td{text-align:left;white-space:normal}.panel table.kv td:first-child{white-space:nowrap;color:var(--muted);width:1%}
 .panel th{position:static;background:transparent;cursor:default;letter-spacing:.06em;color:var(--muted);font-size:11px;text-transform:uppercase}
 .ok{color:var(--green);font-weight:700}.no{color:var(--amber);font-weight:700}
 .panel p{margin:6px 0;font-size:13.5px;color:var(--muted);max-width:72ch;line-height:1.55}
@@ -202,6 +203,24 @@ svg text{font-family:var(--body)}
 .daylist{display:flex;flex-wrap:wrap;gap:8px}
 .daylist a{display:inline-block;border:1px solid var(--line2);border-radius:8px;padding:6px 10px;color:var(--text);text-decoration:none;font-size:13px}
 .daylist a.now{border-color:var(--ice);color:var(--ice)}
+.fs{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;white-space:nowrap}
+.fs.model{color:var(--ice);background:rgba(94,200,255,.12)}.fs.validated{color:var(--green);background:rgba(61,220,132,.12)}.fs.shown{color:var(--amber);background:rgba(243,182,58,.12)}.fs.unavailable{color:var(--red);background:rgba(255,107,107,.12)}
+details.dossier{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:0 14px}
+details.dossier summary{cursor:pointer;padding:12px 0;font-size:14px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;list-style:none}
+details.dossier summary::-webkit-details-marker{display:none}
+details.dossier summary .mu{font-family:var(--display);font-size:20px;font-weight:700}
+details.dossier summary .t{margin-left:auto}
+details.dossier .body{padding:0 0 14px}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:760px){.dgrid{grid-template-columns:1fr}}
+.dgrid .box{background:var(--panel2)}
+.dgrid .box table{min-width:0;width:100%}
+.dgrid .box td,.dgrid .box th{padding:4px 6px;font-size:12px;border:0;background:transparent;text-align:right;white-space:normal;line-height:1.35}
+.dgrid .box td:first-child,.dgrid .box th:first-child{text-align:left;color:var(--muted)}
+.dgrid .box tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+.dgrid .box th{position:static;cursor:default;text-transform:none;letter-spacing:0;font-size:11px;color:var(--dim)}
+.flag{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:1px 6px;margin:0 4px 2px 0;background:rgba(243,182,58,.12);color:var(--amber)}
+.flag.good{background:rgba(61,220,132,.12);color:var(--green)}.flag.dim{background:rgba(255,255,255,.06);color:var(--muted)}
 .glossary dt{font-weight:600;margin-top:8px}
 .glossary dd{margin:2px 0 0;color:var(--muted);font-size:13.5px}
 
@@ -227,6 +246,7 @@ footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
   </div>
   <nav class="tabs" id="tabs">
     <button data-tab="today" class="on">Today</button>
+    <button data-tab="research">Research</button>
     <button data-tab="picks">Picks</button>
     <button data-tab="results">Results</button>
     <button data-tab="about">About</button>
@@ -244,6 +264,15 @@ __STATIC__
   <div class="toolbar" id="toolbar"></div>
   <div class="tablewrap"><table id="tbl"><thead></thead><tbody></tbody></table></div>
   <div class="cards" id="cards"></div>
+</section>
+
+<section class="tab" id="tab-research">
+  <p class="lead">Everything that was measured for this slate before the numbers were produced, with sample sizes, and an explicit list of what could not be measured. Only factors that improved the walk-forward backtest feed the model; the rest are shown for context.</p>
+  <div id="research-sources"></div>
+  <div id="research-factors"></div>
+  <div id="research-rates"></div>
+  <h2>Game dossiers <small>head-to-head, early timing, goalie workload, schedule</small></h2>
+  <div id="research-games"></div>
 </section>
 
 <section class="tab" id="tab-picks">
@@ -297,8 +326,9 @@ if (M.data_through && !M.demo) { const lag = Math.round((new Date(P.date) - new 
 document.getElementById('status').innerHTML = [
   `<b>${niceDate(P.date)}</b>`, `<b>${P.games.length}</b> games`,
   (function(){ const qs=P.games.flatMap(g=>[g.goalies.home,g.goalies.away]); const c=qs.filter(q=>q.status==='confirmed').length; return `goalies: <b>${c} of ${qs.length} confirmed</b>${c?' (DailyFaceoff)':' (projected from usage)'}`; })(),
-  `data through <b>${esc(M.data_through||'n/a')}</b>`, `updated <b>${esc(P.generated_utc)}</b>`
-].map(x=>`<span>${x}</span>`).join('');
+  `data through <b>${esc(M.data_through||'n/a')}</b>`, `updated <b>${esc(P.generated_utc)}</b>`,
+  (P.research ? `<a href="#research" onclick="showTab('research',true);return false;">research: ${P.research.factors.filter(f=>f.status!=='unavailable').length} factors measured, ${P.research.factors.filter(f=>f.status==='unavailable').length} unavailable</a>` : '')
+].filter(Boolean).map(x=>`<span>${x}</span>`).join('');
 
 // ---------------------------------------------------------------- tabs
 const tabs = document.getElementById('tabs');
@@ -311,7 +341,7 @@ function showTab(name, push){
 }
 tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab, true));
 if (AHEAD!==0) tabs.querySelector('[data-tab="today"]').textContent = 'Slate';
-function tabFromHash(){ const h=(location.hash||'').replace('#',''); if(['today','picks','results','about'].includes(h)) showTab(h,false); }
+function tabFromHash(){ const h=(location.hash||'').replace('#',''); if(['today','research','picks','results','about'].includes(h)) showTab(h,false); }
 tabFromHash(); window.addEventListener('hashchange', tabFromHash);
 
 // ---------------------------------------------------------------- live results
@@ -499,6 +529,7 @@ thead.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;if
 
 function factorRows(side, team){
   const m=side.mults, rows=[['home ice',m.home_ice],['shot rate for (early)',m.off_shot_early],['opp shot rate against (early)',m.opp_def_shot_early],['finishing',m.finish],['opp goalie',m.opp_goalie],['rest / travel',m.context_total]];
+  if(m.early_context_total && Math.abs(m.early_context_total-1)>1e-6) rows.push(['slow-start factor (first 10 min only)',m.early_context_total]);
   const prod=rows.reduce((a,r)=>a*r[1],1);
   return `<table>${rows.map(r=>`<tr><td>${r[0]}</td><td class="num ${r[1]>1.02?'hi':(r[1]<0.98?'lo':'')}">× ${r[1].toFixed(3)}</td></tr>`).join('')}<tr><td><b>${team} early-goal multiplier</b></td><td class="num"><b>× ${prod.toFixed(3)}</b></td></tr></table>`;
 }
@@ -569,6 +600,7 @@ P(no goal, first 10) = exp(-${s10.toFixed(4)}) = ${Math.exp(-s10).toFixed(4)}   
     <div class="gap">${labels(H,g.home)}${labels(A,g.away)}</div>
     <div class="small gap"><b>Tier ${g.tier}</b>: ${g.tier_reasons.map(esc).join('; ')}</div>
     <div class="small gap"><b>Not measured</b>: ${g.unmeasured.map(esc).join(' · ')}</div>
+    ${g.research?`<div class="small gap"><b>Research</b>: ${g.research.schedule.mutual_fatigue?'both teams tired, slow-start factor on · ':''}${g.research.h2h.n?`H2H ${g.research.h2h.no_goal_5} of ${g.research.h2h.n} meetings without a goal before 5:00 · `:''}<a href="#research" onclick="showTab('research',true);setTimeout(()=>{const d=document.getElementById('dossier-${g.game_id}');if(d){d.open=true;d.scrollIntoView({block:'start'});}},50);return false;">full dossier</a></div>`:''}
     <div class="small gap">1P goals 0 / 1 / 2 / 3+: <span class="num">${g.p1.total_dist.map(pct).join(' / ')}</span> · FG O6.5 ${pct(g.markets.fg_total.over65)} · regulation ${esc(g.home)} ${pct(g.markets.fg_ml.home_reg)} / tie ${pct(g.markets.fg_ml.reg_tie)} / ${esc(g.away)} ${pct(g.markets.fg_ml.away_reg)}</div>
   </div></div>`;
 }
@@ -616,14 +648,107 @@ document.getElementById('tiersel').onchange=(e)=>{tierFilter=e.target.value;rend
 document.getElementById('expand').onclick=()=>{if(open.size===P.games.length)open.clear();else P.games.forEach(g=>open.add(g.game_id));render();};
 document.getElementById('sortsel').onchange=(e)=>{sortKey=e.target.value;sortDir=(sortKey==='rank'||sortKey==='matchup')?1:-1;render();};
 
+// ---------------------------------------------------------------- backtest verdicts (shared by the Research, Picks and About tabs)
+// 'beats': clearly below the league constant; 'marginal': below it by less than 0.2% (real but too small to rank games on); 'none'.
+function verdictOf(v){ if(!v) return null; const c = v.logloss_baseline!=null ? v.logloss_baseline : v.logloss_constant; if(c==null) return null; const rel=(c-v.logloss_model)/c; return rel<=0 ? 'none' : (rel<0.002 ? 'marginal' : 'beats'); }
+const VERDICT_TXT = {beats:'beats constant', marginal:'marginal', none:'no edge'}, VERDICT_CLS = {beats:'ok', marginal:'no', none:'no'};
+
+// ---------------------------------------------------------------- research tab
+const R = P.research || null;
+const FS_LABEL = {model:'in the model', validated:'validated', shown:'measured, shown', unavailable:'not available'};
+const fsb = st => `<span class="fs ${st}">${FS_LABEL[st]||st}</span>`;
+const mm = x => x==null ? 'n/a' : (Math.floor(x)+':'+String(Math.round((x%1)*60)).padStart(2,'0'));
+function renderResearch(){
+  if(!R){ document.getElementById('research-sources').innerHTML = '<div class="panel"><p>No research dossier in this build.</p></div>'; return; }
+  const qs = P.games.flatMap(g=>[g.goalies.home,g.goalies.away]); const conf = qs.filter(q=>q.status==='confirmed').length;
+  const times = qs.map(q=>(q.note||'').match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|\d{2}:\d{2}) UTC/)).filter(Boolean).map(x=>x[1]);
+  const VNS = M.validation || {};
+  const vline = (k, lab) => { const v=VNS[k]; if(!v) return ''; const vd=verdictOf(v); return `<tr><td>${lab}</td><td class="num">${v.logloss_model.toFixed(4)}</td><td class="num">${(v.logloss_baseline!=null?v.logloss_baseline:v.logloss_constant).toFixed(4)}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td></tr>`; };
+  document.getElementById('research-sources').innerHTML = `<div class="panel"><h3>Research log · ${niceDate(P.date)}</h3>
+    <div class="tbl"><table class="kv"><tbody>
+    <tr><td>Play-by-play</td><td>${esc(R.sources.play_by_play)}; data through <b>${esc(R.sources.data_through||'n/a')}</b></td></tr>
+    <tr><td>Schedule, rest, travel</td><td>${esc(R.sources.schedule)}</td></tr>
+    <tr><td>Starting goalies</td><td>${esc(R.sources.goalies)} · <b>${conf} of ${qs.length} confirmed</b>${times.length?` · latest confirmation ${esc(times.sort().slice(-1)[0])} UTC`:''}</td></tr>
+    <tr><td>Profiles</td><td>${(P.league.games_in_profile||0).toLocaleString()} games (${P.league.current_season_games} this season, ${P.league.prior_season_games} from the two seasons before, decayed)</td></tr>
+    <tr><td>Simulation</td><td>${(P.games[0]?P.games[0].sims:100000).toLocaleString()} paths per game, 3-on-3 overtime, shootout and goalie-pull dynamics</td></tr>
+    <tr><td>Produced</td><td>${esc(P.generated_utc)} · model ${esc(P.model_version)}</td></tr>
+    </tbody></table></div>
+    ${Object.keys(VNS).length?`<h3 class="gap">Walk-forward validation · ${VNS.n||''} games</h3><div class="tbl"><table><thead><tr><th>market</th><th>log loss model</th><th>league constant</th><th>verdict</th></tr></thead><tbody>${vline('first5','Under 0.5 · first 5')}${vline('first10','Under 0.5 · first 10')}${vline('fg_ml_home','FG moneyline')}${vline('fg_home_minus15','FG −1.5 (home)')}${vline('p1_away_win','1P away win')}</tbody></table></div>`:''}
+  </div>`;
+  document.getElementById('research-factors').innerHTML = `<div class="panel"><h3>Factor checklist</h3>
+    <p>${fsb('model')} feeds the hazard chain. ${fsb('validated')} measured from the data and shown to improve the walk-forward backtest in both test seasons. ${fsb('shown')} measured and displayed, but carries no proven predictive value for a five-minute window. ${fsb('unavailable')} not in any data this site can reach; stated rather than guessed.</p>
+    <div class="tbl"><table class="kv"><tbody>${R.factors.map(f=>`<tr><td>${esc(f.factor)}</td><td>${fsb(f.status)}</td></tr>`).join('')}</tbody></table></div>
+    <p><b>Not measured for any game:</b> ${R.not_measured.map(esc).join('; ')}.</p></div>`;
+  const br = R.base_rates_by_season||{}, sr = R.schedule_rates||{};
+  const seasonName = s => s.slice(0,4)+'-'+s.slice(6);
+  document.getElementById('research-rates').innerHTML = `<div class="panel"><h3>League base rates by season</h3>
+    <div class="tbl"><table><thead><tr><th>season</th><th>games</th><th>no goal, first 5</th><th>no goal, first 10</th></tr></thead><tbody>
+    ${Object.entries(br).map(([s,v])=>`<tr><td>${seasonName(s)}</td><td class="num">${v.games}</td><td class="num">${pct(v.no_goal_5)}</td><td class="num">${pct(v.no_goal_10)}</td></tr>`).join('')}</tbody></table></div>
+    <h3 class="gap">Schedule spot: both teams tired</h3>
+    <p>Games where both teams are on the second night of a back-to-back, or both on their third game in four nights, have started slower. Measured multiplier on the first-10-minute hazard: <b>× ${(R.context_effects.mutual_fatigue_early||1).toFixed(3)}</b> after shrinkage (${R.context_samples.mutual_fatigue_early||0} games). It improved the walk-forward log loss in both test seasons, which is why it is in the model; the shrinkage keeps it well below the raw gap.</p>
+    <div class="tbl"><table><thead><tr><th>schedule spot</th><th>games</th><th>no goal, first 5</th><th>no goal, first 10</th></tr></thead><tbody>
+    ${['neither','one','both'].filter(k=>sr[k]).map(k=>`<tr><td>${k==='both'?'both teams on a B2B / 3-in-4':(k==='one'?'one team':'neither team')}</td><td class="num">${sr[k].games}</td><td class="num">${pct(sr[k].no_goal_5)}</td><td class="num">${pct(sr[k].no_goal_10)}</td></tr>`).join('')}</tbody></table></div>
+    <h3 class="gap">Other rest and travel effects in the model</h3><div class="tbl"><table><tbody>${Object.entries(R.context_effects).filter(([k])=>k!=='mutual_fatigue_early').map(([k,v])=>`<tr><td>${esc(k.replace(/_/g,' '))}</td><td class="num">× ${v.toFixed(3)}</td><td class="num">${R.context_samples[k]||0} team-games</td></tr>`).join('')}</tbody></table></div>
+  </div>`;
+  document.getElementById('research-games').innerHTML = P.games.slice().sort((a,b)=>a.rank_u05_first5-b.rank_u05_first5).map(dossier).join('');
+}
+function timingRows(t){
+  const S=t.this_season||{}, L=t.last_season||{};
+  const p=x=>x==null?'n/a':pct(x), f1=x=>x==null?'n/a':x.toFixed(1), f2=x=>x==null?'n/a':x.toFixed(2);
+  const row=(lab,fn)=>`<tr><td>${lab}</td><td class="num">${S.games?fn(S):'n/a'}</td><td class="num">${L.games?fn(L):'n/a'}</td></tr>`;
+  return `<table><thead><tr><th></th><th>this season (${S.games||0})</th><th>last season (${L.games||0})</th></tr></thead><tbody>
+    ${row('goal by either team before 5:00',x=>p(x.goal_in_5_share))}${row('goal by either team before 10:00',x=>p(x.goal_in_10_share))}
+    ${row('scored before 5:00',x=>p(x.scored_in_5_share))}${row('conceded before 5:00',x=>p(x.conceded_in_5_share))}
+    ${row('shots for / against, first 10',x=>f1(x.sog10_for_pg)+' / '+f1(x.sog10_against_pg))}
+    ${row('median time to first shot for',x=>mm(x.median_first_sog_for))}${row('median time to first shot against',x=>mm(x.median_first_sog_against))}
+    ${row('games with no shot in the first 5',x=>p(x.no_sog_first5_share))}
+    ${row('penalties taken / drawn, first 10 (per game)',x=>f2(x.pen_taken_10_pg)+' / '+f2(x.pen_drawn_10_pg))}
+    ${row('goal before 5:00 at home / on the road',x=>p(x.home_goal_in_5_share)+' / '+p(x.away_goal_in_5_share))}
+  </tbody></table>`;
+}
+function dossier(g){
+  const r=g.research; if(!r) return '';
+  const sc=r.schedule, h=r.h2h, tw=r.timing, gw=r.goalie_workload||{};
+  const flags=[];
+  if(sc.mutual_fatigue) flags.push('<span class="flag good">both teams tired · slow-start factor on</span>');
+  ['home','away'].forEach(k=>{ const s=sc[k]; const t=g[k]; if(s.b2b) flags.push(`<span class="flag">${t} back-to-back</span>`); else if(s.three_in_four) flags.push(`<span class="flag">${t} 3-in-4</span>`); if((s.travel_km||0)>1500) flags.push(`<span class="flag dim">${t} ${Math.round(s.travel_km)} km</span>`); if((s.tz_shift||0)>=2) flags.push(`<span class="flag dim">${t} ${s.tz_shift} time zones</span>`);
+    const pg=(tw[k]||{}).previous_game; if(pg && pg.ended_in && pg.ended_in!=='REG') flags.push(`<span class="flag dim">${t} played ${pg.ended_in} last game</span>`);
+    const w=gw[k]; if(w && w.started_last_night) flags.push(`<span class="flag">${esc(g.goalies[k].name)} started last night</span>`); });
+  const wl = k => { const w=gw[k], q=g.goalies[k]; if(!w) return `<tr><td>${esc(q.name||'unknown')}</td><td colspan="4">no starts on record</td></tr>`; if(!w.starts_on_record) return `<tr><td>${esc(q.name||'unknown')}</td><td colspan="4">no starts on record</td></tr>`;
+    return `<tr><td>${esc(q.name||'unknown')} <span class="t">${esc(q.status)}</span></td><td class="num">${esc(w.last_start)} (${w.days_since_last_start} d)</td><td class="num">${w.shots_faced_last_start} / ${w.goals_against_last_start}</td><td class="num">${w.consecutive_team_starts}</td><td class="num">${w.starts_last_7_days}</td></tr>`; };
+  const recent = k => (tw[k].recent||[]).slice().reverse().map(x=>`<tr><td>${esc(x.date.slice(5))} ${x.home?'vs':'@'} ${esc(x.opp)}</td><td class="num">${esc(x.result||x.score)}${x.ended_in&&x.ended_in!=='REG'?' '+x.ended_in:''}</td><td class="num">${x.first_goal_min==null?'none':mm(x.first_goal_min)+(x.first_goal_team?' '+esc(x.first_goal_team):'')}</td><td class="num">${x.sog10_for} / ${x.sog10_against}</td></tr>`).join('');
+  return `<details class="dossier" id="dossier-${g.game_id}"><summary><span class="mu">${esc(g.matchup)}</span> ${tier(g.tier)} <span class="num">${pct(g.markets.u05_first5.p)} first 5</span> ${flags.join('')} <span class="t">${h.n?`H2H: ${h.no_goal_5} of ${h.n} meetings no goal before 5:00`:'no H2H on record'}</span></summary>
+  <div class="body"><div class="dgrid">
+    <div class="box"><h4>Schedule</h4><table><thead><tr><th></th><th>${esc(g.away)}</th><th>${esc(g.home)}</th></tr></thead><tbody>
+      <tr><td>days of rest</td><td class="num">${sc.away.days_rest==null?'first game':sc.away.days_rest}</td><td class="num">${sc.home.days_rest==null?'first game':sc.home.days_rest}</td></tr>
+      <tr><td>games in the last 7 days</td><td class="num">${sc.away.games_last_7d??'n/a'}</td><td class="num">${sc.home.games_last_7d??'n/a'}</td></tr>
+      <tr><td>travel since last game</td><td class="num">${Math.round(sc.away.travel_km||0)} km · ${sc.away.tz_shift||0} tz</td><td class="num">${Math.round(sc.home.travel_km||0)} km · ${sc.home.tz_shift||0} tz</td></tr>
+      <tr><td>previous game</td><td class="num">${tw.away.previous_game?esc(tw.away.previous_game.result||tw.away.previous_game.score)+' vs '+esc(tw.away.previous_game.opp)+(tw.away.previous_game.ended_in!=='REG'?' ('+esc(tw.away.previous_game.ended_in)+')':''):'n/a'}</td><td class="num">${tw.home.previous_game?esc(tw.home.previous_game.result||tw.home.previous_game.score)+' vs '+esc(tw.home.previous_game.opp)+(tw.home.previous_game.ended_in!=='REG'?' ('+esc(tw.home.previous_game.ended_in)+')':''):'n/a'}</td></tr>
+      <tr><td>both teams tired (B2B / 3-in-4)</td><td class="num" colspan="2">${sc.mutual_fatigue?`yes · slow-start multiplier × ${sc.mutual_fatigue_mult.toFixed(3)} on the first 10 minutes`:'no'}</td></tr>
+    </tbody></table></div>
+    <div class="box"><h4>Goalie workload</h4><table><thead><tr><th>starter</th><th>last start</th><th>shots / GA last</th><th>consecutive</th><th>last 7 d</th></tr></thead><tbody>${wl('away')}${wl('home')}</tbody></table>
+      <div class="small gap">${esc(g.goalies.away.note||'')}${g.goalies.away.note&&g.goalies.home.note?' · ':''}${esc(g.goalies.home.note||'')}</div></div>
+    <div class="box"><h4>${esc(g.away)} · early timing</h4>${timingRows(tw.away)}</div>
+    <div class="box"><h4>${esc(g.home)} · early timing</h4>${timingRows(tw.home)}</div>
+    <div class="box"><h4>${esc(g.away)} · last games</h4><table><thead><tr><th>game</th><th>score</th><th>first goal</th><th>SOG first 10 for / ag</th></tr></thead><tbody>${recent('away')}</tbody></table></div>
+    <div class="box"><h4>${esc(g.home)} · last games</h4><table><thead><tr><th>game</th><th>score</th><th>first goal</th><th>SOG first 10 for / ag</th></tr></thead><tbody>${recent('home')}</tbody></table></div>
+    <div class="box" style="grid-column:1/-1"><h4>Head-to-head · last ${h.n} meetings ${h.n?`· no goal before 5:00 in ${h.no_goal_5}, before 10:00 in ${h.no_goal_10}`:''}</h4>
+      ${h.n?`<table><thead><tr><th>date</th><th>game</th><th>score</th><th>first goal</th><th>SOG first 10 (away / home)</th><th>goalies (away / home)</th></tr></thead><tbody>${h.meetings.slice().reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.away)} @ ${esc(x.home)}</td><td class="num">${esc(x.score)}${x.ended_in&&x.ended_in!=='REG'?' '+x.ended_in:''}</td><td class="num">${x.first_goal_min==null?'none':mm(x.first_goal_min)+' '+esc(x.first_goal_team||'')}</td><td class="num">${x.sog10_away} / ${x.sog10_home}</td><td>${esc(x.goalies.away)} / ${esc(x.goalies.home)}</td></tr>`).join('')}</tbody></table><div class="small gap">Head-to-head is context only: it carried no predictive value in the backtest and does not move the number.</div>`:'<div class="small">These teams have not met in the seasons on record.</div>'}
+    </div>
+  </div></div></details>`;
+}
+
 // ---------------------------------------------------------------- picks tab
 const VN = (M.validation||{});
 const EDGE_MAP = {u05_first5:{early:'first5'}, u05_first10:{early:'first10'}, fg_ml:{joint:['fg_ml_home']}, fg_spread:{joint:['fg_home_minus15','fg_away_minus15']}, p1_plus05:{joint:['p1_home_win','p1_away_win']}, p1_minus05:{joint:['p1_home_win','p1_away_win']}, p1_ml:{joint:['p1_home_win','p1_away_win']}};
 const JOINT_LABEL = {fg_ml_home:'home win', fg_home_minus15:'home −1.5', fg_away_minus15:'away −1.5', p1_home_win:'1P home win', p1_away_win:'1P away win'};
 function edgeNote(key){ const d=EDGE_MAP[key]; if(!d) return '';
-  if(d.early){ const v=VN[d.early]; if(!v) return ''; const ok=v.logloss_model<v.logloss_baseline; return `<div class="note ${ok?'ok':'no'}">${ok?'Backtest: ranking games this way beat the league constant.':'Backtest: no ranking edge. These are calibrated probabilities, not a selection; the price decides.'}</div>`; }
+  if(d.early){ const v=VN[d.early]; if(!v) return ''; const vd=verdictOf(v);
+    if(vd==='beats') return `<div class="note ok">Backtest: ranking games this way beat the league constant.</div>`;
+    if(vd==='marginal') return `<div class="note no">Backtest: a hair better than the league constant, almost all of it from the schedule-spot factor. Ranking within a slate is still mostly noise; the price decides.</div>`;
+    return `<div class="note no">Backtest: no ranking edge. These are calibrated probabilities, not a selection; the price decides.</div>`; }
   const have=d.joint.filter(k=>VN[k]); if(!have.length) return '';
-  const good=have.filter(k=>VN[k].logloss_model<VN[k].logloss_constant), bad=have.filter(k=>!(VN[k].logloss_model<VN[k].logloss_constant));
+  const good=have.filter(k=>verdictOf(VN[k])==='beats'), bad=have.filter(k=>verdictOf(VN[k])!=='beats');
   if(!bad.length) return `<div class="note ok">Backtest: ranking games this way beat the league constant.</div>`;
   if(!good.length) return `<div class="note no">Backtest: no ranking edge; treat these as calibrated probabilities, not a selection.</div>`;
   return `<div class="note ok">Backtest: edge on the ${good.map(k=>JOINT_LABEL[k]).join(', ')} side; none on the ${bad.map(k=>JOINT_LABEL[k]).join(', ')} side.</div>`; }
@@ -671,9 +796,9 @@ if (V && V.first5) {
   document.getElementById('validation').innerHTML = `<div class="panel"><h3>Validation · ${V.season?String(V.season).slice(0,4)+'-'+String(V.season).slice(6):''} season, ${V.n} real games, each predicted only from games before it</h3>
   <p>Log loss below the league constant means ranking games this way carries information. Top vs bottom quintile shows how far the ranking separates outcomes in reality.</p>
   <div class="tbl"><table><thead><tr><th>market</th><th>verdict</th><th>log loss model</th><th>league constant</th><th>top 20% hit</th><th>bottom 20% hit</th><th>predicted</th><th>actual</th></tr></thead><tbody>
-  ${rowsV.map(r=>`<tr><td>${r[0]}</td><td class="${r[1]<r[2]?'ok':'no'}">${r[1]<r[2]?'beats constant':'no edge'}</td><td class="num">${r[1].toFixed(4)}</td><td class="num">${r[2].toFixed(4)}</td><td class="num">${pct(r[3])}</td><td class="num">${pct(r[4])}</td><td class="num">${pct(r[5])}</td><td class="num">${pct(r[6])}</td></tr>`).join('')}
+  ${rowsV.map(r=>{ const rel=(r[2]-r[1])/r[2], vd=rel<=0?'none':(rel<0.002?'marginal':'beats'); return `<tr><td>${r[0]}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td><td class="num">${r[1].toFixed(4)}</td><td class="num">${r[2].toFixed(4)}</td><td class="num">${pct(r[3])}</td><td class="num">${pct(r[4])}</td><td class="num">${pct(r[5])}</td><td class="num">${pct(r[6])}</td></tr>`; }).join('')}
   </tbody></table></div>
-  <p>The early-goal probabilities are calibrated: they land where they say they land. But no pre-game input separated games that produced an early goal from games that did not, so the fair price is the useful output there. The full-game markets and the 1P away win do carry a measurable edge.</p></div>`;
+  <p>The early-goal probabilities are calibrated: they land where they say they land. Almost no pre-game input separates games that produce an early goal from games that do not; the one that does (both teams tired) is small, so the fair price is the useful output there. The full-game markets and the 1P away win carry a measurable edge.</p></div>`;
 }
 document.getElementById('method').innerHTML = `<h3>How the numbers are made</h3>
 <p>Every team's goal rate per minute is a chain of factors on the league hazard curve for that minute of the game: home ice, shot rate for, the opponent's shot rate against, finishing, the opposing starting goalie's save% and rest / travel. Everything is measured from three seasons of play-by-play and shrunk toward the league average. Under 0.5 in the first 5 minutes is exp(−Σλ) over those minutes; the simulation (${P.games[0]?P.games[0].sims.toLocaleString():'100,000'} paths per game, with 3-on-3 overtime, shootout and goalie-pull dynamics) adds the period and full-game markets.</p>
@@ -697,7 +822,7 @@ document.getElementById('foot').innerHTML = `Early Goal Desk v${P.model_version}
     dl.innerHTML = j.days.map(d=>`<a class="${d===P.date?'now':''}" href="${base}${d}.html">${lab(d)}</a>`).join(''); }).catch(()=>{ document.getElementById('daylist').innerHTML='<span class="small">history appears once the site is published</span>'; });
 })();
 
-renderFeature(); renderPicks(); render(); loadLive();
+renderFeature(); renderPicks(); renderResearch(); render(); loadLive();
 </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 name: Keeper
 
-# Scheduler of last resort. GitHub's cron can take hours to start on a new repository, so this job
+# Scheduler. GitHub's cron can take hours to start and cannot fire relative to the day's first puck drop, so this job
 # sleeps until the next slate update or live-score snapshot is due, dispatches it, and hands over to a
-# fresh keeper before the 6-hour job limit. It stands down by itself once cron-triggered runs appear.
+# fresh keeper before the 6-hour job limit. It also fires a refresh two hours before the first game.
 
 on:
   workflow_dispatch:

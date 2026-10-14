@@ -74,6 +74,8 @@ class ModelConfig:
     prior_long_travel_def_mult: float = 1.02 # > 1500 km since last game
     prior_tz_shift_def_mult: float = 1.015   # per time zone crossed, capped at 2
     prior_rest_edge_mult: float = 1.015      # per extra rest day vs opponent, capped at 2
+    use_mutual_fatigue: bool = True          # both teams on a back-to-back (or both 3-in-4): measured early-window multiplier
+    prior_mutual_fatigue_mult: float = 1.0   # prior for that multiplier (1.0 = no effect until the data says so)
 
     prior_league_sv: float = 0.902           # league save%
     prior_ot_goal_rate: float = 0.145        # per minute, combined, 3v3 OT

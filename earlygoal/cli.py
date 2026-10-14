@@ -202,7 +202,8 @@ def cmd_run(args: argparse.Namespace) -> None:
             if not dfo and not args.no_dfo:
                 print(f"note: DailyFaceoff returned nothing for {d}; goalies come from overrides.json or usage.")
         print(f"{d}: {len(slate)} games, profiles from {lp.games} games ({len(current)} this season, data through {dmeta.get('data_through', 'n/a')}); simulating {sims:,} paths per game ...")
-        payload, _ = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta)
+        payload, _ = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta,
+                               records=None if args.demo else (current + prior))
 
         tag = f"{d}{'-demo' if args.demo else ''}"
         html = write_dashboard(payload, OUT_DIR / f"dashboard-{tag}.html")

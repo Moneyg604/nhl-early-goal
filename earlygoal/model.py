@@ -127,6 +127,16 @@ def context_multipliers(side: SideInputs, opp: SideInputs, lp: LeagueProfile, cf
     return m
 
 
+def early_context_multipliers(side: SideInputs, opp: SideInputs, lp: LeagueProfile, cfg: ModelConfig) -> dict:
+    """Multipliers that apply to the first 10 minutes only (slow starts), measured from the data."""
+    from .features import mutual_fatigue
+
+    m: dict[str, float] = {}
+    if cfg.use_mutual_fatigue and mutual_fatigue(side.rest or {}, opp.rest or {}):
+        m["both teams on a back-to-back / 3-in-4 (first 10 min)"] = (lp.context_mults or {}).get("mutual_fatigue_early", cfg.prior_mutual_fatigue_mult)
+    return m
+
+
 def build_game_model(
     game: dict,
     home: SideInputs,
@@ -156,6 +166,8 @@ def build_game_model(
         goalie_mult = (1 - sv) / (1 - lg_sv) / (lp.norm.get("goalie", 1.0) or 1.0)
         ctx = context_multipliers(side, opp, lp, cfg)
         ctx_total = float(np.prod(list(ctx.values()))) if ctx else 1.0
+        ectx = early_context_multipliers(side, opp, lp, cfg)
+        ectx_total = float(np.prod(list(ectx.values()))) if ectx else 1.0
         nrm = lp.norm or {}
         side.mults = {
             "home_ice": hm if side.is_home else 1 / hm,
@@ -168,6 +180,8 @@ def build_game_model(
             "opp_goalie_sv_shrunk": sv,
             "context": ctx,
             "context_total": ctx_total,
+            "early_context": ectx,
+            "early_context_total": ectx_total,
         }
         tl, tnote = _label_team(side.profile, cfg)
         gl, gnote = _label_goalie(g_opp, opp.goalie_status)
@@ -185,6 +199,8 @@ def build_game_model(
             off = m["off_shot_early"] if early else m["off_shot_full"]
             dfn = m["opp_def_shot_early"] if early else m["opp_def_shot_full"]
             out[i] = base[i] * m["home_ice"] * off * dfn * m["finish"] * m["opp_goalie"] * m["context_total"]
+            if e <= 10:
+                out[i] *= m["early_context_total"]
         return out
 
     lam_home, lam_away = lam_for(home), lam_for(away)
@@ -245,8 +261,9 @@ def build_game_model(
             "team": side.team,
             "profile": prof,
             "rest": side.rest,
-            "mults": {k: (round(v, 4) if isinstance(v, float) else v) for k, v in side.mults.items() if k != "context"},
+            "mults": {k: (round(v, 4) if isinstance(v, float) else v) for k, v in side.mults.items() if k not in ("context", "early_context")},
             "context_detail": {k: round(v, 4) for k, v in side.mults["context"].items()},
+            "early_context_detail": {k: round(v, 4) for k, v in side.mults.get("early_context", {}).items()},
             "faces_goalie": {
                 "name": g.name if g else None,
                 "id": g.goalie_id if g else None,
