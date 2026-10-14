@@ -132,6 +132,48 @@ def send_telegram(text: str) -> bool:
     return r.ok
 
 
+def send_github_issue(text: str, date: str, reason: str) -> bool:
+    """No-secret channel: one GitHub issue per slate day, a comment per build, with an @mention of the
+    repository owner so GitHub's own email / mobile notifications carry the message."""
+    import subprocess
+
+    repo = os.environ.get("GH_REPO") or os.environ.get("GITHUB_REPOSITORY")
+    if not repo or not os.environ.get("GH_TOKEN"):
+        return False
+    owner = repo.split("/")[0]
+    title = f"Slate {date}"
+    body = f"@{owner}\n\n```\n{text}\n```"
+    q = subprocess.run(["gh", "issue", "list", "--repo", repo, "--state", "open", "--label", "slate", "--search", f'"{title}" in:title', "--json", "number,title"],
+                       capture_output=True, text=True)
+    num = None
+    try:
+        for it in json.loads(q.stdout or "[]"):
+            if it.get("title") == title:
+                num = it["number"]
+                break
+    except json.JSONDecodeError:
+        pass
+    if num is None:
+        subprocess.run(["gh", "label", "create", "slate", "--repo", repo, "--color", "0e8a16", "--description", "daily slate notifications", "--force"], capture_output=True, text=True)
+        r = subprocess.run(["gh", "issue", "create", "--repo", repo, "--title", title, "--label", "slate", "--body", body], capture_output=True, text=True)
+        print("github issue:", "created" if r.returncode == 0 else r.stderr.strip()[:200])
+        ok = r.returncode == 0
+    else:
+        r = subprocess.run(["gh", "issue", "comment", str(num), "--repo", repo, "--body", body], capture_output=True, text=True)
+        print("github issue:", f"comment on #{num}" if r.returncode == 0 else r.stderr.strip()[:200])
+        ok = r.returncode == 0
+    # close slate issues older than two days so the list stays short
+    old = subprocess.run(["gh", "issue", "list", "--repo", repo, "--state", "open", "--label", "slate", "--json", "number,title"], capture_output=True, text=True)
+    try:
+        for it in json.loads(old.stdout or "[]"):
+            d = it.get("title", "").replace("Slate ", "")
+            if d and (datetime.fromisoformat(date) - datetime.fromisoformat(d)).days >= 2:
+                subprocess.run(["gh", "issue", "close", str(it["number"]), "--repo", repo], capture_output=True, text=True)
+    except (json.JSONDecodeError, ValueError):
+        pass
+    return ok
+
+
 def send_discord(text: str) -> bool:
     import requests  # type: ignore
 
@@ -149,8 +191,9 @@ def main() -> None:
     ap.add_argument("--reason", default="update", help="t120 | morning | update | test (always sends)")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    if not a.dry_run and not (os.environ.get("DISCORD_WEBHOOK_URL") or os.environ.get("TELEGRAM_BOT_TOKEN")):
-        print("no notification channel configured (set DISCORD_WEBHOOK_URL or TELEGRAM_BOT_TOKEN)")
+    use_issue = os.environ.get("NOTIFY_GITHUB_ISSUE", "").lower() in ("1", "true", "yes")
+    if not a.dry_run and not (os.environ.get("DISCORD_WEBHOOK_URL") or os.environ.get("TELEGRAM_BOT_TOKEN") or use_issue):
+        print("no notification channel configured (set DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN, or NOTIFY_GITHUB_ISSUE=1)")
         return
     date = a.date or slate_today()
     p = load_payload(date)
@@ -169,6 +212,8 @@ def main() -> None:
         print(text)
         return
     ok = send_telegram(text) | send_discord(text)
+    if use_issue:
+        ok = send_github_issue(text, date, a.reason) | ok
     if not ok:
         sys.exit(0)
 
