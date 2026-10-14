@@ -48,7 +48,8 @@ def t120_for(day: str) -> datetime | None:
         import json as _json
         import urllib.request
 
-        with urllib.request.urlopen(f"https://api-web.nhle.com/v1/schedule/{day}", timeout=20) as r:
+        req = urllib.request.Request(f"https://api-web.nhle.com/v1/schedule/{day}", headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36", "Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=20) as r:
             data = _json.load(r)
         starts = []
         for wk in data.get("gameWeek", []):
