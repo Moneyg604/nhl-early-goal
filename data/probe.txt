@@ -1,135 +1,22 @@
-status 200 bytes 245133
-pageProps keys: ['slug', 'combinations', 'capSummary', 'stubData', 'sortedTeams', 'historyId']
-pageProps.slug = 'washington-capitals'
-pageProps.combinations: dict len=11
-pageProps.combinations.teamId = '30'
-pageProps.combinations.teamFantasydataId = '15'
-pageProps.combinations.teamName = 'Washington Capitals'
-pageProps.combinations.teamAbbreviation = 'WSH'
-pageProps.combinations.teamLogo = 'https://api.dailyfaceoff.com/uploads/team/logo/30/washington-capitals.png'
-pageProps.combinations.teamSlug = 'washington-capitals'
-pageProps.combinations.sourceName = 'Last Game (2026-10-13)'
-pageProps.combinations.source = 'https://www.naturalstattrick.com/game.php?season=20262027&game=20093'
-pageProps.combinations.updatedAt = '2026-10-14T14:00:16.285Z'
-pageProps.combinations.players: list len=41
-pageProps.combinations.players[0]: dict
-pageProps.combinations.players[0].playerId = '2739'
-pageProps.combinations.players[0].legacyId = '3148'
-pageProps.combinations.players[0].playerSlug = 'alex-tuch'
-pageProps.combinations.players[0].fantasydataId = '30002577'
-pageProps.combinations.players[0].fantasydataFaceUrl = 'https://bctn-data.s3.amazonaws.com/headshots/nhl/200x200/8/89fdc2bc-146f-4b21-81'
-pageProps.combinations.players[0].name = 'Alex Tuch'
-pageProps.combinations.players[0].rating = '73.3604217158804'
-pageProps.combinations.players[0].jerseyUrl = 'https://api.dailyfaceoff.com/uploads/player/jersey/2739/WSH_89_Tuch.png'
-pageProps.combinations.players[0].jerseyNumber = '89'
-pageProps.combinations.players[0].positionIdentifier = 'lw'
-pageProps.combinations.players[0].positionName = 'Left Wing'
-pageProps.combinations.players[0].positionRank = '49'
-pageProps.combinations.players[0].positionRankColor = '#fff2d0'
-pageProps.combinations.players[0].groupIdentifier = 'f1'
-pageProps.combinations.players[0].groupName = 'Forwards 1'
-pageProps.combinations.players[0].categoryIdentifier = 'ev'
-pageProps.combinations.players[0].categoryName = 'Even Strength'
-pageProps.combinations.players[0].injuryStatus = 'None'
-pageProps.combinations.players[0].gameTimeDecision = 'False'
-pageProps.combinations.players[0].cap: dict len=6
-pageProps.combinations.players[0].cap.capHit = '10500000'
-pageProps.combinations.players[0].cap.contractStart = '2027'
-pageProps.combinations.players[0].cap.contractLength = '8'
-pageProps.combinations.players[0].cap.contractExpiryYear = '2034'
-pageProps.combinations.players[0].cap.contractExpiresAs = 'UFA'
-pageProps.combinations.players[0].cap.puckpediaUrlId = 'alex-tuch'
-pageProps.combinations.players[0].latestNews: dict len=4
-pageProps.combinations.players[0].latestNews.id = '145248'
-pageProps.combinations.players[0].latestNews.createdAt = '2026-10-13T18:18:10.360-04:00'
-pageProps.combinations.players[0].latestNews.details = "Tuch (undisclosed) is on the ice for warmups; he's expected to play Tuesday. "
-pageProps.combinations.players[0].latestNews.fantasyDetails = ''
-pageProps.combinations.players[0].draftKingsSalary = '0'
-pageProps.combinations.players[0].fanDuelSalary = '0'
-pageProps.combinations.players[0].season: dict len=11
-pageProps.combinations.players[0].season.gamesPlayed = '6'
-pageProps.combinations.players[0].season.goals = '3'
-pageProps.combinations.players[0].season.assists = '0'
-pageProps.combinations.players[0].season.points = '3'
-pageProps.combinations.players[0].season.blocks = '5'
-pageProps.combinations.players[0].season.toiMinutes = '113'
-pageProps.combinations.players[0].season.toiSeconds = '13'
-pageProps.combinations.players[0].season.shots = '16'
-pageProps.combinations.players[0].season.powerplayGoals = '0'
-pageProps.combinations.players[0].season.powerplayAssists = '0'
-pageProps.combinations.players[0].season.powerplayPoints = '0'
-pageProps.combinations.players[0].last10: dict len=11
-pageProps.combinations.players[0].last10.gamesPlayed = '10'
-pageProps.combinations.players[0].last10.goals = '3'
-pageProps.combinations.players[0].last10.assists = '0'
-pageProps.combinations.players[0].last10.points = '3'
-pageProps.combinations.players[0].last10.blocks = '8'
-pageProps.combinations.players[0].last10.toiMinutes = '188'
-pageProps.combinations.players[0].last10.toiSeconds = '52'
-pageProps.combinations.players[0].last10.shots = '30'
-pageProps.combinations.players[0].last10.powerplayGoals = '0'
-pageProps.combinations.players[0].last10.powerplayAssists = '0'
-pageProps.combinations.players[0].last10.powerplayPoints = '0'
-pageProps.combinations.players[0].last5: dict len=11
-pageProps.combinations.players[0].last5.gamesPlayed = '5'
-pageProps.combinations.players[0].last5.goals = '1'
-pageProps.combinations.players[0].last5.assists = '0'
-pageProps.combinations.players[0].last5.points = '1'
-pageProps.combinations.players[0].last5.blocks = '4'
-pageProps.combinations.players[0].last5.toiMinutes = '96'
-pageProps.combinations.players[0].last5.toiSeconds = '35'
-pageProps.combinations.players[0].last5.shots = '13'
-pageProps.combinations.players[0].last5.powerplayGoals = '0'
-pageProps.combinations.players[0].last5.powerplayAssists = '0'
-pageProps.combinations.players[0].last5.powerplayPoints = '0'
-pageProps.combinations.players[0].alternateJerseyUrl = 'None'
-pageProps.combinations.lines: list len=13
-pageProps.combinations.lines[0]: dict
-pageProps.combinations.lines[0].groupIdentifier = 'd2'
-pageProps.combinations.lines[0].groupName = 'Defense 2'
-pageProps.combinations.lines[0].categoryIdentifier = 'ev'
-pageProps.combinations.lines[0].categoryName = 'Even Strength'
-pageProps.combinations.lines[0].rating = '73.2892480374966'
-pageProps.combinations.lines[0].rank = '19'
-pageProps.combinations.lines[0].rankColor = '#fff2d0'
-pageProps.capSummary: dict len=4
-pageProps.capSummary.team = 'washington-capitals'
-pageProps.capSummary.puckpediaUrl = 'https://puckpedia.com/team/washington-capitals'
-pageProps.capSummary.currentSeason: dict len=8
-pageProps.capSummary.currentSeason.year = '2027'
-pageProps.capSummary.currentSeason.label = '2026-27'
-pageProps.capSummary.currentSeason.projectedCapHit = '104714274'
-pageProps.capSummary.currentSeason.projectedCapSpace = '-714274'
-pageProps.capSummary.currentSeason.currentCapSpace = '3073228'
-pageProps.capSummary.currentSeason.activePlayers = '23'
-pageProps.capSummary.currentSeason.rosterLimit = '23'
-pageProps.capSummary.currentSeason.draftPicks: list len=3
-pageProps.capSummary.currentSeason.draftPicks[0]: dict
-pageProps.capSummary.currentSeason.draftPicks[0].round = '1'
-pageProps.capSummary.currentSeason.draftPicks[0].count = '1'
-pageProps.capSummary.nextSeason: dict len=8
-pageProps.capSummary.nextSeason.year = '2028'
-pageProps.capSummary.nextSeason.label = '2027-28'
-pageProps.capSummary.nextSeason.projectedCapHit = '111099583'
-pageProps.capSummary.nextSeason.projectedCapSpace = '2400417'
-pageProps.capSummary.nextSeason.currentCapSpace = '2400417'
-pageProps.capSummary.nextSeason.activePlayers = '21'
-pageProps.capSummary.nextSeason.rosterLimit = '23'
-pageProps.capSummary.nextSeason.draftPicks: list len=3
-pageProps.capSummary.nextSeason.draftPicks[0]: dict
-pageProps.capSummary.nextSeason.draftPicks[0].round = '1'
-pageProps.capSummary.nextSeason.draftPicks[0].count = '1'
-pageProps.stubData: dict len=4
-pageProps.stubData.metaTitle = 'Washington Capitals Line Combinations'
-pageProps.stubData.metaDescription = 'Check out the latest Washington Capitals lines for tonight. Complete Capitals li'
-pageProps.stubData.jsonLdSnippet = 'None'
-pageProps.stubData.content = '\n<h2>Washington Capitals Lines: Today&#8217;s Lineup and Analysis</h2>\n<div>We&#'
-pageProps.sortedTeams: list len=32
-pageProps.sortedTeams[0]: dict
-pageProps.sortedTeams[0].name = 'Anaheim Ducks'
-pageProps.sortedTeams[0].shortName = 'ANA'
-pageProps.sortedTeams[0].cityName = 'Anaheim'
-pageProps.sortedTeams[0].mascot = 'Ducks'
-pageProps.sortedTeams[0].slug = 'anaheim-ducks'
-pageProps.sortedTeams[0].division = 'Pacific'
-pageProps.historyId = '1791986416'
+GET https://peter-tanner.com/moneypuck/downloads/shots_2025.zip 200 20227303 bytes
+members: ['shots_2025.csv']
+columns (124):
+   shotID, arenaAdjustedShotDistance, arenaAdjustedXCord, arenaAdjustedXCordABS, arenaAdjustedYCord, arenaAdjustedYCordAbs, averageRestDifference, awayEmptyNet
+   awayPenalty1Length, awayPenalty1TimeLeft, awaySkatersOnIce, awayTeamCode, awayTeamGoals, defendingTeamAverageTimeOnIce, defendingTeamAverageTimeOnIceOfDefencemen, defendingTeamAverageTimeOnIceOfDefencemenSinceFaceoff
+   defendingTeamAverageTimeOnIceOfForwards, defendingTeamAverageTimeOnIceOfForwardsSinceFaceoff, defendingTeamAverageTimeOnIceSinceFaceoff, defendingTeamDefencemenOnIce, defendingTeamForwardsOnIce, defendingTeamMaxTimeOnIce, defendingTeamMaxTimeOnIceOfDefencemen, defendingTeamMaxTimeOnIceOfDefencemenSinceFaceoff
+   defendingTeamMaxTimeOnIceOfForwards, defendingTeamMaxTimeOnIceOfForwardsSinceFaceoff, defendingTeamMaxTimeOnIceSinceFaceoff, defendingTeamMinTimeOnIce, defendingTeamMinTimeOnIceOfDefencemen, defendingTeamMinTimeOnIceOfDefencemenSinceFaceoff, defendingTeamMinTimeOnIceOfForwards, defendingTeamMinTimeOnIceOfForwardsSinceFaceoff
+   defendingTeamMinTimeOnIceSinceFaceoff, distanceFromLastEvent, event, game_id, goal, goalieIdForShot, goalieNameForShot, homeEmptyNet
+   homePenalty1Length, homePenalty1TimeLeft, homeSkatersOnIce, homeTeamCode, homeTeamGoals, homeTeamWon, id, isHomeTeam
+   isPlayoffGame, lastEventCategory, lastEventShotAngle, lastEventShotDistance, lastEventTeam, lastEventxCord, lastEventxCord_adjusted, lastEventyCord
+   lastEventyCord_adjusted, location, offWing, period, playerNumThatDidEvent, playerNumThatDidLastEvent, playerPositionThatDidEvent, season
+   shooterLeftRight, shooterName, shooterPlayerId, shooterTimeOnIce, shooterTimeOnIceSinceFaceoff, shootingTeamAverageTimeOnIce, shootingTeamAverageTimeOnIceOfDefencemen, shootingTeamAverageTimeOnIceOfDefencemenSinceFaceoff
+   shootingTeamAverageTimeOnIceOfForwards, shootingTeamAverageTimeOnIceOfForwardsSinceFaceoff, shootingTeamAverageTimeOnIceSinceFaceoff, shootingTeamDefencemenOnIce, shootingTeamForwardsOnIce, shootingTeamMaxTimeOnIce, shootingTeamMaxTimeOnIceOfDefencemen, shootingTeamMaxTimeOnIceOfDefencemenSinceFaceoff
+   shootingTeamMaxTimeOnIceOfForwards, shootingTeamMaxTimeOnIceOfForwardsSinceFaceoff, shootingTeamMaxTimeOnIceSinceFaceoff, shootingTeamMinTimeOnIce, shootingTeamMinTimeOnIceOfDefencemen, shootingTeamMinTimeOnIceOfDefencemenSinceFaceoff, shootingTeamMinTimeOnIceOfForwards, shootingTeamMinTimeOnIceOfForwardsSinceFaceoff
+   shootingTeamMinTimeOnIceSinceFaceoff, shotAngle, shotAngleAdjusted, shotAnglePlusRebound, shotAnglePlusReboundSpeed, shotAngleReboundRoyalRoad, shotDistance, shotGeneratedRebound
+   shotGoalieFroze, shotOnEmptyNet, shotPlayContinuedInZone, shotPlayContinuedOutsideZone, shotPlayStopped, shotRebound, shotRush, shotType
+   shotWasOnGoal, speedFromLastEvent, team, teamCode, time, timeDifferenceSinceChange, timeSinceFaceoff, timeSinceLastEvent
+   timeUntilNextEvent, xCord, xCordAdjusted, xFroze, xGoal, xPlayContinuedInZone, xPlayContinuedOutsideZone, xPlayStopped
+   xRebound, xShotWasOnGoal, yCord, yCordAdjusted
+row: {'arenaAdjustedShotDistance': '38.0', 'awaySkatersOnIce': '5', 'awayTeamCode': 'CHI', 'event': 'SHOT', 'game_id': '20001', 'goal': '0', 'goalieNameForShot': 'Spencer Knight', 'homeSkatersOnIce': '5', 'homeTeamCode': 'FLA', 'isHomeTeam': '1', 'isPlayoffGame': '0', 'period': '1', 'playerPositionThatDidEvent': 'C', 'season': '2025', 'shooterName': 'Evan Rodrigues', 'shotDistance': '38.0131556175', 'shotGeneratedRebound': '0', 'shotOnEmptyNet': '0', 'shotRebound': '0', 'shotRush': '0', 'shotType': 'WRIST', 'teamCode': 'FLA', 'time': '76', 'xCordAdjusted': '58', 'xGoal': '0.0175103', 'yCordAdjusted': '22'}
+row: {'arenaAdjustedShotDistance': '59.0', 'awaySkatersOnIce': '5', 'awayTeamCode': 'CHI', 'event': 'SHOT', 'game_id': '20001', 'goal': '0', 'goalieNameForShot': 'Spencer Knight', 'homeSkatersOnIce': '5', 'homeTeamCode': 'FLA', 'isHomeTeam': '1', 'isPlayoffGame': '0', 'period': '1', 'playerPositionThatDidEvent': 'D', 'season': '2025', 'shooterName': 'Gustav Forsling', 'shotDistance': '59.1354377679', 'shotGeneratedRebound': '0', 'shotOnEmptyNet': '0', 'shotRebound': '0', 'shotRush': '0', 'shotType': 'SLAP', 'teamCode': 'FLA', 'time': '95', 'xCordAdjusted': '33', 'xGoal': '0.03672', 'yCordAdjusted': '19'}
+row: {'arenaAdjustedShotDistance': '45.0', 'awaySkatersOnIce': '5', 'awayTeamCode': 'CHI', 'event': 'MISS', 'game_id': '20001', 'goal': '0', 'goalieNameForShot': 'Sergei Bobrovsky', 'homeSkatersOnIce': '5', 'homeTeamCode': 'FLA', 'isHomeTeam': '0', 'isPlayoffGame': '0', 'period': '1', 'playerPositionThatDidEvent': 'C', 'season': '2025', 'shooterName': 'Connor Bedard', 'shotDistance': '44.687805943', 'shotGeneratedRebound': '0', 'shotOnEmptyNet': '0', 'shotRebound': '0', 'shotRush': '0', 'shotType': 'SNAP', 'teamCode': 'CHI', 'time': '104', 'xCordAdjusted': '55', 'xGoal': '0.0160305', 'yCordAdjusted': '-29'}
