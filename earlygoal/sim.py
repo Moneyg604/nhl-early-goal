@@ -48,6 +48,10 @@ class SimResult:
     fg_mean_away: float
     fg_over_55: float
     fg_over_65: float
+    fg_over_45: float                     # total >= 5 (shootout winner credited one goal, as books settle it)
+    home_over_15: float                   # home team scores 2+
+    away_over_15: float
+    p1_under_25: float                    # first period 2 goals or fewer
     fg_total_dist: list                   # P(total = k) for k in 0..10+
     median_score: tuple
     extras: dict = field(default_factory=dict)
@@ -155,6 +159,10 @@ def simulate(gm: GameModel, sims: int = 100_000, seed: int | None = None) -> Sim
         fg_mean_away=float(a.mean()),
         fg_over_55=float((total > 5.5).mean()),
         fg_over_65=float((total > 6.5).mean()),
+        fg_over_45=float((total > 4.5).mean()),
+        home_over_15=float((h >= 2).mean()),
+        away_over_15=float((a >= 2).mean()),
+        p1_under_25=float((p1t <= 2).mean()),
         fg_total_dist=tot_dist,
         median_score=(int(np.median(h)), int(np.median(a))),
         extras={

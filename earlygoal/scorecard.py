@@ -24,8 +24,8 @@ from pathlib import Path
 
 from .ingest import GameRecord
 
-MARKETS = ["u05_first5", "u05_first10", "p1_minus05", "p1_plus05", "p1_ml", "fg_ml", "fg_spread", "fg_over55"]
-TOP_KEYS = ["u05_first5", "u05_first10", "p1_plus05", "p1_minus05", "p1_ml", "fg_ml", "fg_spread"]
+MARKETS = ["u05_first5", "u05_first10", "p1_minus05", "p1_plus05", "p1_ml", "fg_ml", "fg_spread", "fg_over55", "fg_over45", "home_over15", "away_over15", "p1_under25"]
+TOP_KEYS = ["u05_first5", "u05_first10", "p1_plus05", "p1_minus05", "p1_ml", "fg_ml", "fg_spread", "fg_over45", "p1_under25", "team_over15"]
 
 
 def payload_from_page(path: Path) -> dict | None:
@@ -75,6 +75,11 @@ def score_game(row: dict, g: GameRecord) -> dict:
             "fg_over55": {"p": m["fg_total"]["over55"], "hit": int(hs + as_ > 5.5)},
         },
     }
+    if "fg_over45" in m:
+        out["markets"]["fg_over45"] = {"p": m["fg_over45"]["p"], "hit": int(hs + as_ > 4.5)}
+        out["markets"]["home_over15"] = {"pick": home, "p": m["home_over15"]["p"], "hit": int(hs >= 2)}
+        out["markets"]["away_over15"] = {"pick": away, "p": m["away_over15"]["p"], "hit": int(as_ >= 2)}
+        out["markets"]["p1_under25"] = {"p": m["p1_under25"]["p"], "hit": int(h1 + a1 <= 2)}
     return out
 
 
@@ -101,7 +106,9 @@ def update_scorecard(scorecard: dict | None, payloads: list[dict], records: dict
                 sg = day["games"].get(str(pk["game_id"]))
                 if sg is None:
                     continue
-                mk = sg["markets"][key]
+                mk = sg["markets"].get(pk.get("market") or key)
+                if mk is None:
+                    continue
                 scored.append({"matchup": pk["matchup"], "pick": pk.get("pick"), "p": pk["p"], "hit": mk["hit"]})
             if scored:
                 day["top"][key] = scored
@@ -119,7 +126,7 @@ def summarize(sc: dict) -> dict:
         day = sc["days"][date]
         for sg in day["games"].values():
             for k, v in sg["markets"].items():
-                a = agg[k]
+                a = agg.setdefault(k, {"n": 0, "hits": 0, "p_sum": 0.0, "brier": 0.0})
                 a["n"] += 1
                 a["hits"] += v["hit"]
                 a["p_sum"] += v["p"]

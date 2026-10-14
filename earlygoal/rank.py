@@ -86,6 +86,10 @@ def game_row(gm: GameModel, r: SimResult, odds: dict) -> dict:
                       "home_reg": round(r.fg_home_reg_win, 4), "away_reg": round(r.fg_away_reg_win, 4), "reg_tie": round(r.fg_reg_tie, 4)},
             "fg_spread": {"pick": m15_pick, "line": -1.5, **with_odds("fg_spread_m15", m15_p), "plus_pick": p15_pick, "plus_p": round(p15_p, 4)},
             "fg_total": {"mean": round(r.fg_mean_home + r.fg_mean_away, 3), "over55": round(r.fg_over_55, 4), "over65": round(r.fg_over_65, 4)},
+            "fg_over45": with_odds("fg_over45", r.fg_over_45),
+            "home_over15": {"pick": home, **with_odds("home_over15", r.home_over_15)},
+            "away_over15": {"pick": away, **with_odds("away_over15", r.away_over_15)},
+            "p1_under25": with_odds("p1_under25", r.p1_under_25),
         },
         "analytic": {"u05_first5": round(r.p_no_goal_5_analytic, 4), "u05_first10": round(r.p_no_goal_10_analytic, 4)},
         "mc_se": {"first5": round(r.mc_se_5, 5), "first10": round(r.mc_se_10, 5)},
@@ -132,6 +136,11 @@ def build_payload(rows: list[dict], date: str, lp_summary: dict, meta: dict) -> 
         "top": {
             "u05_first5": top("u05_first5"),
             "u05_first10": top("u05_first10"),
+            "fg_over45": top("fg_over45"),
+            "team_over15": sorted(
+                [{"matchup": x["matchup"], "pick": x["markets"][k]["pick"], "p": x["markets"][k]["p"], "tier": x["tier"], "game_id": x["game_id"], "market": k}
+                 for x in ab for k in ("home_over15", "away_over15")], key=lambda t: -t["p"])[:3],
+            "p1_under25": top("p1_under25"),
             "p1_plus05": top("p1_plus05"),
             "p1_minus05": top("p1_minus05"),
             "p1_ml": top("p1_ml"),

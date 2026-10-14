@@ -91,7 +91,8 @@ def run_backtest(
                     from .sim import simulate
                     r = simulate(gm, sims=sim_paths, seed=g.game_id % 100000)
                     row.update({"fg_home": r.fg_home_win, "p1_home": r.p1_home_win, "p1_tie": r.p1_tie, "p1_away": r.p1_away_win,
-                                "home_m15": r.fg_home_cover_m15, "away_m15": r.fg_away_cover_m15, "over55": r.fg_over_55})
+                                "home_m15": r.fg_home_cover_m15, "away_m15": r.fg_away_cover_m15, "over55": r.fg_over_55,
+                                "over45": r.fg_over_45, "home_o15": r.home_over_15, "away_o15": r.away_over_15, "p1_u25": r.p1_under_25})
                 rows.append(row)
             if verbose and len(rows) % 200 < len(slate):
                 print(f"  backtest through {d}: {len(rows)} games")
@@ -188,6 +189,15 @@ def summarize(rows: list[dict]) -> dict:
         out["fg_away_minus15"] = score("fg_away_minus15", [r["away_m15"] for r in rows], ya15, sum(ya15) / len(ya15))
         yo = [1.0 if (r["gh"] + r["ga"]) > 5.5 else 0.0 for r in rows]
         out["fg_over55"] = score("fg_over55", [r["over55"] for r in rows], yo, sum(yo) / len(yo))
+        if "over45" in rows[0]:
+            yo4 = [1.0 if (r["gh"] + r["ga"]) > 4.5 else 0.0 for r in rows]
+            out["fg_over45"] = score("fg_over45", [r["over45"] for r in rows], yo4, sum(yo4) / len(yo4))
+            yh2 = [1.0 if r["gh"] >= 2 else 0.0 for r in rows]
+            out["home_over15"] = score("home_over15", [r["home_o15"] for r in rows], yh2, sum(yh2) / len(yh2))
+            ya2 = [1.0 if r["ga"] >= 2 else 0.0 for r in rows]
+            out["away_over15"] = score("away_over15", [r["away_o15"] for r in rows], ya2, sum(ya2) / len(ya2))
+            y1u = [1.0 if (r["gh1"] + r["ga1"]) <= 2 else 0.0 for r in rows]
+            out["p1_under25"] = score("p1_under25", [r["p1_u25"] for r in rows], y1u, sum(y1u) / len(y1u))
         y1h = [1.0 if r["gh1"] > r["ga1"] else 0.0 for r in rows]
         out["p1_home_win"] = score("p1_home_win", [r["p1_home"] for r in rows], y1h, sum(y1h) / len(y1h))
         y1a = [1.0 if r["ga1"] > r["gh1"] else 0.0 for r in rows]

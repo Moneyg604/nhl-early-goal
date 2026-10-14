@@ -68,6 +68,7 @@ h2 small{font-family:var(--body);font-weight:500;font-size:12.5px;letter-spacing
 @media (max-width:480px){.tally{display:flex;flex-direction:column;gap:0;margin-top:8px;border:1px solid var(--line);border-radius:10px;overflow:hidden}.tally div{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 10px;border:0;border-top:1px solid var(--line);border-radius:0;background:rgba(7,11,18,.5)}.tally div:first-child{border-top:0}.tally .k{font-size:11px;letter-spacing:.02em;text-transform:none;color:var(--muted);white-space:nowrap}.tally .r{display:flex;align-items:baseline;gap:6px;white-space:nowrap}.tally .v{font-size:17px}.tally .v .p{margin:0 4px 0 2px;font-size:12px}.tally .sub{margin:0;font-size:10.5px}}
 .rbtn{background:var(--panel);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:5px 10px;font-size:12px;font-family:inherit;cursor:pointer;margin-left:auto}
 .rbtn:disabled{opacity:.6;cursor:default}
+.abtn{background:var(--panel);border:1px solid var(--ice);color:var(--ice);border-radius:8px;padding:6px 12px;font-size:12.5px;font-family:inherit;cursor:pointer}
 
 /* featured + price */
 .feature{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;margin-bottom:14px}
@@ -203,6 +204,25 @@ svg text{font-family:var(--body)}
 .daylist{display:flex;flex-wrap:wrap;gap:8px}
 .daylist a{display:inline-block;border:1px solid var(--line2);border-radius:8px;padding:6px 10px;color:var(--text);text-decoration:none;font-size:13px}
 .daylist a.now{border-color:var(--ice);color:var(--ice)}
+.chg{border:1px solid var(--line2);background:var(--panel);border-radius:12px;padding:10px 14px;margin:0 0 12px;font-size:13px}
+.chg b{color:var(--text)}.chg ul{margin:6px 0 0;padding-left:18px;color:var(--muted)}.chg li{margin:2px 0}.chg .kind{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 5px;margin-right:6px;text-transform:uppercase;background:rgba(94,200,255,.12);color:var(--ice)}
+.chg .kind.goalie,.chg .kind.status{background:rgba(243,182,58,.14);color:var(--amber)}.chg .kind.slate{background:rgba(255,107,107,.14);color:var(--red)}
+.legs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin:8px 0}
+.leg{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:13px;cursor:pointer;user-select:none}
+.leg.on{border-color:var(--ice);background:rgba(94,200,255,.06)}
+.leg .p{margin-left:auto;font-family:var(--display);font-size:18px;font-weight:700;color:var(--green)}
+.leg input[type=checkbox]{accent-color:var(--ice);width:16px;height:16px}
+.slip{background:var(--panel2);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;margin-top:8px}
+.slip .big{font-family:var(--display);font-size:34px;font-weight:800;line-height:1}
+.slip .row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;margin-top:6px;font-size:13px;color:var(--muted)}
+.slip input{width:92px;background:#0a1017;border:1px solid var(--line2);color:var(--text);border-radius:8px;padding:6px 8px;font-size:14px;font-family:inherit}
+.slip .warn{color:var(--amber);font-size:12.5px;margin-top:6px}
+.sim .row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;color:var(--muted);margin-bottom:8px}
+.sim select,.sim input{background:#0a1017;border:1px solid var(--line2);color:var(--text);border-radius:8px;padding:6px 8px;font-size:13px;font-family:inherit}
+.sim input{width:84px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}
+.kpis div{background:rgba(7,11,18,.5);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kpis .k{display:block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.kpis .v{font-family:var(--display);font-size:22px;font-weight:700}
 .fs{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;white-space:nowrap}
 .fs.model{color:var(--ice);background:rgba(94,200,255,.12)}.fs.validated{color:var(--green);background:rgba(61,220,132,.12)}.fs.shown{color:var(--amber);background:rgba(243,182,58,.12)}.fs.unavailable{color:var(--red);background:rgba(255,107,107,.12)}
 details.dossier{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;padding:0 14px}
@@ -259,6 +279,7 @@ __STATIC__
 
 <section class="tab on" id="tab-today">
   <div class="status" id="status"></div>
+  <div id="changes"></div>
   <div class="livebar" id="livebar"></div>
   <div class="feature" id="feature"></div>
   <div class="toolbar" id="toolbar"></div>
@@ -277,17 +298,22 @@ __STATIC__
 
 <section class="tab" id="tab-picks">
   <p class="lead">The three strongest games in each market, ranked by the model's probability. Each card says whether the backtest found that ranking games this way actually works.</p>
+  <div class="panel" id="parlay"></div>
   <h2>Early goal <small>under 0.5 goals from the opening faceoff</small></h2>
   <div class="groups" id="picks-early"></div>
   <h2>First period</h2>
   <div class="groups" id="picks-p1"></div>
   <h2>Full game</h2>
   <div class="groups" id="picks-fg"></div>
+  <h2>Totals and team goals <small>the markets that cleared break-even at 1.40 in the two-season flat-bet test</small></h2>
+  <div class="groups" id="picks-tot"></div>
 </section>
 
 <section class="tab" id="tab-results">
   <div id="results-live"></div>
   <div id="results-track"></div>
+  <div class="panel" id="mybets"></div>
+  <div class="panel" id="simulator"></div>
   <div class="panel"><h3>All slates</h3><p>Days ahead show projected starters until game day; past days keep the numbers that were on the page.</p><div class="daylist" id="daylist"></div></div>
 </section>
 
@@ -405,6 +431,11 @@ function outcomes(g){
   o.fg_ml = L.final ? (dg(m.fg_ml.pick)>0 ? 'hit' : 'miss') : 'pending';
   o.fg_spread = L.final ? (dg(m.fg_spread.pick)>=2 ? 'hit' : 'miss') : 'pending';
   o.fg_over55 = L.final ? ((L.home_score + L.away_score)>5.5 ? 'over' : 'under') : 'pending';
+  const tot = L.home_score + L.away_score;
+  o.fg_over45 = tot >= 5 ? 'hit' : (L.final ? 'miss' : 'pending');
+  o.home_over15 = L.home_score >= 2 ? 'hit' : (L.final ? 'miss' : 'pending');
+  o.away_over15 = L.away_score >= 2 ? 'hit' : (L.final ? 'miss' : 'pending');
+  if (m.p1_under25) o.p1_under25 = (L.p1_home + L.p1_away) >= 3 ? 'miss' : (L.p1_done ? 'hit' : 'pending');
   return o;
 }
 const RES = {hit:'✓', miss:'✗', tie:'tie', pending:'…', over:'over', under:'under'};
@@ -425,9 +456,10 @@ function liveChip(g){
   if (L.state==='PRE') return `<span class="lv pre">warm-up</span>`;
   return '';
 }
-const MARKET_NAMES = {u05_first5:'Under 0.5 · first 5 min', u05_first10:'Under 0.5 · first 10 min', p1_minus05:'1P −0.5 pick', p1_plus05:'1P +0.5 pick', p1_ml:'1P moneyline pick', fg_ml:'FG moneyline pick', fg_spread:'FG −1.5 pick', fg_over55:'FG over 5.5'};
+const MARKET_NAMES = {u05_first5:'Under 0.5 · first 5 min', u05_first10:'Under 0.5 · first 10 min', p1_minus05:'1P −0.5 pick', p1_plus05:'1P +0.5 pick', p1_ml:'1P moneyline pick', fg_ml:'FG moneyline pick', fg_spread:'FG −1.5 pick', fg_over45:'FG over 4.5', home_over15:'Home team over 1.5', away_over15:'Away team over 1.5', p1_under25:'1P under 2.5', fg_over55:'FG over 5.5', team_over15:'Team over 1.5 pick'};
+const HAS_NEW = !!(P.games[0] && P.games[0].markets.fg_over45);
 function tallies(){
-  const keys = Object.keys(MARKET_NAMES).filter(k=>k!=='fg_over55');
+  const keys = Object.keys(MARKET_NAMES).filter(k=>k!=='fg_over55' && k!=='team_over15' && (HAS_NEW || !['fg_over45','home_over15','away_over15','p1_under25'].includes(k)));
   const t = {}; let started=0, finals=0;
   P.games.forEach(g=>{ const o=outcomes(g); if(!o||!o.started) return; started++; const L=liveFor(g); if(L.final) finals++;
     keys.forEach(k=>{ const x = t[k] = t[k]||{hit:0,miss:0,tie:0,pending:0}; x[o[k]] = (x[o[k]]||0)+1; }); });
@@ -452,9 +484,9 @@ function renderLiveBar(){
   const head = `<div class="lhd">${finals<P.games.length?'<span class="pulse"></span>':''}<b>${finals===P.games.length?'Final results':'Live results'}</b>${summary}</div>`;
   bar.innerHTML = head + tallyHtml(); bar.style.display='block';
   rl.innerHTML = `<div class="panel"><h3>${finals===P.games.length?niceDate(P.date)+', final':niceDate(P.date)+', so far'}</h3><div class="lhd">${summary}</div>${tallyHtml()}
-    <div class="gap tbl"><table class="num"><thead><tr><th>game</th><th>status</th><th>first 5</th><th>first 10</th><th>1P −0.5</th><th>1P +0.5</th><th>1P ML</th><th>FG ML</th><th>FG −1.5</th></tr></thead><tbody>
+    <div class="gap tbl"><table class="num"><thead><tr><th>game</th><th>status</th><th>first 5</th><th>first 10</th><th>1P −0.5</th><th>1P +0.5</th><th>1P ML</th><th>FG ML</th><th>FG −1.5</th>${HAS_NEW?'<th>O4.5</th><th>Home 2+</th><th>Away 2+</th><th>1P U2.5</th>':''}</tr></thead><tbody>
     ${P.games.filter(g=>outcomes(g)&&outcomes(g).started).map(g=>{ const o=outcomes(g); const L=liveFor(g); const c=k=>`<span class="res ${o[k]}">${RES[o[k]]}</span>`;
-      return `<tr><td>${esc(g.matchup)}</td><td>${L.final?('FINAL '+L.away_score+'-'+L.home_score+(L.ended_in&&L.ended_in!=='REG'?' ('+L.ended_in+')':'')):(esc(clockTxt(L))+' · '+L.away_score+'-'+L.home_score)}</td><td>${c('u05_first5')}</td><td>${c('u05_first10')}</td><td>${esc(g.markets.p1_minus05.pick)} ${c('p1_minus05')}</td><td>${esc(g.markets.p1_plus05.pick)} ${c('p1_plus05')}</td><td>${esc(g.markets.p1_ml.pick)} ${c('p1_ml')}</td><td>${esc(g.markets.fg_ml.pick)} ${c('fg_ml')}</td><td>${esc(g.markets.fg_spread.pick)} ${c('fg_spread')}</td></tr>`; }).join('')}
+      return `<tr><td>${esc(g.matchup)}</td><td>${L.final?('FINAL '+L.away_score+'-'+L.home_score+(L.ended_in&&L.ended_in!=='REG'?' ('+L.ended_in+')':'')):(esc(clockTxt(L))+' · '+L.away_score+'-'+L.home_score)}</td><td>${c('u05_first5')}</td><td>${c('u05_first10')}</td><td>${esc(g.markets.p1_minus05.pick)} ${c('p1_minus05')}</td><td>${esc(g.markets.p1_plus05.pick)} ${c('p1_plus05')}</td><td>${esc(g.markets.p1_ml.pick)} ${c('p1_ml')}</td><td>${esc(g.markets.fg_ml.pick)} ${c('fg_ml')}</td><td>${esc(g.markets.fg_spread.pick)} ${c('fg_spread')}</td>${HAS_NEW?`<td>${c('fg_over45')}</td><td>${c('home_over15')}</td><td>${c('away_over15')}</td><td>${c('p1_under25')}</td>`:''}</tr>`; }).join('')}
     </tbody></table></div></div>`;
 }
 let loading = false;
@@ -463,7 +495,7 @@ function loadLive(){
   if (loading) return Promise.resolve();
   loading = true; setRefreshState('Refreshing…', true);
   const tryUrl = u => fetch(u + '?t=' + Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(r.status));
-  const apply = L => { LIVE=L; renderLiveBar(); render(); renderFeature(); renderPicks(); };
+  const apply = L => { LIVE=L; renderLiveBar(); render(); renderFeature(); renderPicks(); if(typeof renderParlay==='function') renderParlay(); if(typeof renderBets==='function') renderBets(); };
   return fetchScoreboard().then(sb=>{ const L=liveFromScoreboard(sb); if(L){ apply(L); return true; } return false; }).catch(()=>false)
     .then(ok=>{ if(ok) return true; return tryUrl('./live.json').catch(()=>tryUrl('../live.json')).then(j=>{ if(j && j.games && j.date===P.date){ apply(j); return true; } return false; }).catch(()=>false); })
     .then(ok=>{ if(ok) return; return tryUrl('./scorecard.json').catch(()=>tryUrl('../scorecard.json')).then(sc=>{ const L=liveFromScorecard(sc); if(L) apply(L); }).catch(()=>{}); })
@@ -482,12 +514,25 @@ setInterval(()=>{ if(!document.hidden && !(LIVE && LIVE.source==='scoreboard')) 
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) loadLive(); });
 
 // ---------------------------------------------------------------- price check (stays in the browser)
-let userPrice5 = null, userPrice10 = null;
-try{ userPrice5 = parseFloat(localStorage.getItem('egd_price5'))||null; userPrice10 = parseFloat(localStorage.getItem('egd_price10'))||null; }catch(e){}
-const ps5 = P.games.map(g=>g.markets.u05_first5.p), lo5=Math.min(...ps5), hi5=Math.max(...ps5);
-const ps10 = P.games.map(g=>g.markets.u05_first10.p), lo10=Math.min(...ps10), hi10=Math.max(...ps10);
+// One price per market for the whole slate (books move these little between games); EV is shown per game.
+const PRICE_DEFS = [
+  {k:'u05_first5',  t:'Under 0.5 · first 5 min', ph:'e.g. 1.44', ps:g=>[g.markets.u05_first5.p]},
+  {k:'u05_first10', t:'Under 0.5 · first 10 min', ph:'e.g. 2.20', ps:g=>[g.markets.u05_first10.p]},
+  {k:'fg_over45',   t:'Game over 4.5', ph:'e.g. 1.40', ps:g=>[g.markets.fg_over45.p], only:HAS_NEW},
+  {k:'team_over15', t:'Team over 1.5 (either side)', ph:'e.g. 1.40', ps:g=>[g.markets.home_over15.p, g.markets.away_over15.p], only:HAS_NEW},
+  {k:'p1_under25',  t:'1P under 2.5', ph:'e.g. 1.30', ps:g=>[g.markets.p1_under25.p], only:HAS_NEW},
+].filter(d=>d.only!==false);
+const PRICES = {};
+try{ PRICE_DEFS.forEach(d=>{ const v=parseFloat(localStorage.getItem('egd_price_'+d.k)); if(v>1) PRICES[d.k]=v; });
+     if(!PRICES.u05_first5){ const v=parseFloat(localStorage.getItem('egd_price5')); if(v>1) PRICES.u05_first5=v; }
+     if(!PRICES.u05_first10){ const v=parseFloat(localStorage.getItem('egd_price10')); if(v>1) PRICES.u05_first10=v; } }catch(e){}
+const priceKeyOf = {u05_first5:'u05_first5', u05_first10:'u05_first10', fg_over45:'fg_over45', home_over15:'team_over15', away_over15:'team_over15', p1_under25:'p1_under25'};
+// a market object with the user's price and EV folded in (book-supplied odds, if any, win)
+function withPrice(mobj, marketKey){ const m=Object.assign({}, mobj); const pk=priceKeyOf[marketKey]; const price=pk?PRICES[pk]:null; if(m.edge==null && price){ m.book=price; m.edge=m.p*price-1; } return m; }
+const RANGE = {}; PRICE_DEFS.forEach(d=>{ const all=P.games.flatMap(d.ps); RANGE[d.k]={lo:Math.min(...all), hi:Math.max(...all)}; });
+const lo5=RANGE.u05_first5.lo, hi5=RANGE.u05_first5.hi;
 function verdict(price, lo, hi){
-  if(!price||price<=1) return 'Enter the price your book offers and this shows whether it beats the model.';
+  if(!price||price<=1) return '';
   const be=1/price, evLo=lo*price-1, evHi=hi*price-1; const c = evHi<0?'neg':(evLo>0?'pos':'');
   return `Break-even <b>${pct(be)}</b>. Across this slate the model's EV is <b class="${c}">${(evLo*100).toFixed(1)}% to ${(evHi*100).toFixed(1)}%</b> per unit.`;
 }
@@ -500,27 +545,26 @@ function renderFeature(){
       ${AHEAD>0?`<div class="ru">Projected starters; re-check on game day once goalies are confirmed.</div>`:''}
       ${potd.runner_up?`<div class="ru">runner-up ${esc(potd.runner_up.matchup)} ${pct(potd.runner_up.p)} ${tier(potd.runner_up.tier)}</div>`:''}
       <div class="ru">The spread between games is within noise; the price is what decides whether this bet is worth placing.</div></div>` : '') +
-    `<div class="card price"><h3>Price check</h3>
-      <label>Under 0.5 · first 5 min <input id="price5" type="number" step="0.01" min="1.01" placeholder="e.g. 1.30" value="${userPrice5||''}"></label>
-      <div class="verdict">${verdict(userPrice5, lo5, hi5)}</div>
-      <label>Under 0.5 · first 10 min <input id="price10" type="number" step="0.01" min="1.01" placeholder="e.g. 1.90" value="${userPrice10||''}"></label>
-      <div class="verdict">${verdict(userPrice10, lo10, hi10)}</div></div>`;
-  const bind=(id,setter,key)=>{const el=document.getElementById(id); if(!el) return; el.onchange=el.onkeyup=()=>{const v=parseFloat(el.value);setter(v>1?v:null);try{localStorage.setItem(key,v>1?String(v):'');}catch(e){} renderFeature(); render(); document.getElementById(id).focus();};};
-  bind('price5',v=>userPrice5=v,'egd_price5'); bind('price10',v=>userPrice10=v,'egd_price10');
+    `<div class="card price"><h3>Price check <span class="t" style="text-transform:none;letter-spacing:0">· prices stay on this device</span></h3>
+      <div class="verdict" style="margin:0 0 6px">Type what your book pays and every game shows its EV at that price.</div>
+      ${PRICE_DEFS.map(d=>{ const v=verdict(PRICES[d.k], RANGE[d.k].lo, RANGE[d.k].hi); return `<label>${d.t} <input id="price_${d.k}" type="number" inputmode="decimal" step="0.01" min="1.01" placeholder="${d.ph}" value="${PRICES[d.k]||''}"></label>${v?`<div class="verdict">${v}</div>`:''}`; }).join('')}</div>`;
+  PRICE_DEFS.forEach(d=>{ const el=document.getElementById('price_'+d.k); if(!el) return;
+    el.onchange=el.onkeyup=()=>{ const v=parseFloat(el.value); if(v>1) PRICES[d.k]=v; else delete PRICES[d.k]; try{localStorage.setItem('egd_price_'+d.k, v>1?String(v):'');}catch(e){}
+      renderFeature(); render(); if(typeof renderParlay==='function') renderParlay(); const e2=document.getElementById('price_'+d.k); if(e2) e2.focus(); }; });
 }
 
 // ---------------------------------------------------------------- game list
 const cols = [
   {k:'rank', h:'#', u:'rank', v:g=>g.rank_u05_first5, r:g=>`<span class="num t">${g.rank_u05_first5}</span>`},
   {k:'matchup', h:'Matchup', u:'away @ home · ET · goalies', l:true, sticky:true, v:g=>g.game_id, r:g=>`<span style="font-weight:700">${esc(g.matchup)}</span> ${tier(g.tier)} <span class="t">${esc(g.time_et)}</span><div>${liveChip(g)}</div>`+['away','home'].map(s=>{const q=g.goalies[s];return `<div class="goalie"><span class="dot ${q.status}"></span>${esc(q.name||'unknown')} <span class="t">${q.sv_shrunk?('.'+String(q.sv_shrunk.toFixed(3)).slice(2)):''} ${esc(q.status)}</span></div>`}).join('')},
-  {k:'u5', m:'u05_first5', h:'Under 0.5 · first 5', u:'no goal · fair', v:g=>g.markets.u05_first5.p, r:g=>{const m=Object.assign({},g.markets.u05_first5); if(m.edge==null&&userPrice5){m.book=userPrice5;m.edge=m.p*userPrice5-1;} return `<span class="pct num ${cls(m.p,0.70,0.64)}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first5')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
-  {k:'u10', m:'u05_first10', h:'Under 0.5 · first 10', u:'no goal · fair', v:g=>g.markets.u05_first10.p, r:g=>{const m=Object.assign({},g.markets.u05_first10); if(m.edge==null&&userPrice10){m.book=userPrice10;m.edge=m.p*userPrice10-1;} return `<span class="pct num ${cls(m.p,0.47,0.42)}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first10')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
+  {k:'u5', m:'u05_first5', h:'Under 0.5 · first 5', u:'no goal · fair', v:g=>g.markets.u05_first5.p, r:g=>{const m=withPrice(g.markets.u05_first5,'u05_first5'); return `<span class="pct num ${cls(m.p,0.70,0.64)}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first5')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
+  {k:'u10', m:'u05_first10', h:'Under 0.5 · first 10', u:'no goal · fair', v:g=>g.markets.u05_first10.p, r:g=>{const m=withPrice(g.markets.u05_first10,'u05_first10'); return `<span class="pct num ${cls(m.p,0.47,0.42)}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first10')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
   {k:'p1m', m:'p1_minus05', h:'1P −0.5', u:'pick · cover', v:g=>g.markets.p1_minus05.p, r:g=>{const m=g.markets.p1_minus05;return `<span class="pick">${esc(m.pick)}</span><span class="num">${pct(m.p)}</span>${mark(g,'p1_minus05')}`}},
   {k:'p1p', m:'p1_plus05', h:'1P +0.5', u:'pick · cover', v:g=>g.markets.p1_plus05.p, r:g=>{const m=g.markets.p1_plus05;return `<span class="pick">${esc(m.pick)}</span><span class="num ${cls(m.p,0.66,0.60)}">${pct(m.p)}</span>${mark(g,'p1_plus05')}`}},
   {k:'p1ml', m:'p1_ml', h:'1P ML', u:'home / tie / away', v:g=>g.markets.p1_ml.p, r:g=>{const m=g.markets.p1_ml;return `<span class="pick">${esc(m.pick)}</span><span class="num">${pct(m.p)}</span>${mark(g,'p1_ml')}<div class="t num">${(m.home*100).toFixed(0)} / ${(m.tie*100).toFixed(0)} / ${(m.away*100).toFixed(0)}%</div>`}},
-  {k:'fgml', m:'fg_ml', h:'FG ML', u:'incl. OT/SO', v:g=>g.markets.fg_ml.p, r:g=>{const m=g.markets.fg_ml;return `<span class="pick">${esc(m.pick)}</span><span class="num ${cls(m.p,0.60,0.54)}">${pct(m.p)}</span>${mark(g,'fg_ml')}`}},
+  {k:'fgml', m:'fg_ml', h:'FG ML', u:'incl. OT/SO · team 2+', v:g=>g.markets.fg_ml.p, r:g=>{const m=g.markets.fg_ml;return `<span class="pick">${esc(m.pick)}</span><span class="num ${cls(m.p,0.60,0.54)}">${pct(m.p)}</span>${mark(g,'fg_ml')}${HAS_NEW?`<div class="t num">${esc(g.away)} 2+ ${pct(g.markets.away_over15.p)}${mark(g,'away_over15')} · ${esc(g.home)} 2+ ${pct(g.markets.home_over15.p)}${mark(g,'home_over15')}</div>`:''}`}},
   {k:'fgs', m:'fg_spread', h:'FG spread', u:'−1.5 cover · +1.5', v:g=>g.markets.fg_spread.p, r:g=>{const m=g.markets.fg_spread;return `<span class="pick">${esc(m.pick)} −1.5</span><span class="num">${pct(m.p)}</span>${mark(g,'fg_spread')}<div class="t num">${esc(m.plus_pick)} +1.5 ${pct(m.plus_p)}</div>`}},
-  {k:'proj', h:'Projected', u:'home – away · O5.5', v:g=>g.projected.home+g.projected.away, r:g=>`<span class="num">${g.projected.home.toFixed(1)} – ${g.projected.away.toFixed(1)}</span><div class="t num">O5.5 ${pct(g.markets.fg_total.over55)}${mark(g,'fg_over55')}</div>`},
+  {k:'proj', h:'Projected', u:'home – away · totals', v:g=>g.projected.home+g.projected.away, r:g=>`<span class="num">${g.projected.home.toFixed(1)} – ${g.projected.away.toFixed(1)}</span><div class="t num">${HAS_NEW?`O4.5 ${pct(g.markets.fg_over45.p)}${mark(g,'fg_over45')} · `:''}O5.5 ${pct(g.markets.fg_total.over55)}${mark(g,'fg_over55')}</div>`},
 ];
 let sortKey='rank', sortDir=1, tierFilter='ALL', open=new Set();
 const thead=document.querySelector('#tbl thead'), tbody=document.querySelector('#tbl tbody');
@@ -605,9 +649,7 @@ P(no goal, first 10) = exp(-${s10.toFixed(4)}) = ${Math.exp(-s10).toFixed(4)}   
   </div></div>`;
 }
 function card(g){
-  const m=g.markets, u5=Object.assign({},m.u05_first5), u10=Object.assign({},m.u05_first10);
-  if(u5.edge==null&&userPrice5){u5.book=userPrice5;u5.edge=u5.p*userPrice5-1;}
-  if(u10.edge==null&&userPrice10){u10.book=userPrice10;u10.edge=u10.p*userPrice10-1;}
+  const m=g.markets, u5=withPrice(m.u05_first5,'u05_first5'), u10=withPrice(m.u05_first10,'u05_first10');
   const gl=['away','home'].map(s=>{const q=g.goalies[s];return `<span><span class="dot ${q.status}"></span>${esc(q.name||'unknown')} <span class="t">${q.sv_shrunk?('.'+String(q.sv_shrunk.toFixed(3)).slice(2)):''} ${esc(q.status)}</span></span>`}).join('');
   const chip = liveChip(g);
   const o = outcomes(g), oc = k => (o && o.started && o[k]) ? ' o-'+o[k] : '';
@@ -626,6 +668,10 @@ function card(g){
       <div class="${oc('fg_ml')}"><span class="k">FG ML</span><span class="v"><span class="pick">${esc(m.fg_ml.pick)}</span><span class="num">${pct(m.fg_ml.p)}</span>${mark(g,'fg_ml')}</span></div>
       <div class="${oc('fg_spread')}"><span class="k">FG −1.5</span><span class="v"><span class="pick">${esc(m.fg_spread.pick)}</span><span class="num">${pct(m.fg_spread.p)}</span>${mark(g,'fg_spread')}</span><span class="s num">${esc(m.fg_spread.plus_pick)} +1.5 ${pct(m.fg_spread.plus_p)}</span></div>
       <div class="pj"><span class="k">Projected</span><span class="v num">${g.projected.home.toFixed(1)}–${g.projected.away.toFixed(1)}</span><span class="s num">O5.5 ${pct(m.fg_total.over55)}${mark(g,'fg_over55')}</span></div>
+      ${HAS_NEW?`<div class="${oc('fg_over45')}"><span class="k">Over 4.5</span><span class="v num ${cls(m.fg_over45.p,0.78,0.72)}">${pct(m.fg_over45.p)}${mark(g,'fg_over45')}</span><span class="s num">fair ${m.fg_over45.fair?m.fg_over45.fair.toFixed(2):'n/a'} ${edge(withPrice(m.fg_over45,'fg_over45'))}</span></div>
+      <div class="${oc('home_over15')}"><span class="k">${esc(g.home)} over 1.5</span><span class="v num ${cls(m.home_over15.p,0.82,0.76)}">${pct(m.home_over15.p)}${mark(g,'home_over15')}</span><span class="s num">fair ${m.home_over15.fair?m.home_over15.fair.toFixed(2):'n/a'} ${edge(withPrice(m.home_over15,'home_over15'))}</span></div>
+      <div class="${oc('away_over15')}"><span class="k">${esc(g.away)} over 1.5</span><span class="v num ${cls(m.away_over15.p,0.78,0.72)}">${pct(m.away_over15.p)}${mark(g,'away_over15')}</span><span class="s num">fair ${m.away_over15.fair?m.away_over15.fair.toFixed(2):'n/a'} ${edge(withPrice(m.away_over15,'away_over15'))}</span></div>
+      <div class="${oc('p1_under25')}"><span class="k">1P under 2.5</span><span class="v num ${cls(m.p1_under25.p,0.76,0.70)}">${pct(m.p1_under25.p)}${mark(g,'p1_under25')}</span><span class="s num">fair ${m.p1_under25.fair?m.p1_under25.fair.toFixed(2):'n/a'} ${edge(withPrice(m.p1_under25,'p1_under25'))}</span></div>`:''}
     </div>
     <div class="more"><button data-more="${g.game_id}">${isOpen?'Hide inputs':'Inputs & arithmetic'}</button></div>
     ${isOpen?`<div class="dt">${details(g)}</div>`:''}
@@ -650,8 +696,12 @@ document.getElementById('sortsel').onchange=(e)=>{sortKey=e.target.value;sortDir
 
 // ---------------------------------------------------------------- backtest verdicts (shared by the Research, Picks and About tabs)
 // 'beats': clearly below the league constant; 'marginal': below it by less than 0.2% (real but too small to rank games on); 'none'.
-function verdictOf(v){ if(!v) return null; const c = v.logloss_baseline!=null ? v.logloss_baseline : v.logloss_constant; if(c==null) return null; const rel=(c-v.logloss_model)/c; return rel<=0 ? 'none' : (rel<0.002 ? 'marginal' : 'beats'); }
-const VERDICT_TXT = {beats:'beats constant', marginal:'marginal', none:'no edge'}, VERDICT_CLS = {beats:'ok', marginal:'no', none:'no'};
+// 'ranks': the ordering separates outcomes (top 20% vs bottom 20% of model probabilities differ by 4+ points) but the probability level
+// missed the season's rate, so log loss did not beat the constant. Trust the order more than the number there.
+function verdictOf(v){ if(!v) return null; const c = v.logloss_baseline!=null ? v.logloss_baseline : v.logloss_constant; if(c==null) return null; const rel=(c-v.logloss_model)/c;
+  if(rel>=0.002) return 'beats'; if(rel>0) return 'marginal'; const sep=(v.top_quintile_actual||0)-(v.bottom_quintile_actual||0); return sep>=0.04 ? 'ranks' : 'none'; }
+const VERDICT_TXT = {beats:'beats constant', marginal:'marginal', ranks:'ranks games, level off', none:'no edge'}, VERDICT_CLS = {beats:'ok', marginal:'no', ranks:'no', none:'no'};
+const levelNote = v => { const a=v.actual!=null?v.actual:v.actual_rate, p=v.mean_pred; return (a!=null&&p!=null) ? `level ${((p-a)*100).toFixed(1)>0?'+':''}${((p-a)*100).toFixed(1)} pts vs the season` : ''; };
 
 // ---------------------------------------------------------------- research tab
 const R = P.research || null;
@@ -663,7 +713,7 @@ function renderResearch(){
   const qs = P.games.flatMap(g=>[g.goalies.home,g.goalies.away]); const conf = qs.filter(q=>q.status==='confirmed').length;
   const times = qs.map(q=>(q.note||'').match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|\d{2}:\d{2}) UTC/)).filter(Boolean).map(x=>x[1]);
   const VNS = M.validation || {};
-  const vline = (k, lab) => { const v=VNS[k]; if(!v) return ''; const vd=verdictOf(v); return `<tr><td>${lab}</td><td class="num">${v.logloss_model.toFixed(4)}</td><td class="num">${(v.logloss_baseline!=null?v.logloss_baseline:v.logloss_constant).toFixed(4)}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td></tr>`; };
+  const vline = (k, lab) => { const v=VNS[k]; if(!v) return ''; const vd=verdictOf(v); return `<tr><td>${lab}</td><td class="num">${v.logloss_model.toFixed(4)}</td><td class="num">${(v.logloss_baseline!=null?v.logloss_baseline:v.logloss_constant).toFixed(4)}</td><td class="num">${pct(v.top_quintile_actual)} / ${pct(v.bottom_quintile_actual)}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td></tr>`; };
   document.getElementById('research-sources').innerHTML = `<div class="panel"><h3>Research log · ${niceDate(P.date)}</h3>
     <div class="tbl"><table class="kv"><tbody>
     <tr><td>Play-by-play</td><td>${esc(R.sources.play_by_play)}; data through <b>${esc(R.sources.data_through||'n/a')}</b></td></tr>
@@ -673,7 +723,7 @@ function renderResearch(){
     <tr><td>Simulation</td><td>${(P.games[0]?P.games[0].sims:100000).toLocaleString()} paths per game, 3-on-3 overtime, shootout and goalie-pull dynamics</td></tr>
     <tr><td>Produced</td><td>${esc(P.generated_utc)} · model ${esc(P.model_version)}</td></tr>
     </tbody></table></div>
-    ${Object.keys(VNS).length?`<h3 class="gap">Walk-forward validation · ${VNS.n||''} games</h3><div class="tbl"><table><thead><tr><th>market</th><th>log loss model</th><th>league constant</th><th>verdict</th></tr></thead><tbody>${vline('first5','Under 0.5 · first 5')}${vline('first10','Under 0.5 · first 10')}${vline('fg_ml_home','FG moneyline')}${vline('fg_home_minus15','FG −1.5 (home)')}${vline('p1_away_win','1P away win')}</tbody></table></div>`:''}
+    ${Object.keys(VNS).length?`<h3 class="gap">Walk-forward validation · ${VNS.n||''} games</h3><div class="tbl"><table><thead><tr><th>market</th><th>log loss model</th><th>league constant</th><th>top 20% / bottom 20% hit</th><th>verdict</th></tr></thead><tbody>${vline('first5','Under 0.5 · first 5')}${vline('first10','Under 0.5 · first 10')}${vline('fg_ml_home','FG moneyline')}${vline('fg_home_minus15','FG −1.5 (home)')}${vline('fg_away_minus15','FG −1.5 (away)')}${vline('p1_away_win','1P away win')}${vline('fg_over45','Over 4.5')}${vline('home_over15','Home over 1.5')}${vline('away_over15','Away over 1.5')}${vline('p1_under25','1P under 2.5')}</tbody></table></div>`:''}
   </div>`;
   document.getElementById('research-factors').innerHTML = `<div class="panel"><h3>Factor checklist</h3>
     <p>${fsb('model')} feeds the hazard chain. ${fsb('validated')} measured from the data and shown to improve the walk-forward backtest in both test seasons. ${fsb('shown')} measured and displayed, but carries no proven predictive value for a five-minute window. ${fsb('unavailable')} not in any data this site can reach; stated rather than guessed.</p>
@@ -738,10 +788,71 @@ function dossier(g){
   </div></div></details>`;
 }
 
+// ---------------------------------------------------------------- what changed since the last build
+(function(){
+  const C = P.changes; const el = document.getElementById('changes'); if(!el) return;
+  if(!C || C.first_build){ el.innerHTML=''; return; }
+  const items = C.items||[];
+  const when = C.since ? esc(C.since) : 'the previous build';
+  if(!items.length){ el.innerHTML = `<div class="chg"><b>No changes</b> since ${when}: same goalies, no market moved a full point.</div>`; return; }
+  const goalieN = items.filter(x=>x.kind==='goalie'||x.kind==='status').length, moveN = items.filter(x=>x.kind==='move').length;
+  el.innerHTML = `<div class="chg"><b>Since ${when}:</b> ${goalieN?goalieN+' goalie update'+(goalieN>1?'s':''):''}${goalieN&&moveN?', ':''}${moveN?moveN+' market move'+(moveN>1?'s':'')+' of a point or more':''}${!goalieN&&!moveN?items.length+' change'+(items.length>1?'s':''):''}.
+    ${items.length>8?`<details><summary style="cursor:pointer;color:var(--ice);font-size:12.5px;margin-top:4px">show all ${items.length}</summary>`:''}<ul>${items.map(x=>`<li><span class="kind ${x.kind}">${x.kind}</span><b>${esc(x.game)}</b>: ${esc(x.text)}</li>`).join('')}</ul>${items.length>8?'</details>':''}</div>`;
+})();
+
+// ---------------------------------------------------------------- parlay builder (legs across different games; same-game legs are refused)
+const LEG_DEFS = [
+  {k:'u05_first5',  t:'U0.5 first 5',  p:g=>g.markets.u05_first5.p,  pick:g=>'', okey:'u05_first5'},
+  {k:'u05_first10', t:'U0.5 first 10', p:g=>g.markets.u05_first10.p, pick:g=>'', okey:'u05_first10'},
+  {k:'fg_over45',   t:'Over 4.5',      p:g=>g.markets.fg_over45.p,   pick:g=>'', okey:'fg_over45', only:HAS_NEW},
+  {k:'home_over15', t:'Home over 1.5', p:g=>g.markets.home_over15.p, pick:g=>g.home, okey:'home_over15', only:HAS_NEW},
+  {k:'away_over15', t:'Away over 1.5', p:g=>g.markets.away_over15.p, pick:g=>g.away, okey:'away_over15', only:HAS_NEW},
+  {k:'p1_under25',  t:'1P under 2.5',  p:g=>g.markets.p1_under25.p,  pick:g=>'', okey:'p1_under25', only:HAS_NEW},
+  {k:'fg_ml',       t:'FG moneyline',  p:g=>g.markets.fg_ml.p,       pick:g=>g.markets.fg_ml.pick, okey:'fg_ml'},
+  {k:'p1_plus05',   t:'1P +0.5',       p:g=>g.markets.p1_plus05.p,   pick:g=>g.markets.p1_plus05.pick, okey:'p1_plus05'},
+].filter(d=>d.only!==false);
+let SLIP = {market:'u05_first5', legs:[], price:null, stake:10};
+try{ const sv=JSON.parse(localStorage.getItem('egd_slip_'+P.date)||'null'); if(sv && Array.isArray(sv.legs)) SLIP=Object.assign(SLIP, sv); }catch(e){}
+function saveSlip(){ try{ localStorage.setItem('egd_slip_'+P.date, JSON.stringify(SLIP)); }catch(e){} }
+function renderParlay(){
+  const el=document.getElementById('parlay'); if(!el) return;
+  const def = LEG_DEFS.find(d=>d.k===SLIP.market) || LEG_DEFS[0];
+  SLIP.legs = SLIP.legs.filter(l=>byId[l.game_id] && LEG_DEFS.find(d=>d.k===l.k));
+  const legP = l => LEG_DEFS.find(d=>d.k===l.k).p(byId[l.game_id]);
+  const legTxt = l => { const d=LEG_DEFS.find(x=>x.k===l.k), g=byId[l.game_id]; const pk=d.pick(g); return `${g.matchup} · ${d.t}${pk?' '+pk:''}`; };
+  const games = P.games.slice().sort((a,b)=>def.p(b)-def.p(a));
+  const chosen = new Set(SLIP.legs.map(l=>l.game_id+'|'+l.k));
+  const sameGame = SLIP.legs.filter((l,i)=>SLIP.legs.findIndex(x=>x.game_id===l.game_id)!==i).length>0;
+  const probs = SLIP.legs.map(legP); const joint = probs.reduce((a,b)=>a*b,1);
+  const fair = joint>0 ? 1/joint : null; const price = SLIP.price>1 ? SLIP.price : null; const stake = SLIP.stake>0 ? SLIP.stake : 10;
+  const ev = price ? joint*price-1 : null;
+  const legStatus = l => { const g=byId[l.game_id], o=outcomes(g); if(!o||!o.started) return ''; const d=LEG_DEFS.find(x=>x.k===l.k); const r=o[d.okey]; return r ? `<span class="res ${r==='over'||r==='under'?'tie':r}">${RES[r]||r}</span>` : ''; };
+  el.innerHTML = `<h3>Parlay builder</h3>
+    <p>Pick a market, tap the games you want as legs (any mix of markets across different games), then type the combined price your book shows. The combined probability assumes the games are independent, which they are; two legs from the same game are refused because they are not.</p>
+    <div class="row toolbar" style="margin:0 0 4px"><select id="slipmkt">${LEG_DEFS.map(d=>`<option value="${d.k}" ${d.k===SLIP.market?'selected':''}>${d.t}</option>`).join('')}</select>
+      <button id="slipclear">Clear slip</button></div>
+    <div class="slip">${SLIP.legs.length ? `<div class="t">${SLIP.legs.length} leg${SLIP.legs.length>1?'s':''}</div>
+      <ol style="margin:4px 0 8px;padding-left:18px">${SLIP.legs.map((l,i)=>`<li>${esc(legTxt(l))} <span class="num">${pct(legP(l))}</span> ${legStatus(l)} <a href="#" data-rm="${i}" style="margin-left:6px">remove</a></li>`).join('')}</ol>
+      <div class="big num">${pct(joint)}</div><div class="t">chance every leg hits · fair price <b class="num">${fair?fair.toFixed(2):'n/a'}</b></div>
+      <div class="row"><label>Book's parlay price <input id="slipprice" type="number" inputmode="decimal" step="0.01" min="1.01" placeholder="e.g. 2.15" value="${price||''}"></label><label>Stake <input id="slipstake" type="number" inputmode="decimal" step="1" min="1" value="${stake}"></label></div>
+      ${price?`<div class="row"><span>Break-even <b>${pct(1/price)}</b></span><span>EV <b class="${ev>=0?'hi':'lo'}" style="color:${ev>=0?'var(--green)':'var(--red)'}">${(ev*100).toFixed(1)}%</b> per unit, <b>${ev>=0?'+':''}$${(ev*stake).toFixed(2)}</b> on $${stake}</span><span>pays <b>$${(price*stake).toFixed(2)}</b> if it hits</span></div>
+      <div class="t" style="margin-top:4px">A parlay multiplies the edge in both directions: if each leg is really ${pct(Math.pow(joint,1/SLIP.legs.length))} it is ${ev>=0?'worth it':'not worth it'} at this price; if the legs are a point or two worse than the model says, the whole slip flips.</div>`:''}
+      ${sameGame?'<div class="warn">Two legs from the same game are correlated; the combined probability above is wrong for that pair. Remove one.</div>':''}
+      ${price?`<div class="row"><button class="abtn" id="sliplog">Log this parlay in My bets</button></div>`:''}` : '<div class="t">No legs yet. Tap games below to add them.</div>'}</div>
+    <div class="legs">${games.map(g=>{ const on=chosen.has(g.game_id+'|'+def.k); const pk=def.pick(g); return `<label class="leg ${on?'on':''}" data-id="${g.game_id}"><input type="checkbox" ${on?'checked':''}> <span>${esc(g.matchup)}${pk?' <span class="pick">'+esc(pk)+'</span>':''} ${tier(g.tier)}</span><span class="p num">${pct(def.p(g))}</span></label>`; }).join('')}</div>`;
+  el.querySelector('#slipmkt').onchange = e => { SLIP.market=e.target.value; saveSlip(); renderParlay(); };
+  el.querySelector('#slipclear').onclick = () => { SLIP.legs=[]; SLIP.price=null; saveSlip(); renderParlay(); };
+  el.querySelectorAll('.leg').forEach(lab=>{ lab.onclick = ev => { ev.preventDefault(); const id=+lab.dataset.id; const key=id+'|'+def.k; const i=SLIP.legs.findIndex(l=>l.game_id===id&&l.k===def.k); if(i>=0) SLIP.legs.splice(i,1); else SLIP.legs.push({game_id:id, k:def.k}); saveSlip(); renderParlay(); }; });
+  el.querySelectorAll('[data-rm]').forEach(a=>{ a.onclick = ev => { ev.preventDefault(); SLIP.legs.splice(+a.dataset.rm,1); saveSlip(); renderParlay(); }; });
+  const pr=el.querySelector('#slipprice'); if(pr) pr.onchange=pr.onkeyup=()=>{ const v=parseFloat(pr.value); SLIP.price=v>1?v:null; saveSlip(); renderParlay(); const e2=el.querySelector('#slipprice'); if(e2){ e2.focus(); } };
+  const st=el.querySelector('#slipstake'); if(st) st.onchange=st.onkeyup=()=>{ const v=parseFloat(st.value); SLIP.stake=v>0?v:10; saveSlip(); renderParlay(); const e2=el.querySelector('#slipstake'); if(e2){ e2.focus(); } };
+  const lg=el.querySelector('#sliplog'); if(lg) lg.onclick=()=>{ if(typeof addBet!=='function') return; addBet({date:P.date, kind:'parlay', legs:SLIP.legs.map(l=>({game_id:l.game_id, k:l.k, label:legTxt(l), p:legP(l)})), price:SLIP.price, stake:SLIP.stake, p:joint}); showTab('results',true); };
+}
+
 // ---------------------------------------------------------------- picks tab
 const VN = (M.validation||{});
-const EDGE_MAP = {u05_first5:{early:'first5'}, u05_first10:{early:'first10'}, fg_ml:{joint:['fg_ml_home']}, fg_spread:{joint:['fg_home_minus15','fg_away_minus15']}, p1_plus05:{joint:['p1_home_win','p1_away_win']}, p1_minus05:{joint:['p1_home_win','p1_away_win']}, p1_ml:{joint:['p1_home_win','p1_away_win']}};
-const JOINT_LABEL = {fg_ml_home:'home win', fg_home_minus15:'home −1.5', fg_away_minus15:'away −1.5', p1_home_win:'1P home win', p1_away_win:'1P away win'};
+const EDGE_MAP = {u05_first5:{early:'first5'}, u05_first10:{early:'first10'}, fg_ml:{joint:['fg_ml_home']}, fg_spread:{joint:['fg_home_minus15','fg_away_minus15']}, p1_plus05:{joint:['p1_home_win','p1_away_win']}, p1_minus05:{joint:['p1_home_win','p1_away_win']}, p1_ml:{joint:['p1_home_win','p1_away_win']}, fg_over45:{joint:['fg_over45']}, team_over15:{joint:['home_over15','away_over15']}, p1_under25:{joint:['p1_under25']}};
+const JOINT_LABEL = {fg_ml_home:'home win', fg_home_minus15:'home −1.5', fg_away_minus15:'away −1.5', p1_home_win:'1P home win', p1_away_win:'1P away win', fg_over45:'over 4.5', home_over15:'home 2+', away_over15:'away 2+', p1_under25:'1P under 2.5'};
 function edgeNote(key){ const d=EDGE_MAP[key]; if(!d) return '';
   if(d.early){ const v=VN[d.early]; if(!v) return ''; const vd=verdictOf(v);
     if(vd==='beats') return `<div class="note ok">Backtest: ranking games this way beat the league constant.</div>`;
@@ -750,7 +861,8 @@ function edgeNote(key){ const d=EDGE_MAP[key]; if(!d) return '';
   const have=d.joint.filter(k=>VN[k]); if(!have.length) return '';
   const good=have.filter(k=>verdictOf(VN[k])==='beats'), bad=have.filter(k=>verdictOf(VN[k])!=='beats');
   if(!bad.length) return `<div class="note ok">Backtest: ranking games this way beat the league constant.</div>`;
-  if(!good.length) return `<div class="note no">Backtest: no ranking edge; treat these as calibrated probabilities, not a selection.</div>`;
+  if(!good.length){ const ranks=have.filter(k=>verdictOf(VN[k])==='ranks'); if(ranks.length===have.length) return `<div class="note no">Backtest: the order is informative (top 20% of games hit ${pct(VN[have[0]].top_quintile_actual)} vs ${pct(VN[have[0]].bottom_quintile_actual)} for the bottom 20%) but the probability level ran ${((VN[have[0]].mean_pred-VN[have[0]].actual)*100).toFixed(1)} points off last season. Trust the ranking more than the exact number.</div>`;
+    return `<div class="note no">Backtest: no ranking edge; treat these as calibrated probabilities, not a selection.</div>`; }
   return `<div class="note ok">Backtest: edge on the ${good.map(k=>JOINT_LABEL[k]).join(', ')} side; none on the ${bad.map(k=>JOINT_LABEL[k]).join(', ')} side.</div>`; }
 const PICK_DEFS = {
   u05_first5:{t:'Under 0.5 · first 5 minutes', w:'No goal by either team before 5:00. League rate about 66%.', showPick:false},
@@ -760,15 +872,19 @@ const PICK_DEFS = {
   p1_ml:{t:'1P moneyline', w:'Three-way: win the period; a tie loses.', showPick:true},
   fg_ml:{t:'Full-game moneyline', w:'Wins the game, overtime and shootout included.', showPick:true},
   fg_spread:{t:'Full-game −1.5', w:'The pick wins by two or more goals.', showPick:true},
+  fg_over45:{t:'Game over 4.5 goals', w:'Five or more goals, shootout winner credited one. League rate about 78%.', showPick:false},
+  team_over15:{t:'Team over 1.5 goals', w:'The named team scores at least twice. League rate about 80% at home, 78% away.', showPick:true},
+  p1_under25:{t:'First period under 2.5', w:'Two goals or fewer in the first period. League rate about 75%.', showPick:false},
 };
 function pickCard(key){
   const d=PICK_DEFS[key], list=(P.top||{})[key]||[];
-  return `<div class="pk"><h3>${d.t}</h3><div class="why">${d.w}</div><ol>${list.map((x,i)=>`<li><span><span class="t num">${i+1}.</span> <span class="mu">${esc(x.matchup)}</span>${d.showPick&&x.pick?`<span class="pick" style="margin-left:6px">${esc(x.pick)}</span>`:''} ${tier(x.tier)}</span><span class="p num">${pct(x.p)}${byId[x.game_id]?mark(byId[x.game_id],key):''}</span></li>`).join('')}</ol>${edgeNote(key)}</div>`;
+  return `<div class="pk"><h3>${d.t}</h3><div class="why">${d.w}</div><ol>${list.map((x,i)=>`<li><span><span class="t num">${i+1}.</span> <span class="mu">${esc(x.matchup)}</span>${d.showPick&&x.pick?`<span class="pick" style="margin-left:6px">${esc(x.pick)}</span>`:''} ${tier(x.tier)}</span><span class="p num">${pct(x.p)}${byId[x.game_id]?mark(byId[x.game_id],x.market||key):''}</span></li>`).join('')}</ol>${edgeNote(key)}</div>`;
 }
 function renderPicks(){
   document.getElementById('picks-early').innerHTML = pickCard('u05_first5')+pickCard('u05_first10');
   document.getElementById('picks-p1').innerHTML = pickCard('p1_plus05')+pickCard('p1_minus05')+pickCard('p1_ml');
   document.getElementById('picks-fg').innerHTML = pickCard('fg_ml')+pickCard('fg_spread');
+  document.getElementById('picks-tot').innerHTML = HAS_NEW ? pickCard('fg_over45')+pickCard('team_over15')+pickCard('p1_under25') : '<div class="pk"><div class="why">These markets appear on slates built after Oct 14, 2026.</div></div>';
 }
 
 // ---------------------------------------------------------------- results tab: track record + past days
@@ -784,6 +900,96 @@ if (SC && SC.games_scored) {
   document.getElementById('results-track').innerHTML = `<div class="panel"><h3>Track record</h3><p>Starts accumulating the morning after the first published slate. Every market on every game is scored on the exact numbers that were on the page.</p></div>`;
 }
 
+// ---------------------------------------------------------------- my bets (kept on this device; graded from live results and the scorecard)
+let BETS = [];
+try{ BETS = JSON.parse(localStorage.getItem('egd_bets')||'[]'); if(!Array.isArray(BETS)) BETS=[]; }catch(e){ BETS=[]; }
+function saveBets(){ try{ localStorage.setItem('egd_bets', JSON.stringify(BETS)); }catch(e){} }
+function addBet(b){ b.id = Date.now()+Math.random().toString(16).slice(2,6); b.ts = new Date().toISOString(); BETS.push(b); saveBets(); renderBets(); }
+const OKEY = {u05_first5:'u05_first5', u05_first10:'u05_first10', fg_over45:'fg_over45', home_over15:'home_over15', away_over15:'away_over15', p1_under25:'p1_under25', fg_ml:'fg_ml', p1_plus05:'p1_plus05', p1_minus05:'p1_minus05', p1_ml:'p1_ml', fg_spread:'fg_spread'};
+function gradeLeg(date, game_id, k){
+  // today's page: live outcomes; any scored day: the scorecard
+  if(date===P.date && byId[game_id]){ const o=outcomes(byId[game_id]); if(o && o.started){ const r=o[OKEY[k]]; if(r==='hit'||r==='miss'||r==='tie') return r; return 'pending'; } }
+  const day = SCFULL && SCFULL.days && SCFULL.days[date]; const sg = day && day.games && day.games[String(game_id)];
+  if(sg && sg.markets && sg.markets[k]) return sg.markets[k].hit ? 'hit' : 'miss';
+  return 'pending';
+}
+function gradeBet(b){
+  const legs = b.kind==='parlay' ? b.legs : [{game_id:b.game_id, k:b.k}];
+  const rs = legs.map(l=>gradeLeg(b.date, l.game_id, l.k));
+  if(rs.includes('miss')) return 'miss'; if(rs.every(r=>r==='hit')) return 'hit'; if(rs.includes('tie') && !rs.includes('pending')) return 'tie'; return 'pending';
+}
+function renderBets(){
+  const el=document.getElementById('mybets'); if(!el) return;
+  const graded = BETS.map(b=>({b, r:gradeBet(b)}));
+  const settled = graded.filter(x=>x.r!=='pending');
+  const pnl = settled.reduce((a,x)=>a+(x.r==='hit'?x.b.stake*(x.b.price-1):(x.r==='tie'?0:-x.b.stake)),0), staked=settled.reduce((a,x)=>a+x.b.stake,0);
+  const wins=settled.filter(x=>x.r==='hit').length;
+  const legLabel = b => b.kind==='parlay' ? `${b.legs.length}-leg parlay: ${b.legs.map(l=>l.label).join(' + ')}` : `${b.label}`;
+  el.innerHTML = `<h3>My bets <span class="t" style="text-transform:none;letter-spacing:0">· stored on this device only</span></h3>
+    <div class="kpis"><div><span class="k">bets</span><span class="v num">${BETS.length}</span></div><div><span class="k">settled</span><span class="v num">${settled.length}</span></div><div><span class="k">record</span><span class="v num">${wins}-${settled.length-wins-settled.filter(x=>x.r==='tie').length}${settled.some(x=>x.r==='tie')?'-'+settled.filter(x=>x.r==='tie').length:''}</span></div><div><span class="k">staked</span><span class="v num">$${staked.toFixed(0)}</span></div><div><span class="k">result</span><span class="v num" style="color:${pnl>=0?'var(--green)':'var(--red)'}">${pnl>=0?'+':'−'}$${Math.abs(pnl).toFixed(2)}</span></div><div><span class="k">ROI</span><span class="v num" style="color:${pnl>=0?'var(--green)':'var(--red)'}">${staked?((pnl/staked)*100).toFixed(1)+'%':'n/a'}</span></div></div>
+    <div class="sim"><div class="row"><b style="color:var(--text)">Add a single</b>
+      <select id="betgame">${P.games.map(g=>`<option value="${g.game_id}">${esc(g.matchup)}</option>`).join('')}</select>
+      <select id="betmkt">${LEG_DEFS.map(d=>`<option value="${d.k}">${d.t}</option>`).join('')}</select>
+      <label>price <input id="betprice" type="number" inputmode="decimal" step="0.01" min="1.01" placeholder="1.44"></label>
+      <label>stake $<input id="betstake" type="number" inputmode="decimal" step="1" min="1" value="10"></label>
+      <button class="abtn" id="betadd">Add</button></div></div>
+    ${BETS.length?`<div class="tbl"><table><thead><tr><th>date</th><th>bet</th><th>model</th><th>price</th><th>stake</th><th>result</th><th>P&amp;L</th><th></th></tr></thead><tbody>
+      ${graded.slice().reverse().map(({b,r})=>`<tr><td>${esc(b.date)}</td><td style="white-space:normal">${esc(legLabel(b))}</td><td class="num">${pct(b.p)}</td><td class="num">${b.price.toFixed(2)}</td><td class="num">$${b.stake}</td><td><span class="res ${r}">${RES[r]||r}</span></td><td class="num">${r==='pending'?'…':(r==='tie'?'$0.00':(r==='hit'?'+$'+(b.stake*(b.price-1)).toFixed(2):'−$'+b.stake.toFixed(2)))}</td><td><a href="#" data-del="${b.id}" class="t">delete</a></td></tr>`).join('')}
+      </tbody></table></div>
+      <div class="row toolbar" style="margin-top:8px"><button id="betexport">Export CSV</button><button id="betclear">Clear all</button></div>`:'<p>Nothing logged yet. Add a single here, or build a parlay on the Picks tab and log it from the slip. Bets grade themselves from the live results and the next morning\'s scorecard.</p>'}`;
+  el.querySelector('#betadd').onclick=()=>{ const gid=+el.querySelector('#betgame').value, k=el.querySelector('#betmkt').value, price=parseFloat(el.querySelector('#betprice').value), stake=parseFloat(el.querySelector('#betstake').value)||10;
+    if(!(price>1)){ el.querySelector('#betprice').focus(); return; } const d=LEG_DEFS.find(x=>x.k===k), g=byId[gid]; const pk=d.pick(g);
+    addBet({date:P.date, kind:'single', game_id:gid, k, label:`${g.matchup} · ${d.t}${pk?' '+pk:''}`, p:d.p(g), price, stake}); };
+  el.querySelectorAll('[data-del]').forEach(a=>a.onclick=ev=>{ ev.preventDefault(); BETS=BETS.filter(b=>b.id!==a.dataset.del); saveBets(); renderBets(); });
+  const ex=el.querySelector('#betexport'); if(ex) ex.onclick=()=>{ const lines=[['date','bet','model_p','price','stake','result','pnl']].concat(graded.map(({b,r})=>[b.date, legLabel(b).replace(/,/g,';'), (b.p*100).toFixed(1), b.price, b.stake, r, r==='pending'?'':(r==='tie'?0:(r==='hit'?(b.stake*(b.price-1)).toFixed(2):(-b.stake).toFixed(2)))])); const blob=new Blob([lines.map(l=>l.join(',')).join('\n')],{type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='early-goal-desk-bets.csv'; a.click(); };
+  const cl=el.querySelector('#betclear'); if(cl) cl.onclick=()=>{ if(confirm('Delete every logged bet on this device?')){ BETS=[]; saveBets(); renderBets(); } };
+}
+
+// ---------------------------------------------------------------- flat-bet simulator on the track record (Results tab)
+let SCFULL = null, SIM = {market:'u05_first5', mode:'all', price:1.44, stake:10, minp:0.68};
+try{ const sv=JSON.parse(localStorage.getItem('egd_sim')||'null'); if(sv) SIM=Object.assign(SIM, sv); }catch(e){}
+function renderSimulator(){
+  const el=document.getElementById('simulator'); if(!el) return;
+  if(!SCFULL){
+    const tryUrl = u => fetch(u, {cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(r.status));
+    el.innerHTML = `<h3>Flat-bet simulator</h3><p>Loading the track record…</p>`;
+    tryUrl('./scorecard.json').catch(()=>tryUrl('../scorecard.json')).then(sc=>{ SCFULL = sc && sc.days ? sc : {days:{}}; renderSimulator(); renderBets(); }).catch(()=>{ SCFULL={days:{}}; renderSimulator(); renderBets(); });
+    return;
+  }
+  const days = Object.keys(SCFULL.days||{}).sort();
+  const mkts = {}; days.forEach(d=>Object.values(SCFULL.days[d].games||{}).forEach(g=>Object.keys(g.markets||{}).forEach(k=>mkts[k]=1)));
+  const mkeys = Object.keys(MARKET_NAMES).filter(k=>mkts[k] && k!=='team_over15');
+  if(!mkeys.length){ el.innerHTML = `<h3>Flat-bet simulator</h3><p>Appears once the first slate has been scored (the morning after the games).</p>`; return; }
+  if(!mkeys.includes(SIM.market)) SIM.market = mkeys[0];
+  const rows=[]; let cum=0; const series=[];
+  days.forEach(d=>{ const day=SCFULL.days[d]; let gs=Object.values(day.games||{}).filter(g=>g.markets[SIM.market]).map(g=>({g, p:g.markets[SIM.market].p, hit:g.markets[SIM.market].hit}));
+    if(!gs.length) return;
+    gs.sort((a,b)=>b.p-a.p);
+    if(SIM.mode==='top3') gs=gs.slice(0,3); else if(SIM.mode==='top1') gs=gs.slice(0,1); else if(SIM.mode==='minp') gs=gs.filter(x=>x.p>=SIM.minp);
+    let dayPnl=0; gs.forEach(x=>{ const pnl = x.hit ? SIM.stake*(SIM.price-1) : -SIM.stake; dayPnl+=pnl; rows.push({d, ...x, pnl}); });
+    cum+=dayPnl; series.push({d, cum}); });
+  const n=rows.length, hits=rows.reduce((a,r)=>a+r.hit,0), staked=n*SIM.stake, pnl=rows.reduce((a,r)=>a+r.pnl,0), meanp=n?rows.reduce((a,r)=>a+r.p,0)/n:0;
+  const W=640,H=160,pad=36; const ys=series.map(s=>s.cum); const lo=Math.min(0,...ys), hi=Math.max(0,...ys); const span=(hi-lo)||1;
+  const x=i=>pad+(series.length>1? i*(W-pad-8)/(series.length-1) : (W-pad-8)/2), y=v=>H-20-((v-lo)/span)*(H-32);
+  const path = series.map((s,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(s.cum).toFixed(1)}`).join(' ');
+  const chart = series.length ? `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}"><line x1="${pad}" y1="${y(0)}" x2="${W-8}" y2="${y(0)}" stroke="#27344a"/><path d="${path}" fill="none" stroke="${pnl>=0?'#3ddc84':'#ff6b6b'}" stroke-width="2"/>
+      <text x="${pad-4}" y="${y(hi)+4}" font-size="10" fill="#5e6f88" text-anchor="end">${hi>=0?'+':''}$${hi.toFixed(0)}</text><text x="${pad-4}" y="${y(lo)+4}" font-size="10" fill="#5e6f88" text-anchor="end">${lo>=0?'+':''}$${lo.toFixed(0)}</text>
+      <text x="${pad}" y="${H-6}" font-size="10" fill="#5e6f88">${esc(series[0].d)}</text><text x="${W-8}" y="${H-6}" font-size="10" fill="#5e6f88" text-anchor="end">${esc(series[series.length-1].d)}</text></svg>` : '';
+  const scoredDays = new Set(rows.map(r=>r.d)).size;
+  el.innerHTML = `<h3>Flat-bet simulator · ${scoredDays} scored day${scoredDays!==1?'s':''}</h3>
+    <p>What a fixed stake on this market would have returned at your price, using the numbers that were on the page before each game. Short records swing wildly; judge this over months, not nights.</p>
+    <div class="sim"><div class="row">
+      <label>Market <select id="simmkt">${mkeys.map(k=>`<option value="${k}" ${k===SIM.market?'selected':''}>${MARKET_NAMES[k]}</option>`).join('')}</select></label>
+      <label>Bets <select id="simmode"><option value="all" ${SIM.mode==='all'?'selected':''}>every game</option><option value="top3" ${SIM.mode==='top3'?'selected':''}>top 3 each day</option><option value="top1" ${SIM.mode==='top1'?'selected':''}>highest probability each day</option><option value="minp" ${SIM.mode==='minp'?'selected':''}>only games at or above…</option></select></label>
+      ${SIM.mode==='minp'?`<label>min probability <input id="simminp" type="number" step="0.01" min="0" max="1" value="${SIM.minp}"></label>`:''}
+      <label>Price <input id="simprice" type="number" inputmode="decimal" step="0.01" min="1.01" value="${SIM.price}"></label>
+      <label>Stake $<input id="simstake" type="number" inputmode="decimal" step="1" min="1" value="${SIM.stake}"></label></div>
+    <div class="kpis"><div><span class="k">bets</span><span class="v num">${n}</span></div><div><span class="k">hit rate</span><span class="v num">${n?pct(hits/n):'n/a'}</span></div><div><span class="k">page said</span><span class="v num">${n?pct(meanp):'n/a'}</span></div><div><span class="k">break-even</span><span class="v num">${pct(1/SIM.price)}</span></div><div><span class="k">staked</span><span class="v num">$${staked.toFixed(0)}</span></div><div><span class="k">result</span><span class="v num" style="color:${pnl>=0?'var(--green)':'var(--red)'}">${pnl>=0?'+':'−'}$${Math.abs(pnl).toFixed(2)}</span></div><div><span class="k">ROI</span><span class="v num" style="color:${pnl>=0?'var(--green)':'var(--red)'}">${staked?((pnl/staked)*100).toFixed(1)+'%':'n/a'}</span></div></div>
+    ${chart}</div>`;
+  const bind=(id,fn)=>{ const e=el.querySelector('#'+id); if(e) e.onchange=()=>{ fn(e); try{localStorage.setItem('egd_sim',JSON.stringify(SIM));}catch(x){} renderSimulator(); }; };
+  bind('simmkt',e=>SIM.market=e.value); bind('simmode',e=>SIM.mode=e.value); bind('simprice',e=>{const v=parseFloat(e.value); if(v>1) SIM.price=v;}); bind('simstake',e=>{const v=parseFloat(e.value); if(v>0) SIM.stake=v;}); bind('simminp',e=>{const v=parseFloat(e.value); if(v>0&&v<1) SIM.minp=v;});
+}
+
 // ---------------------------------------------------------------- about tab
 const V = M.validation;
 if (V && V.first5) {
@@ -791,12 +997,12 @@ if (V && V.first5) {
     ['Under 0.5 · first 5 min', V.first5.logloss_model, V.first5.logloss_baseline, V.first5.top_quintile_actual, V.first5.bottom_quintile_actual, V.first5.mean_pred, V.first5.actual_rate],
     ['Under 0.5 · first 10 min', V.first10.logloss_model, V.first10.logloss_baseline, V.first10.top_quintile_actual, V.first10.bottom_quintile_actual, V.first10.mean_pred, V.first10.actual_rate],
   ];
-  const jm = {fg_ml_home:'FG moneyline (home)', fg_home_minus15:'FG home −1.5', fg_away_minus15:'FG away −1.5', fg_over55:'FG over 5.5', p1_home_win:'1P home win', p1_away_win:'1P away win', p1_tie:'1P tie'};
+  const jm = {fg_ml_home:'FG moneyline (home)', fg_home_minus15:'FG home −1.5', fg_away_minus15:'FG away −1.5', fg_over45:'FG over 4.5', fg_over55:'FG over 5.5', home_over15:'Home over 1.5', away_over15:'Away over 1.5', p1_under25:'1P under 2.5', p1_home_win:'1P home win', p1_away_win:'1P away win', p1_tie:'1P tie'};
   for (const [k,label] of Object.entries(jm)) if (V[k]) rowsV.push([label, V[k].logloss_model, V[k].logloss_constant, V[k].top_quintile_actual, V[k].bottom_quintile_actual, V[k].mean_pred, V[k].actual]);
   document.getElementById('validation').innerHTML = `<div class="panel"><h3>Validation · ${V.season?String(V.season).slice(0,4)+'-'+String(V.season).slice(6):''} season, ${V.n} real games, each predicted only from games before it</h3>
   <p>Log loss below the league constant means ranking games this way carries information. Top vs bottom quintile shows how far the ranking separates outcomes in reality.</p>
   <div class="tbl"><table><thead><tr><th>market</th><th>verdict</th><th>log loss model</th><th>league constant</th><th>top 20% hit</th><th>bottom 20% hit</th><th>predicted</th><th>actual</th></tr></thead><tbody>
-  ${rowsV.map(r=>{ const rel=(r[2]-r[1])/r[2], vd=rel<=0?'none':(rel<0.002?'marginal':'beats'); return `<tr><td>${r[0]}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td><td class="num">${r[1].toFixed(4)}</td><td class="num">${r[2].toFixed(4)}</td><td class="num">${pct(r[3])}</td><td class="num">${pct(r[4])}</td><td class="num">${pct(r[5])}</td><td class="num">${pct(r[6])}</td></tr>`; }).join('')}
+  ${rowsV.map(r=>{ const rel=(r[2]-r[1])/r[2], vd=rel>=0.002?'beats':(rel>0?'marginal':((r[3]-r[4])>=0.04?'ranks':'none')); return `<tr><td>${r[0]}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td><td class="num">${r[1].toFixed(4)}</td><td class="num">${r[2].toFixed(4)}</td><td class="num">${pct(r[3])}</td><td class="num">${pct(r[4])}</td><td class="num">${pct(r[5])}</td><td class="num">${pct(r[6])}</td></tr>`; }).join('')}
   </tbody></table></div>
   <p>The early-goal probabilities are calibrated: they land where they say they land. Almost no pre-game input separates games that produce an early goal from games that do not; the one that does (both teams tired) is small, so the fair price is the useful output there. The full-game markets and the 1P away win carry a measurable edge.</p></div>`;
 }
@@ -822,7 +1028,7 @@ document.getElementById('foot').innerHTML = `Early Goal Desk v${P.model_version}
     dl.innerHTML = j.days.map(d=>`<a class="${d===P.date?'now':''}" href="${base}${d}.html">${lab(d)}</a>`).join(''); }).catch(()=>{ document.getElementById('daylist').innerHTML='<span class="small">history appears once the site is published</span>'; });
 })();
 
-renderFeature(); renderPicks(); renderResearch(); render(); loadLive();
+renderFeature(); renderPicks(); renderParlay(); renderResearch(); renderBets(); renderSimulator(); render(); loadLive();
 </script>
 </body>
 </html>

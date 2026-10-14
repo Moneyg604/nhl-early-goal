@@ -114,6 +114,58 @@
   "bottom_quintile_actual": 0.5191,
   "n": 1312
  },
+ "fg_over45": {
+  "logloss_model": 0.49655,
+  "logloss_constant": 0.4914,
+  "brier_model": 0.15796,
+  "brier_constant": 0.15612,
+  "mean_pred": 0.7613,
+  "actual": 0.8064,
+  "top_quintile_pred": 0.7921,
+  "top_quintile_actual": 0.8359,
+  "bottom_quintile_pred": 0.7296,
+  "bottom_quintile_actual": 0.7748,
+  "n": 1312
+ },
+ "home_over15": {
+  "logloss_model": 0.46238,
+  "logloss_constant": 0.46655,
+  "brier_model": 0.14434,
+  "brier_constant": 0.14556,
+  "mean_pred": 0.8143,
+  "actual": 0.8232,
+  "top_quintile_pred": 0.8598,
+  "top_quintile_actual": 0.8702,
+  "bottom_quintile_pred": 0.7674,
+  "bottom_quintile_actual": 0.771,
+  "n": 1312
+ },
+ "away_over15": {
+  "logloss_model": 0.49542,
+  "logloss_constant": 0.49464,
+  "brier_model": 0.15782,
+  "brier_constant": 0.15751,
+  "mean_pred": 0.7754,
+  "actual": 0.8041,
+  "top_quintile_pred": 0.8232,
+  "top_quintile_actual": 0.8206,
+  "bottom_quintile_pred": 0.7265,
+  "bottom_quintile_actual": 0.7481,
+  "n": 1312
+ },
+ "p1_under25": {
+  "logloss_model": 0.56134,
+  "logloss_constant": 0.5615,
+  "brier_model": 0.18706,
+  "brier_constant": 0.18712,
+  "mean_pred": 0.7464,
+  "actual": 0.7508,
+  "top_quintile_pred": 0.7692,
+  "top_quintile_actual": 0.7939,
+  "bottom_quintile_pred": 0.7227,
+  "bottom_quintile_actual": 0.7405,
+  "n": 1312
+ },
  "p1_home_win": {
   "logloss_model": 0.63661,
   "logloss_constant": 0.63581,

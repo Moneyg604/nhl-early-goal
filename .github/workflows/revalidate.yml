@@ -1,0 +1,43 @@
+name: Revalidate
+
+# Reruns the walk-forward backtest (with simulation) on the most recent season that has enough games,
+# and refreshes the validation panel the site shows. Dispatched by the keeper on the first of each month.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Restore season data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/sdv
+            data/games_*.jsonl
+            data/cache
+          key: nhl-data-${{ github.run_id }}
+          restore-keys: |
+            nhl-data-
+      - run: pip install -r requirements.txt
+      - name: Walk-forward backtest with simulation
+        run: python -m earlygoal backtest --auto --with-sim --save
+      - name: Commit the validation
+        run: |
+          git config user.name "earlygoal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/backtest_latest.json
+          git commit -m "revalidate $(date -u +'%Y-%m-%d')" || echo "nothing changed"
+          git pull --rebase origin main
+          git push

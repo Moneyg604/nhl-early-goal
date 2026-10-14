@@ -25,6 +25,7 @@ from zoneinfo import ZoneInfo
 
 from .config import CFG, DATA_DIR, MODEL_VERSION, OUT_DIR, OVERRIDES_FILE, ROOT, prior_seasons_for
 from .features import build_profiles
+from .changes import diff_payloads, previous_payload
 from .goalies import load_overrides, scrape_dailyfaceoff
 from .ingest import GameRecord, games_file, ingest_season, load_games, slate_for_date
 from .ingest_sdv import attach_rest_from_records, ingest_sdv_season
@@ -202,8 +203,12 @@ def cmd_run(args: argparse.Namespace) -> None:
             if not dfo and not args.no_dfo:
                 print(f"note: DailyFaceoff returned nothing for {d}; goalies come from overrides.json or usage.")
         print(f"{d}: {len(slate)} games, profiles from {lp.games} games ({len(current)} this season, data through {dmeta.get('data_through', 'n/a')}); simulating {sims:,} paths per game ...")
+        prev_payload = None if args.demo else previous_payload(d)
         payload, _ = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta,
                                records=None if args.demo else (current + prior))
+        payload["changes"] = diff_payloads(prev_payload, payload)
+        if payload["changes"]["items"]:
+            print(f"  changes since {payload['changes']['since']}: " + "; ".join(f"{x['game']}: {x['text']}" for x in payload["changes"]["items"][:8]))
 
         tag = f"{d}{'-demo' if args.demo else ''}"
         html = write_dashboard(payload, OUT_DIR / f"dashboard-{tag}.html")
@@ -249,6 +254,12 @@ def _seasons_for_backtest(args: argparse.Namespace) -> tuple[list[GameRecord], l
 def cmd_backtest(args: argparse.Namespace) -> None:
     from .backtest import print_report, run_backtest
 
+    if getattr(args, "auto", False) and not args.season:
+        # the most recent season with enough games to judge: the current one once it has 600, else the one before
+        cur = season_for(today_et())
+        n_cur = len([g for g in load_games(cur) if g.final])
+        args.season = cur if n_cur >= 600 else cur - 10001
+        print(f"revalidating on season {args.season} ({n_cur} games played this season)")
     prior, current, test_season = _seasons_for_backtest(args)
     s = run_backtest(prior, current, start=args.start, end=args.end, projected_goalies=args.projected_goalies, with_sim=args.with_sim, sim_paths=20000)
     print_report(s)
@@ -368,6 +379,7 @@ def main(argv: list[str] | None = None) -> None:
 
     b = sub.add_parser("backtest", help="walk-forward calibration of first-5 / first-10 probabilities")
     b.add_argument("--date", help="reference date for season selection")
+    b.add_argument("--auto", action="store_true", help="pick the most recent season with at least 600 games (for the scheduled revalidation)")
     b.add_argument("--season", type=int, help="season to test, e.g. 20252026")
     b.add_argument("--start")
     b.add_argument("--end")

@@ -73,6 +73,11 @@ def next_event(now: datetime) -> tuple[datetime, str]:
         if t <= now:
             t += timedelta(days=1)
         cands.append((t, "update-slate.yml"))
+    # monthly revalidation of the backtest, first of the month at 12:00 UTC
+    first = now.replace(day=1, hour=12, minute=0, second=0, microsecond=0)
+    if first <= now:
+        first = (first + timedelta(days=32)).replace(day=1)
+    cands.append((first, "revalidate.yml"))
     # a refresh two hours before the first puck drop, today or tomorrow (Eastern days roll at 04:00 UTC-ish; use the UTC date and the next one)
     for d in (now.date(), (now + timedelta(days=1)).date()):
         t = t120_for(d.isoformat())
