@@ -26,7 +26,7 @@ from .config import OUT_DIR, ROOT
 SITE_DIR = ROOT / "docs"
 
 HEAD_EXTRA = """<link rel="manifest" href="{base}manifest.webmanifest">
-<meta name="theme-color" content="#070c14">
+<meta name="theme-color" content="#070b12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,15 +34,16 @@ HEAD_EXTRA = """<link rel="manifest" href="{base}manifest.webmanifest">
 <link rel="apple-touch-icon" href="{base}apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{base}icon-192.png">
 <style>
-.sitebar{{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 12px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font-size:12px;color:var(--muted)}}
-.sitebar select{{background:#0a1220;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 8px;font-size:13px}}
-.sitebar .upd{{margin-left:auto}}
-.sitebar .install{{display:none;color:var(--ice)}}
+.hmeta .pub{{color:var(--dim)}}
+.hmeta .install{{display:none;color:var(--ice);cursor:default}}
+@media (max-width:640px){{.hmeta .pub,.hmeta .lbl2{{display:none}}}}
 </style>
 """
 
-SITEBAR = """<nav class="sitebar"><span>Slate</span><select id="daysel" aria-label="slate date">{options}</select><span class="install" id="installhint">Add to Home Screen for the app view</span><span class="upd">published {published}</span></nav>
-<script>
+# Goes into the app header's <span id="dayslot"> slot: a slate switcher, the publish time, the install hint.
+DAYSLOT = """<span class="lbl2">Slate</span><select id="daysel" aria-label="slate date">{options}</select><span class="pub">published {published}</span><span class="install" id="installhint" title="Share, then Add to Home Screen">installable</span>"""
+
+SITE_SCRIPT = """<script>
 (function(){{
   var s=document.getElementById('daysel'); if(s) s.onchange=function(){{ location.href=this.value; }};
   var ua=navigator.userAgent||''; var standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
@@ -115,10 +116,25 @@ def _icon(size: int, path: Path) -> None:
     img.save(path)
 
 
+LEGACY_BAR = """<nav class="sitebar" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 12px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font-size:12px;color:var(--muted)"><span>Slate</span><select id="daysel" aria-label="slate date" style="background:#0a1220;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 8px;font-size:13px">{options}</select><span style="margin-left:auto">published {published}</span></nav>
+"""
+
+
 def _inject(html: str, options_html: str, published: str, base: str) -> str:
-    html = html.replace("<title>Early Goal Desk</title>", "<title>Early Goal Desk</title>\n" + HEAD_EXTRA.format(base=base), 1)
-    bar = SITEBAR.format(options=options_html, published=published, base=base)
-    return html.replace('<div class="wrap">\n<header>', '<div class="wrap">\n' + bar + "<header>", 1)
+    """Add the install hooks to <head>, the slate switcher to the app header and the service-worker
+    registration before </body>. Pages rendered by the previous template (kept under docs/days/)
+    get the switcher as a bar above their old header instead."""
+    title = "<title>Early Goal Desk</title>"
+    if title not in html or "</body>" not in html:
+        raise RuntimeError("dashboard template changed: <title> or </body> not found")
+    html = html.replace(title, title + "\n" + HEAD_EXTRA.format(base=base), 1)
+    if '<span id="dayslot"></span>' in html:
+        html = html.replace('<span id="dayslot"></span>', DAYSLOT.format(options=options_html, published=published), 1)
+    elif '<div class="wrap">\n<header>' in html:
+        html = html.replace('<div class="wrap">\n<header>', '<div class="wrap">\n' + LEGACY_BAR.format(options=options_html, published=published) + "<header>", 1)
+    else:
+        raise RuntimeError("dashboard template changed: no slot for the day switcher")
+    return html.replace("</body>", SITE_SCRIPT.format(base=base) + "</body>", 1)
 
 
 def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: int = 30, prior_days: list[str] | None = None, artifact: bool = False) -> Path:
@@ -144,9 +160,15 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: in
         raise SystemExit("nothing to publish: run `python -m earlygoal run` first")
     published = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
+    def nice(d: str) -> str:
+        try:
+            return datetime.strptime(d, "%Y-%m-%d").strftime("%a %b %d").replace(" 0", " ")
+        except ValueError:
+            return d
+
     def options(selected: str, base: str) -> str:
         return "".join(
-            f'<option value="{base}days/{d}.html" {"selected" if d == selected else ""}>{d}{" (latest)" if i == 0 else ""}</option>'
+            f'<option value="{base}days/{d}.html" {"selected" if d == selected else ""}>{nice(d)}{" (latest)" if i == 0 else ""}</option>'
             for i, d in enumerate(days)
         )
 
