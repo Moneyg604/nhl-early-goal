@@ -24,7 +24,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from .config import CFG, DATA_DIR, MODEL_VERSION, OUT_DIR, OVERRIDES_FILE, ROOT, prior_seasons_for
+from .config import ModelConfig, CFG, DATA_DIR, MODEL_VERSION, OUT_DIR, OVERRIDES_FILE, ROOT, prior_seasons_for
 from .features import build_profiles
 from .changes import diff_payloads, previous_payload
 from .goalies import load_overrides, scrape_dailyfaceoff
@@ -315,32 +315,78 @@ def cmd_prune(args: argparse.Namespace) -> None:
         return v["logloss_model"] if v else None
 
     for name in PRUNABLE:
+        keys = JUDGE_ON.get(name, early_keys + joint_keys)
+        keys = tuple(k for k in keys if with_sim or k in early_keys)
         per = {}
         for season, (prior, current) in data.items():
             on = run_backtest(prior, current, cfg=dataclasses.replace(CFG, **{name: True}), verbose=False, with_sim=with_sim, sim_paths=20000)
             off = run_backtest(prior, current, cfg=dataclasses.replace(CFG, **{name: False}), verbose=False, with_sim=with_sim, sim_paths=20000)
-            keys = early_keys + (joint_keys if with_sim else ())
-            # score: mean relative change in log loss across the markets (negative = the factor helps)
-            rel = [(ll(on, k) - ll(off, k)) / ll(off, k) for k in keys if ll(on, k) is not None and ll(off, k)]
             per[str(season)] = {"on": ll(on, "first5"), "off": ll(off, "first5"), "on10": ll(on, "first10"), "off10": ll(off, "first10"),
-                                "markets_on": {k: ll(on, k) for k in keys if ll(on, k) is not None}, "markets_off": {k: ll(off, k) for k in keys if ll(off, k) is not None},
-                                "score": round(sum(rel) / len(rel), 6) if rel else 0.0}
-        wins = sum(1 for v in per.values() if v["score"] <= 0)
-        mean_score = sum(v["score"] for v in per.values()) / len(per)
-        mean_on = sum(v["on"] for v in per.values()) / len(per)
-        mean_off = sum(v["off"] for v in per.values()) / len(per)
-        keep = wins * 2 >= len(per) and mean_score <= 0
-        if all(v["markets_on"] == v["markets_off"] for v in per.values()):
-            # the switch made no difference at all: its data is not on this machine; leave the current setting alone
-            keep = bool(getattr(CFG, name))
-            print(f"{name}: no effect in this data (inputs not loaded); leaving it {'on' if keep else 'off'}")
-        switches[name] = keep
-        detail[name] = {"seasons": per, "seasons_helped": wins, "mean_score": round(mean_score, 6), "mean_logloss_on": round(mean_on, 5), "mean_logloss_off": round(mean_off, 5),
-                        "judged_on": list(early_keys + (joint_keys if with_sim else ())), "keep": keep}
-        print(f"{name}: helped in {wins} of {len(per)} seasons (mean relative log-loss change {mean_score*100:+.3f}% across {len(detail[name]['judged_on'])} markets) -> {'keep' if keep else 'switch off'}")
+                                "markets_on": {k: ll(on, k) for k in keys if ll(on, k) is not None}, "markets_off": {k: ll(off, k) for k in keys if ll(off, k) is not None}}
+        switches[name], detail[name] = judge_switch(name, per, list(keys))
+    _write_factors(data, switches, detail)
+
+
+# Which markets each switch is judged on: an early-window factor is judged on the early markets, where it acts;
+# a factor that touches every rate is judged on everything the simulation prices.
+JUDGE_ON = {
+    "use_context_early": ("first5", "first10"),
+    "use_mutual_fatigue": ("first5", "first10"),
+    "use_xg": ("first5", "first10", "fg_ml_home", "fg_home_minus15", "fg_away_minus15", "fg_over45", "home_over15", "away_over15", "p1_under25", "p1_away_win", "p1_home_win"),
+}
+MIN_GAIN = 1e-4   # a factor that is off needs at least a 0.01% mean log-loss improvement to be turned on
+
+
+def judge_switch(name: str, per: dict, keys: list[str], currently: bool | None = None) -> tuple[bool, dict]:
+    """Decide a switch from per-season on/off log losses. Negative score = the factor helps. Hysteresis: a factor
+    that is currently off needs a clear gain to be switched on; one that is on stays on while it does not hurt.
+    `currently` defaults to the running configuration; the re-judge passes the code defaults instead."""
+    for v in per.values():
+        on, off = v["markets_on"], v["markets_off"]
+        rel = [(on[k] - off[k]) / off[k] for k in keys if k in on and k in off and off[k]]
+        v["score"] = round(sum(rel) / len(rel), 6) if rel else 0.0
+    n = len(per)
+    wins = sum(1 for v in per.values() if v["score"] <= 0)
+    mean_score = sum(v["score"] for v in per.values()) / n if n else 0.0
+    mean_on = sum(v["on"] for v in per.values()) / n if n else 0.0
+    mean_off = sum(v["off"] for v in per.values()) / n if n else 0.0
+    if currently is None:
+        currently = bool(getattr(CFG, name))
+    if all(v["markets_on"] == v["markets_off"] for v in per.values()):
+        keep, why = currently, "no effect in this data (inputs not loaded); leaving it as it is"
+    elif currently:
+        keep = wins * 2 >= n and mean_score <= 0
+        why = "stays on" if keep else "switched off"
+    else:
+        keep = wins * 2 >= n and mean_score <= -MIN_GAIN
+        why = "switched on" if keep else ("not enough gain to switch on" if mean_score <= 0 else "stays off")
+    print(f"{name}: helped in {wins} of {n} seasons (mean relative log-loss change {mean_score*100:+.3f}% across {len(keys)} markets) -> {why}")
+    return keep, {"seasons": per, "seasons_helped": wins, "mean_score": round(mean_score, 6), "mean_logloss_on": round(mean_on, 5), "mean_logloss_off": round(mean_off, 5),
+                  "judged_on": list(keys), "keep": keep, "verdict": why}
+
+
+def _write_factors(data, switches: dict, detail: dict) -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     (DATA_DIR / "factors.json").write_text(json.dumps({"evaluated": today_et(), "seasons": [str(s) for s in data], "switches": switches, "detail": detail}, indent=1))
     print(f"wrote {DATA_DIR / 'factors.json'}")
+
+
+def cmd_rejudge(args: argparse.Namespace) -> None:
+    """Re-apply the decision rule to the on/off results already stored in data/factors.json (no backtest)."""
+    from .config import PRUNABLE
+
+    f = DATA_DIR / "factors.json"
+    d = json.loads(f.read_text())
+    switches, detail = {}, {}
+    for name in PRUNABLE:
+        old = (d.get("detail") or {}).get(name)
+        if not old:
+            continue
+        keys = [k for k in JUDGE_ON.get(name, []) if any(k in v.get("markets_on", {}) for v in old["seasons"].values())]
+        switches[name], detail[name] = judge_switch(name, old["seasons"], keys, currently=bool(getattr(ModelConfig(), name)))
+    d.update({"switches": switches, "detail": detail, "rejudged": today_et()})
+    f.write_text(json.dumps(d, indent=1))
+    print("switches:", switches)
 
 
 def cmd_xg(args: argparse.Namespace) -> None:
@@ -523,6 +569,8 @@ def main(argv: list[str] | None = None) -> None:
     pr.add_argument("--seasons", nargs="*", type=int)
     pr.add_argument("--with-sim", action="store_true", help="judge on the full-game and period markets too (slower)")
     pr.set_defaults(fn=cmd_prune)
+    rj = sub.add_parser("rejudge", help="re-apply the factor decision rule to the stored prune results")
+    rj.set_defaults(fn=cmd_rejudge)
     b.add_argument("--season", type=int, help="season to test, e.g. 20252026")
     b.add_argument("--start")
     b.add_argument("--end")
