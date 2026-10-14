@@ -59,40 +59,52 @@ def _find_by_name(name: str, team: str, goalies: dict[int, GoalieProfile]) -> Go
     return None
 
 
-def scrape_dailyfaceoff(client: NHLClient, date: str) -> dict[str, dict]:
-    """Best-effort: returns {TEAM: {'name': 'First Last', 'status': 'Confirmed'|'Expected'|'Unconfirmed'}}."""
+def parse_dailyfaceoff(html: str, date: str | None = None) -> dict[str, dict]:
+    """Parse the page's embedded Next.js data: props.pageProps.data[] has one row per game with
+    home/away team names, goalie names, a news strength (Confirmed / Expected / Likely / Unconfirmed),
+    the reporter it came from and the game date."""
+    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
+    if not m:
+        return {}
+    try:
+        rows = json.loads(m.group(1))["props"]["pageProps"]["data"]
+    except (KeyError, TypeError, ValueError):
+        return {}
+    out: dict[str, dict] = {}
+    for g in rows:
+        if date and str(g.get("date", ""))[:10] != date:
+            continue
+        for side in ("home", "away"):
+            team = DFO_TEAM_NAMES.get(g.get(f"{side}TeamName", ""))
+            name = g.get(f"{side}GoalieName")
+            if not team or not name:
+                continue
+            status = str(g.get(f"{side}NewsStrengthName") or "Unconfirmed")
+            src = g.get(f"{side}NewsSourceName") or ""
+            when = str(g.get(f"{side}NewsCreatedAt") or "")[:16].replace("T", " ")
+            out[team] = {
+                "name": name, "status": status, "source": "dailyfaceoff",
+                "note": (f"{status} via {src} {when} UTC" if src else f"{status} on DailyFaceoff").strip(),
+                "sv": g.get(f"{side}GoalieSavePercentage"), "date": str(g.get("date", ""))[:10],
+            }
+    return out
+
+
+def scrape_dailyfaceoff(client: NHLClient | None, date: str) -> dict[str, dict]:
+    """Fetch DailyFaceoff's starting-goalies page and parse it. Best effort: {} on any failure."""
     try:
         import requests  # type: ignore
     except Exception:  # pragma: no cover
         return {}
     try:
-        r = requests.get(DFO_URL, timeout=15, headers={"User-Agent": "Mozilla/5.0 (research tool)"})
+        r = requests.get(DFO_URL, timeout=20, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml",
+        })
         r.raise_for_status()
-        html = r.text
     except Exception:
         return {}
-    out: dict[str, dict] = {}
-    # Try the Next.js data island first.
-    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
-    blobs: list[str] = [m.group(1)] if m else []
-    blobs.append(html)
-    for blob in blobs:
-        for team_name, ab in DFO_TEAM_NAMES.items():
-            if ab in out:
-                continue
-            idx = blob.find(team_name)
-            if idx < 0:
-                continue
-            window = blob[idx : idx + 2500]
-            status = None
-            for s in ("Confirmed", "Expected", "Likely", "Unconfirmed", "Projected"):
-                if s in window:
-                    status = s
-                    break
-            nm = re.search(r'"(?:goalieName|name|playerName)"\s*:\s*"([A-Z][a-zA-Z\'\-\. ]+ [A-Z][a-zA-Z\'\-\. ]+)"', window)
-            if nm and status:
-                out[ab] = {"name": nm.group(1), "status": status, "source": "dailyfaceoff"}
-    return out
+    return parse_dailyfaceoff(r.text, date)
 
 
 def resolve_starter(
@@ -120,7 +132,7 @@ def resolve_starter(
             gp = GoalieProfile(goalie_id=0, name=dfo[team]["name"], team=team)
         st = dfo[team]["status"].lower()
         status = "confirmed" if st == "confirmed" else ("expected" if st in ("expected", "likely", "projected") else "unconfirmed")
-        return {"goalie": gp, "status": status, "source": "dailyfaceoff", "note": ""}
+        return {"goalie": gp, "status": status, "source": "dailyfaceoff", "note": dfo[team].get("note", "")}
 
     # heuristic on usage
     pool = [g for g in goalies.values() if g.team == team and (g.starts_cur + g.starts_prior) > 0]

@@ -100,3 +100,21 @@ def test_sdv_conversion_minimal(tmp_path):
     assert [e.type for e in r.events] == ["shot-on-goal", "goal", "penalty", "goal"]
     assert r.events[3].strength == "PP" and abs(r.events[3].minute - 848 / 60) < 1e-3
     assert r.goalie_names["1"] == "Sergei Bobrovsky"
+
+
+def test_parse_dailyfaceoff_embedded_data():
+    import json
+    from earlygoal.goalies import parse_dailyfaceoff
+
+    data = {"props": {"pageProps": {"data": [{
+        "date": "2026-10-13", "homeTeamName": "Detroit Red Wings", "awayTeamName": "New Jersey Devils",
+        "homeGoalieName": "John Gibson", "awayGoalieName": "Jake Allen",
+        "homeNewsStrengthName": "Confirmed", "awayNewsStrengthName": "Likely",
+        "homeNewsSourceName": "Reporter A", "awayNewsSourceName": "", "homeNewsCreatedAt": "2026-10-13T14:30:12.624Z",
+        "homeGoalieSavePercentage": "0.863", "awayGoalieSavePercentage": "0.885"}]}}}
+    html = '<html><script id="__NEXT_DATA__" type="application/json">' + json.dumps(data) + "</script></html>"
+    d = parse_dailyfaceoff(html, "2026-10-13")
+    assert d["DET"]["name"] == "John Gibson" and d["DET"]["status"] == "Confirmed" and "Reporter A" in d["DET"]["note"]
+    assert d["NJD"]["name"] == "Jake Allen" and d["NJD"]["status"] == "Likely"
+    assert parse_dailyfaceoff(html, "2026-10-14") == {}
+    assert parse_dailyfaceoff("<html>no data</html>") == {}
