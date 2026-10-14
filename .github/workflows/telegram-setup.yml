@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: write
 
 jobs:
@@ -25,4 +25,13 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-        run: python tools/notify.py --reason test
+        run: python tools/notify.py --reason test 2>&1 | tee data/telegram_status.txt
+      - name: Record the outcome (no secrets in it)
+        if: always()
+        run: |
+          git config user.name "earlygoal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/telegram_status.txt
+          git commit -m "telegram setup status" || echo "nothing"
+          git pull --rebase origin main
+          git push
