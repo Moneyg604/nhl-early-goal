@@ -17,6 +17,7 @@ not caught up with. `--source api` uses the NHL API only.
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import sys
 from datetime import datetime, timedelta
@@ -178,6 +179,8 @@ def cmd_run(args: argparse.Namespace) -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     seen_future: list[dict] = []   # slates already built in this window, for the next day's rest context
     built = 0
+    lineups: dict[str, dict] = {}
+    lineups_pending = not (args.demo or args.no_dfo)
     for i, d in enumerate(dates):
         dmeta = dict(meta, slate_offset_days=i, built_for=dates[0])
         if not args.demo:
@@ -193,6 +196,24 @@ def cmd_run(args: argparse.Namespace) -> None:
                 continue
             seen_future += slate
             dfo = {} if args.no_dfo else scrape_dailyfaceoff(client, d)
+            if lineups_pending:
+                from .lineups import scrape_lineups
+
+                try:
+                    lineups = scrape_lineups(sorted({t for g in slate for t in (g["home"], g["away"])} | {t for g in seen_future for t in (g["home"], g["away"])}), dates[0])
+                    print(f"  lineups: {len(lineups)} teams from DailyFaceoff")
+                except Exception as e:  # noqa: BLE001
+                    print(f"  lineups skipped ({e})", file=sys.stderr)
+                lineups_pending = False
+            elif not (args.demo or args.no_dfo):
+                from .lineups import scrape_lineups
+
+                missing = sorted({t for g in slate for t in (g["home"], g["away"])} - set(lineups))
+                if missing:
+                    try:
+                        lineups.update(scrape_lineups(missing, dates[0]))
+                    except Exception:  # noqa: BLE001
+                        pass
             src = []
             if overrides.get(d) or overrides.get("*"):
                 src.append("overrides")
@@ -204,8 +225,15 @@ def cmd_run(args: argparse.Namespace) -> None:
                 print(f"note: DailyFaceoff returned nothing for {d}; goalies come from overrides.json or usage.")
         print(f"{d}: {len(slate)} games, profiles from {lp.games} games ({len(current)} this season, data through {dmeta.get('data_through', 'n/a')}); simulating {sims:,} paths per game ...")
         prev_payload = None if args.demo else previous_payload(d)
+        if not args.demo and os.environ.get("ODDS_API_KEY") and i == 0:
+            try:
+                from .odds import fetch as fetch_odds
+
+                fetch_odds(d)
+            except Exception as e:  # noqa: BLE001
+                print(f"  odds fetch skipped ({e})", file=sys.stderr)
         payload, _ = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta,
-                               records=None if args.demo else (current + prior))
+                               records=None if args.demo else (current + prior), lineups=lineups)
         payload["changes"] = diff_payloads(prev_payload, payload)
         if payload["changes"]["items"]:
             print(f"  changes since {payload['changes']['since']}: " + "; ".join(f"{x['game']}: {x['text']}" for x in payload["changes"]["items"][:8]))
@@ -251,27 +279,129 @@ def _seasons_for_backtest(args: argparse.Namespace) -> tuple[list[GameRecord], l
     return prior, current, test_season
 
 
-def cmd_backtest(args: argparse.Namespace) -> None:
-    from .backtest import print_report, run_backtest
+def cmd_prune(args: argparse.Namespace) -> None:
+    """Re-test each prunable factor on the early markets, walk-forward, across several seasons; switch off
+    the ones that no longer help and record the evidence in data/factors.json."""
+    import dataclasses
 
-    if getattr(args, "auto", False) and not args.season:
-        # the most recent season with enough games to judge: the current one once it has 600, else the one before
+    from .backtest import run_backtest
+    from .config import PRUNABLE
+
+    seasons = list(args.seasons or [])
+    if not seasons:
         cur = season_for(today_et())
         n_cur = len([g for g in load_games(cur) if g.final])
-        args.season = cur if n_cur >= 600 else cur - 10001
-        print(f"revalidating on season {args.season} ({n_cur} games played this season)")
-    prior, current, test_season = _seasons_for_backtest(args)
-    s = run_backtest(prior, current, start=args.start, end=args.end, projected_goalies=args.projected_goalies, with_sim=args.with_sim, sim_paths=20000)
-    print_report(s)
+        latest = cur if n_cur >= 600 else cur - 10001
+        seasons = [latest - 20002, latest - 10001, latest]
+    data = {}
+    for season in seasons:
+        prior = []
+        for s in prior_seasons_for(season):
+            prior += load_games(s)
+        current = load_games(season)
+        if prior and current:
+            data[season] = (prior, current)
+    if not data:
+        raise SystemExit("no seasons with data on disk")
+    switches, detail = {}, {}
+    with_sim = bool(getattr(args, "with_sim", False))
+    early_keys = ("first5", "first10")
+    joint_keys = ("fg_ml_home", "fg_home_minus15", "fg_away_minus15", "fg_over45", "home_over15", "away_over15", "p1_under25", "p1_away_win", "p1_home_win")
+
+    def ll(summary: dict, key: str) -> float | None:
+        v = summary.get(key)
+        return v["logloss_model"] if v else None
+
+    for name in PRUNABLE:
+        per = {}
+        for season, (prior, current) in data.items():
+            on = run_backtest(prior, current, cfg=dataclasses.replace(CFG, **{name: True}), verbose=False, with_sim=with_sim, sim_paths=20000)
+            off = run_backtest(prior, current, cfg=dataclasses.replace(CFG, **{name: False}), verbose=False, with_sim=with_sim, sim_paths=20000)
+            keys = early_keys + (joint_keys if with_sim else ())
+            # score: mean relative change in log loss across the markets (negative = the factor helps)
+            rel = [(ll(on, k) - ll(off, k)) / ll(off, k) for k in keys if ll(on, k) is not None and ll(off, k)]
+            per[str(season)] = {"on": ll(on, "first5"), "off": ll(off, "first5"), "on10": ll(on, "first10"), "off10": ll(off, "first10"),
+                                "markets_on": {k: ll(on, k) for k in keys if ll(on, k) is not None}, "markets_off": {k: ll(off, k) for k in keys if ll(off, k) is not None},
+                                "score": round(sum(rel) / len(rel), 6) if rel else 0.0}
+        wins = sum(1 for v in per.values() if v["score"] <= 0)
+        mean_score = sum(v["score"] for v in per.values()) / len(per)
+        mean_on = sum(v["on"] for v in per.values()) / len(per)
+        mean_off = sum(v["off"] for v in per.values()) / len(per)
+        keep = wins * 2 >= len(per) and mean_score <= 0
+        if all(v["markets_on"] == v["markets_off"] for v in per.values()):
+            # the switch made no difference at all: its data is not on this machine; leave the current setting alone
+            keep = bool(getattr(CFG, name))
+            print(f"{name}: no effect in this data (inputs not loaded); leaving it {'on' if keep else 'off'}")
+        switches[name] = keep
+        detail[name] = {"seasons": per, "seasons_helped": wins, "mean_score": round(mean_score, 6), "mean_logloss_on": round(mean_on, 5), "mean_logloss_off": round(mean_off, 5),
+                        "judged_on": list(early_keys + (joint_keys if with_sim else ())), "keep": keep}
+        print(f"{name}: helped in {wins} of {len(per)} seasons (mean relative log-loss change {mean_score*100:+.3f}% across {len(detail[name]['judged_on'])} markets) -> {'keep' if keep else 'switch off'}")
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    (DATA_DIR / "factors.json").write_text(json.dumps({"evaluated": today_et(), "seasons": [str(s) for s in data], "switches": switches, "detail": detail}, indent=1))
+    print(f"wrote {DATA_DIR / 'factors.json'}")
+
+
+def cmd_xg(args: argparse.Namespace) -> None:
+    """Fetch and convert MoneyPuck shot files for the seasons the model uses (safe to run anywhere; skips what it cannot reach)."""
+    from .xg import ensure_season
+
+    date = args.date or today_et()
+    cur = season_for(date)
+    seasons = list(args.seasons or []) or [cur - 10001 * k for k in range(int(args.back), -1, -1)]
+    for s in seasons:
+        n = ensure_season(s, is_current=(s == cur))
+        print(f"  xG {s}: {n} games")
+
+
+def cmd_backtest(args: argparse.Namespace) -> None:
+    """Walk-forward backtest. With --seasons (or --auto) several test seasons run; the newest is the headline
+    and every season's summary is kept under "seasons" so the page can show whether a verdict holds across years."""
+    from .backtest import print_report, run_backtest
+
+    seasons = list(getattr(args, "seasons", None) or [])
+    if getattr(args, "auto", False) and not args.season and not seasons:
+        # the most recent season with enough games to judge: the current one once it has 600, else the one before;
+        # plus the two seasons before it
+        cur = season_for(today_et())
+        n_cur = len([g for g in load_games(cur) if g.final])
+        latest = cur if n_cur >= 600 else cur - 10001
+        seasons = [latest - 20002, latest - 10001, latest]
+        print(f"revalidating on seasons {seasons} ({n_cur} games played this season)")
+    if not seasons:
+        seasons = [args.season or season_for(args.date or today_et())]
+    per_season: dict[str, dict] = {}
+    headline = None
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    rows = s.pop("rows", [])
-    s["season"] = test_season
-    s["games"] = len(rows)
-    (OUT_DIR / f"backtest-{test_season}.json").write_text(json.dumps(s, indent=1, default=float))
+    for season in seasons:
+        args.season = season
+        try:
+            prior, current, test_season = _seasons_for_backtest(args)
+        except SystemExit as e:
+            print(f"  season {season} skipped: {e}", file=sys.stderr)
+            continue
+        if not prior or not current:
+            print(f"  season {season} skipped: not enough data on disk", file=sys.stderr)
+            continue
+        print(f"\n=== season {test_season}: {len(current)} games, priors {sorted({g.season for g in prior})} ===")
+        s = run_backtest(prior, current, start=args.start, end=args.end, projected_goalies=args.projected_goalies, with_sim=args.with_sim, sim_paths=20000)
+        print_report(s)
+        rows = s.pop("rows", [])
+        s["season"] = test_season
+        s["games"] = len(rows)
+        (OUT_DIR / f"backtest-{test_season}.json").write_text(json.dumps(s, indent=1, default=float))
+        slim = {k: v for k, v in s.items() if k not in ("break_even",)}
+        for w in ("first5", "first10"):
+            if w in slim:
+                slim[w] = {k: v for k, v in slim[w].items() if k != "calibration"}
+        per_season[str(test_season)] = slim
+        headline = s
+    if headline is None:
+        raise SystemExit("no season could be backtested")
+    headline["seasons"] = per_season
     if args.save:
         DATA_DIR.mkdir(parents=True, exist_ok=True)
-        (DATA_DIR / "backtest_latest.json").write_text(json.dumps(s, indent=1, default=float))
-        print(f"saved as the validation panel source: {DATA_DIR / 'backtest_latest.json'}")
+        (DATA_DIR / "backtest_latest.json").write_text(json.dumps(headline, indent=1, default=float))
+        print(f"saved as the validation panel source: {DATA_DIR / 'backtest_latest.json'} ({len(per_season)} seasons)")
 
 
 def cmd_early_signal(args: argparse.Namespace) -> None:
@@ -379,7 +509,17 @@ def main(argv: list[str] | None = None) -> None:
 
     b = sub.add_parser("backtest", help="walk-forward calibration of first-5 / first-10 probabilities")
     b.add_argument("--date", help="reference date for season selection")
-    b.add_argument("--auto", action="store_true", help="pick the most recent season with at least 600 games (for the scheduled revalidation)")
+    b.add_argument("--auto", action="store_true", help="the most recent season with at least 600 games plus the two before it (for the scheduled revalidation)")
+    b.add_argument("--seasons", nargs="*", type=int, help="several test seasons, e.g. 20232024 20242025 20252026; the newest is the headline")
+    xg = sub.add_parser("xg", help="fetch MoneyPuck expected-goals data for the seasons the model uses")
+    xg.add_argument("--date")
+    xg.add_argument("--seasons", nargs="*", type=int)
+    xg.add_argument("--back", type=int, default=2, help="how many prior seasons to fetch (default 2)")
+    xg.set_defaults(fn=cmd_xg)
+    pr = sub.add_parser("prune", help="re-test each switchable factor across seasons and switch off the ones that stopped helping")
+    pr.add_argument("--seasons", nargs="*", type=int)
+    pr.add_argument("--with-sim", action="store_true", help="judge on the full-game and period markets too (slower)")
+    pr.set_defaults(fn=cmd_prune)
     b.add_argument("--season", type=int, help="season to test, e.g. 20252026")
     b.add_argument("--start")
     b.add_argument("--end")

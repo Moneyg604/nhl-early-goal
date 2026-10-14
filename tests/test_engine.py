@@ -28,6 +28,12 @@ def test_context_multipliers_move_rates_in_the_right_direction():
     lp = build_league_profile([])
     base = build_game_model({"game_id": 1, "date": "d", "start_utc": ""}, _side("A", True, {"b2b": False, "days_rest": 1}), _side("B", False, {"b2b": False, "days_rest": 1}), lp)
     tired = build_game_model({"game_id": 1, "date": "d", "start_utc": ""}, _side("A", True, {"b2b": False, "days_rest": 1}), _side("B", False, {"b2b": True, "days_rest": 0}), lp)
+    # rest / travel applies to the full game; the early window only carries it when the switch is on
+    import dataclasses
+    from earlygoal.config import CFG
+    cfg_early = dataclasses.replace(CFG, use_context_early=True)
+    tired = build_game_model({"game_id": 1, "date": "d", "start_utc": ""}, _side("A", True, {"b2b": False, "days_rest": 1}), _side("B", False, {"b2b": True, "days_rest": 0}), lp, cfg_early)
+    base = build_game_model({"game_id": 1, "date": "d", "start_utc": ""}, _side("A", True, {"b2b": False, "days_rest": 1}), _side("B", False, {"b2b": False, "days_rest": 1}), lp, cfg_early)
     # a back-to-back away side allows more, so the no-goal probability falls
     assert tired.p_no_goal_before(5) < base.p_no_goal_before(5)
 
@@ -137,3 +143,39 @@ def test_site_slate_day_rolls_over_at_4am_eastern():
 
     assert slate_today(datetime(2026, 10, 14, 5, 30, tzinfo=timezone.utc)) == "2026-10-13"   # 1:30 am ET: still the 13th
     assert slate_today(datetime(2026, 10, 14, 9, 30, tzinfo=timezone.utc)) == "2026-10-14"   # 5:30 am ET: the 14th
+
+
+def test_xg_convert_and_profile_blend(tmp_path):
+    """A tiny MoneyPuck-shaped file converts to per-game xG and feeds the team and goalie profiles."""
+    import io, json, zipfile
+    from earlygoal.xg import convert, load_xg
+    from earlygoal import xg as xgmod
+
+    cols = ["game_id", "season", "period", "time", "event", "teamCode", "isHomeTeam", "homeTeamCode", "awayTeamCode", "xGoal", "goal",
+            "goalieIdForShot", "shotOnEmptyNet", "isPlayoffGame", "shotRush", "shotRebound"]
+    rows = [
+        [20001, 2025, 1, 120, "SHOT", "FLA", 1, "FLA", "CHI", 0.20, 0, 8481519, 0, 0, 1, 0],
+        [20001, 2025, 1, 400, "GOAL", "FLA", 1, "FLA", "CHI", 0.35, 1, 8481519, 0, 0, 0, 1],
+        [20001, 2025, 1, 500, "MISS", "CHI", 0, "FLA", "CHI", 0.05, 0, 8475683, 0, 0, 0, 0],
+        [20001, 2025, 3, 3550, "SHOT", "CHI", 0, "FLA", "CHI", 0.40, 0, 8475683, 1, 0, 0, 0],   # empty net: excluded
+        [30001, 2025, 1, 10, "SHOT", "FLA", 1, "FLA", "CHI", 0.10, 0, 8481519, 0, 1, 0, 0],      # playoff: excluded
+    ]
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w") as z:
+        z.writestr("shots_2025.csv", ",".join(cols) + "\n" + "\n".join(",".join(str(v) for v in r) for r in rows))
+    zp = tmp_path / "shots_2025.zip"
+    zp.write_bytes(buf.getvalue())
+    out = tmp_path / "xg_20252026.jsonl"
+    assert convert(zp, 20252026, out) == 1
+    rec = json.loads(out.read_text())
+    assert rec["game_id"] == 2025020001 and rec["home"] == "FLA"
+    assert abs(rec["xg"]["home"]["e5"] - 0.20) < 1e-6 and abs(rec["xg"]["home"]["e10"] - 0.55) < 1e-6 and rec["xg"]["home"]["goals_reg"] == 1
+    assert abs(rec["xg"]["away"]["reg"] - 0.05) < 1e-6   # the empty-net shot is out
+    assert rec["goalies"]["8481519"]["goals"] == 1 and abs(rec["goalies"]["8481519"]["xg"] - 0.55) < 1e-6
+    # the loader keys by NHL game id
+    old = xgmod.XG_DIR
+    try:
+        xgmod.XG_DIR = tmp_path
+        assert 2025020001 in load_xg([20252026])
+    finally:
+        xgmod.XG_DIR = old

@@ -16,8 +16,8 @@ from .ingest import GameRecord
 # What the protocol asks for that this data set does not carry. Stated on every page.
 NOT_MEASURED = [
     "shot location, expected goals, high-danger and rush/rebound chances (no coordinates in the play-by-play feed used)",
-    "forward lines, defence pairs, opening-shift deployment and matchup assignments",
-    "injuries, scratches, suspensions and warm-up absences",
+    "opening-shift deployment and matchup assignments (lines and pairs are shown from DailyFaceoff, not modelled)",
+    "warm-up absences and late scratches after DailyFaceoff's last update (injuries and game-time decisions are shown)",
     "officials",
     "coaching or tactical changes",
     "market prices (type your book's price into the price check)",
@@ -32,16 +32,20 @@ FACTOR_STATUS = [
     ("Starting goalie save %, shrunk; first-10-minute save % and last-5-start form shown", "model"),
     ("Confirmed vs projected starter (DailyFaceoff, with the reporter who confirmed)", "model"),
     ("Home ice", "model"),
-    ("Back-to-back, 3-in-4, travel distance, time zones, rest edge (each side)", "model"),
+    ("Back-to-back, 3-in-4, travel distance, time zones, rest edge (each side): full game after the 10th minute; switched off for the early window by the walk-forward test", "model"),
     ("Both teams on a back-to-back or 3-in-4 (mutual fatigue, first 10 minutes)", "validated"),
     ("Time to first shot and first goal, games with no shot in the first 5", "shown"),
     ("Early penalties taken and drawn (first 10)", "shown"),
     ("Head-to-head meetings: first-goal time, early shots, goalies", "shown"),
     ("Goalie workload: last start, shots faced, consecutive starts, started last night", "shown"),
     ("Previous game went to overtime or a shootout", "shown"),
+    ("Goalie workload as a predictor (consecutive nights, long layoff): measured, no effect", "shown"),
+    ("Home arena as a predictor: measured, spread across arenas matches chance once team strength is in", "shown"),
     ("League base rates by season (first 5 / first 10)", "model"),
-    ("Shot attempts, Fenwick, xG, high-danger chances, shot location", "unavailable"),
-    ("Lines, pairs, opening deployment, scratches, injuries, officials, coaching", "unavailable"),
+    ("Expected goals (MoneyPuck shot quality): shot-quality rates for and against, finishing as goals over xG, goalie as goals over xG faced", "xg"),
+    ("High-danger chances, rush and rebound chances as separate inputs", "unavailable"),
+    ("Lines, pairs, power-play units, injuries and game-time decisions (DailyFaceoff)", "shown"),
+    ("Opening deployment, late scratches, officials, coaching", "unavailable"),
 ]
 
 
@@ -59,6 +63,7 @@ class ResearchIndex:
     names: dict = field(default_factory=dict)
     schedule_rates: dict = field(default_factory=dict)                        # mutual fatigue table, all seasons
     base_rates: dict = field(default_factory=dict)                            # season -> {games, no_goal_5, no_goal_10}
+    tested: dict = field(default_factory=dict)                                # other situational factors, measured and found wanting
 
 
 def build_index(records: list[GameRecord]) -> ResearchIndex:
@@ -92,8 +97,56 @@ def build_index(records: list[GameRecord]) -> ResearchIndex:
         b[1] += fg is None or fg >= 5
         b[2] += fg is None or fg >= 10
     ix.schedule_rates = {k: {"games": n, "no_goal_5": round(a / n, 4) if n else None, "no_goal_10": round(b / n, 4) if n else None} for k, (n, a, b) in tab.items()}
+    ix.tested = _tested_factors(recs)
     ix.base_rates = {str(s): {"games": n, "no_goal_5": round(a / n, 4), "no_goal_10": round(b / n, 4)} for s, (n, a, b) in sorted(ix.base_rates.items())}
     return ix
+
+
+def _tested_factors(recs: list[GameRecord]) -> dict:
+    """Situational factors that were measured and did not move the five-minute window: goalie workload and
+    home arena. Reported so nobody has to wonder whether they were looked at."""
+    import math
+
+    n = hit = 0
+    venue: dict[str, list[int]] = defaultdict(lambda: [0, 0])
+    gw: dict[str, list[int]] = defaultdict(lambda: [0, 0])
+    last_start: dict[int, str] = {}
+    from datetime import date as _date
+
+    for g in recs:
+        goals = [e.minute for e in g.events if e.type == "goal" and e.minute < 65]
+        fg = min(goals) if goals else None
+        h5 = fg is None or fg >= 5
+        n += 1
+        hit += h5
+        v = venue[g.home]
+        v[0] += 1
+        v[1] += h5
+        for side in ("home", "away"):
+            gid = (g.starters or {}).get(side)
+            if not gid:
+                continue
+            ls = last_start.get(gid)
+            if ls:
+                d = (_date.fromisoformat(g.date) - _date.fromisoformat(ls)).days
+                k = "first start in 7+ days" if d >= 7 else ("consecutive nights" if d == 1 else "2 to 6 days since last start")
+                x = gw[k]
+                x[0] += 1
+                x[1] += h5
+            last_start[gid] = g.date
+    if not n:
+        return {}
+    base = hit / n
+    rates = [v[1] / v[0] for v in venue.values() if v[0] >= 40]
+    mean_n = sum(v[0] for v in venue.values() if v[0] >= 40) / max(1, len(rates))
+    obs_sd = (sum((r - base) ** 2 for r in rates) / max(1, len(rates))) ** 0.5 if rates else 0.0
+    exp_sd = math.sqrt(base * (1 - base) / mean_n) if mean_n else 0.0
+    return {
+        "games": n, "baseline_no_goal_5": round(base, 4),
+        "goalie_workload": {k: {"team_games": a, "no_goal_5": round(h / a, 4)} for k, (a, h) in sorted(gw.items())},
+        "home_arena": {"arenas": len(rates), "observed_sd_pts": round(obs_sd * 100, 2), "expected_sd_if_no_effect_pts": round(exp_sd * 100, 2),
+                       "extremes": {t: round(v[1] / v[0], 4) for t, v in sorted(venue.items(), key=lambda kv: kv[1][1] / kv[1][0]) if v[0] >= 40}},
+    }
 
 
 def _early_block(g: GameRecord, team: str) -> dict:
@@ -223,11 +276,32 @@ def game_research(ix: ResearchIndex, game: dict, sides: dict, season: int, lp_co
     }
 
 
-def slate_research(ix: ResearchIndex, lp_context_mults: dict, lp_context_samples: dict, meta: dict) -> dict:
+def slate_research(ix: ResearchIndex, lp_context_mults: dict, lp_context_samples: dict, meta: dict, xg_games: int = 0) -> dict:
+    import json as _json
+
+    from .config import CFG, DATA_DIR
+
+    factors = []
+    for f, st in FACTOR_STATUS:
+        if st == "xg":
+            st = "model" if (xg_games > 0 and CFG.use_xg) else ("shown" if xg_games > 0 else "unavailable")
+            f = f + (f" ({xg_games:,} games loaded)" if xg_games else " (data not loaded in this build)")
+        factors.append({"factor": f, "status": st})
+
+    switches = None
+    f = DATA_DIR / "factors.json"
+    if f.exists():
+        try:
+            switches = _json.loads(f.read_text())
+        except Exception:  # noqa: BLE001
+            switches = None
     return {
-        "factors": [{"factor": f, "status": s} for f, s in FACTOR_STATUS],
+        "switches": switches,
+        "factors": factors,
+        "xg_games": xg_games,
         "base_rates_by_season": ix.base_rates,
         "schedule_rates": ix.schedule_rates,
+        "tested": ix.tested,
         "context_effects": {k: round(v, 4) for k, v in (lp_context_mults or {}).items()},
         "context_samples": lp_context_samples or {},
         "not_measured": NOT_MEASURED,

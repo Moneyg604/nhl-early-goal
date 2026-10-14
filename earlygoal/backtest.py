@@ -51,10 +51,15 @@ def run_backtest(
     for g in prior:
         by_season.setdefault(g.season, []).append(g)
     cur_season = infer_current_season(cur, prior)
+    xg = None
+    if cfg.use_xg:
+        from .xg import load_xg
+
+        xg = load_xg(sorted({g.season for g in prior + cur})) or None
     for season in sorted(by_season):
-        add_games_to_profiles(teams, goalies, by_season[season], prior_weight(season, cur_season, cfg), False)
+        add_games_to_profiles(teams, goalies, by_season[season], prior_weight(season, cur_season, cfg), False, xg)
     seen: list[GameRecord] = []
-    lp = build_league_profile(prior, cfg)
+    lp = build_league_profile(prior, cfg, xg=xg)
     compute_norms(lp, teams, goalies, cfg)
     last_refresh = -10**9
     rows = []
@@ -62,7 +67,7 @@ def run_backtest(
         slate = [g for g in cur if g.date == d]
         if d in eval_dates:
             if i - last_refresh >= league_refresh_days:
-                lp = build_league_profile(prior + seen, cfg, weights=[1.0] * len(prior) + [cfg.league_current_weight] * len(seen))
+                lp = build_league_profile(prior + seen, cfg, weights=[1.0] * len(prior) + [cfg.league_current_weight] * len(seen), xg=xg)
                 compute_norms(lp, teams, goalies, cfg)
                 last_refresh = i
             base5, base10 = lp.p_no_goal_5, lp.p_no_goal_10
@@ -96,7 +101,7 @@ def run_backtest(
                 rows.append(row)
             if verbose and len(rows) % 200 < len(slate):
                 print(f"  backtest through {d}: {len(rows)} games")
-        add_games_to_profiles(teams, goalies, slate, 1.0, True)
+        add_games_to_profiles(teams, goalies, slate, 1.0, True, xg)
         seen += slate
     s = summarize(rows)
     s["rows"] = rows

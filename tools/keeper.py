@@ -18,7 +18,7 @@ import sys
 import time
 from datetime import datetime, timedelta, timezone
 
-SLATE_TIMES = ((14, 5), (19, 5), (22, 35))          # UTC; same as update-slate.yml
+SLATE_TIMES = ((14, 5, "morning"), (19, 5, "update"), (22, 35, "update"))   # UTC; same as update-slate.yml
 LIVE_HOURS = {23, 0, 1, 2, 3, 4, 5, 6}               # live-scores.yml: every 5 minutes in these UTC hours
 LIVE_STEP_MIN = 5
 HANDOVER_AFTER = 5 * 3600 + 30 * 60                   # hand over well inside the 6-hour job limit
@@ -68,11 +68,11 @@ def t120_for(day: str) -> datetime | None:
 def next_event(now: datetime) -> tuple[datetime, str]:
     """The next due (time, workflow file)."""
     cands: list[tuple[datetime, str]] = []
-    for h, m in SLATE_TIMES:
+    for h, m, reason in SLATE_TIMES:
         t = now.replace(hour=h, minute=m, second=0, microsecond=0)
         if t <= now:
             t += timedelta(days=1)
-        cands.append((t, "update-slate.yml"))
+        cands.append((t, f"update-slate.yml:{reason}"))
     # monthly revalidation of the backtest, first of the month at 12:00 UTC
     first = now.replace(day=1, hour=12, minute=0, second=0, microsecond=0)
     if first <= now:
@@ -82,7 +82,7 @@ def next_event(now: datetime) -> tuple[datetime, str]:
     for d in (now.date(), (now + timedelta(days=1)).date()):
         t = t120_for(d.isoformat())
         if t is not None and t > now:
-            cands.append((t, "update-slate.yml"))
+            cands.append((t, "update-slate.yml:t120"))
     # next 5-minute tick that falls inside the live window
     t = (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
     t += timedelta(minutes=(-t.minute) % LIVE_STEP_MIN)
@@ -131,9 +131,12 @@ def keeper_alive() -> bool:
     return any(r.get("status") in ("in_progress", "queued", "waiting", "pending") for r in runs(workflow="keeper.yml", limit=5))
 
 
-def dispatch(workflow: str) -> None:
-    print(f"{datetime.now(timezone.utc):%H:%M:%S} dispatch {workflow}", flush=True)
-    gh("workflow", "run", workflow, "--ref", "main")
+def dispatch(workflow: str, reason: str | None = None) -> None:
+    print(f"{datetime.now(timezone.utc):%H:%M:%S} dispatch {workflow}{' (' + reason + ')' if reason else ''}", flush=True)
+    args = ["workflow", "run", workflow, "--ref", "main"]
+    if reason:
+        args += ["-f", f"reason={reason}"]
+    gh(*args)
 
 
 def main() -> None:
@@ -164,10 +167,11 @@ def main() -> None:
         print(f"{now:%H:%M:%S} next: {wf} at {due:%H:%M} UTC (in {wait/60:.1f} min)", flush=True)
         time.sleep(max(0.0, wait))
         now = datetime.now(timezone.utc)
-        if started_recently(wf, now):
-            print(f"{now:%H:%M:%S} {wf} already started (cron or another keeper); skipping", flush=True)
+        wf_file, _, reason = wf.partition(":")
+        if started_recently(wf_file, now):
+            print(f"{now:%H:%M:%S} {wf_file} already started (cron or another keeper); skipping", flush=True)
         else:
-            dispatch(wf)
+            dispatch(wf_file, reason or None)
         time.sleep(61)   # never dispatch the same minute twice
     print("handing over to a fresh keeper")
     dispatch("keeper.yml")

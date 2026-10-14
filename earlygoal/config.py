@@ -74,6 +74,12 @@ class ModelConfig:
     prior_long_travel_def_mult: float = 1.02 # > 1500 km since last game
     prior_tz_shift_def_mult: float = 1.015   # per time zone crossed, capped at 2
     prior_rest_edge_mult: float = 1.015      # per extra rest day vs opponent, capped at 2
+    use_xg: bool = False                     # shot quality (MoneyPuck expected goals) blended into shot rates, finishing and goalie quality; the walk-forward prune turns it on when it helps
+    xg_weight: float = 0.5                   # share of the xG-based estimate in that blend
+    k_finish_xg: float = 120.0               # finishing as goals over xG, shrunk in xG units (about 40 games)
+    k_goalie_xg: float = 150.0               # goalie as goals allowed over xG faced, shrunk in xG units (about 60 starts)
+    use_context: bool = True                 # rest / travel multipliers (back-to-back, travel, time zones, 3-in-4, rest edge) on the full game
+    use_context_early: bool = False          # ...also on the first 10 minutes (walk-forward says they add noise there)
     use_mutual_fatigue: bool = True          # both teams on a back-to-back (or both 3-in-4): measured early-window multiplier
     prior_mutual_fatigue_mult: float = 1.0   # prior for that multiplier (1.0 = no effect until the data says so)
 
@@ -90,7 +96,25 @@ class ModelConfig:
     tier_b_min_games: int = 8
 
 
-CFG = ModelConfig()
+# Switches the monthly revalidation may flip (data/factors.json, written by `backtest --prune`): a factor that
+# stops improving the walk-forward backtest is turned off there without changing the code.
+PRUNABLE = ("use_context_early", "use_mutual_fatigue", "use_xg")
+
+
+def _load_factor_switches() -> dict:
+    import json
+
+    f = DATA_DIR / "factors.json"
+    if not f.exists():
+        return {}
+    try:
+        d = json.loads(f.read_text())
+        return {k: bool(v) for k, v in (d.get("switches") or {}).items() if k in PRUNABLE}
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+CFG = ModelConfig(**_load_factor_switches())
 
 
 def prior_seasons_for(current_season: int, cfg: ModelConfig = CFG) -> list[int]:

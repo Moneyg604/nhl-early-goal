@@ -13,7 +13,7 @@ permissions:
 jobs:
   revalidate:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,17 +27,22 @@ jobs:
             data/sdv
             data/games_*.jsonl
             data/cache
+            data/xg
           key: nhl-data-${{ github.run_id }}
           restore-keys: |
             nhl-data-
       - run: pip install -r requirements.txt
-      - name: Walk-forward backtest with simulation
+      - name: Expected goals for five seasons
+        run: python -m earlygoal xg --back 4 || echo "xG fetch skipped"
+      - name: Re-test the switchable factors
+        run: python -m earlygoal prune --with-sim
+      - name: Walk-forward backtest with simulation (three seasons)
         run: python -m earlygoal backtest --auto --with-sim --save
       - name: Commit the validation
         run: |
           git config user.name "earlygoal-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/backtest_latest.json
+          git add data/backtest_latest.json data/factors.json
           git commit -m "revalidate $(date -u +'%Y-%m-%d')" || echo "nothing changed"
           git pull --rebase origin main
           git push

@@ -70,6 +70,14 @@ h2 small{font-family:var(--body);font-weight:500;font-size:12.5px;letter-spacing
 .rbtn:disabled{opacity:.6;cursor:default}
 .abtn{background:var(--panel);border:1px solid var(--ice);color:var(--ice);border-radius:8px;padding:6px 12px;font-size:12.5px;font-family:inherit;cursor:pointer}
 
+/* best of the board */
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 12px}
+.board a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:9px 11px;text-decoration:none;color:var(--text);min-width:0}
+.board .k{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.board .mu{display:block;font-weight:600;font-size:13.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.board .v{font-family:var(--display);font-size:22px;font-weight:700;color:var(--green)}
+.board .s{display:block;font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:480px){.board{grid-template-columns:1fr 1fr}}
 /* featured + price */
 .feature{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;margin-bottom:14px}
 @media (max-width:760px){.feature{grid-template-columns:1fr}}
@@ -281,6 +289,7 @@ __STATIC__
   <div class="status" id="status"></div>
   <div id="changes"></div>
   <div class="livebar" id="livebar"></div>
+  <div class="board" id="board"></div>
   <div class="feature" id="feature"></div>
   <div class="toolbar" id="toolbar"></div>
   <div class="tablewrap"><table id="tbl"><thead></thead><tbody></tbody></table></div>
@@ -314,6 +323,7 @@ __STATIC__
   <div id="results-track"></div>
   <div class="panel" id="mybets"></div>
   <div class="panel" id="simulator"></div>
+  <div class="panel" id="calibration"></div>
   <div class="panel"><h3>All slates</h3><p>Days ahead show projected starters until game day; past days keep the numbers that were on the page.</p><div class="daylist" id="daylist"></div></div>
 </section>
 
@@ -337,6 +347,8 @@ const tier = t => `<span class="tier ${t}" title="${t==='A'?'both teams measured
 const fair = m => m.fair ? `<span class="fair">fair ${m.fair.toFixed(2)}</span>` : '';
 const edge = m => (m.edge==null) ? '' : `<span class="edge ${m.edge>=0?'pos':'neg'}">${m.edge>=0?'+':''}${(m.edge*100).toFixed(1)}% vs ${m.book}</span>`;
 const byId = {}; P.games.forEach(g=>byId[g.game_id]=g);
+const rng = (g,k) => { const u=g.uncertainty&&g.uncertainty[k]; return u ? `${(u.lo*100).toFixed(0)}–${(u.hi*100).toFixed(0)}%` : ''; };
+const rngTitle = (g,k) => { const u=g.uncertainty&&g.uncertainty[k]; return u ? `model range ${(u.lo*100).toFixed(1)} to ${(u.hi*100).toFixed(1)}% (90%, from the sample sizes behind the inputs)` : ''; };
 const niceDate = d => { try { const [y,m,dd]=d.split('-'); return new Date(+y,+m-1,+dd).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); } catch(e){ return d; } };
 // the slate day rolls over at 4 am Eastern so late West Coast games still belong to the night before
 const TODAY = new Date(Date.now()-4*3600*1000).toLocaleDateString('en-CA',{timeZone:'America/Toronto'});
@@ -495,7 +507,7 @@ function loadLive(){
   if (loading) return Promise.resolve();
   loading = true; setRefreshState('Refreshing…', true);
   const tryUrl = u => fetch(u + '?t=' + Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(r.status));
-  const apply = L => { LIVE=L; renderLiveBar(); render(); renderFeature(); renderPicks(); if(typeof renderParlay==='function') renderParlay(); if(typeof renderBets==='function') renderBets(); };
+  const apply = L => { LIVE=L; renderLiveBar(); render(); renderFeature(); renderBoard(); renderPicks(); if(typeof renderParlay==='function') renderParlay(); if(typeof renderBets==='function') renderBets(); };
   return fetchScoreboard().then(sb=>{ const L=liveFromScoreboard(sb); if(L){ apply(L); return true; } return false; }).catch(()=>false)
     .then(ok=>{ if(ok) return true; return tryUrl('./live.json').catch(()=>tryUrl('../live.json')).then(j=>{ if(j && j.games && j.date===P.date){ apply(j); return true; } return false; }).catch(()=>false); })
     .then(ok=>{ if(ok) return; return tryUrl('./scorecard.json').catch(()=>tryUrl('../scorecard.json')).then(sc=>{ const L=liveFromScorecard(sc); if(L) apply(L); }).catch(()=>{}); })
@@ -536,12 +548,28 @@ function verdict(price, lo, hi){
   const be=1/price, evLo=lo*price-1, evHi=hi*price-1; const c = evHi<0?'neg':(evLo>0?'pos':'');
   return `Break-even <b>${pct(be)}</b>. Across this slate the model's EV is <b class="${c}">${(evLo*100).toFixed(1)}% to ${(evHi*100).toFixed(1)}%</b> per unit.`;
 }
+function renderBoard(){
+  const el=document.getElementById('board'); if(!el) return;
+  const best=(k, getp, pick, label, pkey, vkey)=>{ let b=null; P.games.forEach(g=>{ const p=getp(g); if(p!=null && (!b||p>b.p)) b={g,p}; }); if(!b) return '';
+    const m=withPrice({p:b.p, fair:1/b.p}, pkey||k); const o=outcomes(b.g); const r=o&&o.started?o[k]:null;
+    return `<a href="#" data-g="${b.g.game_id}"><span class="k">${label}</span><span class="mu">${esc(b.g.matchup)}${pick?' <span class="pick">'+esc(pick(b.g))+'</span>':''}</span><span class="v num">${pct(b.p)}${r&&RES[r]?` <span class="res ${r}">${RES[r]}</span>`:''}</span><span class="s">fair ${(1/b.p).toFixed(2)}${vkey&&rng(b.g,vkey)?' · '+rng(b.g,vkey):''}${m.edge!=null?` · EV ${m.edge>=0?'+':''}${(m.edge*100).toFixed(1)}%`:''}</span></a>`; };
+  el.innerHTML = [
+    best('u05_first5', g=>g.markets.u05_first5.p, null, 'Under 0.5 · first 5', 'u05_first5', 'first5'),
+    HAS_NEW?best('fg_over45', g=>g.markets.fg_over45.p, null, 'Over 4.5', 'fg_over45'):'',
+    HAS_NEW?(()=>{ let b=null; P.games.forEach(g=>{ [['home_over15',g.home],['away_over15',g.away]].forEach(([k,t])=>{ const p=g.markets[k].p; if(!b||p>b.p) b={g,p,k,t}; }); }); if(!b) return ''; const m=withPrice({p:b.p,fair:1/b.p},b.k); const o=outcomes(b.g); const r=o&&o.started?o[b.k]:null;
+      return `<a href="#" data-g="${b.g.game_id}"><span class="k">Team over 1.5</span><span class="mu">${esc(b.g.matchup)} <span class="pick">${esc(b.t)}</span></span><span class="v num">${pct(b.p)}${r&&RES[r]?` <span class="res ${r}">${RES[r]}</span>`:''}</span><span class="s">fair ${(1/b.p).toFixed(2)}${m.edge!=null?` · EV ${m.edge>=0?'+':''}${(m.edge*100).toFixed(1)}%`:''}</span></a>`; })():'',
+    HAS_NEW?best('p1_under25', g=>g.markets.p1_under25.p, null, '1P under 2.5', 'p1_under25'):'',
+    best('fg_ml', g=>g.markets.fg_ml.p, g=>g.markets.fg_ml.pick, 'FG moneyline', null),
+    best('p1_plus05', g=>g.markets.p1_plus05.p, g=>g.markets.p1_plus05.pick, '1P +0.5', null),
+  ].join('');
+  el.querySelectorAll('a[data-g]').forEach(a=>a.onclick=ev=>{ ev.preventDefault(); const id=+a.dataset.g; open.add(id); render(); const row=document.querySelector(`#cards .gc[data-id="${id}"]`)||document.querySelector(`#tbl tr.g[data-id="${id}"]`); if(row) row.scrollIntoView({block:'start', behavior:'smooth'}); });
+}
 function renderFeature(){
   const potd = P.pick_of_day; const f = document.getElementById('feature');
   const g = potd ? byId[potd.game_id] : null;
   f.innerHTML = (potd ? `<div class="card"><h3>Highest probability ${whenWord} · under 0.5, first 5 minutes ${tier(potd.tier)}</h3>
       <div class="mu">${esc(potd.matchup)}</div><div class="big num">${pct(potd.p)}${g?mark(g,'u05_first5'):''}</div>
-      <div class="mk">fair price ${potd.fair.toFixed(2)} · slate range ${pct(lo5)} to ${pct(hi5)} · league rate ${P.league.p_no_goal_5_observed!=null?pct(P.league.p_no_goal_5_observed):'n/a'}</div>
+      <div class="mk">fair price ${potd.fair.toFixed(2)}${g&&rng(g,'first5')?` · model range ${rng(g,'first5')}`:''} · slate ${pct(lo5)} to ${pct(hi5)} · league ${P.league.p_no_goal_5_observed!=null?pct(P.league.p_no_goal_5_observed):'n/a'}</div>
       ${AHEAD>0?`<div class="ru">Projected starters; re-check on game day once goalies are confirmed.</div>`:''}
       ${potd.runner_up?`<div class="ru">runner-up ${esc(potd.runner_up.matchup)} ${pct(potd.runner_up.p)} ${tier(potd.runner_up.tier)}</div>`:''}
       <div class="ru">The spread between games is within noise; the price is what decides whether this bet is worth placing.</div></div>` : '') +
@@ -550,15 +578,15 @@ function renderFeature(){
       ${PRICE_DEFS.map(d=>{ const v=verdict(PRICES[d.k], RANGE[d.k].lo, RANGE[d.k].hi); return `<label>${d.t} <input id="price_${d.k}" type="number" inputmode="decimal" step="0.01" min="1.01" placeholder="${d.ph}" value="${PRICES[d.k]||''}"></label>${v?`<div class="verdict">${v}</div>`:''}`; }).join('')}</div>`;
   PRICE_DEFS.forEach(d=>{ const el=document.getElementById('price_'+d.k); if(!el) return;
     el.onchange=el.onkeyup=()=>{ const v=parseFloat(el.value); if(v>1) PRICES[d.k]=v; else delete PRICES[d.k]; try{localStorage.setItem('egd_price_'+d.k, v>1?String(v):'');}catch(e){}
-      renderFeature(); render(); if(typeof renderParlay==='function') renderParlay(); const e2=document.getElementById('price_'+d.k); if(e2) e2.focus(); }; });
+      renderFeature(); renderBoard(); render(); if(typeof renderParlay==='function') renderParlay(); const e2=document.getElementById('price_'+d.k); if(e2) e2.focus(); }; });
 }
 
 // ---------------------------------------------------------------- game list
 const cols = [
   {k:'rank', h:'#', u:'rank', v:g=>g.rank_u05_first5, r:g=>`<span class="num t">${g.rank_u05_first5}</span>`},
   {k:'matchup', h:'Matchup', u:'away @ home · ET · goalies', l:true, sticky:true, v:g=>g.game_id, r:g=>`<span style="font-weight:700">${esc(g.matchup)}</span> ${tier(g.tier)} <span class="t">${esc(g.time_et)}</span><div>${liveChip(g)}</div>`+['away','home'].map(s=>{const q=g.goalies[s];return `<div class="goalie"><span class="dot ${q.status}"></span>${esc(q.name||'unknown')} <span class="t">${q.sv_shrunk?('.'+String(q.sv_shrunk.toFixed(3)).slice(2)):''} ${esc(q.status)}</span></div>`}).join('')},
-  {k:'u5', m:'u05_first5', h:'Under 0.5 · first 5', u:'no goal · fair', v:g=>g.markets.u05_first5.p, r:g=>{const m=withPrice(g.markets.u05_first5,'u05_first5'); return `<span class="pct num ${cls(m.p,0.70,0.64)}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first5')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
-  {k:'u10', m:'u05_first10', h:'Under 0.5 · first 10', u:'no goal · fair', v:g=>g.markets.u05_first10.p, r:g=>{const m=withPrice(g.markets.u05_first10,'u05_first10'); return `<span class="pct num ${cls(m.p,0.47,0.42)}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first10')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
+  {k:'u5', m:'u05_first5', h:'Under 0.5 · first 5', u:'no goal · fair', v:g=>g.markets.u05_first5.p, r:g=>{const m=withPrice(g.markets.u05_first5,'u05_first5'); return `<span class="pct num ${cls(m.p,0.70,0.64)}" title="${rngTitle(g,'first5')}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first5')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
+  {k:'u10', m:'u05_first10', h:'Under 0.5 · first 10', u:'no goal · fair', v:g=>g.markets.u05_first10.p, r:g=>{const m=withPrice(g.markets.u05_first10,'u05_first10'); return `<span class="pct num ${cls(m.p,0.47,0.42)}" title="${rngTitle(g,'first10')}">${pct(m.p)}</span> ${fair(m)}${mark(g,'u05_first10')}<div class="bar"><i style="width:${(m.p*100).toFixed(1)}%"></i></div>${edge(m)}`}},
   {k:'p1m', m:'p1_minus05', h:'1P −0.5', u:'pick · cover', v:g=>g.markets.p1_minus05.p, r:g=>{const m=g.markets.p1_minus05;return `<span class="pick">${esc(m.pick)}</span><span class="num">${pct(m.p)}</span>${mark(g,'p1_minus05')}`}},
   {k:'p1p', m:'p1_plus05', h:'1P +0.5', u:'pick · cover', v:g=>g.markets.p1_plus05.p, r:g=>{const m=g.markets.p1_plus05;return `<span class="pick">${esc(m.pick)}</span><span class="num ${cls(m.p,0.66,0.60)}">${pct(m.p)}</span>${mark(g,'p1_plus05')}`}},
   {k:'p1ml', m:'p1_ml', h:'1P ML', u:'home / tie / away', v:g=>g.markets.p1_ml.p, r:g=>{const m=g.markets.p1_ml;return `<span class="pick">${esc(m.pick)}</span><span class="num">${pct(m.p)}</span>${mark(g,'p1_ml')}<div class="t num">${(m.home*100).toFixed(0)} / ${(m.tie*100).toFixed(0)} / ${(m.away*100).toFixed(0)}%</div>`}},
@@ -572,7 +600,7 @@ thead.innerHTML='<tr>'+cols.map(c=>`<th class="${c.l?'l':''} ${c.sticky?'sticky'
 thead.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='rank'||k==='matchup'||k==='goalies')?1:-1;}render();});
 
 function factorRows(side, team){
-  const m=side.mults, rows=[['home ice',m.home_ice],['shot rate for (early)',m.off_shot_early],['opp shot rate against (early)',m.opp_def_shot_early],['finishing',m.finish],['opp goalie',m.opp_goalie],['rest / travel',m.context_total]];
+  const m=side.mults, rows=[['home ice',m.home_ice],['shot rate for (early)',m.off_shot_early],['opp shot rate against (early)',m.opp_def_shot_early],['finishing',m.finish],['opp goalie',m.opp_goalie],['rest / travel (after the 10th minute)',m.context_total]];
   if(m.early_context_total && Math.abs(m.early_context_total-1)>1e-6) rows.push(['slow-start factor (first 10 min only)',m.early_context_total]);
   const prod=rows.reduce((a,r)=>a*r[1],1);
   return `<table>${rows.map(r=>`<tr><td>${r[0]}</td><td class="num ${r[1]>1.02?'hi':(r[1]<0.98?'lo':'')}">× ${r[1].toFixed(3)}</td></tr>`).join('')}<tr><td><b>${team} early-goal multiplier</b></td><td class="num"><b>× ${prod.toFixed(3)}</b></td></tr></table>`;
@@ -600,6 +628,7 @@ function goalieBox(g, side){
   <tr><td>sv% raw / shrunk</td><td class="num">${f(q.sv_raw)} / ${f(q.sv_shrunk)}</td></tr>
   <tr><td>last 5 starts sv%</td><td class="num">${f(q.sv_last5)}</td></tr>
   <tr><td>first-10-min sv% raw</td><td class="num">${f(q.e10_sv_raw)}</td></tr>
+  ${q.xg_ratio!=null?`<tr><td>goals allowed per expected goal (shrunk)</td><td class="num">${q.xg_ratio.toFixed(2)}${q.gsax_per_60!=null?' · GSAx '+(q.gsax_per_60>=0?'+':'')+q.gsax_per_60.toFixed(2)+' per game':''}</td></tr>`:''}
   <tr><td>starts this season / shots in sample</td><td class="num">${q.starts_cur??'n/a'} / ${q.shots_weighted}</td></tr></table>${q.note?`<div class="small gap">${esc(q.note)}</div>`:''}`;
 }
 function restBox(side){
@@ -621,6 +650,9 @@ function profBox(side){
   <tr><td>SOG for / against, first 10</td><td class="num">${p.e10_sog_for_pg.toFixed(2)} / ${p.e10_sog_against_pg.toFixed(2)}</td></tr>
   <tr><td>SOG for / against, full game</td><td class="num">${p.sog_for_pg.toFixed(1)} / ${p.sog_against_pg.toFixed(1)}</td></tr>
   <tr><td>shooting%</td><td class="num">${p.sh_pct==null?'n/a':(p.sh_pct*100).toFixed(1)+'%'}</td></tr>
+  ${p.xg_games?`<tr><td>expected goals for / against (per game)</td><td class="num">${p.xg_for_pg.toFixed(2)} / ${p.xg_against_pg.toFixed(2)}</td></tr>
+  <tr><td>xG for / against, first 10</td><td class="num">${p.e10_xg_for_pg.toFixed(2)} / ${p.e10_xg_against_pg.toFixed(2)}</td></tr>
+  <tr><td>goals per expected goal (finishing)</td><td class="num">${p.goals_per_xg==null?'n/a':p.goals_per_xg.toFixed(2)}</td></tr>`:''}
   <tr><td>early penalties taken / drawn (first 10)</td><td class="num">${p.e10_pen_taken_pg.toFixed(2)} / ${p.e10_pen_drawn_pg.toFixed(2)}</td></tr>
   <tr><td>this season: no goal by either side in first 5</td><td class="num">${p.cur_no_goal_5_share==null?'n/a':pct(p.cur_no_goal_5_share)}</td></tr>
   </table>${lg?`<div class="small gap">${lg}</div>`:''}`;
@@ -631,7 +663,8 @@ function details(g){
   const ar=`λ(home) first 5 min  = ${lh.slice(0,5).map(x=>x.toFixed(4)).join(' + ')} = ${lh.slice(0,5).reduce((a,b)=>a+b,0).toFixed(4)}
 λ(away) first 5 min  = ${la.slice(0,5).map(x=>x.toFixed(4)).join(' + ')} = ${la.slice(0,5).reduce((a,b)=>a+b,0).toFixed(4)}
 P(no goal, first 5)  = exp(-${s5.toFixed(4)}) = ${Math.exp(-s5).toFixed(4)}   simulated ${g.markets.u05_first5.p.toFixed(4)} ± ${(g.mc_se.first5*2).toFixed(4)}
-P(no goal, first 10) = exp(-${s10.toFixed(4)}) = ${Math.exp(-s10).toFixed(4)}   simulated ${g.markets.u05_first10.p.toFixed(4)} ± ${(g.mc_se.first10*2).toFixed(4)}`;
+P(no goal, first 10) = exp(-${s10.toFixed(4)}) = ${Math.exp(-s10).toFixed(4)}   simulated ${g.markets.u05_first10.p.toFixed(4)} ± ${(g.mc_se.first10*2).toFixed(4)}${g.uncertainty&&g.uncertainty.first5?`
+model range (90%)    first 5: ${g.uncertainty.first5.lo.toFixed(3)} to ${g.uncertainty.first5.hi.toFixed(3)}   first 10: ${g.uncertainty.first10.lo.toFixed(3)} to ${g.uncertainty.first10.hi.toFixed(3)}   (se of log hazard ${g.uncertainty.first5.se_log_hazard})`:''}`;
   const labels=(side,name)=>`<div class="small">${name}: profile ${lbl(side.labels.team_profile)} · opposing goalie ${lbl(side.labels.opp_goalie)} · rest/travel ${lbl(side.labels.rest_travel)}</div>`;
   return `<div class="dets"><div class="det">
     <div class="box"><h4>${esc(g.home)} (home) · factor chain</h4>${factorRows(H,g.home)}<h4 class="gap">${esc(g.home)} profile</h4>${profBox(H)}</div>
@@ -658,8 +691,8 @@ function card(g){
     <div class="hd"><span><span class="mu">${esc(g.matchup)}</span> ${tier(g.tier)}</span><span class="when">${chip || esc(g.time_et)}<br><span class="t">#${g.rank_u05_first5} for first-5 under${chip?' · '+esc(g.time_et):''}</span></span></div>
     <div class="gl">${gl}</div>
     <div class="pri">
-      <div class="${oc('u05_first5')}"><span class="k">Under 0.5 · first 5 min</span><span class="v num ${cls(u5.p,0.70,0.64)}">${pct(u5.p)}${mark(g,'u05_first5')}</span><span class="s">fair ${u5.fair?u5.fair.toFixed(2):'n/a'} ${edge(u5)}</span></div>
-      <div class="${oc('u05_first10')}"><span class="k">Under 0.5 · first 10 min</span><span class="v num ${cls(u10.p,0.47,0.42)}">${pct(u10.p)}${mark(g,'u05_first10')}</span><span class="s">fair ${u10.fair?u10.fair.toFixed(2):'n/a'} ${edge(u10)}</span></div>
+      <div class="${oc('u05_first5')}"><span class="k">Under 0.5 · first 5 min</span><span class="v num ${cls(u5.p,0.70,0.64)}" title="${rngTitle(g,'first5')}">${pct(u5.p)}${mark(g,'u05_first5')}</span><span class="s">fair ${u5.fair?u5.fair.toFixed(2):'n/a'}${rng(g,'first5')?' · '+rng(g,'first5'):''} ${edge(u5)}</span></div>
+      <div class="${oc('u05_first10')}"><span class="k">Under 0.5 · first 10 min</span><span class="v num ${cls(u10.p,0.47,0.42)}" title="${rngTitle(g,'first10')}">${pct(u10.p)}${mark(g,'u05_first10')}</span><span class="s">fair ${u10.fair?u10.fair.toFixed(2):'n/a'}${rng(g,'first10')?' · '+rng(g,'first10'):''} ${edge(u10)}</span></div>
     </div>
     <div class="sec">
       <div class="${oc('p1_minus05')}"><span class="k">1P −0.5</span><span class="v"><span class="pick">${esc(m.p1_minus05.pick)}</span><span class="num">${pct(m.p1_minus05.p)}</span>${mark(g,'p1_minus05')}</span></div>
@@ -689,7 +722,7 @@ function render(){
 const tb=document.getElementById('toolbar');
 tb.innerHTML=`<select id="sortsel" aria-label="sort"><option value="rank">Sort: under 0.5 first 5</option><option value="u10">Sort: under 0.5 first 10</option><option value="p1m">Sort: 1P −0.5</option><option value="p1p">Sort: 1P +0.5</option><option value="fgml">Sort: FG moneyline</option><option value="fgs">Sort: FG −1.5</option><option value="proj">Sort: projected total</option><option value="matchup">Sort: start time</option></select>`
  +`<select id="tiersel" aria-label="tier filter"><option value="ALL">All tiers</option><option value="A">Tier A only</option><option value="B">Tier B only</option><option value="C">Tier C only</option></select>`
- +`<button id="expand">Expand all</button><span class="legend"><span class="res hit">✓</span> hit <span class="res miss">✗</span> miss <span class="res pending">…</span> pending</span>`;
+ +`<button id="expand">Expand all</button><a class="t" style="margin-left:4px" href="${location.pathname.includes('/days/')?'./':'./days/'}${P.date}.csv" download>CSV</a><a class="t" href="${location.pathname.includes('/days/')?'./':'./days/'}${P.date}.json" download>JSON</a><span class="legend"><span class="res hit">✓</span> hit <span class="res miss">✗</span> miss <span class="res pending">…</span> pending</span>`;
 document.getElementById('tiersel').onchange=(e)=>{tierFilter=e.target.value;render();};
 document.getElementById('expand').onclick=()=>{if(open.size===P.games.length)open.clear();else P.games.forEach(g=>open.add(g.game_id));render();};
 document.getElementById('sortsel').onchange=(e)=>{sortKey=e.target.value;sortDir=(sortKey==='rank'||sortKey==='matchup')?1:-1;render();};
@@ -728,6 +761,7 @@ function renderResearch(){
   document.getElementById('research-factors').innerHTML = `<div class="panel"><h3>Factor checklist</h3>
     <p>${fsb('model')} feeds the hazard chain. ${fsb('validated')} measured from the data and shown to improve the walk-forward backtest in both test seasons. ${fsb('shown')} measured and displayed, but carries no proven predictive value for a five-minute window. ${fsb('unavailable')} not in any data this site can reach; stated rather than guessed.</p>
     <div class="tbl"><table class="kv"><tbody>${R.factors.map(f=>`<tr><td>${esc(f.factor)}</td><td>${fsb(f.status)}</td></tr>`).join('')}</tbody></table></div>
+    ${R.switches&&R.switches.detail?`<p><b>Automatic pruning</b> (last evaluated ${esc(R.switches.evaluated)} on seasons ${(R.switches.seasons||[]).map(x=>x.slice(0,4)+'-'+x.slice(6)).join(', ')}): ${Object.entries(R.switches.detail).map(([k,v])=>`${esc(k.replace('use_','').replace(/_/g,' '))} ${v.keep?'kept':'switched off'} (helped in ${v.seasons_helped} of ${Object.keys(v.seasons).length} seasons${v.mean_score!=null?`, mean log-loss change ${(v.mean_score*100).toFixed(3)}% across ${(v.judged_on||[]).length} markets`:`; log loss ${v.mean_logloss_on.toFixed(5)} on vs ${v.mean_logloss_off.toFixed(5)} off`})`).join('; ')}. A factor that stops helping is turned off by the monthly revalidation without a code change.</p>`:''}
     <p><b>Not measured for any game:</b> ${R.not_measured.map(esc).join('; ')}.</p></div>`;
   const br = R.base_rates_by_season||{}, sr = R.schedule_rates||{};
   const seasonName = s => s.slice(0,4)+'-'+s.slice(6);
@@ -738,6 +772,8 @@ function renderResearch(){
     <p>Games where both teams are on the second night of a back-to-back, or both on their third game in four nights, have started slower. Measured multiplier on the first-10-minute hazard: <b>× ${(R.context_effects.mutual_fatigue_early||1).toFixed(3)}</b> after shrinkage (${R.context_samples.mutual_fatigue_early||0} games). It improved the walk-forward log loss in both test seasons, which is why it is in the model; the shrinkage keeps it well below the raw gap.</p>
     <div class="tbl"><table><thead><tr><th>schedule spot</th><th>games</th><th>no goal, first 5</th><th>no goal, first 10</th></tr></thead><tbody>
     ${['neither','one','both'].filter(k=>sr[k]).map(k=>`<tr><td>${k==='both'?'both teams on a B2B / 3-in-4':(k==='one'?'one team':'neither team')}</td><td class="num">${sr[k].games}</td><td class="num">${pct(sr[k].no_goal_5)}</td><td class="num">${pct(sr[k].no_goal_10)}</td></tr>`).join('')}</tbody></table></div>
+    ${R.tested&&R.tested.games?`<h3 class="gap">Looked at and left out</h3>
+    <p>Measured on ${R.tested.games.toLocaleString()} games (baseline ${pct(R.tested.baseline_no_goal_5)} no goal before 5:00). Goalie workload: ${Object.entries(R.tested.goalie_workload).map(([k,v])=>`${k} ${pct(v.no_goal_5)} (${v.team_games.toLocaleString()} team-games)`).join('; ')}. Home arena: the spread of arena rates is ${R.tested.home_arena.observed_sd_pts} points against ${R.tested.home_arena.expected_sd_if_no_effect_pts} expected from chance alone, and the arenas at the extremes are the high- and low-scoring teams, which the team profiles already carry.</p>`:''}
     <h3 class="gap">Other rest and travel effects in the model</h3><div class="tbl"><table><tbody>${Object.entries(R.context_effects).filter(([k])=>k!=='mutual_fatigue_early').map(([k,v])=>`<tr><td>${esc(k.replace(/_/g,' '))}</td><td class="num">× ${v.toFixed(3)}</td><td class="num">${R.context_samples[k]||0} team-games</td></tr>`).join('')}</tbody></table></div>
   </div>`;
   document.getElementById('research-games').innerHTML = P.games.slice().sort((a,b)=>a.rank_u05_first5-b.rank_u05_first5).map(dossier).join('');
@@ -763,7 +799,8 @@ function dossier(g){
   if(sc.mutual_fatigue) flags.push('<span class="flag good">both teams tired · slow-start factor on</span>');
   ['home','away'].forEach(k=>{ const s=sc[k]; const t=g[k]; if(s.b2b) flags.push(`<span class="flag">${t} back-to-back</span>`); else if(s.three_in_four) flags.push(`<span class="flag">${t} 3-in-4</span>`); if((s.travel_km||0)>1500) flags.push(`<span class="flag dim">${t} ${Math.round(s.travel_km)} km</span>`); if((s.tz_shift||0)>=2) flags.push(`<span class="flag dim">${t} ${s.tz_shift} time zones</span>`);
     const pg=(tw[k]||{}).previous_game; if(pg && pg.ended_in && pg.ended_in!=='REG') flags.push(`<span class="flag dim">${t} played ${pg.ended_in} last game</span>`);
-    const w=gw[k]; if(w && w.started_last_night) flags.push(`<span class="flag">${esc(g.goalies[k].name)} started last night</span>`); });
+    const w=gw[k]; if(w && w.started_last_night) flags.push(`<span class="flag">${esc(g.goalies[k].name)} started last night</span>`);
+    const lu=(r.lineups||{})[k]; if(lu){ const out=lu.injuries.filter(x=>!x.game_time_decision).length, gtd=lu.injuries.filter(x=>x.game_time_decision).length; if(out) flags.push(`<span class="flag dim">${t}: ${out} out</span>`); if(gtd) flags.push(`<span class="flag">${t}: ${gtd} game-time decision${gtd>1?'s':''}</span>`); } });
   const wl = k => { const w=gw[k], q=g.goalies[k]; if(!w) return `<tr><td>${esc(q.name||'unknown')}</td><td colspan="4">no starts on record</td></tr>`; if(!w.starts_on_record) return `<tr><td>${esc(q.name||'unknown')}</td><td colspan="4">no starts on record</td></tr>`;
     return `<tr><td>${esc(q.name||'unknown')} <span class="t">${esc(q.status)}</span></td><td class="num">${esc(w.last_start)} (${w.days_since_last_start} d)</td><td class="num">${w.shots_faced_last_start} / ${w.goals_against_last_start}</td><td class="num">${w.consecutive_team_starts}</td><td class="num">${w.starts_last_7_days}</td></tr>`; };
   const recent = k => (tw[k].recent||[]).slice().reverse().map(x=>`<tr><td>${esc(x.date.slice(5))} ${x.home?'vs':'@'} ${esc(x.opp)}</td><td class="num">${esc(x.result||x.score)}${x.ended_in&&x.ended_in!=='REG'?' '+x.ended_in:''}</td><td class="num">${x.first_goal_min==null?'none':mm(x.first_goal_min)+(x.first_goal_team?' '+esc(x.first_goal_team):'')}</td><td class="num">${x.sog10_for} / ${x.sog10_against}</td></tr>`).join('');
@@ -782,6 +819,12 @@ function dossier(g){
     <div class="box"><h4>${esc(g.home)} · early timing</h4>${timingRows(tw.home)}</div>
     <div class="box"><h4>${esc(g.away)} · last games</h4><table><thead><tr><th>game</th><th>score</th><th>first goal</th><th>SOG first 10 for / ag</th></tr></thead><tbody>${recent('away')}</tbody></table></div>
     <div class="box"><h4>${esc(g.home)} · last games</h4><table><thead><tr><th>game</th><th>score</th><th>first goal</th><th>SOG first 10 for / ag</th></tr></thead><tbody>${recent('home')}</tbody></table></div>
+    ${r.lineups&&(r.lineups.home||r.lineups.away)?['away','home'].map(k=>{ const lu=r.lineups[k]; if(!lu) return `<div class="box"><h4>${esc(g[k])} · lineup</h4><div class="small">not available</div></div>`;
+      const L=lu.lines||{}; const row=(lab,key)=>L[key]?`<tr><td>${lab}</td><td>${L[key].map(esc).join(' · ')}</td></tr>`:'';
+      return `<div class="box"><h4>${esc(g[k])} · lineup <span class="t" style="text-transform:none;letter-spacing:0">${esc(lu.source_name||'')}${lu.updated_at?' · updated '+esc(String(lu.updated_at).slice(0,16).replace('T',' '))+' UTC':''}</span></h4>
+        <table>${row('Line 1','f1')}${row('Line 2','f2')}${row('Line 3','f3')}${row('Line 4','f4')}${row('Pair 1','d1')}${row('Pair 2','d2')}${row('Pair 3','d3')}${row('PP1','pp1')}${row('Goalies','g')}</table>
+        ${lu.injuries.length?`<div class="small gap"><b>Injuries</b>: ${lu.injuries.map(x=>`${esc(x.name)} (${esc(x.pos)}) ${esc(x.status)}${x.game_time_decision?', game-time decision':''}${x.news?': '+esc(x.news):''}`).join('<br>')}</div>`:'<div class="small gap">No injuries listed.</div>'}
+        <div class="small gap">Shown for context from DailyFaceoff; lineups do not move the number (no lineup variable has shown out-of-sample value for a five-minute window).</div></div>`; }).join(''):''}
     <div class="box" style="grid-column:1/-1"><h4>Head-to-head · last ${h.n} meetings ${h.n?`· no goal before 5:00 in ${h.no_goal_5}, before 10:00 in ${h.no_goal_10}`:''}</h4>
       ${h.n?`<table><thead><tr><th>date</th><th>game</th><th>score</th><th>first goal</th><th>SOG first 10 (away / home)</th><th>goalies (away / home)</th></tr></thead><tbody>${h.meetings.slice().reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.away)} @ ${esc(x.home)}</td><td class="num">${esc(x.score)}${x.ended_in&&x.ended_in!=='REG'?' '+x.ended_in:''}</td><td class="num">${x.first_goal_min==null?'none':mm(x.first_goal_min)+' '+esc(x.first_goal_team||'')}</td><td class="num">${x.sog10_away} / ${x.sog10_home}</td><td>${esc(x.goalies.away)} / ${esc(x.goalies.home)}</td></tr>`).join('')}</tbody></table><div class="small gap">Head-to-head is context only: it carried no predictive value in the backtest and does not move the number.</div>`:'<div class="small">These teams have not met in the seasons on record.</div>'}
     </div>
@@ -953,7 +996,7 @@ function renderSimulator(){
   if(!SCFULL){
     const tryUrl = u => fetch(u, {cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(r.status));
     el.innerHTML = `<h3>Flat-bet simulator</h3><p>Loading the track record…</p>`;
-    tryUrl('./scorecard.json').catch(()=>tryUrl('../scorecard.json')).then(sc=>{ SCFULL = sc && sc.days ? sc : {days:{}}; renderSimulator(); renderBets(); }).catch(()=>{ SCFULL={days:{}}; renderSimulator(); renderBets(); });
+    tryUrl('./scorecard.json').catch(()=>tryUrl('../scorecard.json')).then(sc=>{ SCFULL = sc && sc.days ? sc : {days:{}}; renderSimulator(); renderBets(); renderCalibration(); }).catch(()=>{ SCFULL={days:{}}; renderSimulator(); renderBets(); renderCalibration(); });
     return;
   }
   const days = Object.keys(SCFULL.days||{}).sort();
@@ -990,6 +1033,20 @@ function renderSimulator(){
   bind('simmkt',e=>SIM.market=e.value); bind('simmode',e=>SIM.mode=e.value); bind('simprice',e=>{const v=parseFloat(e.value); if(v>1) SIM.price=v;}); bind('simstake',e=>{const v=parseFloat(e.value); if(v>0) SIM.stake=v;}); bind('simminp',e=>{const v=parseFloat(e.value); if(v>0&&v<1) SIM.minp=v;});
 }
 
+// ---------------------------------------------------------------- calibration by month and by tier (track record)
+function renderCalibration(){
+  const el=document.getElementById('calibration'); if(!el || !SCFULL) return;
+  const days=Object.keys(SCFULL.days||{}).sort(); const rows=[];
+  days.forEach(d=>Object.values(SCFULL.days[d].games||{}).forEach(g=>{ const m=g.markets&&g.markets.u05_first5; if(m) rows.push({d, month:d.slice(0,7), tier:g.tier||'?', p:m.p, hit:m.hit}); }));
+  if(!rows.length){ el.innerHTML=''; return; }
+  const grp=(key)=>{ const o={}; rows.forEach(r=>{ const k=r[key]; (o[k]=o[k]||[]).push(r); }); return Object.entries(o).sort(); };
+  const line=(k,rs)=>`<tr><td>${esc(k)}</td><td class="num">${rs.length}</td><td class="num">${pct(rs.reduce((a,r)=>a+r.p,0)/rs.length)}</td><td class="num">${pct(rs.reduce((a,r)=>a+r.hit,0)/rs.length)}</td><td class="num">${((rs.reduce((a,r)=>a+r.hit,0)/rs.length - rs.reduce((a,r)=>a+r.p,0)/rs.length)*100).toFixed(1)}</td></tr>`;
+  el.innerHTML = `<h3>Calibration · under 0.5, first 5 · by month and by tier</h3>
+    <p>Predicted is what the page said on average; actual is what happened. A gap of a few points over a month is normal; a gap that stays for months means the level is off, and the monthly revalidation will show it.</p>
+    <div class="tbl"><table><thead><tr><th>month</th><th>games</th><th>predicted</th><th>actual</th><th>gap (pts)</th></tr></thead><tbody>${grp('month').map(([k,rs])=>line(k,rs)).join('')}</tbody></table></div>
+    <div class="tbl gap"><table><thead><tr><th>tier</th><th>games</th><th>predicted</th><th>actual</th><th>gap (pts)</th></tr></thead><tbody>${grp('tier').map(([k,rs])=>line('Tier '+k,rs)).join('')}</tbody></table></div>`;
+}
+
 // ---------------------------------------------------------------- about tab
 const V = M.validation;
 if (V && V.first5) {
@@ -1004,7 +1061,11 @@ if (V && V.first5) {
   <div class="tbl"><table><thead><tr><th>market</th><th>verdict</th><th>log loss model</th><th>league constant</th><th>top 20% hit</th><th>bottom 20% hit</th><th>predicted</th><th>actual</th></tr></thead><tbody>
   ${rowsV.map(r=>{ const rel=(r[2]-r[1])/r[2], vd=rel>=0.002?'beats':(rel>0?'marginal':((r[3]-r[4])>=0.04?'ranks':'none')); return `<tr><td>${r[0]}</td><td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td><td class="num">${r[1].toFixed(4)}</td><td class="num">${r[2].toFixed(4)}</td><td class="num">${pct(r[3])}</td><td class="num">${pct(r[4])}</td><td class="num">${pct(r[5])}</td><td class="num">${pct(r[6])}</td></tr>`; }).join('')}
   </tbody></table></div>
-  <p>The early-goal probabilities are calibrated: they land where they say they land. Almost no pre-game input separates games that produce an early goal from games that do not; the one that does (both teams tired) is small, so the fair price is the useful output there. The full-game markets and the 1P away win carry a measurable edge.</p></div>`;
+  ${V.seasons&&Object.keys(V.seasons).length>1?(()=>{ const seasons=Object.keys(V.seasons).sort(); const mk={first5:'Under 0.5 · first 5',first10:'Under 0.5 · first 10',fg_ml_home:'FG moneyline',fg_home_minus15:'FG home −1.5',fg_away_minus15:'FG away −1.5',p1_away_win:'1P away win',p1_home_win:'1P home win',fg_over45:'Over 4.5',home_over15:'Home over 1.5',away_over15:'Away over 1.5',p1_under25:'1P under 2.5'};
+      const cell=(sv,k)=>{ const v=sv&&sv[k]; if(!v) return '<td></td>'; const vd=verdictOf(v); return `<td class="${VERDICT_CLS[vd]}">${VERDICT_TXT[vd]}</td>`; };
+      return `<h3 class="gap">Does it hold across seasons?</h3><p>The same walk-forward test on each of the last three seasons. A verdict that flips from year to year is not an edge.</p>
+      <div class="tbl"><table><thead><tr><th>market</th>${seasons.map(x=>`<th>${x.slice(0,4)}-${x.slice(6)}</th>`).join('')}</tr></thead><tbody>${Object.entries(mk).map(([k,lab])=>`<tr><td>${lab}</td>${seasons.map(x=>cell(V.seasons[x],k)).join('')}</tr>`).join('')}</tbody></table></div>`; })():''}
+  <p>The early-goal probabilities are calibrated: they land where they say they land. Almost no pre-game input separates games that produce an early goal from games that do not; the one that does (both teams tired) is small, so the fair price is the useful output there. The full-game moneyline and the home team's goals carry a measurable edge in every season tested.</p></div>`;
 }
 document.getElementById('method').innerHTML = `<h3>How the numbers are made</h3>
 <p>Every team's goal rate per minute is a chain of factors on the league hazard curve for that minute of the game: home ice, shot rate for, the opponent's shot rate against, finishing, the opposing starting goalie's save% and rest / travel. Everything is measured from three seasons of play-by-play and shrunk toward the league average. Under 0.5 in the first 5 minutes is exp(−Σλ) over those minutes; the simulation (${P.games[0]?P.games[0].sims.toLocaleString():'100,000'} paths per game, with 3-on-3 overtime, shootout and goalie-pull dynamics) adds the period and full-game markets.</p>
@@ -1012,6 +1073,7 @@ document.getElementById('method').innerHTML = `<h3>How the numbers are made</h3>
 <p>Precision: ±0.3 points from the simulation, about ±1.5 points from the model on the early markets. Judge the engine on the validation table and the track record, never on one night.</p>`;
 document.getElementById('glossary').innerHTML = `<h3>Reading the page</h3><dl>
 <dt>Under 0.5 · first 5 / first 10</dt><dd>Probability that neither team scores before 5:00 or 10:00 of the first period. "Fair" is the break-even decimal price (1 ÷ probability).</dd>
+<dt>Model range</dt><dd>A 90% range for the early-window probability from the sample sizes behind each input (shots, goals, starts, schedule spots). It is why two games a point apart are not really different.</dd>
 <dt>Price check</dt><dd>Type your book's price; the page shows break-even and expected value. Prices stay in your browser.</dd>
 <dt>1P −0.5 / +0.5 / ML</dt><dd>First-period markets: win the period outright, win or tie, and the three-way moneyline where a tie loses.</dd>
 <dt>FG ML / −1.5 / +1.5</dt><dd>Full-game moneyline including overtime and shootout; the spread needs a two-goal margin (or a loss by at most one).</dd>
@@ -1028,7 +1090,7 @@ document.getElementById('foot').innerHTML = `Early Goal Desk v${P.model_version}
     dl.innerHTML = j.days.map(d=>`<a class="${d===P.date?'now':''}" href="${base}${d}.html">${lab(d)}</a>`).join(''); }).catch(()=>{ document.getElementById('daylist').innerHTML='<span class="small">history appears once the site is published</span>'; });
 })();
 
-renderFeature(); renderPicks(); renderParlay(); renderResearch(); renderBets(); renderSimulator(); render(); loadLive();
+renderFeature(); renderBoard(); renderPicks(); renderParlay(); renderResearch(); renderBets(); renderSimulator(); render(); loadLive();
 </script>
 </body>
 </html>

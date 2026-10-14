@@ -7,6 +7,11 @@ on:
     - cron: "5 19 * * *"
     - cron: "35 22 * * *"
   workflow_dispatch:
+    inputs:
+      reason:
+        description: "why this run happens (morning | update | t120)"
+        default: "update"
+        required: false
 
 permissions:
   contents: write
@@ -35,6 +40,7 @@ jobs:
             data/sdv
             data/games_*.jsonl
             data/cache
+            data/xg
           key: nhl-data-${{ github.run_id }}
           restore-keys: |
             nhl-data-
@@ -44,7 +50,12 @@ jobs:
       - name: Score earlier published days (track record)
         run: python -m earlygoal scorecard --pages docs/days/*.raw.html --scorecard docs/scorecard.json || echo "nothing to score yet"
 
+      - name: Expected goals (MoneyPuck shot data; the current season refreshes daily)
+        run: python -m earlygoal xg || echo "xG fetch skipped"
+
       - name: Research and simulate today's slate plus the next two days
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python -m earlygoal run --days 3 || echo "no slate today or run failed; publishing what exists"
 
       - name: Build the site
@@ -66,6 +77,14 @@ jobs:
           publish_dir: ./docs
           force_orphan: true
           commit_message: "site ${{ github.run_number }}"
+
+      - name: Send the slate to Telegram / Discord (when a channel is configured)
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: pip install -q requests && python tools/notify.py --reason "${{ github.event.inputs.reason || 'morning' }}" || echo "notify skipped"
 
       - name: Keep the scheduler alive
         if: always()

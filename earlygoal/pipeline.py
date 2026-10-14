@@ -40,6 +40,7 @@ def run_slate(
     meta: dict | None = None,
     odds: dict | None = None,
     records: list | None = None,
+    lineups: dict | None = None,
 ) -> tuple[dict, list]:
     """`records` (all seasons on disk) enables the research dossier on every game."""
     overrides = overrides or {}
@@ -69,9 +70,13 @@ def run_slate(
         row = game_row(gm, r, odds)
         if ix is not None:
             row["research"] = game_research(ix, {"date": date, "home": g["home"], "away": g["away"]}, sides, season, lp.context_mults or {})
+            if lineups:
+                from .lineups import summarize_for_game
+
+                row["research"]["lineups"] = {k: summarize_for_game(lineups.get(g[k])) for k in ("home", "away")}
         rows.append(row)
         models.append((gm, r))
     payload = build_payload(rows, date, league_summary(lp, meta.get("current_season_games", 0) if meta else 0, meta.get("prior_season_games", 0) if meta else 0), meta or {})
     if ix is not None:
-        payload["research"] = slate_research(ix, lp.context_mults or {}, lp.context_samples or {}, meta or {})
+        payload["research"] = slate_research(ix, lp.context_mults or {}, lp.context_samples or {}, meta or {}, xg_games=lp.xg_games)
     return payload, models

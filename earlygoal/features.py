@@ -49,6 +49,9 @@ class LeagueProfile:
     home_mult: float = 1.0
     sog_per_game: float = 0.0            # per team
     sh_pct: float = 0.0
+    xg_per_game: float = 0.0             # per team, regulation, from MoneyPuck when loaded (0 = not loaded)
+    e10_xg_per_game: float = 0.0
+    xg_games: int = 0
     sv_pct: float = 0.0
     early5_sog_per_game: float = 0.0     # per team, first 5 minutes
     early10_sog_per_game: float = 0.0
@@ -84,9 +87,22 @@ def _all_bins(cfg: ModelConfig) -> list[tuple[float, float]]:
     return [(float(edges[i]), float(edges[i + 1])) for i in range(len(edges) - 1)]
 
 
-def build_league_profile(games: list[GameRecord], cfg: ModelConfig = CFG, weights: list[float] | None = None) -> LeagueProfile:
-    """League hazards and effects. `weights` lets the current season count more than the prior ones."""
+def build_league_profile(games: list[GameRecord], cfg: ModelConfig = CFG, weights: list[float] | None = None, xg: dict | None = None) -> LeagueProfile:
+    """League hazards and effects. `weights` lets the current season count more than the prior ones.
+    `xg` (game_id -> MoneyPuck record, see xg.py) adds league expected-goal rates when present."""
     lp = LeagueProfile()
+    if xg:
+        n_x = xs = xe = 0.0
+        for g in games:
+            r = xg.get(g.game_id)
+            if r and g.final:
+                n_x += 1
+                xs += r["xg"]["home"]["reg"] + r["xg"]["away"]["reg"]
+                xe += r["xg"]["home"]["e10"] + r["xg"]["away"]["e10"]
+        if n_x >= 50:
+            lp.xg_games = int(n_x)
+            lp.xg_per_game = xs / (2 * n_x)
+            lp.e10_xg_per_game = xe / (2 * n_x)
     pairs = [(g, (weights[i] if weights else 1.0)) for i, g in enumerate(games) if g.final]
     games = [g for g, _ in pairs]
     lp.games = len(games)
@@ -221,7 +237,7 @@ def compute_norms(lp: LeagueProfile, teams: dict, goalies: dict, cfg: ModelConfi
     gw = [(g, g.starts_cur + cfg.prior_season_weight * g.starts_prior) for g in goalies.values() if (g.starts_cur + g.starts_prior) > 0 and g.w_shots > 0]
     if gw:
         tot = sum(w for _, w in gw)
-        lp.norm["goalie"] = sum(((1 - g.sv_shrunk(lp, cfg)) / (1 - lg_sv)) * w for g, w in gw) / tot
+        lp.norm["goalie"] = sum(g.goal_mult(lp, cfg) * w for g, w in gw) / tot
 
 
 def _context_effects(games: list[GameRecord], cfg: ModelConfig) -> tuple[dict, dict]:
@@ -310,6 +326,13 @@ class TeamProfile:
     e10_goals_against: float = 0.0
     e5_goals_for: float = 0.0
     e5_goals_against: float = 0.0
+    # expected goals (MoneyPuck), weighted like the shot counts; xg_games counts the games that had the data
+    xg_games: float = 0.0
+    xg_for: float = 0.0
+    xg_against: float = 0.0
+    e10_xg_for: float = 0.0
+    e10_xg_against: float = 0.0
+    goals_for_xg: float = 0.0            # goals in the games that had xG, for finishing = goals / xG
     p1_goals_for: float = 0.0
     p1_goals_against: float = 0.0
     e10_pen_taken: float = 0.0
@@ -323,10 +346,20 @@ class TeamProfile:
     cur_allowed_first5: int = 0
     last_games: list = field(default_factory=list)   # last 10 current-season game summaries
 
-    def add_game(self, g: GameRecord, weight: float, current: bool) -> None:
+    def add_game(self, g: GameRecord, weight: float, current: bool, xg_rec: dict | None = None) -> None:
         me = self.team
         opp = g.away if g.home == me else g.home
         self.w_games += weight
+        if xg_rec:
+            side = "home" if g.home == me else "away"
+            other = "away" if side == "home" else "home"
+            x, xo = xg_rec["xg"][side], xg_rec["xg"][other]
+            self.xg_games += weight
+            self.xg_for += weight * x["reg"]
+            self.xg_against += weight * xo["reg"]
+            self.e10_xg_for += weight * x["e10"]
+            self.e10_xg_against += weight * xo["e10"]
+            self.goals_for_xg += weight * x["goals_reg"]
         if current:
             self.games_cur += 1
         else:
@@ -410,11 +443,26 @@ class TeamProfile:
         w = cfg.early_specific_weight
         # finishing: shooting% shrunk in shots
         finish = shrink_rate(self.goals_for, self.sog_for, lg_sh, cfg.k_team_finish) / lg_sh
+        off_e = w * off_early + (1 - w) * off_full
+        def_e = w * def_early + (1 - w) * def_full
+        if cfg.use_xg and lp.xg_per_game > 0 and self.xg_games >= 10:
+            # shot quality: expected goals for and against, shrunk in games like the shot counts; finishing as goals over xG
+            a = cfg.xg_weight
+            xo_full = shrink_rate(self.xg_for, self.xg_games, lp.xg_per_game, cfg.k_team_shots) / lp.xg_per_game
+            xd_full = shrink_rate(self.xg_against, self.xg_games, lp.xg_per_game, cfg.k_team_shots) / lp.xg_per_game
+            xo_early = shrink_rate(self.e10_xg_for, self.xg_games, lp.e10_xg_per_game, cfg.k_team_shots) / lp.e10_xg_per_game
+            xd_early = shrink_rate(self.e10_xg_against, self.xg_games, lp.e10_xg_per_game, cfg.k_team_shots) / lp.e10_xg_per_game
+            fin_xg = (self.goals_for_xg + cfg.k_finish_xg * 1.0) / (self.xg_for + cfg.k_finish_xg) if self.xg_for > 0 else 1.0
+            off_full = (1 - a) * off_full + a * xo_full
+            def_full = (1 - a) * def_full + a * xd_full
+            off_e = (1 - a) * off_e + a * (w * xo_early + (1 - w) * xo_full)
+            def_e = (1 - a) * def_e + a * (w * xd_early + (1 - w) * xd_full)
+            finish = (1 - a) * finish + a * fin_xg
         return {
             "off_shot_full": off_full,
             "def_shot_full": def_full,
-            "off_shot_early": w * off_early + (1 - w) * off_full,
-            "def_shot_early": w * def_early + (1 - w) * def_full,
+            "off_shot_early": off_e,
+            "def_shot_early": def_e,
             "finish": finish,
             "pace": shrink_rate(self.attempts_for + self.attempts_against, wg, 2 * (lp.sog_per_game or 30) * 1.45, cfg.k_team_shots)
             / (2 * (lp.sog_per_game or 30) * 1.45),
@@ -426,6 +474,12 @@ class TeamProfile:
         return {
             "games_cur": self.games_cur,
             "games_prior": self.games_prior,
+            "xg_games": int(self.xg_games),
+            "xg_for_pg": round(self.xg_for / self.xg_games, 3) if self.xg_games else None,
+            "xg_against_pg": round(self.xg_against / self.xg_games, 3) if self.xg_games else None,
+            "e10_xg_for_pg": round(self.e10_xg_for / self.xg_games, 3) if self.xg_games else None,
+            "e10_xg_against_pg": round(self.e10_xg_against / self.xg_games, 3) if self.xg_games else None,
+            "goals_per_xg": round(self.goals_for_xg / self.xg_for, 3) if self.xg_for else None,
             "e10_gf_pg": round(self.e10_goals_for / wg, 3),
             "e10_ga_pg": round(self.e10_goals_against / wg, 3),
             "e5_gf_pg": round(self.e5_goals_for / wg, 3),
@@ -462,11 +516,31 @@ class GoalieProfile:
     e10_goals: float = 0.0
     recent: list = field(default_factory=list)   # last 8 starts: (date, shots, goals)
     last_start_date: str = ""
+    xg_faced: float = 0.0                        # MoneyPuck expected goals faced (weighted), regulation, no empty net
+    goals_on_xg: float = 0.0                     # goals allowed in those shots
+    e10_xg_faced: float = 0.0
+    e10_goals_on_xg: float = 0.0
 
     def sv_shrunk(self, lp: LeagueProfile, cfg: ModelConfig = CFG) -> float:
         lg = lp.sv_pct or cfg.prior_league_sv
         saves = self.w_shots - self.w_goals
         return shrink_rate(saves, self.w_shots, lg, cfg.k_goalie)
+
+    def xg_ratio(self, cfg: ModelConfig = CFG) -> float | None:
+        """Goals allowed over expected goals faced, shrunk toward 1 (below 1 = better than the shots deserved)."""
+        if self.xg_faced <= 0:
+            return None
+        return (self.goals_on_xg + cfg.k_goalie_xg) / (self.xg_faced + cfg.k_goalie_xg)
+
+    def goal_mult(self, lp: LeagueProfile, cfg: ModelConfig = CFG) -> float:
+        """Multiplier on the opponent's scoring rate from facing this goalie: save % based, blended with the xG ratio when present."""
+        lg = lp.sv_pct or cfg.prior_league_sv
+        m = (1 - self.sv_shrunk(lp, cfg)) / (1 - lg)
+        r = self.xg_ratio(cfg) if cfg.use_xg else None
+        if r is not None:
+            a = cfg.xg_weight
+            m = (1 - a) * m + a * r
+        return m
 
     def sv_raw(self) -> float | None:
         return (self.w_shots - self.w_goals) / self.w_shots if self.w_shots else None
@@ -483,9 +557,10 @@ class GoalieProfile:
 # ---------------------------------------------------------------- builders
 
 def add_games_to_profiles(
-    teams: dict[str, TeamProfile], goalies: dict[int, GoalieProfile], games: list[GameRecord], weight: float, is_cur: bool
+    teams: dict[str, TeamProfile], goalies: dict[int, GoalieProfile], games: list[GameRecord], weight: float, is_cur: bool, xg: dict | None = None
 ) -> None:
-    """Incrementally fold games into team and goalie profiles (used by build_profiles and the backtest)."""
+    """Incrementally fold games into team and goalie profiles (used by build_profiles and the backtest).
+    `xg` maps game_id to a MoneyPuck record (xg.py); games without one simply add no xG."""
 
     def team(ab: str) -> TeamProfile:
         if ab not in teams:
@@ -500,8 +575,19 @@ def add_games_to_profiles(
     for g in sorted(games, key=lambda x: (x.date, x.game_id)):
         if not g.final:
             continue
-        team(g.home).add_game(g, weight, is_cur)
-        team(g.away).add_game(g, weight, is_cur)
+        xg_rec = xg.get(g.game_id) if xg else None
+        team(g.home).add_game(g, weight, is_cur, xg_rec)
+        team(g.away).add_game(g, weight, is_cur, xg_rec)
+        if xg_rec:
+            for gk, v in (xg_rec.get("goalies") or {}).items():
+                try:
+                    gp = goalie(int(gk))
+                except ValueError:
+                    continue
+                gp.xg_faced += weight * v["xg"]
+                gp.goals_on_xg += weight * v["goals"]
+                gp.e10_xg_faced += weight * v.get("e10_xg", 0.0)
+                gp.e10_goals_on_xg += weight * v.get("e10_goals", 0)
         per_goalie: dict[int, list[float]] = defaultdict(lambda: [0.0, 0.0, 0.0, 0.0])
         for e in g.events:
             if e.type in ("goal", "shot-on-goal") and e.goalie and e.minute < 60:
@@ -553,14 +639,19 @@ def build_profiles(
     current: list[GameRecord], prior: list[GameRecord], cfg: ModelConfig = CFG, current_season: int | None = None
 ) -> tuple[LeagueProfile, dict[str, TeamProfile], dict[int, GoalieProfile]]:
     cur = current_season or infer_current_season(current, prior)
-    lp = build_league_profile(prior + current, cfg, weights=[1.0] * len(prior) + [cfg.league_current_weight] * len(current))
+    xg = None
+    if cfg.use_xg:
+        from .xg import load_xg
+
+        xg = load_xg(sorted({g.season for g in prior + current})) or None
+    lp = build_league_profile(prior + current, cfg, weights=[1.0] * len(prior) + [cfg.league_current_weight] * len(current), xg=xg)
     teams: dict[str, TeamProfile] = {}
     goalies: dict[int, GoalieProfile] = {}
     by_season: dict[int, list[GameRecord]] = {}
     for g in prior:
         by_season.setdefault(g.season, []).append(g)
     for season in sorted(by_season):  # oldest first so the latest team assignment wins
-        add_games_to_profiles(teams, goalies, by_season[season], prior_weight(season, cur, cfg), False)
-    add_games_to_profiles(teams, goalies, current, 1.0, True)
+        add_games_to_profiles(teams, goalies, by_season[season], prior_weight(season, cur, cfg), False, xg)
+    add_games_to_profiles(teams, goalies, current, 1.0, True, xg)
     compute_norms(lp, teams, goalies, cfg)
     return lp, teams, goalies

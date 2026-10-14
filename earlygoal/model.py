@@ -109,6 +109,8 @@ def context_multipliers(side: SideInputs, opp: SideInputs, lp: LeagueProfile, cf
     """Multipliers applied to THIS side's scoring rate because of rest/travel context."""
     cm = lp.context_mults or {}
     m: dict[str, float] = {}
+    if not cfg.use_context:
+        return m
     r, ro = side.rest or {}, opp.rest or {}
     if r.get("b2b"):
         m["own back-to-back"] = cm.get("b2b_off", cfg.prior_b2b_off_mult)
@@ -137,6 +139,71 @@ def early_context_multipliers(side: SideInputs, opp: SideInputs, lp: LeagueProfi
     return m
 
 
+def _uncertainty(home: "SideInputs", away: "SideInputs", lp: LeagueProfile, cfg: ModelConfig, lam_home, lam_away) -> dict:
+    """Approximate 90% range for the early-window probabilities from the sample sizes behind each factor.
+
+    Each shrunk multiplier m = (n*x + k*prior)/(n+k) carries a standard error on log m of roughly
+    sqrt(w^2 * v) where w = n/(n+k) and v is the sampling variance of log x (Poisson for counts,
+    binomial for rates). The errors add in quadrature across the factors of both teams; the
+    combined early hazard Lambda then has se(log Lambda) = that sum, and p = exp(-Lambda) moves by
+    p * Lambda * se. This is a first-order approximation, not a posterior, and it ignores the
+    model's own misspecification, which the backtest residual (about 1.5 points) covers."""
+    import math as _m
+
+    def side_var(side: "SideInputs", opp: "SideInputs") -> float:
+        v = 0.0
+        prof = side.profile
+        if prof is not None and prof.w_games > 0:
+            wg = prof.w_games
+            # early shot rate for: Poisson counts of early shots, weighted games
+            n_shots = max(prof.e10_sog_for, 1.0)
+            w = wg / (wg + cfg.k_team_shots)
+            v += (w ** 2) * (1.0 / n_shots)
+            # finishing: binomial shooting %
+            sh = max(prof.goals_for, 1.0) / max(prof.sog_for, 1.0)
+            w2 = prof.sog_for / (prof.sog_for + cfg.k_team_finish)
+            v += (w2 ** 2) * ((1 - sh) / max(prof.goals_for, 1.0))
+        else:
+            v += 0.0  # pure prior: no sampling error, the prior's own uncertainty is in the backtest residual
+        oprof = opp.profile
+        if oprof is not None and oprof.w_games > 0:
+            n_shots = max(oprof.e10_sog_against, 1.0)
+            w = oprof.w_games / (oprof.w_games + cfg.k_team_shots)
+            v += (w ** 2) * (1.0 / n_shots)
+        g = opp.goalie
+        if g is not None and g.w_shots > 0:
+            sv = g.sv_shrunk(lp, cfg)
+            w3 = g.w_shots / (g.w_shots + cfg.k_goalie)
+            # log(1 - sv) sampling variance from binomial goals
+            goals = max(g.w_goals, 1.0)
+            v += (w3 ** 2) * (1.0 / goals)
+        # context effects that apply to this side, each shrunk with k_context on team-games
+        applied = side.mults.get("context", {}) or {}
+        samples = lp.context_samples or {}
+        key_for = {"own back-to-back": "b2b_off", "opponent back-to-back": "b2b_def", "opponent 3 games in 4 nights": "three_in_four_def"}
+        for label in applied:
+            name = key_for.get(label) or ("long_travel_def" if "travelled" in label else ("tz_shift_def" if "time zones" in label else None))
+            n_c = samples.get(name, 0) if name else 0
+            if n_c:
+                w4 = n_c / (n_c + cfg.k_context)
+                v += (w4 ** 2) * (1.0 / n_c) * 0.5
+        return v
+
+    v_total = side_var(home, away) + side_var(away, home)
+    mf_n = (lp.context_samples or {}).get("mutual_fatigue_early", 0)
+    if home.mults.get("early_context_total", 1.0) != 1.0:
+        w5 = (2 * mf_n) / (2 * mf_n + cfg.k_context) if mf_n else 0.0
+        v_total += (w5 ** 2) * (1.0 / max(mf_n, 1))
+    se = _m.sqrt(v_total)
+    out = {}
+    for name, mins in (("first5", 5), ("first10", 10)):
+        lam = float(sum(lam_home[:mins]) + sum(lam_away[:mins]))
+        p = _m.exp(-lam)
+        half = 1.645 * p * lam * se
+        out[name] = {"p": round(p, 4), "lo": round(max(0.0, p - half), 4), "hi": round(min(1.0, p + half), 4), "se_log_hazard": round(se, 4)}
+    return out
+
+
 def build_game_model(
     game: dict,
     home: SideInputs,
@@ -163,7 +230,7 @@ def build_game_model(
             "off_shot_full": 1.0, "def_shot_full": 1.0, "off_shot_early": 1.0, "def_shot_early": 1.0, "finish": 1.0, "pace": 1.0}
         g_opp = opp.goalie
         sv = g_opp.sv_shrunk(lp, cfg) if (g_opp is not None and g_opp.w_shots > 0) else lg_sv
-        goalie_mult = (1 - sv) / (1 - lg_sv) / (lp.norm.get("goalie", 1.0) or 1.0)
+        goalie_mult = (g_opp.goal_mult(lp, cfg) if (g_opp is not None and g_opp.w_shots > 0) else 1.0) / (lp.norm.get("goalie", 1.0) or 1.0)
         ctx = context_multipliers(side, opp, lp, cfg)
         ctx_total = float(np.prod(list(ctx.values()))) if ctx else 1.0
         ectx = early_context_multipliers(side, opp, lp, cfg)
@@ -198,7 +265,8 @@ def build_game_model(
             early = e <= 20
             off = m["off_shot_early"] if early else m["off_shot_full"]
             dfn = m["opp_def_shot_early"] if early else m["opp_def_shot_full"]
-            out[i] = base[i] * m["home_ice"] * off * dfn * m["finish"] * m["opp_goalie"] * m["context_total"]
+            ctx = m["context_total"] if (e > 10 or cfg.use_context_early) else 1.0
+            out[i] = base[i] * m["home_ice"] * off * dfn * m["finish"] * m["opp_goalie"] * ctx
             if e <= 10:
                 out[i] *= m["early_context_total"]
         return out
@@ -246,6 +314,7 @@ def build_game_model(
             "context_samples": lp.context_samples,
         },
         "sides": {},
+        "uncertainty": _uncertainty(home, away, lp, cfg, lam_home, lam_away),
         "unmeasured": [
             "line matchups / deployment (not published pre-game)",
             "officials' early-penalty tendency (hook present, not fetched)",
@@ -276,6 +345,8 @@ def build_game_model(
                 "e10_sv_raw": round(g.e10_sv_raw(), 4) if (g and g.e10_sv_raw() is not None) else None,
                 "starts_cur": g.starts_cur if g else None,
                 "shots_weighted": int(g.w_shots) if g else 0,
+                "xg_ratio": round(g.xg_ratio(cfg), 3) if (g and g.xg_ratio(cfg) is not None) else None,
+                "gsax_per_60": round((g.xg_faced - g.goals_on_xg) / (g.xg_faced / (lp.xg_per_game or 2.8)) if g.xg_faced > 0 else 0.0, 2) if (g and g.xg_faced > 0) else None,
             },
             "labels": side.labels,
             "lambda_first_10_per_min": [round(float(x), 5) for x in (lam_home if key == "home" else lam_away)[:10]],

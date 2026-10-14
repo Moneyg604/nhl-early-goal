@@ -166,10 +166,15 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: in
         if not m:
             continue  # demo files are not published
         shutil.copy(f, days_dir / f"{m.group(1)}.raw.html")
+        # machine-readable companions: the CSV summary and the full payload
+        for ext, src in (("csv", out_dir / f"summary-{m.group(1)}.csv"), ("json", out_dir / f"results-{m.group(1)}.json")):
+            if src.exists():
+                shutil.copy(src, days_dir / f"{m.group(1)}.{ext}")
     raws = sorted(days_dir.glob("*.raw.html"), reverse=True)[:keep_days]
     for stale in sorted(days_dir.glob("*.raw.html"), reverse=True)[keep_days:]:
         stale.unlink(missing_ok=True)
-        (days_dir / stale.name.replace(".raw.html", ".html")).unlink(missing_ok=True)
+        for ext in (".html", ".csv", ".json"):
+            (days_dir / stale.name.replace(".raw.html", ext)).unlink(missing_ok=True)
     local_days = [p.name.replace(".raw.html", "") for p in raws]
     days = sorted(set(local_days) | set(prior_days or []), reverse=True)[:keep_days]
     if not raws:
