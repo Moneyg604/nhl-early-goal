@@ -1,0 +1,150 @@
+Loading 20222023 ...
+  20222023: 1312 final games from sportsdataverse (through 2023-04-14)
+Loading 20232024 ...
+  20232024: 1312 final games from sportsdataverse (through 2024-04-18)
+Loading 20242025 ...
+  20242025: 1312 final games on disk (through 2025-04-17)
+Loading 20252026 ...
+  20252026: 1312 final games on disk (through 2026-04-16)
+Loading 20262027 ...
+  20262027: 105 final games from sportsdataverse (through 2026-10-13)
+done; records in /home/runner/work/nhl-early-goal/nhl-early-goal/data
+  xG 20222023: 1312 games
+  xG 20232024: 1312 games
+  xG 20242025: 1312 games
+  xG 20252026: 1312 games
+  xG 20262027: 105 games
+use_context_early: helped in 0 of 3 seasons (mean relative log-loss change +0.013% across 11 markets) -> switch off
+use_mutual_fatigue: helped in 1 of 3 seasons (mean relative log-loss change +0.002% across 11 markets) -> switch off
+use_xg: helped in 2 of 3 seasons (mean relative log-loss change -0.004% across 11 markets) -> keep
+wrote /home/runner/work/nhl-early-goal/nhl-early-goal/data/factors.json
+revalidating on seasons [20232024, 20242025, 20252026] (105 games played this season)
+
+=== season 20232024: 1312 games, priors [20222023] ===
+  backtest through 2023-11-09: 203 games
+  backtest through 2023-12-07: 404 games
+  backtest through 2024-01-04: 601 games
+  backtest through 2024-02-08: 800 games
+  backtest through 2024-03-07: 1004 games
+  backtest through 2024-04-03: 1201 games
+
+Backtest over 1312 games
+
+Under 0.5 goals, first 5:00
+  actual no-goal rate 0.660   mean model prob 0.666
+  Brier   model 0.22407   baseline 0.22462   (better than league constant)
+  LogLoss model 0.64029   baseline 0.64152
+  top-1 pick per slate hit 0.683   top-3 0.691   bottom-1 0.645   over 183 slates
+  top quintile actual 0.710   bottom quintile actual 0.641
+  calibration (bucket: n, predicted, actual)
+    0.60-0.65: n= 115  pred=0.645  actual=0.704
+    0.65-0.70: n=1193  pred=0.668  actual=0.655
+    0.70-0.75: n=   4  pred=0.702  actual=0.750
+
+Under 0.5 goals, first 10:00
+  actual no-goal rate 0.423   mean model prob 0.424
+  Brier   model 0.24299   baseline 0.24431   (better than league constant)
+  LogLoss model 0.67904   baseline 0.68174
+  top-1 pick per slate hit 0.432   top-3 0.458   bottom-1 0.377   over 183 slates
+  top quintile actual 0.515   bottom quintile actual 0.355
+  calibration (bucket: n, predicted, actual)
+    0.35-0.40: n=  57  pred=0.395  actual=0.333
+    0.40-0.45: n=1196  pred=0.424  actual=0.423
+    0.45-0.50: n=  59  pred=0.458  actual=0.508
+      fg_ml_home: log loss model 0.66469 vs constant 0.68976 (better)  mean 0.533 actual 0.541  top-quintile pred 0.644 actual 0.725  bottom 0.418 / 0.370
+ fg_home_minus15: log loss model 0.62109 vs constant 0.63947 (better)  mean 0.332 actual 0.338  top-quintile pred 0.432 actual 0.481  bottom 0.238 / 0.187
+ fg_away_minus15: log loss model 0.57542 vs constant 0.59413 (better)  mean 0.277 actual 0.281  top-quintile pred 0.371 actual 0.420  bottom 0.192 / 0.164
+       fg_over55: log loss model 0.68272 vs constant 0.68240 (NOT better)  mean 0.577 actual 0.573  top-quintile pred 0.625 actual 0.569  bottom 0.526 / 0.546
+     p1_home_win: log loss model 0.63882 vs constant 0.64398 (better)  mean 0.353 actual 0.344  top-quintile pred 0.410 actual 0.393  bottom 0.296 / 0.275
+     p1_away_win: log loss model 0.62185 vs constant 0.62696 (better)  mean 0.321 actual 0.320  top-quintile pred 0.378 actual 0.397  bottom 0.268 / 0.248
+          p1_tie: log loss model 0.63746 vs constant 0.63791 (better)  mean 0.327 actual 0.335  top-quintile pred 0.340 actual 0.366  bottom 0.314 / 0.294
+
+Full game: mean expected regulation goals 5.872 vs actual 6.018
+
+Break-even hit rate by price: price 1.20 -> 0.833, price 1.25 -> 0.800, price 1.30 -> 0.769, price 1.35 -> 0.741, price 1.40 -> 0.714, price 1.50 -> 0.667, price 1.80 -> 0.556, price 2.00 -> 0.500
+
+=== season 20242025: 1312 games, priors [20222023, 20232024] ===
+  backtest through 2024-11-05: 203 games
+  backtest through 2024-12-03: 404 games
+  backtest through 2024-12-31: 600 games
+  backtest through 2025-01-28: 805 games
+  backtest through 2025-03-07: 1001 games
+  backtest through 2025-04-03: 1204 games
+
+Backtest over 1312 games
+
+Under 0.5 goals, first 5:00
+  actual no-goal rate 0.675   mean model prob 0.668
+  Brier   model 0.21959   baseline 0.21964   (better than league constant)
+  LogLoss model 0.63107   baseline 0.63118
+  top-1 pick per slate hit 0.646   top-3 0.661   bottom-1 0.708   over 178 slates
+  top quintile actual 0.683   bottom quintile actual 0.691
+  calibration (bucket: n, predicted, actual)
+    0.60-0.65: n=  51  pred=0.647  actual=0.686
+    0.65-0.70: n=1261  pred=0.669  actual=0.675
+
+Under 0.5 goals, first 10:00
+  actual no-goal rate 0.434   mean model prob 0.432
+  Brier   model 0.24588   baseline 0.24609   (better than league constant)
+  LogLoss model 0.68489   baseline 0.68532
+  top-1 pick per slate hit 0.449   top-3 0.442   bottom-1 0.433   over 178 slates
+  top quintile actual 0.439   bottom quintile actual 0.405
+  calibration (bucket: n, predicted, actual)
+    0.35-0.40: n=   7  pred=0.394  actual=0.714
+    0.40-0.45: n=1183  pred=0.430  actual=0.435
+    0.45-0.50: n= 122  pred=0.457  actual=0.410
+      fg_ml_home: log loss model 0.66366 vs constant 0.68531 (better)  mean 0.539 actual 0.562  top-quintile pred 0.647 actual 0.737  bottom 0.434 / 0.427
+ fg_home_minus15: log loss model 0.63708 vs constant 0.64968 (better)  mean 0.336 actual 0.354  top-quintile pred 0.433 actual 0.477  bottom 0.248 / 0.252
+ fg_away_minus15: log loss model 0.56182 vs constant 0.57691 (better)  mean 0.272 actual 0.264  top-quintile pred 0.358 actual 0.359  bottom 0.191 / 0.126
+       fg_over55: log loss model 0.69146 vs constant 0.69035 (NOT better)  mean 0.556 actual 0.537  top-quintile pred 0.605 actual 0.595  bottom 0.504 / 0.534
+     p1_home_win: log loss model 0.65131 vs constant 0.65239 (better)  mean 0.353 actual 0.358  top-quintile pred 0.407 actual 0.416  bottom 0.301 / 0.332
+     p1_away_win: log loss model 0.61536 vs constant 0.61805 (better)  mean 0.315 actual 0.309  top-quintile pred 0.366 actual 0.382  bottom 0.265 / 0.294
+          p1_tie: log loss model 0.63599 vs constant 0.63634 (better)  mean 0.332 actual 0.333  top-quintile pred 0.344 actual 0.317  bottom 0.320 / 0.309
+
+Full game: mean expected regulation goals 5.734 vs actual 5.874
+
+Break-even hit rate by price: price 1.20 -> 0.833, price 1.25 -> 0.800, price 1.30 -> 0.769, price 1.35 -> 0.741, price 1.40 -> 0.714, price 1.50 -> 0.667, price 1.80 -> 0.556, price 2.00 -> 0.500
+
+=== season 20252026: 1312 games, priors [20232024, 20242025] ===
+  backtest through 2025-11-03: 202 games
+  backtest through 2025-11-29: 401 games
+  backtest through 2025-12-27: 600 games
+  backtest through 2026-01-22: 801 games
+  backtest through 2026-03-08: 1006 games
+  backtest through 2026-04-02: 1204 games
+
+Backtest over 1312 games
+
+Under 0.5 goals, first 5:00
+  actual no-goal rate 0.655   mean model prob 0.670
+  Brier   model 0.22628   baseline 0.22625   (NOT better than league constant)
+  LogLoss model 0.64498   baseline 0.64489
+  top-1 pick per slate hit 0.653   top-3 0.657   bottom-1 0.659   over 167 slates
+  top quintile actual 0.656   bottom quintile actual 0.653
+  calibration (bucket: n, predicted, actual)
+    0.60-0.65: n=  33  pred=0.646  actual=0.576
+    0.65-0.70: n=1278  pred=0.671  actual=0.656
+    0.70-0.75: n=   1  pred=0.700  actual=1.000
+
+Under 0.5 goals, first 10:00
+  actual no-goal rate 0.412   mean model prob 0.432
+  Brier   model 0.24255   baseline 0.24253   (NOT better than league constant)
+  LogLoss model 0.67818   baseline 0.67814
+  top-1 pick per slate hit 0.401   top-3 0.430   bottom-1 0.425   over 167 slates
+  top quintile actual 0.431   bottom quintile actual 0.408
+  calibration (bucket: n, predicted, actual)
+    0.35-0.40: n=  16  pred=0.396  actual=0.375
+    0.40-0.45: n=1173  pred=0.430  actual=0.410
+    0.45-0.50: n= 123  pred=0.456  actual=0.439
+      fg_ml_home: log loss model 0.68696 vs constant 0.69217 (better)  mean 0.540 actual 0.522  top-quintile pred 0.628 actual 0.637  bottom 0.452 / 0.469
+ fg_home_minus15: log loss model 0.60438 vs constant 0.61177 (better)  mean 0.334 actual 0.301  top-quintile pred 0.413 actual 0.405  bottom 0.261 / 0.229
+ fg_away_minus15: log loss model 0.57436 vs constant 0.58002 (better)  mean 0.271 actual 0.267  top-quintile pred 0.342 actual 0.336  bottom 0.205 / 0.202
+       fg_over55: log loss model 0.68081 vs constant 0.68240 (better)  mean 0.548 actual 0.573  top-quintile pred 0.595 actual 0.645  bottom 0.500 / 0.553
+     p1_home_win: log loss model 0.63604 vs constant 0.63581 (NOT better)  mean 0.351 actual 0.332  top-quintile pred 0.396 actual 0.347  bottom 0.309 / 0.290
+     p1_away_win: log loss model 0.61888 vs constant 0.62228 (better)  mean 0.314 actual 0.314  top-quintile pred 0.357 actual 0.374  bottom 0.274 / 0.267
+          p1_tie: log loss model 0.65071 vs constant 0.64968 (NOT better)  mean 0.335 actual 0.354  top-quintile pred 0.347 actual 0.363  bottom 0.322 / 0.347
+
+Full game: mean expected regulation goals 5.678 vs actual 6.005
+
+Break-even hit rate by price: price 1.20 -> 0.833, price 1.25 -> 0.800, price 1.30 -> 0.769, price 1.35 -> 0.741, price 1.40 -> 0.714, price 1.50 -> 0.667, price 1.80 -> 0.556, price 2.00 -> 0.500
+saved as the validation panel source: /home/runner/work/nhl-early-goal/nhl-early-goal/data/backtest_latest.json (3 seasons)
