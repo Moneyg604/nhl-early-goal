@@ -1,0 +1,27 @@
+name: Keeper
+
+# Scheduler of last resort. GitHub's cron can take hours to start on a new repository, so this job
+# sleeps until the next slate update or live-score snapshot is due, dispatches it, and hands over to a
+# fresh keeper before the 6-hour job limit. It stands down by itself once cron-triggered runs appear.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: keeper
+  cancel-in-progress: false
+
+jobs:
+  keep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python tools/keeper.py

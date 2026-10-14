@@ -11,6 +11,7 @@ on:
 permissions:
   contents: write
   pages: write
+  actions: write
 
 concurrency:
   group: update-slate
@@ -65,3 +66,10 @@ jobs:
           publish_dir: ./docs
           force_orphan: true
           commit_message: "site ${{ github.run_number }}"
+
+      - name: Keep the scheduler alive (starts a keeper only while GitHub's cron is not firing)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: python tools/keeper.py --ensure || echo "keeper check skipped"
