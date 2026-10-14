@@ -1,0 +1,18 @@
+name: Probe
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe artifact file URLs
+        run: |
+          {
+            echo "== plain";   curl -sS -o /tmp/a -w "%{http_code} %{content_type} %{redirect_url}\n" -L "https://claude.ai/artifact/Sx1hmPCSpfsbckwt7XKrQb/days.json"; head -c 200 /tmp/a; echo
+            echo "== dfo";     curl -sS -o /tmp/d -w "%{http_code} %{content_type}\n" -L -A "Mozilla/5.0" "https://www.dailyfaceoff.com/starting-goalies/"; head -c 200 /tmp/d; echo; grep -o "__NEXT_DATA__" /tmp/d | head -1
+          } > probe.txt 2>&1
+          git config user.name "earlygoal-bot"; git config user.email "actions@users.noreply.github.com"
+          git add probe.txt; git commit -m "probe" || true; git pull --rebase origin main; git push
