@@ -81,12 +81,52 @@ def build_message(p: dict, reason: str) -> str:
     return "\n".join(lines)
 
 
+def telegram_chat_id(tok: str) -> str | None:
+    """The chat to post to: TELEGRAM_CHAT_ID when set, else the most recent private chat that messaged the bot
+    (Telegram keeps those updates for about a day, so this is for first contact, not for every run)."""
+    import requests  # type: ignore
+
+    chat = os.environ.get("TELEGRAM_CHAT_ID")
+    if chat:
+        return chat
+    try:
+        r = requests.get(f"https://api.telegram.org/bot{tok}/getUpdates", timeout=20)
+        for u in reversed(r.json().get("result", [])):
+            m = u.get("message") or u.get("edited_message") or {}
+            c = m.get("chat") or {}
+            if c.get("id"):
+                return str(c["id"])
+    except Exception as e:  # noqa: BLE001
+        print("telegram getUpdates failed:", e)
+    return None
+
+
+def remember_chat_id(chat: str) -> bool:
+    """Keep the discovered chat id as a repository variable (visible to collaborators only) so later runs need no getUpdates."""
+    import subprocess
+
+    repo = os.environ.get("GH_REPO") or os.environ.get("GITHUB_REPOSITORY")
+    if not repo or not os.environ.get("GH_TOKEN"):
+        return False
+    r = subprocess.run(["gh", "variable", "set", "TELEGRAM_CHAT_ID", "--repo", repo, "--body", chat], capture_output=True, text=True)
+    print("gh variable set:", "ok" if r.returncode == 0 else r.stderr.strip()[:200])
+    return r.returncode == 0
+
+
 def send_telegram(text: str) -> bool:
     import requests  # type: ignore
 
-    tok, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
-    if not tok or not chat:
+    tok = os.environ.get("TELEGRAM_BOT_TOKEN")
+    if not tok:
         return False
+    chat = telegram_chat_id(tok)
+    if not chat:
+        print("telegram: no chat id yet; message the bot once, then run the setup workflow")
+        return False
+    discovered = not os.environ.get("TELEGRAM_CHAT_ID")
+    if discovered:
+        saved = remember_chat_id(chat)
+        text += f"\n\n(Telegram chat {chat} {'saved; alerts will arrive here from now on' if saved else 'found; add it as the TELEGRAM_CHAT_ID secret so alerts keep working'})"
     r = requests.post(f"https://api.telegram.org/bot{tok}/sendMessage", json={"chat_id": chat, "text": text, "disable_web_page_preview": True}, timeout=20)
     print("telegram:", r.status_code)
     return r.ok
@@ -106,11 +146,11 @@ def send_discord(text: str) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", default=None)
-    ap.add_argument("--reason", default="update", help="t120 | morning | update")
+    ap.add_argument("--reason", default="update", help="t120 | morning | update | test (always sends)")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    if not a.dry_run and not (os.environ.get("DISCORD_WEBHOOK_URL") or (os.environ.get("TELEGRAM_BOT_TOKEN") and os.environ.get("TELEGRAM_CHAT_ID"))):
-        print("no notification channel configured (set DISCORD_WEBHOOK_URL or TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID)")
+    if not a.dry_run and not (os.environ.get("DISCORD_WEBHOOK_URL") or os.environ.get("TELEGRAM_BOT_TOKEN")):
+        print("no notification channel configured (set DISCORD_WEBHOOK_URL or TELEGRAM_BOT_TOKEN)")
         return
     date = a.date or slate_today()
     p = load_payload(date)
@@ -119,6 +159,8 @@ def main() -> None:
         return
     ch = p.get("changes") or {}
     notable = ch.get("first_build") or any(x.get("kind") in ("goalie", "status", "slate") for x in (ch.get("items") or []))
+    if a.reason == "test":
+        notable = True
     if a.reason == "update" and not notable:
         print("update without goalie or slate changes; not sending")
         return
