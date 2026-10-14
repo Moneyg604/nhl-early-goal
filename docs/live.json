@@ -1,7 +1,7 @@
 {
  "date": "2026-10-13",
- "updated_utc": "2026-10-14 05:10 UTC",
- "updated_et": "1:10 AM ET",
+ "updated_utc": "2026-10-14 05:15 UTC",
+ "updated_et": "1:15 AM ET",
  "games": {
   "2026020090": {
    "state": "OFF",
@@ -750,12 +750,12 @@
    ]
   },
   "2026020104": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:10",
-   "elapsed_min": 57.83,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "LAK",
    "away": "EDM",
    "home_score": 1,
@@ -764,7 +764,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 3,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -797,9 +797,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "00:00",
-   "elapsed_min": 40.0,
+   "period": 3,
+   "time_remaining": "17:19",
+   "elapsed_min": 42.68,
    "home": "SJS",
    "away": "BOS",
    "home_score": 2,
