@@ -1,7 +1,7 @@
 {
  "date": "2026-10-13",
- "updated_utc": "2026-10-14 03:40 UTC",
- "updated_et": "11:40 PM ET",
+ "updated_utc": "2026-10-14 03:45 UTC",
+ "updated_et": "11:45 PM ET",
  "games": {
   "2026020090": {
    "state": "OFF",
@@ -637,12 +637,12 @@
    ]
   },
   "2026020102": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:23",
-   "elapsed_min": 59.62,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "UTA",
    "away": "TOR",
    "home_score": 5,
@@ -651,7 +651,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -705,8 +705,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "07:36",
-   "elapsed_min": 32.4,
+   "time_remaining": "02:31",
+   "elapsed_min": 37.48,
    "home": "ANA",
    "away": "CGY",
    "home_score": 2,
@@ -744,8 +744,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "17:39",
-   "elapsed_min": 22.35,
+   "time_remaining": "14:09",
+   "elapsed_min": 25.85,
    "home": "LAK",
    "away": "EDM",
    "home_score": 0,
@@ -778,15 +778,15 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "06:15",
-   "elapsed_min": 13.75,
+   "time_remaining": "04:23",
+   "elapsed_min": 15.62,
    "home": "SJS",
    "away": "BOS",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 1,
    "first_goal_min": 12.917,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 1,
    "ended_in": null,
    "goals": [
@@ -794,6 +794,11 @@
      "period": 1,
      "minute": 12.917,
      "team": "BOS"
+    },
+    {
+     "period": 1,
+     "minute": 15.483,
+     "team": "SJS"
     }
    ]
   }
