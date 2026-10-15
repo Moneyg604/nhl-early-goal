@@ -78,8 +78,8 @@ class ModelConfig:
     use_division: bool = False                    # division games: measured, off by default
 
     # --- confidence tiers ------------------------------------------------------------------
-    tier_a_min_games: int = 6                     # current-season games for tier A (both teams)
-    tier_b_min_games: int = 3
+    tier_a_min_games: int = 4                     # current-season games for tier A (both teams); by then they outweigh last season
+    tier_b_min_games: int = 2
 
 
 PRUNABLE = ("use_rest", "use_roof", "use_wind", "use_qb_blend", "use_half_shape", "use_division")

@@ -64,7 +64,7 @@ def tier_for(P: Profiles, row: dict, run) -> tuple[str, list[str]]:
     why = []
     gh, ga = P.teams.get(row["home"]), P.teams.get(row["away"])
     n_min = min(gh.games_cur if gh else 0, ga.games_cur if ga else 0)
-    if n_min < CFG.tier_b_min_games:
+    if n_min < CFG.tier_a_min_games:
         why.append(f"only {n_min} games this season for one team (profiles lean on last season)")
     for side, sb in (("home", run.home), ("away", run.away)):
         if (row.get("qb_uncertain") or {}).get(side):
@@ -75,7 +75,7 @@ def tier_for(P: Profiles, row: dict, run) -> tuple[str, list[str]]:
             why.append(f"{sb.team}: starting quarterback has no NFL passing record in the data")
     if (row.get("lines") or {}).get("spread") is None:
         why.append("no market line yet (model alone)")
-    if not why and n_min >= CFG.tier_a_min_games:
+    if not why:
         return "A", why
     if any("no NFL passing record" in w or "no market line" in w or "uncertain" in w for w in why):
         return "C", why
