@@ -170,5 +170,8 @@ def simulate(gm: GameModel, sims: int = 100_000, seed: int | None = None) -> Sim
             "p_reg_tie": float(tied.mean()),
             "exp_goals_reg_home": gm.expected_goals()[0],
             "exp_goals_reg_away": gm.expected_goals()[1],
+            # team-goal distributions for the props page (shootout winner credited one goal, as the books settle team totals)
+            "home_goals_dist": [float((h == k).mean()) for k in range(11)] + [float((h >= 11).mean())],
+            "away_goals_dist": [float((a == k).mean()) for k in range(11)] + [float((a >= 11).mean())],
         },
     )

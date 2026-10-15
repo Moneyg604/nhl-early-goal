@@ -76,11 +76,22 @@ BRAND_CSS = """
 """
 
 
-def brand_html(root: str, sport: str, other_href: str) -> str:
-    nhl = '<a class="on" href="#">NHL</a>' if sport == "nhl" else f'<a href="{other_href}">NHL</a>'
-    nfl = '<a class="on" href="#">NFL</a>' if sport == "nfl" else f'<a href="{other_href}">NFL</a>'
+def brand_html(root: str, sport: str, other_href: str, props_href: str | None = None, nfl_href: str | None = None) -> str:
+    """The header: mark, wordmark and the section switch (NHL / NHL props / NFL). `sport` is the current section
+    ("nhl", "props" or "nfl"); the hrefs point at the other sections relative to the current page."""
+    nhl_href = other_href if sport != "nhl" else "#"
+    if sport == "props":
+        nfl_href = nfl_href or "../nfl/"
+    elif sport == "nfl":
+        nfl_href = "#"
+    else:
+        nfl_href = nfl_href or other_href
+    if props_href is None:
+        props_href = "#" if sport == "props" else (root + "props/" if sport == "nhl" else "../props/")
+    a = lambda label, href, on: f'<a class="on" href="#">{label}</a>' if on else f'<a href="{href}">{label}</a>'  # noqa: E731
     return (f'<div class="brand"><img class="logo" src="{root}brand-mark.png?v={ASSET_VERSION}" alt="{NAME}" width="40" height="40">'
-            f'<span class="bt">Gill <span>Sports</span></span><nav class="sport" aria-label="sport">{nhl}{nfl}</nav></div>')
+            f'<span class="bt">Gill <span>Sports</span></span><nav class="sport" aria-label="section">'
+            f'{a("NHL", nhl_href, sport == "nhl")}{a("Props", props_href, sport == "props")}{a("NFL", nfl_href, sport == "nfl")}</nav></div>')
 
 
 __all__ = ["NAME", "SHORT", "site_url", "copy_assets", "head_tags", "brand_html", "BRAND_CSS", "repository"]

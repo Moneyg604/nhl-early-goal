@@ -128,6 +128,34 @@ def cmd_ingest(args: argparse.Namespace) -> None:
     print(f"done; records in {DATA_DIR}")
 
 
+def build_props(d: str, slate: list[dict], models: list, lineups: dict, fetch_prices: bool) -> None:
+    """The props section (nhlprops) for the day's slate: skater and team props from the same game models.
+    Best effort: a failure here never stops the NHL page."""
+    try:
+        from nhlprops.config import OUT_DIR as PROPS_OUT
+        from nhlprops.ingest import ingest as ingest_props
+        from nhlprops.pipeline import build_day
+        from nhlprops.report import write as write_props
+
+        yr = int(d[:4]) + (1 if int(d[5:7]) >= 9 else 0)
+        ingest_props([yr - 2, yr - 1, yr])
+        if fetch_prices:
+            try:
+                from nhlprops.odds import fetch as fetch_props
+
+                fetch_props(d)
+            except Exception as e:  # noqa: BLE001
+                print(f"  props odds skipped ({e})", file=sys.stderr)
+        pp = build_day(d, slate, models, lineups)
+        PROPS_OUT.mkdir(parents=True, exist_ok=True)
+        write_props(pp, PROPS_OUT / f"props-{d}.html")
+        (PROPS_OUT / f"props-{d}.json").write_text(json.dumps(pp))
+        n = sum(len(g["sides"][s]["skaters"]) for g in pp["games"] for s in ("home", "away"))
+        print(f"  props: {len(pp['games'])} games, {n} skaters, prices on {pp['odds'].get('games_with_prices', 0)} games -> {PROPS_OUT / f'props-{d}.html'}")
+    except Exception as e:  # noqa: BLE001
+        print(f"  props skipped ({e})", file=sys.stderr)
+
+
 def cmd_run(args: argparse.Namespace) -> None:
     date = args.date or today_et()
     days = max(1, int(getattr(args, "days", 1) or 1))
@@ -234,8 +262,10 @@ def cmd_run(args: argparse.Namespace) -> None:
                 fetch_odds(d)
             except Exception as e:  # noqa: BLE001
                 print(f"  odds fetch skipped ({e})", file=sys.stderr)
-        payload, _ = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta,
-                               records=None if args.demo else (current + prior), lineups=lineups)
+        payload, models = run_slate(slate, lp, teams, goalies, d, overrides=overrides, dfo=dfo, sims=sims, seed=args.seed, meta=dmeta,
+                                    records=None if args.demo else (current + prior), lineups=lineups)
+        if not args.demo:
+            build_props(d, slate, models, lineups, fetch_prices=(i == 0 and bool(os.environ.get("ODDS_API_KEY")) and os.environ.get("EGD_REASON", "morning") in ("update", "t120")))
         payload["changes"] = diff_payloads(prev_payload, payload)
         if payload["changes"]["items"]:
             print(f"  changes since {payload['changes']['since']}: " + "; ".join(f"{x['game']}: {x['text']}" for x in payload["changes"]["items"][:8]))
@@ -513,6 +543,14 @@ def cmd_publish(args: argparse.Namespace) -> None:
         prior = json.loads(Path(args.prior_days).read_text()).get("days", [])
     site = build_site(site_dir=Path(args.site_dir) if args.site_dir else ROOT / "docs", keep_days=args.keep_days, prior_days=prior, artifact=args.artifact)
     print(f"site written to {site} (open index.html, or serve the folder from GitHub Pages)")
+    try:
+        from nhlprops.site import build_props_site
+
+        pd = build_props_site(site, keep_days=args.keep_days)
+        if pd:
+            print(f"props section written to {pd}")
+    except Exception as e:  # noqa: BLE001
+        print(f"props section skipped ({e})", file=sys.stderr)
 
 
 def cmd_overrides(args: argparse.Namespace) -> None:

@@ -112,8 +112,36 @@ def build_message(p: dict, reason: str, html: bool = False) -> str:
     items = [x for x in (ch.get("items") or []) if x.get("kind") in ("goalie", "status", "slate", "tier")]
     if items:
         lines += ["", f"🔁 {B('Since ' + str(ch.get('since', 'the last build')))}"] + [f"• {T(x['game'])}: {T(x['text'])}" for x in items[:10]]
-    lines += ["", f"🔗 {T(SITE)}" if not html else f'🔗 <a href="{SITE}">Open the desk</a>']
+    lines += props_lines(p["date"], B, T)
+    lines += ["", f"🔗 {T(SITE)}" if not html else f'🔗 <a href="{SITE}">Open the desk</a>  ·  <a href="{SITE}props/">Props</a>']
     return "\n".join(lines)
+
+
+def props_lines(date: str, B, T) -> list[str]:
+    """Top props by EV at DraftKings' own lines (validated markets, established skaters only)."""
+    pp = None
+    for f in (ROOT / "docs" / "props" / "days" / f"{date}.json", ROOT / "out" / "nhlprops" / f"props-{date}.json"):
+        if f.exists():
+            try:
+                pp = json.loads(f.read_text())
+                break
+            except json.JSONDecodeError:
+                continue
+    if not pp:
+        return []
+    try:
+        sys.path.insert(0, str(ROOT))
+        from nhlprops.picks import best_bets
+        bets = best_bets(pp)
+    except Exception:  # noqa: BLE001
+        return []
+    priced = (pp.get("odds") or {}).get("games_with_prices", 0)
+    if not bets:
+        return ["", f"🎟️ {B('Props')}: " + (T("no DraftKings prop with 5%+ EV in a validated market right now") if priced else T("DraftKings prices not fetched yet; fair lines on the site"))]
+    out = ["", f"🎟️ {B('Props · best value at DraftKings')}"]
+    for b in bets:
+        out.append(f"• {T(b['text'])} ({T(b['mu'])})  {B(pct(b['p']))} @ {b['odds']:.2f}  EV +{b['ev']*100:.0f}%")
+    return out
 
 
 def telegram_chat_id(tok: str) -> str | None:
