@@ -129,7 +129,8 @@ def parse_props(ev: dict) -> dict:
                 if not slot:
                     continue
                 k = (slot, name_key(who) if who else "game", point)
-                e = acc.setdefault(k, {"name": who, "line": point, "best": {}, "pairs": []})
+                e = acc.setdefault(k, {"name": who, "line": point, "best": {}, "pairs": [], "books": {}})
+                e["books"][title] = {sd: pr for sd, pr in d.items() if pr}      # every book's own line and price
                 for side, price in d.items():
                     if price and price > e["best"].get(side, (0, ""))[0]:
                         e["best"][side] = (price, title)
@@ -150,6 +151,11 @@ def parse_props(ev: dict) -> dict:
         cons = _two_way(e["pairs"])
         if cons is not None:
             rec["consensus_" + ("yes" if slot == "atd" else "over")] = cons
+        # each book's own line (books post different numbers: the page prices the one you can actually bet)
+        rec["books"] = {}
+        for x in es:
+            for title, d in x["books"].items():
+                rec["books"][title] = {"line": x["line"], **d}
         if slot in ("h1", "h2"):
             out[slot] = rec
         else:

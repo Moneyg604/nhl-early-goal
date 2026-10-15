@@ -363,7 +363,9 @@ const PC_MARKETS = [['ml_home','Moneyline: home'],['ml_away','Moneyline: away'],
   ['h1_over','1st half: over'],['h1_under','1st half: under'],['h2_over','2nd half: over'],['h2_under','2nd half: under'],['fg_home_over','Home FGs: over'],['fg_home_under','Home FGs: under'],
   ['fg_away_over','Away FGs: over'],['fg_away_under','Away FGs: under'],['qy_home_over','Home QB yards: over'],['qy_home_under','Home QB yards: under'],['qy_away_over','Away QB yards: over'],['qy_away_under','Away QB yards: under'],
   ['qt_home_over','Home QB TDs: over'],['qt_home_under','Home QB TDs: under'],['qt_away_over','Away QB TDs: over'],['qt_away_under','Away QB TDs: under'],['atd','Anytime TD']];
-function defaultLine(g, mk){ const L=g.lines||{};
+function myDefault(g, mk){ const side=mk.split('_')[1]; const q=(g.qb||{})[side]||{};
+  if(mk.startsWith('qy')) return myLine(g,'qb_yds',q.name); if(mk.startsWith('qt')) return myLine(g,'qb_td',q.name); if(mk.startsWith('h1')) return myLine(g,'h1',null); if(mk.startsWith('h2')) return myLine(g,'h2',null); return null; }
+function defaultLine(g, mk){ const L=g.lines||{}; const my=myDefault(g, mk); if(my && my.line!=null) return my.line;
   if(mk.startsWith('sp')) return mk==='sp_home' ? -(L.spread||0) : (L.spread||0); if(mk==='over'||mk==='under') return L.total||g.markets.total_fair_line;
   if(mk.startsWith('h1')) return refLine(g,'h1'); if(mk.startsWith('h2')) return refLine(g,'h2'); if(mk.startsWith('fg')) return 1.5;
   if(mk.startsWith('qy')) return g.markets.qb[mk.split('_')[1]].yds_fair_line; if(mk.startsWith('qt')) return 1.5; return ''; }
@@ -379,7 +381,7 @@ function pcProb(g, mk, line, player){
   if(mk==='atd'){ const a=[...(g.anytime.home||[]),...(g.anytime.away||[])].find(x=>x.id===player); return a?{p:a.p,push:0}:null; } return null; }
 function renderPC(){ const el=document.getElementById('pricecheck'); const gs=[...P.games].sort((a,b)=>(a.kickoff_utc||'').localeCompare(b.kickoff_utc||''));
   let st={}; try{ st=JSON.parse(localStorage.getItem('egd_nfl_pc')||'{}'); }catch(e){}
-  el.innerHTML = `<h3>Price check <span class="mini" style="text-transform:none;letter-spacing:0">enter the book's line and odds; any line works, pushes included</span></h3>
+  el.innerHTML = `<h3>Price check <span class="mini" style="text-transform:none;letter-spacing:0">${MYBOOK?`${esc(MYBOOK)}'s line and odds fill in when it posts the market; `:''}any line works, pushes included</span></h3>
   <div class="pc"><label>Game<select id="pc-g">${gs.map(g=>`<option value="${g.game_id}">${g.away} @ ${g.home}</option>`).join('')}</select></label>
   <label>Market<select id="pc-m">${PC_MARKETS.map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select></label>
   <label id="pc-pl" style="display:none">Player<select id="pc-p"></select></label>
@@ -390,7 +392,7 @@ function renderPC(){ const el=document.getElementById('pricecheck'); const gs=[.
   const syncPlayers = () => { const g=byId[G.value]; const a=[...(g.anytime.away||[]).map(x=>[x,g.away]),...(g.anytime.home||[]).map(x=>[x,g.home])];
     Pl.innerHTML = a.map(([x,t])=>`<option value="${x.id}">${esc(x.name)} (${t})</option>`).join(''); };
   const syncLine = (keep) => { const g=byId[G.value]; const atd = Mk.value==='atd'; document.getElementById('pc-pl').style.display = atd?'':'none'; document.getElementById('pc-ll').style.display = atd||Mk.value.startsWith('ml')?'none':'';
-    if(!keep) Ln.value = defaultLine(g, Mk.value); if(atd) syncPlayers(); };
+    if(!keep){ Ln.value = defaultLine(g, Mk.value); const my=myDefault(g, Mk.value); const o = my ? (Mk.value.endsWith('over') ? my.over : my.under) : null; Od.value = o ? o.toFixed(2) : ''; } if(atd) syncPlayers(); };
   const calc = () => { const g=byId[G.value]; const line=parseFloat(Ln.value); const r=pcProb(g, Mk.value, isNaN(line)?0:line, Pl.value); const out=document.getElementById('pc-out');
     try{ localStorage.setItem('egd_nfl_pc', JSON.stringify({g:G.value, m:Mk.value})); }catch(e){}
     if(!r){ out.innerHTML=''; return; } const d=parseOdds(Od.value); const pw=r.p, push=r.push||0; const fo = pw>0 ? (1-push)/pw : null;
@@ -475,7 +477,16 @@ function gradeOf(o){ const E=o.E, Q=o.Q; let v=null; if(o.ev!=null) v = o.ev>=0.
   if(v===-1) return 'D';
   if(v===null) return (E===2 && Q>=1) ? 'B' : (E>=1 ? 'C' : 'D');
   if(E===2 && Q===2 && v===2) return 'S'; const s=E+Q+v; return s>=5 ? 'A' : (s>=4 ? 'B' : 'C'); }
+let MYBOOK=''; try{ MYBOOK=localStorage.getItem('egd_book')||''; }catch(e){}
+function allBooks(){ const b=new Set(); for(const g of P.games){ const O=g.odds||{}; for(const k of ['ml','spread','total']){ if(O[k]) ['home','away','over','under'].forEach(s=>{ if(O[k]['book_'+s]) b.add(O[k]['book_'+s]); }); }
+  const Pp=O.props||{}; for(const k of ['qb_yds','qb_td','atd']) for(const x of Object.values(Pp[k]||{})) Object.keys(x.books||{}).forEach(t=>b.add(t)); for(const k of ['h1','h2']) Object.keys((Pp[k]||{}).books||{}).forEach(t=>b.add(t)); } return [...b].sort(); }
+function myLine(g, kind, who){ // the chosen book's own line and prices for a prop, else null
+  if(!MYBOOK) return null; const Pp=(g.odds||{}).props||{}; let x=null;
+  if(kind==='qb_yds'||kind==='qb_td') x=(Pp[kind]||{})[nameKey(who)]; else if(kind==='h1'||kind==='h2') x=Pp[kind]; else if(kind==='atd') x=(Pp.atd||{})[nameKey(who)];
+  const b=x && x.books && x.books[MYBOOK]; return b ? {line:b.line, over:b.over, under:b.under, yes:b.yes, book:MYBOOK} : null; }
 function bookPrice(g, kind, side, line, who){
+  const mine = myLine(g, kind, who);
+  if(mine && (mine.line===line || kind==='atd')){ const o = kind==='atd' ? mine.yes : mine[side]; if(o && o>1) return {odds:o, book:MYBOOK, cons:null, mine:true}; }
   const O=g.odds||{}, Pp=O.props||{}, L=g.lines||{};
   const r = (odds, book, cons) => (odds && odds>1) ? {odds, book, cons} : null;
   const cons2 = (c, first) => c==null ? null : (first ? c : 1-c);
@@ -505,14 +516,14 @@ function buildSelections(){ const out=[];
       add({kind:'spread', side:'home', line:hl, team:g.home, label:`${g.home} ${hl>0?'+':''}${hl}`, p:r.home, push:r.push}); }
     const T = O.total ? O.total.line : L.total;
     if(T!=null){ const r=pOver(mk.dist.total, T); for(const s of ['over','under']) add({kind:'total', side:s, line:T, label:`${s==='over'?'Over':'Under'} ${T}`, p:r[s], push:r.push}); }
-    for(const k of ['h1','h2']){ const bl = (Pp[k] && Pp[k].line!=null) ? Pp[k].line : refLine(g,k); const r=pOver(mk.dist[k], bl);
+    for(const k of ['h1','h2']){ const mh=myLine(g,k,null); const bl = (mh && mh.line!=null) ? mh.line : ((Pp[k] && Pp[k].line!=null) ? Pp[k].line : refLine(g,k)); const r=pOver(mk.dist[k], bl);
       for(const s of ['over','under']) add({kind:k, side:s, line:bl, label:`${k==='h1'?'1st half':'2nd half'} ${s} ${bl}`, p:r[s], push:r.push}); }
     for(const side of ['away','home']){ const t=g[side];
       for(const ln of [0.5,1.5,2.5]){ const r=fgP(g,side,ln); for(const s of ['over','under']) add({kind:'fg', side:s, line:ln, team:t, tside:side, label:`${t} ${s} ${ln} field goals`, p:r[s], push:r.push}); }
       const q=g.qb[side]||{}; if(q.name){ const who=q.name, qq=!!q.status||uncertain(side);
-        const bq=(Pp.qb_yds||{})[nameKey(who)]; const yl=(bq && bq.line!=null) ? bq.line : g.markets.qb[side].yds_fair_line; const ry=qbYdsP(g,side,yl);
+        const bq=(Pp.qb_yds||{})[nameKey(who)]; const my=myLine(g,'qb_yds',who); const yl=(my && my.line!=null) ? my.line : ((bq && bq.line!=null) ? bq.line : g.markets.qb[side].yds_fair_line); const ry=qbYdsP(g,side,yl);
         for(const s of ['over','under']) add({kind:'qb_yds', side:s, line:yl, team:t, tside:side, who, label:`${who} ${s} ${yl} passing yds`, p:ry[s], push:ry.push, questionable:qq});
-        const bt=(Pp.qb_td||{})[nameKey(who)]; const lines=[0.5,1.5,2.5]; if(bt && bt.line!=null && !lines.includes(bt.line)) lines.push(bt.line);
+        const bt=(Pp.qb_td||{})[nameKey(who)]; const lines=[0.5,1.5,2.5]; if(bt && bt.line!=null && !lines.includes(bt.line)) lines.push(bt.line); const mt=myLine(g,'qb_td',who); if(mt && mt.line!=null && !lines.includes(mt.line)) lines.push(mt.line);
         for(const ln of lines){ const r=qbTdP(g,side,ln); for(const s of ['over','under']) add({kind:'qb_td', side:s, line:ln, team:t, tside:side, who, label:`${who} ${s} ${ln} TD passes`, p:r[s], push:r.push, questionable:qq}); } }
       for(const a of ((g.anytime||{})[side]||[])) add({kind:'atd', side:'yes', line:null, team:t, tside:side, who:a.name, pid:a.id, rec:a.rec_share, rush:a.rush_share, label:`${a.name} (${t}) anytime TD`, p:a.p, push:0, questionable:!!a.q});
     } }
@@ -539,8 +550,9 @@ function renderScanner(){ const el=document.getElementById('scanner');
    <label>Sort<select id="sc-sort"><option value="p" ${SC.sort==='p'?'selected':''}>Win probability</option><option value="ev" ${SC.sort==='ev'?'selected':''}>Expected value</option><option value="grade" ${SC.sort==='grade'?'selected':''}>Grade</option><option value="fair" ${SC.sort==='fair'?'selected':''}>Fair odds (low first)</option><option value="kick" ${SC.sort==='kick'?'selected':''}>Kickoff</option></select></label>
    <label>Min win %<input id="sc-minp" type="number" min="0" max="99" step="5" value="${SC.minp}"></label>
    <label>Search<input id="sc-q" placeholder="player or team" value="${esc(SC.q)}"></label>
+   <label>My sportsbook<select id="sc-book"><option value="">Best price (any book)</option>${allBooks().map(b=>`<option ${MYBOOK===b?'selected':''}>${esc(b)}</option>`).join('')}</select></label>
    <div class="chips" id="sc-grades">${['S','A','B','C','D'].map(x=>`<button data-g="${x}" class="${SC.grades.includes(x)?'on':''}">${x}</button>`).join('')}<button id="sc-odds" class="${SC.odds?'on':''}">with book odds</button></div></div>
-   <p class="mini" style="margin:6px 0">${total.toLocaleString()} of ${SELS.length.toLocaleString()} selections · book odds on ${withOdds.toLocaleString()} ${withOdds? '' : '(add the Odds API key for live prices on props; game lines use the nflverse consensus)'} · tap a row to add it to the slip</p>
+   <p class="mini" style="margin:6px 0">${total.toLocaleString()} of ${SELS.length.toLocaleString()} selections · book odds on ${withOdds.toLocaleString()} ${withOdds? (MYBOOK?`· props priced at ${esc(MYBOOK)}'s own lines`:'· props priced at the line most books post') : '(add the Odds API key for live prices on props; game lines use the nflverse consensus)'} · tap a row to add it to the slip</p>
    <div class="scan">${rows.map(o=>{ const r=selResult(o); const inSlip=SLIP.find(s=>s.id===o.id);
      return `<div class="srow ${inSlip?'on':''}" data-id="${esc(o.id)}"><span class="gr g${o.grade}" title="${esc(gradeWhy(o))}">${o.grade}</span>
       <span class="sel"><b>${esc(o.label)}</b> ${markTxt(r)}<span class="t">${esc(o.mu)} · ${KIND[o.kind]}${o.questionable?' · questionable / uncertain':''}</span></span>
@@ -555,7 +567,8 @@ function renderScanner(){ const el=document.getElementById('scanner');
   on('sc-team','onchange',e=>{ SC.team=e.target.value; SC.n=60; saveSC(); renderScanner(); }); on('sc-sort','onchange',e=>{ SC.sort=e.target.value; saveSC(); renderScanner(); });
   on('sc-minp','onchange',e=>{ SC.minp=+e.target.value||0; saveSC(); renderScanner(); });
   on('sc-q','onchange',e=>{ SC.q=e.target.value; saveSC(); renderScanner(); });
-  on('sc-more','onclick',()=>{ SC.n+=60; renderScanner(); }); on('sc-odds','onclick',()=>{ SC.odds=!SC.odds; saveSC(); renderScanner(); });
+  on('sc-more','onclick',()=>{ SC.n+=60; renderScanner(); });
+  on('sc-book','onchange',e=>{ MYBOOK=e.target.value; try{ localStorage.setItem('egd_book', MYBOOK); }catch(ex){} SELS.length=0; buildSelections().forEach(x=>SELS.push(x)); Object.keys(SEL_BY).forEach(k=>delete SEL_BY[k]); SELS.forEach(x=>SEL_BY[x.id]=x); renderScanner(); renderPC(); }); on('sc-odds','onclick',()=>{ SC.odds=!SC.odds; saveSC(); renderScanner(); });
   document.querySelectorAll('#sc-grades button[data-g]').forEach(b=>b.onclick=()=>{ const x=b.dataset.g; SC.grades = SC.grades.includes(x) ? SC.grades.filter(y=>y!==x) : [...SC.grades, x]; saveSC(); renderScanner(); });
   document.querySelectorAll('#scanner .srow').forEach(d=>d.onclick=()=>toggleLeg(SEL_BY[d.dataset.id])); }
 function gradeWhy(o){ const e = o.E===2?'the backtest found this market beats its baseline':(o.E===1?(o.kind==='ml'||o.kind==='spread'||o.kind==='total'?'game lines use the market price (no model edge)':'the backtest found this market marginal'):'the backtest found no edge in this market');
