@@ -113,6 +113,14 @@ class LeagueTable:
     two_make: float = 0.48
     pass_td_share: float = 0.6
     ypdb: float = 6.5
+    rush_base: float = 25.7       # team rushes per game at a level score
+    rush_slope: float = 0.24      # ... per point of final margin
+    rush_sd: float = 6.1
+    ypc: float = 4.3
+    comp_rate: float = 0.645
+    rec_yds_k: float = 4.3        # player noise: sd = k * sqrt(expected)
+    rush_yds_k: float = 4.1
+    recs_k: float = 1.05
     home_logor: dict = field(default_factory=lambda: {"TD": 0.0, "FG": 0.0, "TO": 0.0})
     context: dict = field(default_factory=dict)
     tie_rate: float = 0.058
@@ -176,6 +184,7 @@ def build_league(games: list[dict], seasons: list[int], cfg: ModelConfig = CFG) 
     fg_d, fg_m = [], []
     xp_att = xp_made = two_att = two_made = td_pass = td_rush = 0
     totals, margs, h1s, h2s, ties, fgm_team = [], [], [], [], 0, []
+    rush_rows = []; rush_tot = ryds_tot = cmp_tot = att_tot = 0
     season_counts: dict[int, int] = defaultdict(int)
     for g in games:
         season_counts[g["season"]] += 1
@@ -198,6 +207,8 @@ def build_league(games: list[dict], seasons: list[int], cfg: ModelConfig = CFG) 
             x = g["xp"].get(t, {})
             xp_att += x.get("att", 0); xp_made += x.get("made", 0); two_att += x.get("two_att", 0); two_made += x.get("two_made", 0)
             td_pass += g["team"][t]["td_pass"]; td_rush += g["team"][t]["td_rush"]
+            tm_ = g["team"][t]; m_ = (g["hs"] - g["as"]) if t == g["home"] else (g["as"] - g["hs"])
+            rush_rows.append((m_, tm_["rush"])); rush_tot += tm_["rush"]; ryds_tot += tm_["ryds"]; cmp_tot += tm_["cmp"]; att_tot += tm_["att"]
             fgm_team.append(sum(1 for k in g["fg"].get(t, []) if k["r"] == "made"))
         totals.append(g["hs"] + g["as"]); margs.append(g["hs"] - g["as"])
         h1 = sum(g["q"]["home"][:2]) + sum(g["q"]["away"][:2]); h1s.append(h1); h2s.append(g["hs"] + g["as"] - h1)
@@ -256,6 +267,11 @@ def build_league(games: list[dict], seasons: list[int], cfg: ModelConfig = CFG) 
     tds = td_pass + td_rush
     if tds:
         lt.pass_td_share = td_pass / tds
+    if len(rush_rows) > 50:
+        X = np.array([m for m, _ in rush_rows], dtype=float); Y = np.array([r for _, r in rush_rows], dtype=float)
+        if X.var() > 0:
+            b = np.polyfit(X, Y, 1); lt.rush_slope, lt.rush_base = float(b[0]), float(b[1]); lt.rush_sd = float(np.std(Y - np.polyval(b, X)))
+        lt.ypc = ryds_tot / max(rush_tot, 1); lt.comp_rate = cmp_tot / max(att_tot, 1)
         lt.two_rate = two_att / tds
     if two_att:
         lt.two_make = two_made / two_att
@@ -374,6 +390,12 @@ class Side:
     py_x: float = 0.0
     ptd: float = 0.0
     rtd: float = 0.0
+    rush_att: float = 0.0       # rushing attempts (weighted)
+    rush_x: float = 0.0         # league rushes expected for the game's score margin
+    ryds: float = 0.0
+
+    def add_game(self, tm: dict, margin: float, w: float, lt: LeagueTable) -> None:
+        self.rush_att += w * tm["rush"]; self.rush_x += w * (lt.rush_base + lt.rush_slope * margin); self.ryds += w * tm["ryds"]
 
     def add_drive(self, d: dict, e, w: float, lt: LeagueTable) -> None:
         e_td, e_fg, e_to, e_secs, e_db = e
@@ -395,6 +417,12 @@ class Side:
 
     def pace(self, cfg: ModelConfig) -> float:
         return shrink_ratio(self.secs, self.secs_x, self.n, cfg.k_pace, 0.75, 1.3)
+
+    def rush_mult(self, lt: LeagueTable, cfg: ModelConfig) -> float:
+        return shrink_ratio(self.rush_att, self.rush_x, self.n, cfg.k_dropbacks, 0.7, 1.4)
+
+    def ypc_mult(self, lt: LeagueTable, cfg: ModelConfig) -> float:
+        return shrink_ratio(self.ryds, self.rush_att * lt.ypc, self.rush_att, cfg.k_qb_rate, 0.7, 1.4)
 
     def db_mult(self, cfg: ModelConfig) -> float:
         return shrink_ratio(self.db, self.db_x, self.n, cfg.k_dropbacks, 0.7, 1.4)
@@ -469,6 +497,12 @@ class PlayerProfile:
     t_rzt: float = 0.0
     t_ptd: float = 0.0
     t_rtd: float = 0.0
+    recyds: float = 0.0
+    ryds: float = 0.0
+    recs: float = 0.0
+    t_pyds: float = 0.0
+    t_rush: float = 0.0
+    t_cmp: float = 0.0
     games_td: int = 0
     last_date: str = ""
     recent: list = field(default_factory=list)
@@ -499,6 +533,17 @@ class PlayerProfile:
         rec = (self.rectd + k * prior_rec) / (self.t_ptd + k)
         rush = (self.rtd + k * prior_rush) / (self.t_rtd + k)
         return float(min(rec, 0.9)), float(min(rush, 0.9))
+
+    def usage(self, cfg: ModelConfig) -> dict:
+        """Shares behind the yardage props: receiving yards as a share of the team's passing yards, rushes as a
+        share of the team's rushes with his own yards per carry, receptions as a share of the team's completions,
+        each shrunk toward zero with k_usage weighted games (a new player starts small)."""
+        k = cfg.k_usage
+        w = self.w
+        f = lambda num, den: (num / den) * (w / (w + k)) if den > 0 else 0.0  # noqa: E731
+        ypc = (self.ryds + 4.2 * 20) / (self.car + 20) if self.car > 0 else 4.2
+        return {"rec_yds_share": f(self.recyds, self.t_pyds), "car_share": f(self.car, self.t_rush), "ypc": ypc,
+                "rec_share": f(self.recs, self.t_cmp), "games_w": round(w, 2)}
 
     def describe(self, cfg: ModelConfig) -> dict:
         rec, rush = self.shares(cfg)
@@ -651,6 +696,7 @@ def build_profiles(games: list[dict], season: int, cfg: ModelConfig = CFG, leagu
                         dst[k2] = dst.get(k2, 0) + v2
                     dst["sk"] = dst.get("sk", 0) + src.get("sk", 0); dst["db"] = dst.get("db", 0) + src.get("db", 0)
                     dst["games"] = dst.get("games", 0) + 1
+            tp.off.add_game(tm, pf - pa, sw, lt); tp.def_.add_game(om, pa - pf, sw, lt)
             tp.epa_off += sw * tm["epa"]; tp.plays_off += sw * tm["plays"]
             tp.epa_def += sw * om["epa"]; tp.plays_def += sw * om["plays"]
             # quarterback
@@ -696,6 +742,8 @@ def build_profiles(games: list[dict], season: int, cfg: ModelConfig = CFG, leagu
                 pp.rtd += rw * s["rtd"]; pp.rectd += rw * s["rectd"]; pp.ret_td += rw * s.get("ret_td", 0)
                 pp.t_car += rw * t_car; pp.t_tgt += rw * t_tgt; pp.t_rzc += rw * t_rzc; pp.t_rzt += rw * t_rzt
                 pp.t_ptd += rw * tm["td_pass"]; pp.t_rtd += rw * tm["td_rush"]
+                pp.recyds += rw * s.get("recyds", 0); pp.ryds += rw * s.get("ryds", 0); pp.recs += rw * s.get("rec", 0)
+                pp.t_pyds += rw * tm["pyds"]; pp.t_rush += rw * tm["rush"]; pp.t_cmp += rw * tm["cmp"]
                 pp.games_td += (s["rtd"] + s["rectd"]) > 0; pp.last_date = g["date"]
                 pp.recent.append({"date": g["date"], "team": t, "car": s["car"], "tgt": s["tgt"], "td": s["rtd"] + s["rectd"]})
                 sp = (snaps or {}).get(g["game_id"], {}).get(pid)

@@ -17,6 +17,7 @@ from .ingest import load_games, load_schedule
 from .markets import american_to_decimal, anytime_td, devig2, game_markets
 from .model import load_blend, load_key_numbers, run_game
 from .players import candidates
+from .props import player_props, prob_over
 from .week import load_reference, week_rows
 
 
@@ -163,6 +164,11 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
             cands = candidates(P, t, available=active, out=set(row["out"][side]), positions=row["positions"], cfg=cfg)
             res = anytime_td(run.sim, i, cands)
             qn = set(row["questionable"][side])
+            names = row.get("names") or {}
+            pr = player_props(P, row, side, run.sim, cands, cfg=cfg)
+            for x in pr:
+                x["name"] = names.get(x["id"]) or x["name"]; x["q"] = x["id"] in qn
+            g.setdefault("props", {})[side] = pr
             g["anytime"][side] = [{"id": c["id"], "name": (row.get("names") or {}).get(c["id"]) or c["name"], "short": c["name"], "pos": c["pos"], "p": c["p"], "fair": c["fair"], "q": c["id"] in qn,
                                    "rec_share": round(c["rec_share"], 3), "rush_share": round(c["rush_share"], 3), "tgt_share": c["tgt_share"],
                                    "car_share": c["car_share"], "rz_share": c["rz_share"], "games": c["games"], "td_games": c["td_games"],
@@ -230,7 +236,9 @@ def actuals(g: dict) -> dict:
             pid = max(q, key=lambda k: q[k]["db"])
             qb[side] = {"id": pid, "name": q[pid]["name"], "yds": q[pid]["yds"], "td": q[pid]["td"]}
     scorers = sorted({pid for t in (g["home"], g["away"]) for pid, s in g["players"].get(t, {}).items() if s["rtd"] + s["rectd"] > 0})
-    return {"hs": g["hs"], "as": g["as"], "h1": [h1h, h1a], "ot": g.get("ot", 0),
+    stats = {pid: {"recyds": s.get("recyds", 0), "ryds": s.get("ryds", 0), "rec": s.get("rec", 0)} for t in (g["home"], g["away"]) for pid, s in g["players"].get(t, {}).items()
+             if s.get("car", 0) + s.get("tgt", 0) > 0}
+    return {"hs": g["hs"], "as": g["as"], "h1": [h1h, h1a], "ot": g.get("ot", 0), "stats": stats,
             "fg": {"home": sum(1 for k in g["fg"].get(g["home"], []) if k["r"] == "made"), "away": sum(1 for k in g["fg"].get(g["away"], []) if k["r"] == "made")},
             "qb": qb, "scorers": scorers}
 
@@ -390,7 +398,26 @@ def picks(payload: dict) -> dict:
             for a in (g.get("anytime") or {}).get(side, [])[:6]:
                 atd.append({"game_id": g["game_id"], "mu": mu, "market": "atd", "team": g[side], "player": a["name"], "id": a["id"], "p": a["p"],
                             "fair": a["fair"], "score": a["p"]})
+    # receiving yards, rushing yards, receptions: at DraftKings' line when posted, else the player's fair line
+    ry, ru, rc = [], [], []
+    for g in G:
+        mu = f'{g["away"]} @ {g["home"]}'
+        for side in ("home", "away"):
+            for x in (g.get("props") or {}).get(side, []):
+                for key, lst, kind in (("rec_yds", ry, "rec_yds"), ("rush_yds", ru, "rush_yds"), ("recs", rc, "recs")):
+                    d = x.get(key)
+                    if not d:
+                        continue
+                    bl = _book_line(g, kind, x["name"])
+                    if d["q"][2] < (2.5 if kind == "recs" else 20):
+                        continue                                  # fringe roles: not a market worth listing
+                    line = bl["line"] if bl and bl.get("line") is not None else d["fair_line"]
+                    po, pu, un = prob_over(d, line)
+                    sd = "over" if po >= un else "under"
+                    lst.append({"game_id": g["game_id"], "mu": mu, "market": kind, "team": g[side], "side_team": side, "player": x["name"], "id": x["id"],
+                                "line": line, "side": sd, "p": round(max(po, un), 4), "median": d["q"][2], "score": abs(po - un) * (0.5 if bl is None else 1.0)})
     add("ml", ml); add("spread", sp); add("total", to); add("h1", h1); add("h2", h2); add("fg", fg); add("qb_yds", qy); add("qb_td", qt); add("atd", atd, 6)
+    add("rec_yds", ry); add("rush_yds", ru); add("recs", rc)
     return out
 
 

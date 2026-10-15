@@ -11,7 +11,7 @@ from .ingest import load_games
 from .live import name_key
 
 MARKETS = {"ml": "Moneyline", "spread": "Spread (model lean)", "total": "Total (model lean)", "h1": "1st half total", "h2": "2nd half total",
-           "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD"}
+           "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD", "rec_yds": "Receiving yards", "rush_yds": "Rushing yards", "recs": "Receptions"}
 
 
 def grade(pick: dict, g: dict, game: dict) -> str | None:
@@ -51,6 +51,15 @@ def grade(pick: dict, g: dict, game: dict) -> str | None:
         if row is None:
             return None            # did not play: void
         v = row["yds"] if m == "qb_yds" else row["td"]
+        if v == pick["line"]:
+            return "push"
+        return "won" if (v > pick["line"]) == (pick["side"] == "over") else "lost"
+    if m in ("rec_yds", "rush_yds", "recs"):
+        t = pick["team"]
+        s_ = (g["players"].get(t) or {}).get(pick.get("id"))
+        if s_ is None:
+            return None
+        v = {"rec_yds": s_.get("recyds", 0), "rush_yds": s_.get("ryds", 0), "recs": s_.get("rec", 0)}[m]
         if v == pick["line"]:
             return "push"
         return "won" if (v > pick["line"]) == (pick["side"] == "over") else "lost"

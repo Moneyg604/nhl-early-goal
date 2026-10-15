@@ -53,6 +53,7 @@ class ModelConfig:
     k_qb_rate: float = 250.0                      # yards / touchdowns per dropback, in dropbacks (about 7 games)
     k_dropbacks: float = 100.0                    # dropbacks per drive, in drives
     k_td_share: float = 12.0                      # player share of team touchdowns, in team touchdowns
+    k_usage: float = 1.5                          # player yardage / reception shares, in weighted games
     k_context: float = 400.0                      # home / rest / roof / wind effects, in drives
     recency_half_life_games: float = 6.0          # exponential weighting of a player's own games (walk-forward: 6 beat 12 for anytime TD)
     use_snap_trend: bool = True                   # scale touchdown shares by the recent change in snap share (walk-forward: kept)

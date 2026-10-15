@@ -36,6 +36,7 @@ from .ingest import load_games
 from .markets import devig2, game_markets, anytime_td, over_under, pmf
 from .model import run_game
 from .players import candidates
+from .props import player_props, prob_over
 
 _GAMES: list[dict] = []
 _SNAPS: dict = {}
@@ -78,6 +79,12 @@ def run_week(args) -> dict:
     lt = P.league
     h1_share = lt.h1_share
     rows = []
+    # each player's game log before this week (for the trailing-average lines)
+    g_hist_players: dict[str, list] = {}
+    for gg in train:
+        for t in (gg["home"], gg["away"]):
+            for pid, st in gg["players"].get(t, {}).items():
+                g_hist_players.setdefault(pid, []).append(st)
     for g in test:
         row = _row_for(g)
         try:
@@ -163,6 +170,28 @@ def run_week(args) -> dict:
             covered = sum(g["players"][t][pid]["rtd"] + g["players"][t][pid]["rectd"] for pid in {c["id"] for c in cands} if pid in g["players"][t])
             out.setdefault("td_cover", []).append((covered, team_tds))
         out["atd"] = atd
+        # yardage props at a line set at the player's recent average (coin-flip baseline), players with a real role only
+        yp = []
+        for i, side in enumerate(("home", "away")):
+            t = g[side]
+            played = {pid for pid, s in g["players"].get(t, {}).items() if s["car"] + s["tgt"] > 0}
+            cands = candidates(P, t, played=played, cfg=cfg)
+            for x in player_props(P, row, side, r, cands, cfg=cfg):
+                pp = P.players.get(x["id"]); act = g["players"][t].get(x["id"])
+                if pp is None or act is None or len(pp.recent) < 4:
+                    continue
+                hist = [h for h in g_hist_players.get(x["id"], [])][-8:]
+                for key, akey, floor in (("rec_yds", "recyds", 20), ("rush_yds", "ryds", 20), ("recs", "rec", 2)):
+                    d = x.get(key)
+                    if not d or len(hist) < 4:
+                        continue
+                    avg = sum(h[akey] for h in hist) / len(hist)
+                    if avg < floor:
+                        continue
+                    line = (math.floor(avg) + 0.5)
+                    po, pu, un = prob_over(d, line)
+                    yp.append({"k": key, "p_over": round(po / max(1e-9, 1 - pu), 4), "y": int(act[akey] > line), "push": int(act[akey] == line), "median": d["q"][2], "avg": round(avg, 1), "act": act[akey]})
+        out["yprops"] = yp
         rows.append(out)
     return {"rows": rows}
 
@@ -283,6 +312,13 @@ def summarize(rows: list[dict]) -> dict:
     for k, nm in (("05", "0.5"), ("15", "1.5"), ("25", "2.5")):
         if td[k][2]:
             S[f"qb_td_over{nm}"] = _cmp(f"QB passing touchdowns over {nm}", td[k][0], td[k][1], td[k][2], "a Poisson at the quarterback's recent touchdown rate")
+    for key, nm in (("rec_yds", "Receiving yards"), ("rush_yds", "Rushing yards"), ("recs", "Receptions")):
+        ps = [x["p_over"] for r in rows for x in r.get("yprops", []) if x["k"] == key and not x["push"]]
+        ys = [x["y"] for r in rows for x in r.get("yprops", []) if x["k"] == key and not x["push"]]
+        if ys:
+            S[key] = _cmp(f"{nm} (line = the player's recent average)", ps, [0.5] * len(ys), ys, "a coin flip at the player's recent average")
+            S[key]["mae_model_median"] = round(float(np.mean([abs(x["act"] - x["median"]) for r in rows for x in r.get("yprops", []) if x["k"] == key])), 2)
+            S[key]["mae_recent_avg"] = round(float(np.mean([abs(x["act"] - x["avg"]) for r in rows for x in r.get("yprops", []) if x["k"] == key])), 2)
     ap, ab, ay = [], [], []
     for r in rows:
         for a in r.get("atd", []):

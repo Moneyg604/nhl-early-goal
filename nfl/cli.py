@@ -56,7 +56,14 @@ def cmd_run(a) -> None:
                 # props: the games about to start on pre-kickoff runs, every game of the week on a "props" run
                 if k and (reason == "props" or (reason == "t75" and timedelta(minutes=-15) <= k - now <= timedelta(hours=3))):
                     window.append(f"{r.away_team}@{r.home_team}")
-            fetch_odds(reason, window)
+            # the odds pull runs on the Wednesday preview, the pre-kickoff builds and an explicit "props" run; props are
+            # fetched for the games about to kick off, with the number of markets set by the month's remaining credits
+            if reason in ("weekly", "props", "t75") or (reason == "daily" and now.weekday() == 2):
+                allg = sched[(sched["season"] == season) & (sched["game_type"] == "REG")]
+                games_left = sum(1 for r in allg.itertuples(index=False) if str(r.gameday)[:7] == now.strftime("%Y-%m") and str(r.gameday) >= now.strftime("%Y-%m-%d"))
+                fetch_odds(reason, window, games_left=max(games_left, 1))
+            else:
+                print("odds: not an odds run (lines refresh on Wednesday and before kickoffs)")
         except Exception as e:  # noqa: BLE001
             print(f"odds skipped: {e}")
     weeks = [wk] + [w for w in range(wk + 1, wk + a.weeks) if w <= 18]

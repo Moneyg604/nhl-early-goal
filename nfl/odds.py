@@ -27,8 +27,26 @@ from .live import name_key
 SPORT = "americanfootball_nfl"
 BASE = "https://api.the-odds-api.com/v4/sports/" + SPORT
 REGIONS = "us"
-PROP_MARKETS = "player_pass_yds,player_pass_tds,player_anytime_td,totals_h1,totals_h2"
-PROP_RESERVE = 120
+# prop markets in priority order (the validated ones first); the monthly budget decides how many are requested per game
+PROP_PRIORITY = ["player_pass_yds", "player_pass_tds", "player_anytime_td", "player_reception_yds", "player_rush_yds", "player_receptions",
+                 "totals_h1", "totals_h2"]
+MONTHLY_CREDITS = 500
+NHL_DAILY = 3                 # the NHL morning pull
+NFL_LINES_WEEKLY = 6          # two game-line pulls a week
+
+
+def prop_markets_for_budget(remaining: int | None, games_left: int, days_left: int) -> list[str]:
+    """How many prop markets per game the free plan can afford for the rest of the month, after the NHL
+    morning pulls and the NFL game-line pulls. Never below the three validated markets while any budget
+    remains; nothing when the reserve for the other pulls would be eaten."""
+    if remaining is None:
+        return PROP_PRIORITY[:3]
+    reserve = NHL_DAILY * days_left + NFL_LINES_WEEKLY * (days_left / 7) + 15
+    spare = remaining - reserve
+    if spare <= 0 or games_left <= 0:
+        return []
+    per_game = int(spare // games_left)
+    return PROP_PRIORITY[:max(0, min(len(PROP_PRIORITY), per_game))] if per_game >= 3 else (PROP_PRIORITY[:3] if spare >= 3 * games_left * 0.5 else [])
 ODDS_FILE = DATA_DIR / "odds.json"
 HISTORY = DATA_DIR / "odds_history.jsonl"
 
@@ -143,7 +161,8 @@ def parse_props(ev: dict) -> dict:
                 who = o.get("description") or ""
                 groups.setdefault((who, o.get("point")), {})[o.get("name", "").lower()] = o.get("price")
             for (who, point), d in groups.items():
-                slot = {"player_pass_yds": "qb_yds", "player_pass_tds": "qb_td", "player_anytime_td": "atd", "totals_h1": "h1", "totals_h2": "h2"}.get(key)
+                slot = {"player_pass_yds": "qb_yds", "player_pass_tds": "qb_td", "player_anytime_td": "atd", "totals_h1": "h1", "totals_h2": "h2",
+                        "player_reception_yds": "rec_yds", "player_rush_yds": "rush_yds", "player_receptions": "recs"}.get(key)
                 if not slot:
                     continue
                 k = (slot, name_key(who) if who else "game", point)
@@ -156,7 +175,7 @@ def parse_props(ev: dict) -> dict:
                     e["pairs"].append((d["over"], d["under"]))
                 if "yes" in d and "no" in d:
                     e["pairs"].append((d["yes"], d["no"]))
-    out: dict = {"qb_yds": {}, "qb_td": {}, "atd": {}, "h1": {}, "h2": {}}
+    out: dict = {"qb_yds": {}, "qb_td": {}, "atd": {}, "h1": {}, "h2": {}, "rec_yds": {}, "rush_yds": {}, "recs": {}}
     # per player / market keep the line most books post
     by: dict = {}
     for (slot, who, point), e in acc.items():
@@ -182,8 +201,11 @@ def parse_props(ev: dict) -> dict:
     return out
 
 
-def fetch(reason: str, games_window: list[str] | None = None, api_key: str | None = None) -> dict:
-    """Game lines for the slate every call; props for `games_window` ("AWAY@HOME" keys) when credits allow."""
+def fetch(reason: str, games_window: list[str] | None = None, api_key: str | None = None, games_left: int = 60) -> dict:
+    """Game lines for the slate every call; props for `games_window` ("AWAY@HOME" keys), as many markets per game as
+    the month's remaining credits allow (`games_left` = regular-season games still to be played this month)."""
+    import calendar
+
     key = api_key or os.environ.get("ODDS_API_KEY")
     if not key:
         return {}
@@ -191,21 +213,27 @@ def fetch(reason: str, games_window: list[str] | None = None, api_key: str | Non
     if events is None:
         return {}
     snap = parse_game_lines(events)
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+    now_dt = datetime.now(timezone.utc)
+    now = now_dt.strftime("%Y-%m-%dT%H:%MZ")
+    days_left = calendar.monthrange(now_dt.year, now_dt.month)[1] - now_dt.day + 1
+    markets = prop_markets_for_budget(rem, games_left, days_left) if games_window else []
     props_done = 0
-    if games_window and (rem is None or rem > PROP_RESERVE):
+    if games_window and markets:
+        print(f"  odds: {rem} credits left, {games_left} games and {days_left} days in the month: {len(markets)} prop markets per game")
         for gk in games_window:
             g = snap.get(gk)
             if not g or not g.get("event_id"):
                 continue
-            ev, rem = _get(f"{BASE}/events/{g['event_id']}/odds", {"apiKey": key, "regions": REGIONS, "markets": PROP_MARKETS, "oddsFormat": "decimal"})
+            ev, rem = _get(f"{BASE}/events/{g['event_id']}/odds", {"apiKey": key, "regions": REGIONS, "markets": ",".join(markets), "oddsFormat": "decimal"})
             if ev:
                 g["props"] = parse_props(ev)
                 g["props_fetched"] = now
                 props_done += 1
-            if rem is not None and rem <= PROP_RESERVE:
+            if rem is not None and rem <= 20:
                 print(f"  odds: stopping props, {rem} credits left")
                 break
+    elif games_window:
+        print(f"  odds: props skipped, {rem} credits left this month")
     # merge into the latest file (props from an earlier run are kept until replaced)
     old = {}
     if ODDS_FILE.exists():

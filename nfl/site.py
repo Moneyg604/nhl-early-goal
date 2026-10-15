@@ -12,6 +12,7 @@ kickoff has passed, the newly built page carries that game's previous entry (wit
 from __future__ import annotations
 
 import csv
+import shutil
 import io
 import json
 import re
@@ -153,6 +154,10 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep: int = 4
     (site_dir / "weeks.json").write_text(json.dumps({"weeks": [{"name": n, "season": int(n.split("-w")[0]), "week": int(n.split("-w")[1])} for n in names],
                                                      "current": current, "published": published}, indent=1))
     copy_assets(site_dir.parent)
+    from .config import DATA_DIR
+    for f in ("backtest_latest.json", "factors.json"):
+        if (DATA_DIR / f).exists():
+            shutil.copy(DATA_DIR / f, site_dir / ("validation.json" if f.startswith("backtest") else f))
     if not (site_dir / "scorecard.json").exists():
         (site_dir / "scorecard.json").write_text(json.dumps({"summary": {}, "weeks": {}, "items": [], "updated_utc": published}))
     return site_dir

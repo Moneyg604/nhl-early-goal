@@ -24,9 +24,9 @@ from earlygoal.brand import site_url  # noqa: E402
 
 SITE = site_url() + "nfl/"
 VKEY = {"ml": "moneyline", "spread": "spread", "total": "total", "h1": "h1_total", "h2": "h2_total", "fg": "fg_over1.5", "qb_yds": "qb_yards",
-        "qb_td": "qb_td_over1.5", "atd": "anytime_td"}
+        "qb_td": "qb_td_over1.5", "atd": "anytime_td", "rec_yds": "rec_yds", "rush_yds": "rush_yds", "recs": "recs"}
 LABEL = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "h1": "1st half", "h2": "2nd half", "fg": "Team FGs", "qb_yds": "QB pass yds",
-         "qb_td": "QB pass TDs", "atd": "Anytime TD"}
+         "qb_td": "QB pass TDs", "atd": "Anytime TD", "rec_yds": "Receiving yds", "rush_yds": "Rushing yds", "recs": "Receptions"}
 
 
 def current_payload() -> dict | None:
@@ -73,6 +73,8 @@ def pick_line(k: str, x: dict, p: dict) -> str:
         return f"{x['qb']} {x['side']} 1.5 TD ({x['p']*100:.0f}%)"
     if k == "atd":
         return f"{x['player']} ({x['team']}) {x['p']*100:.0f}%"
+    if k in ("rec_yds", "rush_yds", "recs"):
+        return f"{x['player']} {x['side']} {x['line']} ({x['p']*100:.0f}%, median {x['median']:.0f})"
     return ""
 
 
@@ -111,7 +113,7 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
     else:
         out.append("")
         out.append("🎯 " + B("Top lean per market") + T("  (✅ beats baseline · 〰️ marginal · ⚠️ no edge in the backtest)"))
-        for k in ("ml", "spread", "total", "h1", "h2", "fg", "qb_yds", "qb_td"):
+        for k in ("ml", "spread", "total", "h1", "h2", "fg", "qb_yds", "qb_td", "rec_yds", "rush_yds", "recs"):
             lst = (p.get("picks") or {}).get(k) or []
             if lst:
                 out.append(T(f"{verdict_icon(p, k)} {LABEL[k]}: {pick_line(k, lst[0], p)}"))
