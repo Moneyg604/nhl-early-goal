@@ -311,8 +311,23 @@ def _verdict(key: str) -> str | None:
     return m.get("verdict") if isinstance(m, dict) else None
 
 
+BOOK = "DraftKings"
+
+
+def _book_line(g: dict, kind: str, who: str | None = None):
+    """DraftKings' own line and prices for a market when the odds feed has them."""
+    O = g.get("odds") or {}
+    if kind in ("ml", "spread", "total"):
+        return ((O.get(kind) or {}).get("books") or {}).get(BOOK)
+    from .live import name_key
+    pp = (O.get("props") or {})
+    x = pp.get(kind) if kind in ("h1", "h2") else (pp.get(kind) or {}).get(name_key(who or ""))
+    return ((x or {}).get("books") or {}).get(BOOK)
+
+
 def picks(payload: dict) -> dict:
-    """Deterministic leans per market (the page grades them after the games)."""
+    """Deterministic leans per market (the page grades them after the games). Lines follow DraftKings when
+    the odds feed has them, else the line most books post, else the model's reference line."""
     G = payload["games"]
     lt = payload["meta"]["league"]
     h1s = lt.get("h1_share", 0.5)
@@ -342,7 +357,8 @@ def picks(payload: dict) -> dict:
                        "model_total": g["model"]["total"], "edge_pts": round(diff, 2), "p": mk["total"]["over"] if diff > 0 else mk["total"]["under"],
                        "score": abs(diff)})
             for key, arr, share, lst in (("h1", "h1", h1s, h1), ("h2", "h2", 1 - h1s, h2)):
-                line = math.floor(L["total"] * share) + 0.5
+                bl = _book_line(g, key)
+                line = bl["line"] if bl and bl.get("line") is not None else math.floor(L["total"] * share) + 0.5
                 off, vals = mk["dist"][arr]
                 v = np.arange(off, off + len(vals)); pv = np.array(vals)
                 po = float(pv[v > line].sum())
@@ -359,14 +375,17 @@ def picks(payload: dict) -> dict:
             last = prof.get("last_games") or []
             if last and q.get("name"):
                 avg = (sum(x["yds"] for x in last) + 3 * 215) / (len(last) + 3)
-                line = math.floor(avg) + 0.5
+                bl = _book_line(g, "qb_yds", q["name"])
+                line = bl["line"] if bl and bl.get("line") is not None else math.floor(avg) + 0.5
                 off, vals = qm["yds_pmf5"]
                 v = (np.arange(off, off + len(vals)) * 5.0); pv = np.array(vals)
                 po = float(pv[v > line].sum())
                 qy.append({"game_id": g["game_id"], "mu": mu, "market": "qb_yds", "team": g[side], "side_team": side, "qb": q["name"], "line": line,
                            "median": qm["yds_q"][3], "side": "over" if po >= 0.5 else "under", "p": round(max(po, 1 - po), 4), "score": abs(po - 0.5)})
-                po2 = qm["td_over1.5"]
-                qt.append({"game_id": g["game_id"], "mu": mu, "market": "qb_td", "team": g[side], "side_team": side, "qb": q["name"], "line": 1.5,
+                bt = _book_line(g, "qb_td", q["name"])
+                tl = bt["line"] if bt and bt.get("line") is not None else 1.5
+                tp_ = np.array(qm["td_pmf"]); po2 = float(tp_[np.arange(len(tp_)) > tl].sum())
+                qt.append({"game_id": g["game_id"], "mu": mu, "market": "qb_td", "team": g[side], "side_team": side, "qb": q["name"], "line": tl,
                            "side": "over" if po2 >= 0.5 else "under", "p": round(max(po2, 1 - po2), 4), "score": abs(po2 - 0.5)})
             for a in (g.get("anytime") or {}).get(side, [])[:6]:
                 atd.append({"game_id": g["game_id"], "mu": mu, "market": "atd", "team": g[side], "player": a["name"], "id": a["id"], "p": a["p"],

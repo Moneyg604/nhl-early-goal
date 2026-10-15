@@ -477,7 +477,7 @@ function gradeOf(o){ const E=o.E, Q=o.Q; let v=null; if(o.ev!=null) v = o.ev>=0.
   if(v===-1) return 'D';
   if(v===null) return (E===2 && Q>=1) ? 'B' : (E>=1 ? 'C' : 'D');
   if(E===2 && Q===2 && v===2) return 'S'; const s=E+Q+v; return s>=5 ? 'A' : (s>=4 ? 'B' : 'C'); }
-let MYBOOK=''; try{ MYBOOK=localStorage.getItem('egd_book')||''; }catch(e){}
+let MYBOOK='DraftKings'; try{ const v=localStorage.getItem('egd_book'); if(v!==null) MYBOOK=v; }catch(e){}
 function allBooks(){ const b=new Set(); for(const g of P.games){ const O=g.odds||{}; for(const k of ['ml','spread','total']){ if(O[k]) ['home','away','over','under'].forEach(s=>{ if(O[k]['book_'+s]) b.add(O[k]['book_'+s]); }); }
   const Pp=O.props||{}; for(const k of ['qb_yds','qb_td','atd']) for(const x of Object.values(Pp[k]||{})) Object.keys(x.books||{}).forEach(t=>b.add(t)); for(const k of ['h1','h2']) Object.keys((Pp[k]||{}).books||{}).forEach(t=>b.add(t)); } return [...b].sort(); }
 function myLine(g, kind, who){ // the chosen book's own line and prices for a prop, else null
@@ -487,6 +487,10 @@ function myLine(g, kind, who){ // the chosen book's own line and prices for a pr
 function bookPrice(g, kind, side, line, who){
   const mine = myLine(g, kind, who);
   if(mine && (mine.line===line || kind==='atd')){ const o = kind==='atd' ? mine.yes : mine[side]; if(o && o>1) return {odds:o, book:MYBOOK, cons:null, mine:true}; }
+  if(MYBOOK){ const O=g.odds||{}; const gl = kind==='ml' ? O.ml : (kind==='spread' ? O.spread : (kind==='total' ? O.total : null));
+    if(gl && gl.books && gl.books[MYBOOK]){ const b=gl.books[MYBOOK]; const ok = kind==='ml' || (kind==='spread' ? (side==='home' ? b.line===line : -b.line===line) : b.line===line); if(ok && b[side]>1) return {odds:b[side], book:MYBOOK, cons:null, mine:true}; }
+    if(O.props || gl) return null;            // the feed is on but this book has no such price: do not substitute another book's
+  }
   const O=g.odds||{}, Pp=O.props||{}, L=g.lines||{};
   const r = (odds, book, cons) => (odds && odds>1) ? {odds, book, cons} : null;
   const cons2 = (c, first) => c==null ? null : (first ? c : 1-c);
@@ -510,11 +514,11 @@ function buildSelections(){ const out=[];
       o.grade = gradeOf(o); o.band = calBand(o.kind, o.line, o.side, o.p);
       o.id = [o.kind, g.game_id, o.side, o.line, o.who||o.team||''].join('|'); out.push(o); };
     for(const side of ['away','home']) add({kind:'ml', side, line:null, team:g[side], label:`${g[side]} moneyline`, p:mk.ml[side], push:mk.ml.tie});
-    const S = O.spread ? -O.spread.line : L.spread;
+    const myS = MYBOOK && O.spread && O.spread.books && O.spread.books[MYBOOK]; const S = myS ? -myS.line : (O.spread ? -O.spread.line : L.spread);
     if(S!=null){ const r=marginP(g, S), hl=-S;
       add({kind:'spread', side:'away', line:-hl, team:g.away, label:`${g.away} ${-hl>0?'+':''}${-hl}`, p:r.away, push:r.push});
       add({kind:'spread', side:'home', line:hl, team:g.home, label:`${g.home} ${hl>0?'+':''}${hl}`, p:r.home, push:r.push}); }
-    const T = O.total ? O.total.line : L.total;
+    const myT = MYBOOK && O.total && O.total.books && O.total.books[MYBOOK]; const T = myT ? myT.line : (O.total ? O.total.line : L.total);
     if(T!=null){ const r=pOver(mk.dist.total, T); for(const s of ['over','under']) add({kind:'total', side:s, line:T, label:`${s==='over'?'Over':'Under'} ${T}`, p:r[s], push:r.push}); }
     for(const k of ['h1','h2']){ const mh=myLine(g,k,null); const bl = (mh && mh.line!=null) ? mh.line : ((Pp[k] && Pp[k].line!=null) ? Pp[k].line : refLine(g,k)); const r=pOver(mk.dist[k], bl);
       for(const s of ['over','under']) add({kind:k, side:s, line:bl, label:`${k==='h1'?'1st half':'2nd half'} ${s} ${bl}`, p:r[s], push:r.push}); }
@@ -530,7 +534,7 @@ function buildSelections(){ const out=[];
   return out; }
 const SELS = buildSelections(); const SEL_BY = {}; SELS.forEach(s=>SEL_BY[s.id]=s);
 const GRADE_ORDER = {S:0, A:1, B:2, C:3, D:4};
-let SC = {kind:'all', game:'all', team:'', grades:['S','A','B','C','D'], minp:0, odds:false, q:'', sort:'p', n:60};
+let SC = {kind:'all', game:'all', team:'', grades:['S','A','B','C','D'], minp:0, odds:true, q:'', sort:'ev', n:60};
 try{ SC = Object.assign(SC, JSON.parse(localStorage.getItem('egd_nfl_scan')||'{}'), {n:60}); }catch(e){}
 function saveSC(){ try{ localStorage.setItem('egd_nfl_scan', JSON.stringify(SC)); }catch(e){} }
 function selResult(o){ const g=byId[o.game_id]; return legResult(o, g, true); }
@@ -539,7 +543,7 @@ function renderScanner(){ const el=document.getElementById('scanner');
   const gs=[...P.games].sort((a,b)=>(a.kickoff_utc||'').localeCompare(b.kickoff_utc||''));
   const withOdds = SELS.filter(s=>s.odds!=null).length;
   let rows = SELS.filter(s=>(SC.kind==='all'||s.kind===SC.kind) && (SC.game==='all'||s.game_id===SC.game) && (!SC.team||s.team===SC.team||s.mu.includes(SC.team))
-    && SC.grades.includes(s.grade) && s.p*100>=SC.minp && (!SC.odds||s.odds!=null) && (!SC.q || s.label.toLowerCase().includes(SC.q.toLowerCase())));
+    && SC.grades.includes(s.grade) && s.p*100>=SC.minp && (!SC.odds||!withOdds||s.odds!=null) && (!SC.q || s.label.toLowerCase().includes(SC.q.toLowerCase())));
   const key = {p:s=>-s.p, ev:s=>-(s.ev==null?-9:s.ev), grade:s=>GRADE_ORDER[s.grade]*10-(s.ev==null?s.p:s.ev), fair:s=>s.fair||99, kick:s=>s.kick}[SC.sort];
   rows.sort((a,b)=>{ const x=key(a), y=key(b); return x<y?-1:(x>y?1:0); });
   const total=rows.length; rows=rows.slice(0, SC.n);
@@ -550,8 +554,8 @@ function renderScanner(){ const el=document.getElementById('scanner');
    <label>Sort<select id="sc-sort"><option value="p" ${SC.sort==='p'?'selected':''}>Win probability</option><option value="ev" ${SC.sort==='ev'?'selected':''}>Expected value</option><option value="grade" ${SC.sort==='grade'?'selected':''}>Grade</option><option value="fair" ${SC.sort==='fair'?'selected':''}>Fair odds (low first)</option><option value="kick" ${SC.sort==='kick'?'selected':''}>Kickoff</option></select></label>
    <label>Min win %<input id="sc-minp" type="number" min="0" max="99" step="5" value="${SC.minp}"></label>
    <label>Search<input id="sc-q" placeholder="player or team" value="${esc(SC.q)}"></label>
-   <label>My sportsbook<select id="sc-book"><option value="">Best price (any book)</option>${allBooks().map(b=>`<option ${MYBOOK===b?'selected':''}>${esc(b)}</option>`).join('')}</select></label>
-   <div class="chips" id="sc-grades">${['S','A','B','C','D'].map(x=>`<button data-g="${x}" class="${SC.grades.includes(x)?'on':''}">${x}</button>`).join('')}<button id="sc-odds" class="${SC.odds?'on':''}">with book odds</button></div></div>
+   <label>My sportsbook<select id="sc-book">${['DraftKings',...allBooks().filter(b=>b!=='DraftKings')].map(b=>`<option ${MYBOOK===b?'selected':''}>${esc(b)}</option>`).join('')}<option value="" ${MYBOOK===''?'selected':''}>Best price (any book)</option></select></label>
+   <div class="chips" id="sc-grades">${['S','A','B','C','D'].map(x=>`<button data-g="${x}" class="${SC.grades.includes(x)?'on':''}">${x}</button>`).join('')}<button id="sc-odds" class="${SC.odds?'on':''}">${MYBOOK?'only bets '+esc(MYBOOK)+' offers':'with book odds'}</button></div></div>
    <p class="mini" style="margin:6px 0">${total.toLocaleString()} of ${SELS.length.toLocaleString()} selections · book odds on ${withOdds.toLocaleString()} ${withOdds? (MYBOOK?`· props priced at ${esc(MYBOOK)}'s own lines`:'· props priced at the line most books post') : '(add the Odds API key for live prices on props; game lines use the nflverse consensus)'} · tap a row to add it to the slip</p>
    <div class="scan">${rows.map(o=>{ const r=selResult(o); const inSlip=SLIP.find(s=>s.id===o.id);
      return `<div class="srow ${inSlip?'on':''}" data-id="${esc(o.id)}"><span class="gr g${o.grade}" title="${esc(gradeWhy(o))}">${o.grade}</span>

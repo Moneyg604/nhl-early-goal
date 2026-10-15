@@ -99,6 +99,21 @@ def parse_game_lines(events: list[dict]) -> dict[str, dict]:
                             if d[side][1] > best.get(k, (0, ""))[0]:
                                 best[k] = (d[side][1], title)
         rec = {"home": h, "away": a, "event_id": ev.get("id"), "commence": ev.get("commence_time"), "books": len(ev.get("bookmakers", []))}
+        per_book: dict = {"ml": {}, "spread": {}, "total": {}}
+        for bk in ev.get("bookmakers", []):
+            title = bk.get("title") or bk.get("key")
+            for mk in bk.get("markets", []):
+                key = mk.get("key"); oc = mk.get("outcomes", [])
+                if key == "h2h":
+                    per_book["ml"][title] = {("home" if TEAMS.get(o.get("name")) == h else "away"): o.get("price") for o in oc}
+                elif key == "spreads":
+                    d = {("home" if TEAMS.get(o.get("name")) == h else "away"): o for o in oc}
+                    if "home" in d:
+                        per_book["spread"][title] = {"line": d["home"].get("point"), "home": d["home"].get("price"), "away": (d.get("away") or {}).get("price")}
+                elif key == "totals":
+                    d = {o.get("name", "").lower(): o for o in oc}
+                    if "over" in d:
+                        per_book["total"][title] = {"line": d["over"].get("point"), "over": d["over"].get("price"), "under": (d.get("under") or {}).get("price")}
         if pairs["ml"]:
             rec["ml"] = {"home": best[("ml", "home")][0], "away": best[("ml", "away")][0], "book_home": best[("ml", "home")][1],
                          "book_away": best[("ml", "away")][1], "consensus_home": _two_way(pairs["ml"]), "n": len(pairs["ml"])}
@@ -108,6 +123,9 @@ def parse_game_lines(events: list[dict]) -> dict[str, dict]:
                 s1, s2 = ("home", "away") if mk == "spread" else ("over", "under")
                 rec[mk] = {"line": line, s1: best[(mk, line, s1)][0], s2: best[(mk, line, s2)][0], f"book_{s1}": best[(mk, line, s1)][1],
                            f"book_{s2}": best[(mk, line, s2)][1], f"consensus_{s1}": _two_way(pairs[mk][line]), "n": len(pairs[mk][line])}
+        for mk in ("ml", "spread", "total"):
+            if mk in rec:
+                rec[mk]["books"] = per_book[mk]
         out[f"{a}@{h}"] = rec
     return out
 
