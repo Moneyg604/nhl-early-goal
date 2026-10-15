@@ -42,6 +42,10 @@ HEAD_EXTRA = """<link rel="manifest" href="{base}manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="{base}icon-192.png">
 <style>
 .hmeta .pub{{color:var(--dim)}}
+.sport{{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin-left:10px;vertical-align:middle}}
+.sport a{{font-family:var(--body);font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:4px 10px;color:var(--muted);text-decoration:none}}
+.sport a.on{{background:var(--ice);color:#06121e}}
+@media (max-width:480px){{.brand .bt{{display:none}}.sport{{margin-left:0}}}}
 .hmeta .install{{display:none;color:var(--ice);cursor:default}}
 @media (max-width:640px){{.hmeta .pub,.hmeta .lbl2{{display:none}}}}
 </style>
@@ -60,7 +64,7 @@ SITE_SCRIPT = """<script>
     var ys=new Date(Date.now()-28*3600*1000).toLocaleDateString('en-CA',{{timeZone:'America/Toronto'}});
     if(s) Array.prototype.forEach.call(s.options, function(o){{ var d=o.getAttribute('data-date'); if(!d) return;
       var l=o.getAttribute('data-label'), p=d===t?'Today':(d===tm?'Tomorrow':'');
-      o.textContent = p ? p+' · '+l.replace(/^\S+\s/,'') : l; }});
+      o.textContent = p ? p+' · '+l.replace(/^\\S+\\s/,'') : l; }});
   }} catch(e) {{}}
   var ua=navigator.userAgent||''; var standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
   if(!standalone && /iPhone|iPad|Android/.test(ua)){{ var h=document.getElementById('installhint'); if(h) h.style.display='inline'; }}
@@ -144,6 +148,10 @@ def _inject(html: str, options_html: str, published: str, base: str) -> str:
     if title not in html or "</body>" not in html:
         raise RuntimeError("dashboard template changed: <title> or </body> not found")
     html = html.replace(title, title + "\n" + HEAD_EXTRA.format(base=base), 1)
+    brand = '<div class="brand">Early <span>Goal</span> Desk</div>'
+    if brand in html:
+        html = html.replace(brand, '<div class="brand"><span class="bt">Early <span>Goal</span> Desk</span><nav class="sport" aria-label="sport">'
+                            f'<a class="on" href="#">NHL</a><a href="{base}nfl/">NFL</a></nav></div>', 1)
     if '<span id="dayslot"></span>' in html:
         html = html.replace('<span id="dayslot"></span>', DAYSLOT.format(options=options_html, published=published), 1)
     elif '<div class="wrap">\n<header>' in html:

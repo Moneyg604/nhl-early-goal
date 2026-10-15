@@ -1,0 +1,51 @@
+name: NFL revalidate
+
+# Monthly walk-forward backtest of the NFL model (three test seasons, every week predicted from earlier
+# games only). Writes the verdicts shown on the page and the blend / key-number weights the model uses.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 12 2 * *"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: nfl-revalidate
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Restore NFL data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/nfl/raw
+            data/nfl/games_*.jsonl
+            data/nfl/cache
+          key: nfl-data-${{ github.run_id }}
+          restore-keys: |
+            nfl-data-
+      - run: pip install -r requirements.txt
+      - name: Seasons 2020 onward
+        run: python -m nfl ingest --back 6
+      - name: Walk-forward backtest
+        run: python -m nfl backtest --seasons 2023 2024 2025 --sims 20000 --workers 4 2>&1 | tee data/nfl/revalidate.log
+      - name: Commit the verdicts
+        if: always()
+        run: |
+          git config user.name "earlygoal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/nfl/backtest_latest.json data/nfl/factors.json data/nfl/revalidate.log 2>/dev/null || true
+          git commit -m "nfl revalidate $(date -u +'%Y-%m-%d')" || echo "nothing changed"
+          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i * 7)); done

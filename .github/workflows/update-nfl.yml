@@ -1,0 +1,91 @@
+name: Update NFL
+
+on:
+  schedule:
+    # 13:20 UTC daily (9:20 am Eastern in daylight time): new play-by-play, injury reports, lines, weather
+    - cron: "20 13 * * *"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "why this run happens (daily | t75 | update | weekly)"
+        default: "update"
+        required: false
+
+permissions:
+  contents: write
+  pages: write
+  actions: write
+
+# its own group: a shared group would let a third queued run cancel a pending one. Both builds pull before
+# publishing, so the site always carries the latest commit of each sport.
+concurrency:
+  group: update-nfl
+  cancel-in-progress: false
+
+jobs:
+  nfl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Restore NFL data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/nfl/raw
+            data/nfl/games_*.jsonl
+            data/nfl/cache
+          key: nfl-data-${{ github.run_id }}
+          restore-keys: |
+            nfl-data-
+
+      - run: pip install -r requirements.txt
+
+      - name: Play-by-play, schedule, injuries, depth charts, rosters (nflverse)
+        run: python -m nfl ingest --back 3
+
+      - name: Grade published weeks (track record)
+        run: python -m nfl scorecard || echo "nothing to grade yet"
+
+      - name: Research and simulate this week (and next week once its lines are out)
+        run: python -m nfl run --weeks 2
+
+      - name: Build the NFL section
+        run: python -m nfl publish
+
+      - name: Commit the site
+        run: |
+          git config user.name "earlygoal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/nfl
+          git commit -m "nfl update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "nothing changed"
+          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i * 7)); done
+
+      - name: Publish the site (gh-pages branch)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+          commit_message: "site ${{ github.run_number }} (nfl)"
+
+      - name: Send to Telegram / Discord
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python tools/notify_nfl.py --reason "${{ github.event.inputs.reason || 'daily' }}" || echo "notify skipped"
+
+      - name: Keep the scheduler alive
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: python tools/keeper.py --ensure || echo "keeper check skipped"

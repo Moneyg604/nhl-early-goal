@@ -66,6 +66,48 @@ def t120_for(day: str) -> datetime | None:
     return t
 
 
+_NFL_CACHE: dict = {"at": 0.0, "kickoffs": []}
+NFL_SCHEDULE = "https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv"
+NFL_DAILY = (13, 20)                                  # update-nfl.yml cron (UTC)
+NFL_LEAD = timedelta(minutes=75)                     # inactives are out 90 minutes before kickoff
+NFL_LIVE_SPAN = timedelta(hours=4)
+
+
+def nfl_kickoffs(now: datetime) -> list[datetime]:
+    """Regular-season kickoff times (UTC) from the nflverse schedule, refreshed every 12 hours; stdlib only."""
+    if time.time() - _NFL_CACHE["at"] < 12 * 3600 and _NFL_CACHE["kickoffs"]:
+        return _NFL_CACHE["kickoffs"]
+    try:
+        import csv
+        import io
+        import urllib.request
+        from zoneinfo import ZoneInfo
+
+        req = urllib.request.Request(NFL_SCHEDULE, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            text = r.read().decode("utf-8", "replace")
+        kos = set()
+        for row in csv.DictReader(io.StringIO(text)):
+            if row.get("game_type") != "REG" or not row.get("gameday"):
+                continue
+            try:
+                hh, mm = (row.get("gametime") or "13:00").split(":")[:2]
+                d = datetime.strptime(row["gameday"], "%Y-%m-%d").replace(hour=int(hh), minute=int(mm), tzinfo=ZoneInfo("America/New_York"))
+            except ValueError:
+                continue
+            d = d.astimezone(timezone.utc)
+            if now - timedelta(days=1) <= d <= now + timedelta(days=10):
+                kos.add(d)
+        _NFL_CACHE.update(at=time.time(), kickoffs=sorted(kos))
+    except Exception as e:  # noqa: BLE001
+        print(f"  NFL schedule lookup failed: {e}", flush=True)
+    return _NFL_CACHE["kickoffs"]
+
+
+def nfl_live(now: datetime) -> bool:
+    return any(k - timedelta(minutes=5) <= now <= k + NFL_LIVE_SPAN for k in nfl_kickoffs(now))
+
+
 def next_event(now: datetime) -> tuple[datetime, str]:
     """The next due (time, workflow file)."""
     cands: list[tuple[datetime, str]] = []
@@ -84,11 +126,24 @@ def next_event(now: datetime) -> tuple[datetime, str]:
         t = t120_for(d.isoformat())
         if t is not None and t > now:
             cands.append((t, "update-slate.yml:t120"))
-    # next 5-minute tick that falls inside the live window
+    # NFL: the daily build, a refresh 75 minutes before each kickoff window, the monthly revalidation
+    t = now.replace(hour=NFL_DAILY[0], minute=NFL_DAILY[1], second=0, microsecond=0)
+    if t <= now:
+        t += timedelta(days=1)
+    cands.append((t, "update-nfl.yml:daily"))
+    for k in nfl_kickoffs(now):
+        if k - NFL_LEAD > now:
+            cands.append((k - NFL_LEAD, "update-nfl.yml:t75"))
+            break
+    second = now.replace(day=2, hour=12, minute=30, second=0, microsecond=0)
+    if second <= now:
+        second = (second.replace(day=1) + timedelta(days=32)).replace(day=2)
+    cands.append((second, "nfl-revalidate.yml"))
+    # next 5-minute tick that falls inside a live window (NHL evenings, or an NFL game in progress)
     t = (now + timedelta(minutes=1)).replace(second=0, microsecond=0)
     t += timedelta(minutes=(-t.minute) % LIVE_STEP_MIN)
     for _ in range(24 * 60 // LIVE_STEP_MIN + 1):
-        if t.hour in LIVE_HOURS:
+        if t.hour in LIVE_HOURS or nfl_live(t):
             cands.append((t, "live-scores.yml"))
             break
         t += timedelta(minutes=LIVE_STEP_MIN)

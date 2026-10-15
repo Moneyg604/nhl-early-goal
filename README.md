@@ -110,6 +110,34 @@ docs/             the published site (built by `publish`, committed by the GitHu
 * Re-run `early-signal` once 40+ games per team exist. If a feature ever beats the constant out of sample in two seasons running, promote it; nothing has so far.
 * Track your own tickets against the stated probabilities. If your hit rate on the first-5 under sits near 66%, the model is right and the price is the whole story.
 
+## NFL section (`nfl/`, published under `/nfl/`)
+
+Same site, separate section (the NHL / NFL switch sits next to the title). Markets: moneyline, spread, total,
+1st half total, 2nd half total (overtime included), team field goals made, QB passing yards, QB passing
+touchdowns, anytime touchdown scorer.
+
+How it works, in one paragraph: every drive of the last three seasons (nflverse play-by-play) is classified by
+half, how it started, time left and score margin; a team's offense and defense are its touchdown, field-goal-try
+and turnover rates against the league table for the same situations, shrunk toward the league. 100,000 games per
+matchup are simulated drive by drive (overtime included), with pace, dropbacks, yards per dropback, the starting
+quarterback, the kicker, home field, rest, roof, wind and cold. When the book's spread and total are known the
+simulation is anchored to them, so every derived market agrees with the game line the market prices well.
+
+```bash
+python -m nfl ingest            # nflverse play-by-play, schedule + lines, injuries, depth charts, rosters
+python -m nfl run --weeks 2     # this week (and next week once its lines are out) -> out/nfl/
+python -m nfl publish           # docs/nfl/
+python -m nfl backtest          # walk-forward validation -> data/nfl/backtest_latest.json, factors.json
+python -m nfl scorecard         # grade published leans -> docs/nfl/scorecard.json
+python -m nfl live              # ESPN scoreboard + box scores -> docs/nfl/live.json
+```
+
+What the walk-forward test says is on the page (About tab) and in `data/nfl/backtest_latest.json`. In short: the
+model alone does not beat the closing moneyline, spread or total, so those follow the market; QB passing yards,
+QB touchdown passes and anytime touchdowns beat their baselines; half totals and team field goals do not. The
+page labels every market with its verdict. Workflows: `update-nfl.yml` (daily, and 75 minutes before each
+kickoff window via the keeper), `nfl-revalidate.yml` (monthly), NFL live scores ride on `live-scores.yml`.
+
 ## Optional connections (GitHub repository secrets)
 
 Set any of these under Settings > Secrets and variables > Actions, and the next build uses them:
