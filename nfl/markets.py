@@ -13,9 +13,30 @@ import numpy as np
 from .sim import SimResult
 
 
-def pmf(x: np.ndarray, lo: int, hi: int) -> np.ndarray:
+def pmf(x: np.ndarray, lo: int, hi: int, w: np.ndarray | None = None) -> np.ndarray:
+    """Probability mass function of rounded values in [lo, hi], optionally with per-simulation weights."""
     x = np.clip(np.rint(x).astype(int), lo, hi) - lo
-    return np.bincount(x, minlength=hi - lo + 1) / max(len(x), 1)
+    if w is None:
+        return np.bincount(x, minlength=hi - lo + 1) / max(len(x), 1)
+    out = np.bincount(x, weights=w, minlength=hi - lo + 1)
+    return out / max(out.sum(), 1e-12)
+
+
+def wmean(x: np.ndarray, w: np.ndarray | None) -> float:
+    return float(np.average(x, weights=w)) if w is not None else float(np.mean(x))
+
+
+def wquantile(x: np.ndarray, qs, w: np.ndarray | None) -> np.ndarray:
+    """Weighted percentiles (qs in 0..100)."""
+    if w is None:
+        return np.percentile(x, qs)
+    o = np.argsort(x); xs = x[o]; ws = w[o]
+    c = np.cumsum(ws); c = c / c[-1]
+    return np.interp(np.asarray(qs, dtype=float) / 100.0, c, xs)
+
+
+def wprob(mask: np.ndarray, w: np.ndarray | None) -> float:
+    return float(np.average(mask, weights=w)) if w is not None else float(np.mean(mask))
 
 
 def apply_key_numbers(margin_pmf: np.ndarray, lo: int, weights: dict[int, float] | None) -> np.ndarray:
@@ -134,38 +155,42 @@ def ml_weights(r: SimResult, lines: dict | None) -> tuple[np.ndarray | None, dic
 
 
 def wpmf(x: np.ndarray, lo: int, hi: int, w: np.ndarray | None) -> np.ndarray:
-    if w is None:
-        return pmf(x, lo, hi)
-    idx = np.clip(np.rint(x).astype(int), lo, hi) - lo
-    out = np.bincount(idx, weights=w, minlength=hi - lo + 1)
-    return out / out.sum()
+    return pmf(x, lo, hi, w)
 
 
-def game_markets(r: SimResult, lines: dict | None, key_weights: dict | None = None) -> dict:
-    """Probabilities for the main markets plus the distributions behind them."""
+def game_markets(r: SimResult, lines: dict | None, key_weights: dict | None = None, w: np.ndarray | None = None) -> dict:
+    """Probabilities for the main markets plus the distributions behind them.
+
+    Every market, including the halves, field goals and passing, is read from the same market-reweighted
+    simulations (markets.ml_weights) so the page shows one joint distribution; same-game parlays price
+    from the same weights."""
     lines = lines or {}
     lo_m, hi_m = -70, 70
-    w, wmeta = ml_weights(r, lines)
-    mp = apply_key_numbers(wpmf(r.margin, lo_m, hi_m, w), lo_m, key_weights)
-    tp = pmf(r.total, 0, 130)
-    h1 = pmf(r.h1.sum(axis=1), 0, 80)
-    h2 = pmf(r.h2.sum(axis=1), 0, 90)
+    if w is None:
+        w, wmeta = ml_weights(r, lines)
+    else:
+        _, wmeta = ml_weights(r, lines)
+    mp = apply_key_numbers(pmf(r.margin, lo_m, hi_m, w), lo_m, key_weights)
+    tot = r.total; h1s = r.h1.sum(axis=1); h2s = r.h2.sum(axis=1)
+    tp = pmf(tot, 0, 130, w)
+    h1 = pmf(h1s, 0, 80, w)
+    h2 = pmf(h2s, 0, 90, w)
     v = np.arange(lo_m, hi_m + 1)
     p_home = float(mp[v > 0].sum()); p_away = float(mp[v < 0].sum()); p_tie = float(mp[v == 0].sum())
     out = {
         "ml": {"home": r4(p_home), "away": r4(p_away), "tie": r4(p_tie), "fair_home": fair_odds(p_home, p_tie), "fair_away": fair_odds(p_away, p_tie)},
-        "margin_mean": round(float((mp * v).sum()), 2), "total_mean": round(float(r.total.mean()), 2),
-        "h1_mean": round(float(r.h1.sum(axis=1).mean()), 2), "h2_mean": round(float(r.h2.sum(axis=1).mean()), 2),
-        "home_pts": round(float(r.pts[:, 0].mean()), 2), "away_pts": round(float(r.pts[:, 1].mean()), 2),
-        "ot": r4(r.ot.mean()), "ml_calibration": wmeta,
+        "margin_mean": round(float((mp * v).sum()), 2), "total_mean": round(wmean(tot, w), 2),
+        "h1_mean": round(wmean(h1s, w), 2), "h2_mean": round(wmean(h2s, w), 2),
+        "home_pts": round(wmean(r.pts[:, 0], w), 2), "away_pts": round(wmean(r.pts[:, 1], w), 2),
+        "ot": r4(wprob(r.ot, w)), "ml_calibration": wmeta,
         "dist": {"margin": [lo_m + compress(mp)[0], compress(mp)[1]], "total": list(compress(tp)), "h1": list(compress(h1)), "h2": list(compress(h2)),
-                 "home_pts": list(compress(pmf(r.pts[:, 0], 0, 80))), "away_pts": list(compress(pmf(r.pts[:, 1], 0, 80)))},
+                 "home_pts": list(compress(pmf(r.pts[:, 0], 0, 80, w))), "away_pts": list(compress(pmf(r.pts[:, 1], 0, 80, w)))},
         "fg": {}, "qb": {},
     }
     # median-style fair lines (the half-point line closest to 50/50)
-    for key, arr in (("total", r.total), ("h1", r.h1.sum(axis=1)), ("h2", r.h2.sum(axis=1))):
-        out[f"{key}_fair_line"] = fair_line(arr)
-    out["spread_fair_line"] = fair_line(r.margin)
+    for key, arr in (("total", tot), ("h1", h1s), ("h2", h2s)):
+        out[f"{key}_fair_line"] = fair_line(arr, w)
+    out["spread_fair_line"] = fair_line(r.margin, w)
     s, t = lines.get("spread"), lines.get("total")
     if s is not None and not (isinstance(s, float) and math.isnan(s)):
         ov, pu, un = over_under(mp, lo_m, s)
@@ -174,35 +199,35 @@ def game_markets(r: SimResult, lines: dict | None, key_weights: dict | None = No
         ov, pu, un = over_under(tp, 0, t)
         out["total"] = {"line": t, "over": r4(ov), "push": r4(pu), "under": r4(un)}
     for i, side in enumerate(("home", "away")):
-        f = pmf(r.fgm[:, i], 0, 8)
-        out["fg"][side] = {"pmf": [round(float(x), 5) for x in f], "mean": round(float(r.fgm[:, i].mean()), 3),
+        f = pmf(r.fgm[:, i], 0, 8, w)
+        out["fg"][side] = {"pmf": [round(float(x), 5) for x in f], "mean": round(wmean(r.fgm[:, i], w), 3),
                            "over0.5": r4(f[1:].sum()), "over1.5": r4(f[2:].sum()), "over2.5": r4(f[3:].sum()), "over3.5": r4(f[4:].sum())}
         y = r.yds[:, i]
-        qs = np.percentile(y, [5, 10, 25, 50, 75, 90, 95])
-        yp = pmf(y / 5.0, 0, 120)                                # 5-yard bins, 0..600
-        tdp = pmf(r.ptd[:, i], 0, 8)
-        out["qb"][side] = {"yds_mean": round(float(y.mean()), 1), "yds_q": [round(float(q), 1) for q in qs], "yds_pmf5": list(compress(yp)),
-                           "yds_fair_line": fair_line(y), "db_mean": round(float(r.db[:, i].mean()), 1),
-                           "td_pmf": [round(float(x), 5) for x in tdp], "td_mean": round(float(r.ptd[:, i].mean()), 3),
+        qs = wquantile(y, [5, 10, 25, 50, 75, 90, 95], w)
+        yp = pmf(y / 5.0, 0, 120, w)                             # 5-yard bins, 0..600
+        tdp = pmf(r.ptd[:, i], 0, 8, w)
+        out["qb"][side] = {"yds_mean": round(wmean(y, w), 1), "yds_q": [round(float(q), 1) for q in qs], "yds_pmf5": list(compress(yp)),
+                           "yds_fair_line": fair_line(y, w), "db_mean": round(wmean(r.db[:, i], w), 1),
+                           "td_pmf": [round(float(x), 5) for x in tdp], "td_mean": round(wmean(r.ptd[:, i], w), 3),
                            "td_over0.5": r4(tdp[1:].sum()), "td_over1.5": r4(tdp[2:].sum()), "td_over2.5": r4(tdp[3:].sum())}
     return out
 
 
-def fair_line(x: np.ndarray) -> float:
+def fair_line(x: np.ndarray, w: np.ndarray | None = None) -> float:
     """The half-point line where over and under are closest to even."""
-    med = float(np.median(x))
+    med = float(wquantile(x, [50], w)[0])
     cands = [math.floor(med) - 0.5, math.floor(med) + 0.5, math.ceil(med) + 0.5]
-    best = min(cands, key=lambda L: abs((x > L).mean() - 0.5))
+    best = min(cands, key=lambda L: abs(wprob(x > L, w) - 0.5))
     return best
 
 
-def anytime_td(r: SimResult, side: int, players: list[dict]) -> list[dict]:
+def anytime_td(r: SimResult, side: int, players: list[dict], w: np.ndarray | None = None) -> list[dict]:
     """P(player scores at least one offensive touchdown) = 1 - E[(1 - rec share)^passing TDs * (1 - rush share)^rushing TDs]
-    over the simulations: exact given the shares, and it keeps the game script (pass-heavy or run-heavy games)."""
+    over the (market-reweighted) simulations: exact given the shares, and it keeps the game script."""
     n_p = r.ptd[:, side].astype(int); n_r = r.rtd[:, side].astype(int)
     # tabulate the joint (pass, rush) touchdown counts once
     jp = np.zeros((9, 9))
-    np.add.at(jp, (np.minimum(n_p, 8), np.minimum(n_r, 8)), 1)
+    np.add.at(jp, (np.minimum(n_p, 8), np.minimum(n_r, 8)), np.ones(len(n_p)) if w is None else w)
     jp /= jp.sum()
     a = np.arange(9)
     out = []
@@ -216,4 +241,4 @@ def anytime_td(r: SimResult, side: int, players: list[dict]) -> list[dict]:
     return out
 
 
-__all__ = ["game_markets", "anytime_td", "pmf", "over_under", "fair_odds", "american_to_prob", "american_to_decimal", "devig2", "fair_line", "apply_key_numbers"]
+__all__ = ["game_markets", "anytime_td", "pmf", "over_under", "fair_odds", "american_to_prob", "american_to_decimal", "devig2", "fair_line", "apply_key_numbers", "wmean", "wquantile", "wprob", "ml_weights", "wpmf"]

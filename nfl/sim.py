@@ -77,6 +77,16 @@ def _make_share(lt: LeagueTable) -> np.ndarray:
     return o[..., FG] / np.maximum(o[..., FG] + o[..., FGM], 1e-9)
 
 
+def ot_over(res: np.ndarray, poss: np.ndarray, rem: np.ndarray, diff: np.ndarray) -> np.ndarray:
+    """Regular-season overtime (2025 rules): one ten-minute period; both teams get a possession even when
+    the first scores a touchdown; after both have possessed, the next score wins; a defensive touchdown or
+    a safety ends it at once; the clock running out leaves a tie.
+
+    res   result of the drive just played, poss possessions so far (including it), rem clock left after it,
+    diff  whether the score is no longer level."""
+    return (rem <= 0.5) | (res == EOH) | (res == OPPTD) | (res == SAF) | ((poss >= 2) & diff)
+
+
 def simulate(lt: LeagueTable, home: SideInputs, away: SideInputs, n: int = 100_000, seed: int | None = None,
              max_drives_per_half: int = 20) -> SimResult:
     rng = np.random.default_rng(seed)
@@ -205,7 +215,7 @@ def simulate(lt: LeagueTable, home: SideInputs, away: SideInputs, n: int = 100_0
             off[a] = np.where(res == OPPTD, off[a], 1 - off[a])
             start[a] = NEXT_START[res]
             diff = pts[idx, 0] != pts[idx, 1]
-            over = (rem[a] <= 0.5) | (res == EOH) | (res == OPPTD) | (res == SAF) | ((poss[a] >= 2) & diff)
+            over = ot_over(res, poss[a], rem[a], diff)
             active[a[over]] = False
     return SimResult(n=n, pts=pts, h1=h1, fgm=fgm, fga=fga, ptd=ptd, rtd=rtd, yds=yds, db=dbs, ot=ot_flag, drives=drv)
 
@@ -214,4 +224,4 @@ def neutral_side(lt: LeagueTable) -> SideInputs:
     return SideInputs(shift=np.zeros(len(RES)), xp=lt.xp_make, p_pass_td=lt.pass_td_share)
 
 
-__all__ = ["SideInputs", "SimResult", "simulate", "neutral_side", "N_STATES"]
+__all__ = ["SideInputs", "SimResult", "simulate", "neutral_side", "N_STATES", "ot_over"]

@@ -14,7 +14,7 @@ import numpy as np
 from .config import CFG, DATA_DIR, MODEL_VERSION, ModelConfig
 from .features import Profiles, build_profiles, game_context_keys
 from .ingest import load_games, load_schedule
-from .markets import american_to_decimal, anytime_td, devig2, game_markets
+from .markets import american_to_decimal, anytime_td, devig2, game_markets, ml_weights
 from .model import load_blend, load_key_numbers, run_game
 from .players import candidates
 from .props import player_props, prob_over
@@ -127,12 +127,13 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     samples: dict[str, str] = {}
     for row in rows:
         run = run_game(P, row, cfg, n=sims or cfg.sims, blend=blend)
-        mk = game_markets(run.sim, row["lines"], keyw)
+        w, _ = ml_weights(run.sim, row["lines"])                 # one set of market weights for every market and the slip
+        mk = game_markets(run.sim, row["lines"], keyw, w=w)
         g = {k: row[k] for k in ("game_id", "season", "week", "home", "away", "date", "time", "weekday", "kickoff_utc", "stadium", "location",
                                  "roof", "surface", "div", "rest", "lines", "score", "espn", "weather", "temp", "wind", "coach", "referee")}
         g["markets"] = mk
         g["odds"] = for_game(odds, row["home"], row["away"], row.get("kickoff_utc"))
-        samples[row["game_id"]] = sample_blob(run.sim, row["lines"])
+        samples[row["game_id"]] = sample_blob(run.sim, row["lines"], w=w)
         g["model"] = {"margin": _r(run.model_margin, 2), "total": _r(run.model_total, 2), "home_win": _r(run.model_home_win, 4),
                       "target_margin": _r(run.target_margin, 2), "target_total": _r(run.target_total, 2), "anchor": run.anchor,
                       "blend": blend}
@@ -162,10 +163,10 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
             t = row[side]
             active = set(row["active"][side]) or None
             cands = candidates(P, t, available=active, out=set(row["out"][side]), positions=row["positions"], cfg=cfg)
-            res = anytime_td(run.sim, i, cands)
+            res = anytime_td(run.sim, i, cands, w=w)
             qn = set(row["questionable"][side])
             names = row.get("names") or {}
-            pr = player_props(P, row, side, run.sim, cands, cfg=cfg)
+            pr = player_props(P, row, side, run.sim, cands, cfg=cfg, w=w)
             for x in pr:
                 x["name"] = names.get(x["id"]) or x["name"]; x["q"] = x["id"] in qn
             g.setdefault("props", {})[side] = pr
@@ -206,7 +207,7 @@ SAMPLE_N = 3000
 SAMPLE_FIELDS = "hp ap h1h h1a fgh fga tdh tda rth rta ot | yh ya | w"
 
 
-def sample_blob(sim, lines: dict, n: int = SAMPLE_N, seed: int = 5) -> str:
+def sample_blob(sim, lines: dict, n: int = SAMPLE_N, seed: int = 5, w=None) -> str:
     """A random subset of the simulated games, packed for the page's same-game parlay pricing:
     11 unsigned bytes (points home/away, first-half points home/away, field goals made home/away, touchdown
     passes home/away, rushing touchdowns home/away, overtime), two signed 16-bit passing-yard totals, and the

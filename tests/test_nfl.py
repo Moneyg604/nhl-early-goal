@@ -149,3 +149,41 @@ def test_market_weights_match_moneyline_and_spread():
     p_home = (w * (m > 0)).sum() / w.sum() / (1 - (w * (m == 0)).sum() / w.sum())
     assert abs(p_home - meta["market_home"]) < 0.005
     assert abs((w * (m > 6.5)).sum() / w.sum() - 0.5) < 0.005
+
+
+def test_overtime_rules():
+    """2025 regular-season overtime: both teams possess even after a first-drive touchdown, next score wins after
+    that, defensive scores end it at once, the clock running out leaves a tie."""
+    from nfl.sim import ot_over, RES
+    TD, FG, FGM, PUNT, TO, DOWNS, EOH, OPPTD, SAF = (RES.index(k) for k in ("TD", "FG", "FGM", "PUNT", "TO", "DOWNS", "EOH", "OPPTD", "SAF"))
+    def over(res, poss, rem, diff):
+        return bool(ot_over(np.array([res]), np.array([poss]), np.array([rem]), np.array([diff]))[0])
+    assert not over(TD, 1, 400.0, True)          # first-possession touchdown: the other team still gets the ball
+    assert not over(FG, 1, 400.0, True)          # first-possession field goal: same
+    assert not over(PUNT, 1, 400.0, False)
+    assert over(TD, 2, 300.0, True)              # answer with a lead after both possessed: over
+    assert over(FG, 2, 300.0, True)
+    assert not over(FG, 2, 300.0, False)         # both kicked field goals: level, sudden death continues
+    assert not over(TD, 2, 300.0, False)         # both scored touchdowns: level, continue
+    assert over(FG, 3, 200.0, True)              # first score after that wins
+    assert over(OPPTD, 1, 400.0, True)           # defensive touchdown ends it at once
+    assert over(SAF, 1, 400.0, True)             # safety ends it at once
+    assert over(EOH, 1, 0.0, False)              # clock runs out: tie
+    assert over(PUNT, 2, 0.3, False)
+    assert not over(TO, 2, 100.0, False)         # a turnover with the score level keeps going
+
+
+def test_overtime_frequency_and_ties():
+    from nfl.features import build_profiles
+    from nfl.ingest import load_games
+    from nfl.sim import neutral_side, simulate
+    games = load_games([2023, 2024, 2025])
+    P = build_profiles(games, 2025)
+    lt = P.league
+    r = simulate(lt, neutral_side(lt), neutral_side(lt), n=40_000, seed=7)
+    ot_rate = r.ot.mean()
+    tie_rate = (r.pts[:, 0] == r.pts[:, 1]).mean()
+    act_ot = np.mean([len(g["q"]["home"]) > 4 for g in games])          # 5.3% of 2023-25 games went to overtime
+    assert abs(ot_rate - act_ot) < 0.02, (ot_rate, act_ot)
+    assert tie_rate < 0.01, tie_rate                 # ties are rare (1 in 816 real games)
+    assert tie_rate < ot_rate

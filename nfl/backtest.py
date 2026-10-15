@@ -30,23 +30,61 @@ from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
 
-from .config import CFG, DATA_DIR, ModelConfig
+from .config import CFG, DATA_DIR, RAW_DIR, ModelConfig
 from .features import build_profiles, primary_qb
 from .ingest import load_games
-from .markets import devig2, game_markets, anytime_td, over_under, pmf
+from .markets import devig2, game_markets, anytime_td, over_under, pmf, ml_weights, wprob, wquantile
 from .model import run_game
 from .players import candidates
 from .props import player_props, prob_over
 
 _GAMES: list[dict] = []
 _SNAPS: dict = {}
+_ELIG: dict = {}          # (season, week, team) -> (active roster ids, out/doubtful ids), reconstructed pregame
+
+
+def pregame_eligibility(seasons: list[int]) -> dict:
+    """Who could have been bet on before kickoff: that week's active roster minus the players the official
+    injury report listed as Out or Doubtful. Built from nflverse weekly rosters and injury reports, so the
+    backtest picks candidates the way the live page does instead of from who touched the ball in the game."""
+    import pandas as pd
+    from .config import ASSETS, RAW_DIR
+    from .ingest import download
+    out: dict = {}
+    for s in seasons:
+        ro = download(ASSETS["rosters"].format(season=s), RAW_DIR / f"rosters_{s}.parquet", max_age_h=24 * 7)
+        inj = download(ASSETS["injuries"].format(season=s), RAW_DIR / f"injuries_{s}.parquet", max_age_h=24 * 7)
+        if ro is None:
+            continue
+        r = pd.read_parquet(ro, columns=["season", "week", "team", "gsis_id", "status"])
+        r = r[(r.status == "ACT") & r.gsis_id.notna()]
+        for (wk, tm), grp in r.groupby(["week", "team"]):
+            out[(s, int(wk), str(tm))] = [set(grp.gsis_id.astype(str)), set()]
+        if inj is not None:
+            i = pd.read_parquet(inj, columns=["season", "week", "team", "gsis_id", "report_status", "game_type"])
+            i = i[i.report_status.isin(["Out", "Doubtful"]) & i.gsis_id.notna()]
+            for (wk, tm), grp in i.groupby(["week", "team"]):
+                key = (s, int(wk), str(tm))
+                if key in out:
+                    out[key][1] |= set(grp.gsis_id.astype(str))
+    return out
 
 
 def _init(seasons: list[int]):
-    global _GAMES, _SNAPS
+    global _GAMES, _SNAPS, _ELIG
     from .ingest import load_snaps
     _GAMES = load_games(seasons)
     _SNAPS = load_snaps(seasons)
+    _ELIG = pregame_eligibility([s for s in seasons if (RAW_DIR / f"rosters_{s}.parquet").exists()])
+
+
+def _pregame_candidates(P, g: dict, t: str, season: int, week: int, cfg) -> tuple[list[dict], bool]:
+    """Candidates chosen from pregame information when the roster data exists; (candidates, pregame?)."""
+    el = _ELIG.get((season, week, t))
+    if el and el[0]:
+        return candidates(P, t, available=el[0], out=el[1], cfg=cfg), True
+    played = {pid for pid, s in g["players"].get(t, {}).items() if s["car"] + s["tgt"] > 0}
+    return candidates(P, t, played=played, cfg=cfg), False
 
 
 def ll(p: float, y: int) -> float:
@@ -117,15 +155,16 @@ def run_week(args) -> dict:
             out["model_over"] = round(ov / max(1e-9, 1 - push), 4)
             out["went_over"] = None if total == t else int(total > t)
             out["over_odds"] = L.get("over_odds"); out["under_odds"] = L.get("under_odds")
-        # --- anchored derived markets
-        mk = game_markets(r, L)
+        # --- anchored derived markets, all read from the market-reweighted simulations
+        w, _ = ml_weights(r, L)
+        mk = game_markets(r, L, w=w)
         out["anch_margin_pmf"] = mk["dist"]["margin"]
         if L.get("total") is not None:
             l1 = math.floor(L["total"] * h1_share) + 0.5
             l2 = math.floor(L["total"] * (1 - h1_share)) + 0.5
             out["h1_line"] = l1; out["h2_line"] = l2
-            out["p_h1_over"] = round(float((r.h1.sum(axis=1) > l1).mean()), 4)
-            out["p_h2_over"] = round(float((r.h2.sum(axis=1) > l2).mean()), 4)
+            out["p_h1_over"] = round(wprob(r.h1.sum(axis=1) > l1, w), 4)
+            out["p_h2_over"] = round(wprob(r.h2.sum(axis=1) > l2, w), 4)
         fg = {}
         for i, side in enumerate(("home", "away")):
             t = g[side]
@@ -146,21 +185,26 @@ def run_week(args) -> dict:
             avg_td = (sum(x["td"] for x in last) + 4 * 1.35) / (n_l + 4)
             line = math.floor(avg_y) + 0.5
             y = r.yds[:, i]; tdn = r.ptd[:, i]
-            qbo[side] = {"yds": q["yds"], "td": q["td"], "line": line, "p_over": round(float((y > line).mean()), 4), "median": round(float(np.median(y)), 1),
-                         "trail": round(avg_y, 1), "p_td05": round(float((tdn >= 1).mean()), 4), "p_td15": round(float((tdn >= 2).mean()), 4),
-                         "p_td25": round(float((tdn >= 3).mean()), 4), "base_td05": round(1 - math.exp(-avg_td), 4),
+            qbo[side] = {"yds": q["yds"], "td": q["td"], "line": line, "p_over": round(wprob(y > line, w), 4), "median": round(float(wquantile(y, [50], w)[0]), 1),
+                         "trail": round(avg_y, 1), "p_td05": round(wprob(tdn >= 1, w), 4), "p_td15": round(wprob(tdn >= 2, w), 4),
+                         "p_td25": round(wprob(tdn >= 3, w), 4), "base_td05": round(1 - math.exp(-avg_td), 4),
                          "base_td15": round(1 - math.exp(-avg_td) * (1 + avg_td), 4), "base_td25": round(1 - math.exp(-avg_td) * (1 + avg_td + avg_td ** 2 / 2), 4),
                          "starts_prior": n_l}
         out["qb"] = qbo
         # anytime touchdown
         atd = []
+        snaps_g = _SNAPS.get(g["game_id"], {})
         for i, side in enumerate(("home", "away")):
             t = g[side]
-            played = {pid for pid, s in g["players"].get(t, {}).items() if s["car"] + s["tgt"] > 0}
-            cands = candidates(P, t, played=played, cfg=cfg)
-            res = anytime_td(r, i, cands)
+            cands, pre = _pregame_candidates(P, g, t, season, week, cfg)
+            out["pregame_cands"] = pre
+            res = anytime_td(r, i, cands, w=w)
             scored = {pid for pid, s in g["players"].get(t, {}).items() if s["rtd"] + s["rectd"] > 0}
+            # a player who did not take the field is a void bet at the book, not a loss: settle the ones who played
+            dressed = set(g["players"].get(t, {})) | {pid for pid, sh in snaps_g.items() if sh > 0}
             for c in res:
+                if c["id"] not in dressed:
+                    continue
                 pp = P.players.get(c["id"])
                 rate = ((pp.rtd + pp.rectd) / pp.w) if pp and pp.w > 0 else 0.0
                 wgt = pp.w if pp else 0.0
@@ -174,9 +218,8 @@ def run_week(args) -> dict:
         yp = []
         for i, side in enumerate(("home", "away")):
             t = g[side]
-            played = {pid for pid, s in g["players"].get(t, {}).items() if s["car"] + s["tgt"] > 0}
-            cands = candidates(P, t, played=played, cfg=cfg)
-            for x in player_props(P, row, side, r, cands, cfg=cfg):
+            cands, _pre = _pregame_candidates(P, g, t, season, week, cfg)
+            for x in player_props(P, row, side, r, cands, cfg=cfg, w=w):
                 pp = P.players.get(x["id"]); act = g["players"][t].get(x["id"])
                 if pp is None or act is None or len(pp.recent) < 4:
                     continue
@@ -328,6 +371,9 @@ def summarize(rows: list[dict]) -> dict:
     cov = [c for r in rows for c in r.get("td_cover", [])]
     if cov:
         S["td_coverage"] = round(sum(a for a, _ in cov) / max(1, sum(b for _, b in cov)), 4)
+    n_pre = sum(1 for r in rows if r.get("pregame_cands")); n_all = sum(1 for r in rows if "pregame_cands" in r)
+    S["pregame_candidates"] = {"games": n_all, "from_pregame_rosters": n_pre,
+                               "note": "touchdown and yardage candidates chosen from that week's active roster and injury report, not from who played"}
     # --- key numbers: actual |margin| frequency vs the anchored simulation's
     acc = np.zeros(41); act = np.zeros(41)
     for r in rows:
@@ -404,6 +450,7 @@ def backtest(seasons: list[int], sims: int = 20_000, workers: int = 2, cfg_over:
     all_seasons = sorted({s - k for s in seasons for k in range(0, 4)})
     tasks = [(s, w, sims, cfg_over) for s in seasons for w in (weeks or range(1, 19))]
     rows: list[dict] = []
+    pregame_eligibility(seasons)                        # download the roster and injury files once, before the workers start
     with ProcessPoolExecutor(max_workers=workers, initializer=_init, initargs=(all_seasons,)) as ex:
         for res in ex.map(run_week, tasks):
             rows.extend(res["rows"])

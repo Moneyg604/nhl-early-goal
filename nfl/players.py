@@ -6,7 +6,7 @@ from .config import CFG, ModelConfig
 from .features import Profiles
 
 SKILL = {"QB", "RB", "FB", "WR", "TE"}
-COVERAGE = 0.97          # share of a team's offensive touchdowns scored by its listed candidates (measured in the backtest)
+COVERAGE = 0.965         # share of a team's offensive touchdowns scored by its listed candidates (measured walk-forward, pregame candidates, 2023-25)
 
 
 def candidates(P: Profiles, team: str, *, played: set[str] | None = None, available: set[str] | None = None,

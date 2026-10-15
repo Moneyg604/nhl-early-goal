@@ -15,7 +15,7 @@ import numpy as np
 
 from .config import CFG, ModelConfig
 from .features import Profiles
-from .markets import fair_line, fair_odds, pmf, compress
+from .markets import fair_line, pmf, compress, wmean, wquantile
 from .sim import SimResult
 
 SACK_RATE = 0.065
@@ -35,8 +35,10 @@ def team_rushing(P: Profiles, row: dict, side: str, sim: SimResult, rng: np.rand
     return att, yds
 
 
-def player_props(P: Profiles, row: dict, side: str, sim: SimResult, cands: list[dict], seed: int = 21, cfg: ModelConfig = CFG) -> list[dict]:
-    """Props for the listed candidates (from players.candidates): receiving yards, rushing yards, receptions."""
+def player_props(P: Profiles, row: dict, side: str, sim: SimResult, cands: list[dict], seed: int = 21, cfg: ModelConfig = CFG,
+                 w: np.ndarray | None = None) -> list[dict]:
+    """Props for the listed candidates (from players.candidates): receiving yards, rushing yards, receptions.
+    `w` are the market weights from markets.ml_weights so the props share the game lines' joint distribution."""
     rng = np.random.default_rng(seed)
     lt = P.league
     i = 0 if side == "home" else 1
@@ -54,28 +56,28 @@ def player_props(P: Profiles, row: dict, side: str, sim: SimResult, cands: list[
         if u["rec_yds_share"] >= 0.03:
             e = u["rec_yds_share"] * pass_yds
             y = np.maximum(0, e + rng.standard_normal(sim.n) * lt.rec_yds_k * np.sqrt(np.maximum(e, 1)))
-            rec["rec_yds"] = _dist(y, 5.0, 100)
+            rec["rec_yds"] = _dist(y, 5.0, 100, w)
         # rushing yards
         if u["car_share"] >= 0.05:
             car = u["car_share"] * att
             e = car * u["ypc"]
             y = np.maximum(0, e + rng.standard_normal(sim.n) * lt.rush_yds_k * np.sqrt(np.maximum(e, 1)))
-            rec["rush_yds"] = _dist(y, 5.0, 80)
+            rec["rush_yds"] = _dist(y, 5.0, 80, w)
         # receptions
         if u["rec_share"] >= 0.03:
             e = u["rec_share"] * comps
             y = np.maximum(0, np.rint(e + rng.standard_normal(sim.n) * lt.recs_k * np.sqrt(np.maximum(e, 0.5))))
-            rec["recs"] = _dist(y, 1.0, 20)
+            rec["recs"] = _dist(y, 1.0, 20, w)
         if any(k in rec for k in ("rec_yds", "rush_yds", "recs")):
             out.append(rec)
     return out
 
 
-def _dist(y: np.ndarray, step: float, bins: int) -> dict:
-    p = pmf(y / step, 0, bins)
+def _dist(y: np.ndarray, step: float, bins: int, w: np.ndarray | None = None) -> dict:
+    p = pmf(y / step, 0, bins, w)
     off, vals = compress(p)
-    qs = np.percentile(y, [10, 25, 50, 75, 90])
-    return {"pmf": [off, vals], "step": step, "mean": round(float(y.mean()), 1), "q": [round(float(q), 1) for q in qs], "fair_line": fair_line(y)}
+    qs = wquantile(y, [10, 25, 50, 75, 90], w)
+    return {"pmf": [off, vals], "step": step, "mean": round(wmean(y, w), 1), "q": [round(float(q), 1) for q in qs], "fair_line": fair_line(y, w)}
 
 
 def prob_over(d: dict, line: float) -> tuple[float, float, float]:
