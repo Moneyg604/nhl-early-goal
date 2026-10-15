@@ -80,6 +80,29 @@
    "name": "Touchdown shares scaled by the recent change in snap share (last two games vs his average, pulled halfway to 1)",
    "result": "anytime TD gain 0.0071 vs 0.0049 alone, 0.0082 together with the 6-game half-life; full weight (not halfway) 0.0080",
    "kept": true
+  },
+  {
+   "name": "Receiving-yards props from usage shares x simulated passing yards (noise sd = k sqrt(expected))",
+   "result": "6,902 player-games 2023-25, over/under at each player's trailing-average line: log-loss gain 0.0380 +/- 0.0042 vs the trailing average; median error 22.8 yds vs 24.3",
+   "kept": true
+  },
+  {
+   "name": "Rushing-yards props from carry share x simulated rushes x player YPC",
+   "result": "3,231 player-games: gain 0.0218 +/- 0.0074 vs the trailing average; median error 22.8 yds vs 24.1",
+   "kept": true
+  },
+  {
+   "name": "Receptions props from reception share x simulated completions",
+   "result": "7,182 player-games: gain 0.0323 +/- 0.0046 vs the trailing average; median error 1.63 vs 1.71",
+   "kept": true
   }
+ ],
+ "validated_markets": [
+  "anytime_td",
+  "qb_tds",
+  "qb_yards",
+  "rec_yds",
+  "recs",
+  "rush_yds"
  ]
 }
