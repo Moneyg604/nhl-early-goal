@@ -73,11 +73,80 @@ def compress(p: np.ndarray, eps: float = 5e-5) -> tuple[int, list[float]]:
     return a, [round(float(v), 5) for v in p[a:b + 1]]
 
 
+def ml_weights(r: SimResult, lines: dict | None) -> tuple[np.ndarray | None, dict]:
+    """Per-simulation weights that make the simulated winner and the simulated cover match the market's
+    de-vigged moneyline and spread prices.
+
+    The simulated margin is about 7% wider than real NFL margins around the closing spread (sd 13.8 vs 12.9 in
+    2023-25), so on its own it understates favourites (a 7.5-point favourite came out near 70% where the market
+    says 78%). Walk-forward, the market moneyline beat the raw simulation in both test seasons (log loss 0.5875
+    vs 0.5948 in 2024, 0.6094 vs 0.6115 in 2025). Reweighting to the moneyline alone pushed favourites' cover
+    probabilities above 50%, which the results did not support, so the spread price is matched as well: three
+    groups of simulated games (wins that cover, wins that do not, losses) get one weight each; ties and pushes
+    keep their simulated share. Every simulated game keeps its full joint outcome, so same-game parlays and
+    the derived markets stay consistent with both prices."""
+    lines = lines or {}
+    pm, _ = devig2(lines.get("home_ml"), lines.get("away_ml"))
+    S = lines.get("spread")
+    if pm is None:
+        return None, {"applied": False}
+    pc, _ = devig2(lines.get("home_spread_odds"), lines.get("away_spread_odds"))
+    m = r.margin.astype(float)
+    n = len(m)
+    P = lambda mask: float(mask.sum()) / n  # noqa: E731
+    t = P(m == 0)
+    meta = {"applied": True, "market_home": round(pm, 4), "sim_home": round(P(m > 0) / max(1e-9, 1 - t), 4)}
+    w = np.ones(n)
+    if S is None or pc is None or S == 0 or (isinstance(S, float) and math.isnan(S)):
+        ph, pa = P(m > 0), P(m < 0)
+        w[m > 0] = (1 - t) * pm / ph; w[m < 0] = (1 - t) * (1 - pm) / pa
+        meta["matched"] = "moneyline"
+        return w, meta
+    q = P(m == S)
+    T_win, T_cov = (1 - t) * pm, (1 - q) * pc
+    g1 = (m > 0) & (m > S)
+    if S > 0:
+        g2 = (m > 0) & (m < S); g4 = (m < 0)
+        w1 = T_cov / max(P(g1), 1e-9)
+        w2 = (T_win - w1 * P(g1) - P((m > 0) & (m == S))) / max(P(g2), 1e-9)
+        rest = 1 - t - q - w1 * P(g1) - w2 * P(g2)
+        w4 = rest / max(P(g4), 1e-9)
+        ws = {"win_cover": w1, "win_no_cover": w2, "loss": w4}
+        masks = (g1, g2, g4)
+    else:
+        g3 = (m < 0) & (m > S); g4 = (m < 0) & (m < S)
+        w1 = T_win / max(P(g1), 1e-9)
+        w3 = (T_cov - w1 * P(g1) - P((m == 0) & (m > S))) / max(P(g3), 1e-9)
+        rest = 1 - t - q - w1 * P(g1) - w3 * P(g3)
+        w4 = rest / max(P(g4), 1e-9)
+        ws = {"win": w1, "loss_cover": w3, "loss_no_cover": w4}
+        masks = (g1, g3, g4)
+    if min(ws.values()) <= 0.05 or min(P(mk) for mk in masks) <= 0:
+        # the two prices cannot both be met with this simulation's shape: match the moneyline only
+        w = np.ones(n); ph, pa = P(m > 0), P(m < 0)
+        w[m > 0] = (1 - t) * pm / ph; w[m < 0] = (1 - t) * (1 - pm) / pa
+        meta["matched"] = "moneyline"
+        return w, meta
+    for mask, val in zip(masks, ws.values()):
+        w[mask] = val
+    meta.update({"matched": "moneyline and spread", "market_cover": round(pc, 4), "weights": {k: round(v, 4) for k, v in ws.items()}})
+    return w, meta
+
+
+def wpmf(x: np.ndarray, lo: int, hi: int, w: np.ndarray | None) -> np.ndarray:
+    if w is None:
+        return pmf(x, lo, hi)
+    idx = np.clip(np.rint(x).astype(int), lo, hi) - lo
+    out = np.bincount(idx, weights=w, minlength=hi - lo + 1)
+    return out / out.sum()
+
+
 def game_markets(r: SimResult, lines: dict | None, key_weights: dict | None = None) -> dict:
     """Probabilities for the main markets plus the distributions behind them."""
     lines = lines or {}
     lo_m, hi_m = -70, 70
-    mp = apply_key_numbers(pmf(r.margin, lo_m, hi_m), lo_m, key_weights)
+    w, wmeta = ml_weights(r, lines)
+    mp = apply_key_numbers(wpmf(r.margin, lo_m, hi_m, w), lo_m, key_weights)
     tp = pmf(r.total, 0, 130)
     h1 = pmf(r.h1.sum(axis=1), 0, 80)
     h2 = pmf(r.h2.sum(axis=1), 0, 90)
@@ -88,7 +157,7 @@ def game_markets(r: SimResult, lines: dict | None, key_weights: dict | None = No
         "margin_mean": round(float((mp * v).sum()), 2), "total_mean": round(float(r.total.mean()), 2),
         "h1_mean": round(float(r.h1.sum(axis=1).mean()), 2), "h2_mean": round(float(r.h2.sum(axis=1).mean()), 2),
         "home_pts": round(float(r.pts[:, 0].mean()), 2), "away_pts": round(float(r.pts[:, 1].mean()), 2),
-        "ot": r4(r.ot.mean()),
+        "ot": r4(r.ot.mean()), "ml_calibration": wmeta,
         "dist": {"margin": [lo_m + compress(mp)[0], compress(mp)[1]], "total": list(compress(tp)), "h1": list(compress(h1)), "h2": list(compress(h2)),
                  "home_pts": list(compress(pmf(r.pts[:, 0], 0, 80))), "away_pts": list(compress(pmf(r.pts[:, 1], 0, 80)))},
         "fg": {}, "qb": {},

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 
@@ -40,6 +41,24 @@ def cmd_run(a) -> None:
     if wk is None:
         print("no regular-season week left to publish")
         return
+    reason = os.environ.get("NFL_REASON", "update")
+    if os.environ.get("ODDS_API_KEY"):
+        try:
+            from datetime import datetime, timedelta, timezone
+
+            from .odds import fetch as fetch_odds
+            from .venues import kickoff_utc
+            now = datetime.now(timezone.utc)
+            s = sched[(sched["season"] == season) & (sched["week"] == wk) & (sched["game_type"] == "REG")]
+            window = []
+            for r in s.itertuples(index=False):
+                k = kickoff_utc(str(r.gameday), str(r.gametime))
+                # props: the games about to start on pre-kickoff runs, every game of the week on a "props" run
+                if k and (reason == "props" or (reason == "t75" and timedelta(minutes=-15) <= k - now <= timedelta(hours=3))):
+                    window.append(f"{r.away_team}@{r.home_team}")
+            fetch_odds(reason, window)
+        except Exception as e:  # noqa: BLE001
+            print(f"odds skipped: {e}")
     weeks = [wk] + [w for w in range(wk + 1, wk + a.weeks) if w <= 18]
     for w in weeks:
         s = sched[(sched["season"] == season) & (sched["week"] == w) & (sched["game_type"] == "REG")]

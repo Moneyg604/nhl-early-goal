@@ -135,6 +135,9 @@ def main() -> None:
     if not a.dry_run and not (os.environ.get("DISCORD_WEBHOOK_URL") or os.environ.get("TELEGRAM_BOT_TOKEN")):
         print("no notification channel configured")
         return
+    if a.reason == "quiet":
+        print("quiet rebuild: no message")
+        return
     p = current_payload()
     if not p:
         print("no NFL payload")

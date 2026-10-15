@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       reason:
-        description: "why this run happens (daily | t75 | update | weekly)"
+        description: "why this run happens (daily | t75 | update | weekly | props)"
         default: "update"
         required: false
 
@@ -54,6 +54,9 @@ jobs:
         run: python -m nfl scorecard || echo "nothing to grade yet"
 
       - name: Research and simulate this week (and next week once its lines are out)
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          NFL_REASON: ${{ github.event.inputs.reason || 'daily' }}
         run: python -m nfl run --weeks 2
 
       - name: Build the NFL section
@@ -64,6 +67,7 @@ jobs:
           git config user.name "earlygoal-bot"
           git config user.email "actions@users.noreply.github.com"
           git add docs/nfl
+          for f in data/nfl/odds.json data/nfl/odds_history.jsonl; do [ -f "$f" ] && git add "$f"; done; true
           git commit -m "nfl update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "nothing changed"
           for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i * 7)); done
 

@@ -94,14 +94,19 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     ref = load_reference(season)
     rows = week_rows(sched, season, week, P, ref, with_weather=with_weather)
     blend = load_blend(); keyw = load_key_numbers()
+    from .odds import for_game, load as load_odds
+    odds = load_odds()
     played = {g["game_id"]: g for g in games if g["season"] == season and g["week"] == week}
     out_games = []
+    samples: dict[str, str] = {}
     for row in rows:
         run = run_game(P, row, cfg, n=sims or cfg.sims, blend=blend)
         mk = game_markets(run.sim, row["lines"], keyw)
         g = {k: row[k] for k in ("game_id", "season", "week", "home", "away", "date", "time", "weekday", "kickoff_utc", "stadium", "location",
                                  "roof", "surface", "div", "rest", "lines", "score", "espn", "weather", "temp", "wind", "coach", "referee")}
         g["markets"] = mk
+        g["odds"] = for_game(odds, row["home"], row["away"], row.get("kickoff_utc"))
+        samples[row["game_id"]] = sample_blob(run.sim, row["lines"])
         g["model"] = {"margin": _r(run.model_margin, 2), "total": _r(run.model_total, 2), "home_win": _r(run.model_home_win, 4),
                       "target_margin": _r(run.target_margin, 2), "target_total": _r(run.target_total, 2), "anchor": run.anchor,
                       "blend": blend}
@@ -161,7 +166,32 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     }
     payload["picks"] = picks(payload)
     payload["validation"] = _validation()
+    payload["_samples"] = {"fields": SAMPLE_FIELDS, "bytes": 17, "n": SAMPLE_N, "games": samples}
     return payload
+
+
+SAMPLE_N = 3000
+SAMPLE_FIELDS = "hp ap h1h h1a fgh fga tdh tda rth rta ot | yh ya | w"
+
+
+def sample_blob(sim, lines: dict, n: int = SAMPLE_N, seed: int = 5) -> str:
+    """A random subset of the simulated games, packed for the page's same-game parlay pricing:
+    11 unsigned bytes (points home/away, first-half points home/away, field goals made home/away, touchdown
+    passes home/away, rushing touchdowns home/away, overtime), two signed 16-bit passing-yard totals, and the
+    16-bit market weight x 10000 (see markets.ml_weights). 17 bytes per game, base64."""
+    import base64
+
+    from .markets import ml_weights
+    rng = np.random.default_rng(seed)
+    idx = rng.choice(len(sim.pts), size=min(n, len(sim.pts)), replace=False)
+    w, _ = ml_weights(sim, lines)
+    w = np.ones(len(sim.pts)) if w is None else w
+    u8 = np.stack([sim.pts[idx, 0], sim.pts[idx, 1], sim.h1[idx, 0], sim.h1[idx, 1], sim.fgm[idx, 0], sim.fgm[idx, 1], sim.ptd[idx, 0], sim.ptd[idx, 1],
+                   sim.rtd[idx, 0], sim.rtd[idx, 1], sim.ot[idx].astype(int)], axis=1).clip(0, 255).astype(np.uint8)
+    i16 = np.stack([sim.yds[idx, 0], sim.yds[idx, 1]], axis=1).round().clip(-32000, 32000).astype("<i2")
+    u16 = (w[idx] * 10000).round().clip(0, 65535).astype("<u2").reshape(-1, 1)
+    rows = np.concatenate([u8.view(np.uint8), i16.view(np.uint8).reshape(len(idx), 4), u16.view(np.uint8).reshape(len(idx), 2)], axis=1)
+    return base64.b64encode(rows.astype(np.uint8).tobytes()).decode()
 
 
 def actuals(g: dict) -> dict:
@@ -280,7 +310,10 @@ def save_payload(payload: dict, out_dir=None) -> str:
     out_dir = out_dir or OUT_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
     name = f"{payload['season']}-w{payload['week']:02d}"
+    samples = payload.pop("_samples", None)
     (out_dir / f"week-{name}.json").write_text(json.dumps(payload, separators=(",", ":")))
+    if samples:
+        (out_dir / f"week-{name}.sims.json").write_text(json.dumps(samples, separators=(",", ":")))
     return name
 
 

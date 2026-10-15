@@ -109,3 +109,43 @@ def test_neutral_simulation_matches_league():
     act = np.array([g["hs"] + g["as"] for g in games])
     for L in (37.5, 41.5, 44.5, 47.5, 51.5):
         assert abs((tot > L).mean() - (act > L).mean()) < 0.04
+
+
+def test_odds_parsing_best_price_and_consensus():
+    from nfl.odds import parse_game_lines, parse_props
+    ev = {"id": "e1", "home_team": "Denver Broncos", "away_team": "Seattle Seahawks", "commence_time": "2026-10-16T00:15:00Z", "bookmakers": [
+        {"key": "dk", "title": "DraftKings", "markets": [
+            {"key": "h2h", "outcomes": [{"name": "Denver Broncos", "price": 2.20}, {"name": "Seattle Seahawks", "price": 1.70}]},
+            {"key": "spreads", "outcomes": [{"name": "Denver Broncos", "price": 1.91, "point": 2.5}, {"name": "Seattle Seahawks", "price": 1.91, "point": -2.5}]},
+            {"key": "totals", "outcomes": [{"name": "Over", "price": 1.87, "point": 40.5}, {"name": "Under", "price": 1.95, "point": 40.5}]}]},
+        {"key": "fd", "title": "FanDuel", "markets": [
+            {"key": "h2h", "outcomes": [{"name": "Denver Broncos", "price": 2.30}, {"name": "Seattle Seahawks", "price": 1.66}]},
+            {"key": "spreads", "outcomes": [{"name": "Denver Broncos", "price": 1.95, "point": 2.5}, {"name": "Seattle Seahawks", "price": 1.87, "point": -2.5}]}]}]}
+    g = parse_game_lines([ev])["SEA@DEN"]
+    assert g["ml"]["home"] == 2.30 and g["ml"]["book_home"] == "FanDuel" and g["ml"]["away"] == 1.70
+    assert 0.40 < g["ml"]["consensus_home"] < 0.45
+    assert g["spread"]["line"] == 2.5 and g["spread"]["home"] == 1.95 and g["total"]["line"] == 40.5
+    pe = {"home_team": "Denver Broncos", "away_team": "Seattle Seahawks", "bookmakers": [{"title": "DraftKings", "markets": [
+        {"key": "player_pass_yds", "outcomes": [{"name": "Over", "description": "Bo Nix", "price": 1.87, "point": 205.5}, {"name": "Under", "description": "Bo Nix", "price": 1.95, "point": 205.5}]},
+        {"key": "player_anytime_td", "outcomes": [{"name": "Yes", "description": "RJ Harvey", "price": 3.4}]},
+        {"key": "totals_h1", "outcomes": [{"name": "Over", "price": 1.9, "point": 20.5}, {"name": "Under", "price": 1.9, "point": 20.5}]}]}]}
+    pr = parse_props(pe)
+    assert pr["qb_yds"][name_key("Bo Nix")]["line"] == 205.5 and pr["qb_yds"][name_key("Bo Nix")]["over"] == 1.87
+    assert pr["atd"][name_key("RJ Harvey")]["yes"] == 3.4
+    assert pr["h1"]["line"] == 20.5
+
+
+def test_market_weights_match_moneyline_and_spread():
+    from nfl.markets import ml_weights
+    from nfl.sim import SimResult
+    rng = np.random.default_rng(1)
+    n = 50000
+    hp = rng.poisson(24, n); ap = rng.poisson(20, n)
+    z = np.zeros((n, 2), dtype=int)
+    r = SimResult(n=n, pts=np.stack([hp, ap], 1), h1=z, fgm=z, fga=z, ptd=z, rtd=z, yds=z.astype(float), db=z, ot=np.zeros(n, bool), drives=z)
+    lines = {"home_ml": -300, "away_ml": 250, "spread": 6.5, "home_spread_odds": -110, "away_spread_odds": -110}
+    w, meta = ml_weights(r, lines)
+    m = hp - ap
+    p_home = (w * (m > 0)).sum() / w.sum() / (1 - (w * (m == 0)).sum() / w.sum())
+    assert abs(p_home - meta["market_home"]) < 0.005
+    assert abs((w * (m > 6.5)).sum() / w.sum() - 0.5) < 0.005

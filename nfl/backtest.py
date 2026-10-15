@@ -187,7 +187,10 @@ def _cmp(name: str, model: list[float], base: list[float], ys: list[int], note: 
     se = float(d.std(ddof=1) / math.sqrt(len(d))) if len(d) > 1 else float("nan")
     gain = lb - lm
     verdict = "beats baseline" if gain > 2 * se else ("marginal" if gain > 0 else "no edge")
+    bm = float(np.mean([(p - y) ** 2 for p, y in zip(model, ys)])); bb = float(np.mean([(b - y) ** 2 for b, y in zip(base, ys)]))
+    acc = float(np.mean([(p >= 0.5) == (y == 1) for p, y in zip(model, ys)]))
     return {"market": name, "n": len(ys), "ll_model": round(lm, 5), "ll_base": round(lb, 5), "gain": round(gain, 5), "se": round(se, 5),
+            "brier_model": round(bm, 5), "brier_base": round(bb, 5), "accuracy": round(acc, 4),
             "verdict": verdict, "hit_rate": round(float(np.mean(ys)), 4), "mean_p": round(float(np.mean(model)), 4),
             "calibration": _calib(model, ys), "baseline": note}
 
@@ -371,6 +374,16 @@ def backtest(seasons: list[int], sims: int = 20_000, workers: int = 2, cfg_over:
     pooled = summarize(rows)
     return {"seasons": seasons, "sims": sims, "minutes": round((time.time() - t0) / 60, 1), "pooled": pooled, "by_season": by_season,
             "cfg": cfg_over or {}, "rows": rows}
+
+
+def resummarize(path=None) -> dict:
+    """Recompute the summaries from the saved per-game rows (no new simulations)."""
+    rows = [json.loads(l) for l in (DATA_DIR / "backtest_rows.jsonl").open()]
+    old = json.loads((path or DATA_DIR / "backtest_latest.json").read_text())
+    seasons = old.get("seasons") or sorted({r["season"] for r in rows if "season" in r})
+    res = {**{k: v for k, v in old.items() if k not in ("pooled", "by_season")}, "pooled": summarize(rows),
+           "by_season": {str(s): summarize([r for r in rows if r.get("season") == s]) for s in seasons}, "rows": rows}
+    return res
 
 
 def save(result: dict, path=None) -> None:

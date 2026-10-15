@@ -57,6 +57,7 @@ jobs:
       - name: Research and simulate today's slate plus the next two days
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          EGD_REASON: ${{ github.event.inputs.reason || (github.event.schedule == '5 14 * * *' && 'morning') || 'update' }}
         run: python -m earlygoal run --days 3 || echo "no slate today or run failed; publishing what exists"
 
       - name: Build the site

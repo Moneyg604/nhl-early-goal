@@ -66,6 +66,24 @@ NFL_CSS = r"""
 .leg2.on{color:var(--ice)}
 .leg2 .p{font-family:var(--display);font-size:20px;font-weight:700;color:var(--green)}
 .mini{font-size:11.5px;color:var(--dim)}
+.scanbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;align-items:end}
+.scanbar label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--muted)}
+.scanbar select,.scanbar input{background:#0a1017;border:1px solid var(--line2);color:var(--text);border-radius:8px;padding:7px 9px;font-size:13.5px;font-family:inherit;min-width:0;width:100%}
+.scanbar .chips{grid-column:1/-1}
+.scan{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.srow{display:grid;grid-template-columns:34px minmax(0,2.6fr) repeat(4,minmax(0,.8fr)) minmax(0,1.2fr);gap:8px;align-items:center;padding:8px 10px;border-top:1px solid var(--line);cursor:pointer;font-size:13px}
+.srow:first-child{border-top:0}.srow:hover{background:rgba(94,200,255,.04)}.srow.on{background:rgba(94,200,255,.08);box-shadow:inset 3px 0 0 var(--ice)}
+.srow .sel{min-width:0}.srow .sel b{font-weight:600}.srow .sel .t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srow .num{display:flex;flex-direction:column;min-width:0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.srow .num .k{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.srow .num .t{overflow:hidden;text-overflow:ellipsis}
+@media (max-width:760px){.srow{grid-template-columns:28px repeat(4,minmax(0,1fr));row-gap:6px;column-gap:6px}.srow .gr{grid-row:1}.srow .sel{grid-column:2/-1;grid-row:1}
+ .srow .n-win{grid-column:2;grid-row:2}.srow .n-fair{grid-column:3;grid-row:2}.srow .n-book{grid-column:4;grid-row:2}.srow .n-ev{grid-column:5;grid-row:2}.srow .n-bt{grid-column:2/-1;grid-row:3;flex-direction:row;gap:6px;align-items:baseline}}
+.gr{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;font-family:var(--display);font-weight:800;font-size:16px}
+.gr.sm{width:18px;height:18px;font-size:12px;border-radius:5px;vertical-align:middle}
+.gr.gS{background:rgba(94,200,255,.18);color:var(--ice);border:1px solid var(--ice)}.gr.gA{background:rgba(61,220,132,.15);color:var(--green)}.gr.gB{background:rgba(61,220,132,.07);color:#9fe7c0}
+.gr.gC{background:rgba(243,182,58,.12);color:var(--amber)}.gr.gD{background:rgba(255,107,107,.1);color:var(--red)}
+.gradehelp summary{cursor:pointer;font-size:13px}.gradehelp p{font-size:13px}
+.slip .lg{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.slip .lg a{font-size:11px;color:var(--dim)}
 """
 
 TEMPLATE = r"""<!doctype html>
@@ -88,8 +106,8 @@ TEMPLATE = r"""<!doctype html>
   </div>
   <nav class="tabs" id="tabs">
     <button data-tab="week" class="on">Week</button>
+    <button data-tab="scanner">Scanner</button>
     <button data-tab="research">Research</button>
-    <button data-tab="picks">Picks</button>
     <button data-tab="results">Results</button>
     <button data-tab="about">About</button>
   </nav>
@@ -115,13 +133,19 @@ __STATIC__
   <div id="dossiers"></div>
 </section>
 
-<section class="tab" id="tab-picks">
-  <p class="lead">The strongest leans in each market, ranked. Each group carries the walk-forward verdict for that market: only trust a lean where the backtest found the model beats its baseline. Tap legs to build a slip.</p>
+<section class="tab" id="tab-scanner">
+  <p class="lead">Every selection the model prices, in every market, nothing hidden. Win probability and value are separate columns: the likeliest bet is not the best bet. Grades combine three things: whether the backtest found an edge in that market, how solid the inputs are, and the expected value at the best book price.</p>
+  <details class="panel gradehelp"><summary><b>How the grades work</b></summary>
+   <p><b>S</b>: market beats its baseline in the backtest, tier A inputs, and at least +5% expected value at the best price. <b>A</b> and <b>B</b>: two of the three are strong. <b>C</b>: marginal evidence or data. <b>D</b>: negative expected value at the best price, or a market where the backtest found no edge. Without a book price the best possible grade is B, because value is unknown. Moneyline, spread and total probabilities are the market's own (the model does not beat it), so their value comes only from finding a better price than the market consensus.</p>
+   <p>The "backtest" column shows how often selections the model rated at about the same probability actually won over 2023 to 2025.</p></details>
   <div class="panel" id="slip"></div>
+  <div class="panel" id="scanner"></div>
+  <h2>Published leans <small>the strongest lean per market, graded in the track record</small></h2>
   <div class="groups" id="picks"></div>
 </section>
 
 <section class="tab" id="tab-results">
+  <div class="panel" id="tracker"></div>
   <div class="panel" id="wkresults"></div>
   <div class="panel" id="track"></div>
   <div class="panel"><h3>All weeks</h3><div class="daylist" id="weeklist"></div></div>
@@ -250,7 +274,7 @@ function showTab(name, push){ document.querySelectorAll('section.tab').forEach(s
   tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.tab===name)); try{localStorage.setItem('egd_nfl_tab',name);}catch(e){}
   if(push && history.replaceState) history.replaceState(null,'','#'+name); window.scrollTo({top:0}); }
 tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab,true));
-function tabFromHash(){ const h=(location.hash||'').replace('#',''); if(['week','research','picks','results','about'].includes(h)) showTab(h,false); }
+function tabFromHash(){ let h=(location.hash||'').replace('#',''); if(h==='picks') h='scanner'; if(['week','scanner','research','results','about'].includes(h)) showTab(h,false); }
 tabFromHash(); window.addEventListener('hashchange', tabFromHash);
 
 // ------------------------------------------------------------- week tab
@@ -264,9 +288,9 @@ function wx(g){ if(g.roof==='dome'||g.roof==='closed') return g.roof==='dome'?'d
   if(g.temp!=null||g.wind!=null) return `${g.temp!=null?Math.round(g.temp)+'°F':''}${g.wind!=null?' · wind '+Math.round(g.wind)+' mph':''}`;
   return g.roof==='outdoors'?'outdoors · forecast pending':esc(g.roof||''); }
 function mlBox(g,o){ const m=g.markets.ml, L=g.lines||{}; const fav = m.home>=m.away ? 'home':'away';
-  const row = side => { const p=m[side]; const odds=L[side+'_ml']!=null ? (L[side+'_ml']>0?1+L[side+'_ml']/100:1+100/(-L[side+'_ml'])) : null;
-    const ev = odds ? p/(1-m.tie)*odds - 1 : null; const r=o?o['ml_'+side]:null;
-    return `<div class="row"><span>${g[side]} ${markTxt(r)}</span><span class="p ${side===fav?'hi':''}">${pct(p)}</span></div><span class="s">fair ${fmtOdds(fair(p/(1-m.tie)))}${odds?` · book ${amer(L[side+'_ml'])}${ev!=null?` <span class="edge ${ev>=0?'pos':'neg'}">${ev>=0?'+':''}${(ev*100).toFixed(1)}%</span>`:''}`:''}</span>`; };
+  const row = side => { const p=m[side]; const bp=bookPrice(g,'ml',side,null,null); const odds=bp?bp.odds:null;
+    const ev = odds ? p*(odds-1) - (1-p-m.tie) : null; const r=o?o['ml_'+side]:null;
+    return `<div class="row"><span>${g[side]} ${markTxt(r)}</span><span class="p ${side===fav?'hi':''}">${pct(p)}</span></div><span class="s">fair ${fmtOdds((1-m.tie)/p)}${odds?` · best ${odds.toFixed(2)}${ev!=null?` <span class="edge ${ev>=0?'pos':'neg'}">${ev>=0?'+':''}${(ev*100).toFixed(1)}%</span>`:''}`:''}</span>`; };
   return `<div class="mb"><span class="k">Moneyline</span>${row('away')}${row('home')}</div>`; }
 function spBox(g,o){ const L=g.lines||{}; if(L.spread==null) return `<div class="mb"><span class="k">Spread</span><span class="s">no line yet · model ${g.home} by ${g.model.margin}</span></div>`;
   const P2 = marginP(g, L.spread); const hs = -L.spread; const r1=o?o.sp_away:null, r2=o?o.sp_home:null;
@@ -424,36 +448,241 @@ function renderResearch(){ const L=M.league||{}; const ctx=L.context||{}; const 
     <div class="dgrid">${['away','home'].map(s=>`<div class="box"><table><tr><th>${g[s]}</th><th>targets</th><th>carries</th><th>red zone</th><th>TD games</th></tr>${((g.anytime||{})[s]||[]).map(x=>`<tr><td>${esc(x.name)} <span class="t">${esc(x.pos||'')}</span></td><td>${pct(x.tgt_share,0)}</td><td>${pct(x.car_share,0)}</td><td>${pct(x.rz_share,0)}</td><td>${x.td_games}/${x.games}</td></tr>`).join('')}</table></div>`).join('')}</div>
     </div></details>`; }).join(''); }
 
-// ------------------------------------------------------------- picks + slip
-let SLIP=[]; try{ SLIP=JSON.parse(localStorage.getItem('egd_nfl_slip_'+P.season+'_'+P.week)||'[]'); }catch(e){}
-const legId = (k,x) => k+'|'+x.game_id+'|'+(x.side||'')+'|'+(x.id||x.qb||x.team||'');
-function pickResult(k, x){ const g=byId[x.game_id]; const o=outc(g); if(!o) return null;
-  if(k==='ml') return o['ml_'+x.side]; if(k==='spread') return o['sp_'+x.side]; if(k==='total') return x.side==='over'?o.over:o.under;
-  if(k==='h1') return o.h1!=null ? ouRes(o.h1, x.line, x.side, true) : 'pending'; if(k==='h2') return o.h2!=null ? ouRes(o.h2, x.line, x.side, true) : 'pending';
-  if(k==='fg') return o.fg ? ouRes(o.fg[x.side_team], x.line, x.side, o.final) : 'pending';
-  if(k==='qb_yds'||k==='qb_td'){ const q=o.qb[x.side_team]; if(!q) return 'pending'; return ouRes(k==='qb_yds'?q.yds:q.td, x.line, x.side, o.final && o.propsFinal); }
-  if(k==='atd') return scored(o, {id:x.id, name:x.player}); return null; }
-function renderPicks(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd'];
-  const why = {ml:'Highest win probability (market-anchored).', spread:'Largest gap between the model alone and the closing spread.', total:'Largest gap between the model alone and the total.',
-    h1:'Farthest from 50% at the usual first-half line (total x league first-half share).', h2:'Same for the second half, overtime included.', fg:'Farthest from 50% at 1.5 field goals made.',
+// ------------------------------------------------------------- every selection (scanner), grades, book prices
+const KIND = {ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team field goals', qb_yds:'QB passing yards', qb_td:'QB passing TDs', atd:'Anytime TD'};
+const am2dec = a => a==null ? null : (a>0 ? 1+a/100 : 1+100/(-a));
+const evKey = (kind, line) => kind==='fg' ? 'fg_over'+(line<1?'0.5':(line<2?'1.5':'2.5')) : (kind==='qb_td' ? 'qb_td_over'+(line<1?'0.5':(line<2?'1.5':'2.5')) : VK[kind]);
+function evidence(kind, line){ if(kind==='ml'||kind==='spread'||kind==='total') return 1; const v=verdictOf(evKey(kind,line)); return v==='beats baseline'?2:(v==='marginal'?1:0); }
+function calBand(kind, line, side, p){ if(kind==='ml'||kind==='spread'||kind==='total') return null;
+  const m = V && V.pooled && V.pooled[evKey(kind,line)]; if(!m || !m.calibration) return null;
+  const flip = side==='under'; const q = flip ? 1-p : p; let best=null;
+  for(const b of m.calibration){ if(!best || Math.abs(b.p-q) < Math.abs(best.p-q)) best=b; }
+  return best ? {p: flip?1-best.p:best.p, hit: flip?1-best.hit:best.hit, n: best.n} : null; }
+function gradeOf(o){ const E=o.E, Q=o.Q; let v=null; if(o.ev!=null) v = o.ev>=0.05 ? 2 : (o.ev>=0 ? 1 : -1); o.Vv=v;
+  if(v===-1) return 'D';
+  if(v===null) return (E===2 && Q>=1) ? 'B' : (E>=1 ? 'C' : 'D');
+  if(E===2 && Q===2 && v===2) return 'S'; const s=E+Q+v; return s>=5 ? 'A' : (s>=4 ? 'B' : 'C'); }
+function bookPrice(g, kind, side, line, who){
+  const O=g.odds||{}, Pp=O.props||{}, L=g.lines||{};
+  const r = (odds, book, cons) => (odds && odds>1) ? {odds, book, cons} : null;
+  const cons2 = (c, first) => c==null ? null : (first ? c : 1-c);
+  if(kind==='ml'){ if(O.ml) return r(O.ml[side], O.ml['book_'+side], cons2(O.ml.consensus_home, side==='home')); return r(am2dec(L[side+'_ml']), 'consensus (nflverse)', null); }
+  if(kind==='spread'){ if(O.spread){ const ok = side==='home' ? O.spread.line===line : -O.spread.line===line; if(ok) return r(O.spread[side], O.spread['book_'+side], cons2(O.spread.consensus_home, side==='home')); }
+    if(L.spread!=null && (side==='home' ? -L.spread===line : L.spread===line)) return r(am2dec(L[side+'_spread_odds']), 'consensus (nflverse)', null); return null; }
+  if(kind==='total'){ if(O.total && O.total.line===line) return r(O.total[side], O.total['book_'+side], cons2(O.total.consensus_over, side==='over'));
+    if(L.total===line) return r(am2dec(L[side+'_odds']), 'consensus (nflverse)', null); return null; }
+  if(kind==='h1'||kind==='h2'){ const x=Pp[kind]; return (x && x.line===line) ? r(x[side], x['book_'+side], cons2(x.consensus_over, side==='over')) : null; }
+  if(kind==='qb_yds'||kind==='qb_td'){ const x=(Pp[kind]||{})[nameKey(who)]; return (x && x.line===line) ? r(x[side], x['book_'+side], cons2(x.consensus_over, side==='over')) : null; }
+  if(kind==='atd'){ const x=(Pp.atd||{})[nameKey(who)]; return x ? r(x.yes, x.book_yes, x.consensus_yes) : null; }
+  return null; }
+function legTxt(o){ return o.label; }
+function buildSelections(){ const out=[];
+  for(const g of P.games){ const mk=g.markets, L=g.lines||{}, O=g.odds||{}, Pp=O.props||{}; const mu=`${g.away} @ ${g.home}`;
+    const uncertain = side => (g.tier_why||[]).some(w=>w.startsWith(g[side]+':') && w.includes('uncertain'));
+    const add = o => { o.game_id=g.game_id; o.mu=mu; o.kick=g.kickoff_utc||''; o.tier=g.tier;
+      o.fair = o.p>0 ? (1-(o.push||0))/o.p : null;
+      const bp = bookPrice(g, o.kind, o.side, o.line, o.who); if(bp){ o.odds=bp.odds; o.book=bp.book; o.cons=bp.cons; o.ev = o.p*(bp.odds-1) - (1-o.p-(o.push||0)); }
+      o.E = evidence(o.kind, o.line); o.Q = Math.max(0, (g.tier==='A'?2:(g.tier==='B'?1:0)) - (o.questionable?1:0));
+      o.grade = gradeOf(o); o.band = calBand(o.kind, o.line, o.side, o.p);
+      o.id = [o.kind, g.game_id, o.side, o.line, o.who||o.team||''].join('|'); out.push(o); };
+    for(const side of ['away','home']) add({kind:'ml', side, line:null, team:g[side], label:`${g[side]} moneyline`, p:mk.ml[side], push:mk.ml.tie});
+    const S = O.spread ? -O.spread.line : L.spread;
+    if(S!=null){ const r=marginP(g, S), hl=-S;
+      add({kind:'spread', side:'away', line:-hl, team:g.away, label:`${g.away} ${-hl>0?'+':''}${-hl}`, p:r.away, push:r.push});
+      add({kind:'spread', side:'home', line:hl, team:g.home, label:`${g.home} ${hl>0?'+':''}${hl}`, p:r.home, push:r.push}); }
+    const T = O.total ? O.total.line : L.total;
+    if(T!=null){ const r=pOver(mk.dist.total, T); for(const s of ['over','under']) add({kind:'total', side:s, line:T, label:`${s==='over'?'Over':'Under'} ${T}`, p:r[s], push:r.push}); }
+    for(const k of ['h1','h2']){ const bl = (Pp[k] && Pp[k].line!=null) ? Pp[k].line : refLine(g,k); const r=pOver(mk.dist[k], bl);
+      for(const s of ['over','under']) add({kind:k, side:s, line:bl, label:`${k==='h1'?'1st half':'2nd half'} ${s} ${bl}`, p:r[s], push:r.push}); }
+    for(const side of ['away','home']){ const t=g[side];
+      for(const ln of [0.5,1.5,2.5]){ const r=fgP(g,side,ln); for(const s of ['over','under']) add({kind:'fg', side:s, line:ln, team:t, tside:side, label:`${t} ${s} ${ln} field goals`, p:r[s], push:r.push}); }
+      const q=g.qb[side]||{}; if(q.name){ const who=q.name, qq=!!q.status||uncertain(side);
+        const bq=(Pp.qb_yds||{})[nameKey(who)]; const yl=(bq && bq.line!=null) ? bq.line : g.markets.qb[side].yds_fair_line; const ry=qbYdsP(g,side,yl);
+        for(const s of ['over','under']) add({kind:'qb_yds', side:s, line:yl, team:t, tside:side, who, label:`${who} ${s} ${yl} passing yds`, p:ry[s], push:ry.push, questionable:qq});
+        const bt=(Pp.qb_td||{})[nameKey(who)]; const lines=[0.5,1.5,2.5]; if(bt && bt.line!=null && !lines.includes(bt.line)) lines.push(bt.line);
+        for(const ln of lines){ const r=qbTdP(g,side,ln); for(const s of ['over','under']) add({kind:'qb_td', side:s, line:ln, team:t, tside:side, who, label:`${who} ${s} ${ln} TD passes`, p:r[s], push:r.push, questionable:qq}); } }
+      for(const a of ((g.anytime||{})[side]||[])) add({kind:'atd', side:'yes', line:null, team:t, tside:side, who:a.name, pid:a.id, rec:a.rec_share, rush:a.rush_share, label:`${a.name} (${t}) anytime TD`, p:a.p, push:0, questionable:!!a.q});
+    } }
+  return out; }
+const SELS = buildSelections(); const SEL_BY = {}; SELS.forEach(s=>SEL_BY[s.id]=s);
+const GRADE_ORDER = {S:0, A:1, B:2, C:3, D:4};
+let SC = {kind:'all', game:'all', team:'', grades:['S','A','B','C','D'], minp:0, odds:false, q:'', sort:'p', n:60};
+try{ SC = Object.assign(SC, JSON.parse(localStorage.getItem('egd_nfl_scan')||'{}'), {n:60}); }catch(e){}
+function saveSC(){ try{ localStorage.setItem('egd_nfl_scan', JSON.stringify(SC)); }catch(e){} }
+function selResult(o){ const g=byId[o.game_id]; return legResult(o, g, true); }
+function renderScanner(){ const el=document.getElementById('scanner');
+  const teams=[...new Set(P.games.flatMap(g=>[g.away,g.home]))].sort();
+  const gs=[...P.games].sort((a,b)=>(a.kickoff_utc||'').localeCompare(b.kickoff_utc||''));
+  const withOdds = SELS.filter(s=>s.odds!=null).length;
+  let rows = SELS.filter(s=>(SC.kind==='all'||s.kind===SC.kind) && (SC.game==='all'||s.game_id===SC.game) && (!SC.team||s.team===SC.team||s.mu.includes(SC.team))
+    && SC.grades.includes(s.grade) && s.p*100>=SC.minp && (!SC.odds||s.odds!=null) && (!SC.q || s.label.toLowerCase().includes(SC.q.toLowerCase())));
+  const key = {p:s=>-s.p, ev:s=>-(s.ev==null?-9:s.ev), grade:s=>GRADE_ORDER[s.grade]*10-(s.ev==null?s.p:s.ev), fair:s=>s.fair||99, kick:s=>s.kick}[SC.sort];
+  rows.sort((a,b)=>{ const x=key(a), y=key(b); return x<y?-1:(x>y?1:0); });
+  const total=rows.length; rows=rows.slice(0, SC.n);
+  el.innerHTML = `<div class="scanbar">
+   <label>Market<select id="sc-kind"><option value="all">All markets</option>${Object.entries(KIND).map(([k,v])=>`<option value="${k}" ${SC.kind===k?'selected':''}>${v}</option>`).join('')}</select></label>
+   <label>Game<select id="sc-game"><option value="all">All games</option>${gs.map(g=>`<option value="${g.game_id}" ${SC.game===g.game_id?'selected':''}>${g.away} @ ${g.home}</option>`).join('')}</select></label>
+   <label>Team<select id="sc-team"><option value="">All teams</option>${teams.map(t=>`<option ${SC.team===t?'selected':''}>${t}</option>`).join('')}</select></label>
+   <label>Sort<select id="sc-sort"><option value="p" ${SC.sort==='p'?'selected':''}>Win probability</option><option value="ev" ${SC.sort==='ev'?'selected':''}>Expected value</option><option value="grade" ${SC.sort==='grade'?'selected':''}>Grade</option><option value="fair" ${SC.sort==='fair'?'selected':''}>Fair odds (low first)</option><option value="kick" ${SC.sort==='kick'?'selected':''}>Kickoff</option></select></label>
+   <label>Min win %<input id="sc-minp" type="number" min="0" max="99" step="5" value="${SC.minp}"></label>
+   <label>Search<input id="sc-q" placeholder="player or team" value="${esc(SC.q)}"></label>
+   <div class="chips" id="sc-grades">${['S','A','B','C','D'].map(x=>`<button data-g="${x}" class="${SC.grades.includes(x)?'on':''}">${x}</button>`).join('')}<button id="sc-odds" class="${SC.odds?'on':''}">with book odds</button></div></div>
+   <p class="mini" style="margin:6px 0">${total.toLocaleString()} of ${SELS.length.toLocaleString()} selections · book odds on ${withOdds.toLocaleString()} ${withOdds? '' : '(add the Odds API key for live prices on props; game lines use the nflverse consensus)'} · tap a row to add it to the slip</p>
+   <div class="scan">${rows.map(o=>{ const r=selResult(o); const inSlip=SLIP.find(s=>s.id===o.id);
+     return `<div class="srow ${inSlip?'on':''}" data-id="${esc(o.id)}"><span class="gr g${o.grade}" title="${esc(gradeWhy(o))}">${o.grade}</span>
+      <span class="sel"><b>${esc(o.label)}</b> ${markTxt(r)}<span class="t">${esc(o.mu)} · ${KIND[o.kind]}${o.questionable?' · questionable / uncertain':''}</span></span>
+      <span class="num n-win"><span class="k">win</span><b>${pct(o.p)}</b>${o.push>0.005?`<span class="t">push ${pct(o.push)}</span>`:''}</span>
+      <span class="num n-fair"><span class="k">fair</span>${o.fair?o.fair.toFixed(2):'–'}<span class="t">${o.fair?dec2am(o.fair):''}</span></span>
+      <span class="num n-book"><span class="k">book</span>${o.odds?o.odds.toFixed(2):'–'}<span class="t">${o.odds?esc(o.book||''):'no price'}</span></span>
+      <span class="num n-ev"><span class="k">EV</span>${o.ev==null?'–':`<b style="color:${o.ev>=0?'var(--green)':'var(--red)'}">${o.ev>=0?'+':''}${(o.ev*100).toFixed(1)}%</b>`}${o.cons!=null?`<span class="t">market ${pct(o.cons,0)}</span>`:''}</span>
+      <span class="num n-bt"><span class="k">backtest</span>${o.band?`${pct(o.band.hit,0)} hit<span class="t">when rated ~${pct(o.band.p,0)} (n ${o.band.n})</span>`:'<span class="t">market price</span>'}</span></div>`; }).join('')}</div>
+   ${total>SC.n?`<div style="text-align:center;margin-top:8px"><button class="rbtn" style="margin:0" id="sc-more">show ${Math.min(60,total-SC.n)} more</button></div>`:''}`;
+  const on = (id, ev, fn) => { const e=document.getElementById(id); if(e) e[ev]=fn; };
+  on('sc-kind','onchange',e=>{ SC.kind=e.target.value; SC.n=60; saveSC(); renderScanner(); }); on('sc-game','onchange',e=>{ SC.game=e.target.value; SC.n=60; saveSC(); renderScanner(); });
+  on('sc-team','onchange',e=>{ SC.team=e.target.value; SC.n=60; saveSC(); renderScanner(); }); on('sc-sort','onchange',e=>{ SC.sort=e.target.value; saveSC(); renderScanner(); });
+  on('sc-minp','onchange',e=>{ SC.minp=+e.target.value||0; saveSC(); renderScanner(); });
+  on('sc-q','onchange',e=>{ SC.q=e.target.value; saveSC(); renderScanner(); });
+  on('sc-more','onclick',()=>{ SC.n+=60; renderScanner(); }); on('sc-odds','onclick',()=>{ SC.odds=!SC.odds; saveSC(); renderScanner(); });
+  document.querySelectorAll('#sc-grades button[data-g]').forEach(b=>b.onclick=()=>{ const x=b.dataset.g; SC.grades = SC.grades.includes(x) ? SC.grades.filter(y=>y!==x) : [...SC.grades, x]; saveSC(); renderScanner(); });
+  document.querySelectorAll('#scanner .srow').forEach(d=>d.onclick=()=>toggleLeg(SEL_BY[d.dataset.id])); }
+function gradeWhy(o){ const e = o.E===2?'the backtest found this market beats its baseline':(o.E===1?(o.kind==='ml'||o.kind==='spread'||o.kind==='total'?'game lines use the market price (no model edge)':'the backtest found this market marginal'):'the backtest found no edge in this market');
+  const q = o.Q===2?'tier A data':(o.Q===1?'tier B data or a questionable player':'thin or uncertain data');
+  const v = o.Vv==null?'no book price yet (top grade without a price is B)':(o.Vv===2?'EV at least +5% at the best price':(o.Vv===1?'EV 0 to +5%':'negative EV at the best price'));
+  return `${o.grade}: ${e}; ${q}; ${v}.`; }
+
+// ------------------------------------------------------------- slip: correlation-aware parlays
+let SLIP=[]; try{ SLIP=JSON.parse(localStorage.getItem('egd_nfl_slip_'+P.season+'_'+P.week)||'[]').filter(x=>x && x.kind); }catch(e){}
+function saveSlip(){ try{ localStorage.setItem('egd_nfl_slip_'+P.season+'_'+P.week, JSON.stringify(SLIP)); }catch(e){} }
+function toggleLeg(o){ if(!o) return; const i=SLIP.findIndex(s=>s.id===o.id); if(i>=0) SLIP.splice(i,1); else SLIP.push(Object.assign({}, o)); saveSlip(); renderScanner(); renderTop(); renderSlip(); }
+function legFromPick(k, x){ const g=byId[x.game_id]; let o;
+  if(k==='ml') o={kind:'ml', side:x.side, line:null}; else if(k==='spread') o={kind:'spread', side:x.side, line: x.side==='home' ? -x.line : x.line};
+  else if(k==='total'||k==='h1'||k==='h2') o={kind:k, side:x.side, line:x.line}; else if(k==='fg') o={kind:'fg', side:x.side, line:x.line, tside:x.side_team, team:x.team};
+  else if(k==='qb_yds'||k==='qb_td') o={kind:k, side:x.side, line:x.line, tside:x.side_team, who:x.qb, team:x.team};
+  else { const side = g.home===x.team ? 'home':'away'; const a=((g.anytime||{})[side]||[]).find(z=>z.id===x.id)||{}; o={kind:'atd', side:'yes', line:null, tside:side, who:x.player, pid:x.id, rec:a.rec_share||0, rush:a.rush_share||0, team:x.team}; }
+  const id=[o.kind, x.game_id, o.side, o.line, o.who||o.team||''].join('|'); if(SEL_BY[id]) return SEL_BY[id];
+  return Object.assign(o, {id, game_id:x.game_id, mu:x.mu, p:x.p, push:0, label:pickText(k,x), grade:'C', tier:g.tier}); }
+let SIMS=null, SIMS_P=null;
+function loadSims(){ if(SIMS_P) return SIMS_P; const name=P.season+'-w'+String(P.week).padStart(2,'0');
+  SIMS_P = fetchJSON(BASE+'weeks/'+name+'.sims.json', 25000).then(j=>{ SIMS={}; for(const [gid,b64] of Object.entries(j.games||{})){ const bin=atob(b64); const u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); SIMS[gid]=u; } return SIMS; })
+    .catch(()=>{ SIMS={}; return SIMS; }); return SIMS_P; }
+function simAt(u, i){ const o=i*17, dv=new DataView(u.buffer, u.byteOffset); return {hp:u[o],ap:u[o+1],h1h:u[o+2],h1a:u[o+3],fgh:u[o+4],fga:u[o+5],tdh:u[o+6],tda:u[o+7],rth:u[o+8],rta:u[o+9],ot:u[o+10],yh:dv.getInt16(o+11,true),ya:dv.getInt16(o+13,true),w:dv.getUint16(o+15,true)/10000}; }
+function legWin(l, s){ const H = (l.tside||l.side)==='home';
+  switch(l.kind){
+    case 'ml': return l.side==='home' ? +(s.hp>s.ap) : +(s.ap>s.hp);
+    case 'spread': { const m = l.side==='home' ? s.hp-s.ap : s.ap-s.hp; return +(m + l.line > 0); }
+    case 'total': { const v=s.hp+s.ap; return l.side==='over' ? +(v>l.line) : +(v<l.line); }
+    case 'h1': { const v=s.h1h+s.h1a; return l.side==='over' ? +(v>l.line) : +(v<l.line); }
+    case 'h2': { const v=s.hp+s.ap-s.h1h-s.h1a; return l.side==='over' ? +(v>l.line) : +(v<l.line); }
+    case 'fg': { const v=H?s.fgh:s.fga; return l.side==='over' ? +(v>l.line) : +(v<l.line); }
+    case 'qb_yds': { const v=H?s.yh:s.ya; return l.side==='over' ? +(v>l.line) : +(v<l.line); }
+    case 'qb_td': { const v=H?s.tdh:s.tda; return l.side==='over' ? +(v>l.line) : +(v<l.line); }
+    case 'atd': { const np=H?s.tdh:s.tda, nr=H?s.rth:s.rta; return 1 - Math.pow(1-(l.rec||0), np)*Math.pow(1-(l.rush||0), nr); }
+  } return 0; }
+function slipMath(){ // combined probability: independent across games, joint within a game from the simulated games
+  const groups={}; SLIP.forEach(l=>(groups[l.game_id]=groups[l.game_id]||[]).push(l));
+  let naive=1, adj=1, corr=false, pending=false; const notes=[];
+  for(const [gid, legs] of Object.entries(groups)){ const prod = legs.reduce((a,l)=>a*l.p, 1); naive*=prod;
+    if(legs.length<2){ adj*=prod; continue; }
+    const u = SIMS && SIMS[gid]; if(!u){ adj*=prod; pending=true; continue; }
+    const n=u.length/17; let W=0, J=0; const S=legs.map(()=>0);
+    for(let i=0;i<n;i++){ const s=simAt(u,i); let j=s.w; for(let k=0;k<legs.length;k++){ const v=legWin(legs[k], s); S[k]+=s.w*v; j*=v; } W+=s.w; J+=j; }
+    const singles=S.map(x=>x/W), joint=J/W, indep=singles.reduce((a,b)=>a*b,1);
+    const ratio = indep>0 ? Math.min(6, Math.max(0.05, joint/indep)) : 1; adj*=prod*ratio; corr=true;
+    notes.push({mu:legs[0].mu, ratio, n}); }
+  return {naive, adj, corr, pending, notes}; }
+function renderSlip(){ const el=document.getElementById('slip');
+  if(!SLIP.length){ el.innerHTML='<h3>Slip</h3><p>Tap any selection to add it. Legs from the same game are priced together from the simulated games (a quarterback\'s yards and his team\'s total move together), not multiplied as if independent.</p>'; return; }
+  const sameGame = new Set(SLIP.map(l=>l.game_id)).size < SLIP.length;
+  if(sameGame && !SIMS) loadSims().then(()=>renderSlip());
+  const m = slipMath(); const p=m.adj;
+  let st={}; try{ st=JSON.parse(localStorage.getItem('egd_nfl_slipin')||'{}'); }catch(e){}
+  el.innerHTML = `<h3>Slip · ${SLIP.length} leg${SLIP.length>1?'s':''}</h3><div class="slip">
+   <div class="row" style="margin-top:0"><span>combined win probability</span></div><div class="big">${pct(p)}</div>
+   <div class="row"><span>fair odds <b>${(1/p).toFixed(2)}</b> (${dec2am(1/p)})</span>${sameGame?`<span>if independent: ${pct(m.naive)}</span>`:''}
+    ${m.notes.map(x=>`<span>${esc(x.mu)}: correlation x${x.ratio.toFixed(2)} (${x.n.toLocaleString()} simulated games)</span>`).join('')}${m.pending?'<span>loading the simulated games…</span>':''}</div>
+   <div class="row"><label>book odds <input id="slip-o" placeholder="3.10 or +210" value="${esc(st.o||'')}"></label><label>stake $<input id="slip-s" inputmode="decimal" value="${esc(st.s||'10')}"></label><span id="slip-ev"></span>
+    <button class="abtn" id="slip-log">log bet</button><button class="rbtn" id="slip-clear">clear</button></div>
+   <div class="row">${SLIP.map(l=>`<span class="lg">${esc(l.label)} <b>${pct(l.p,0)}</b> <span class="gr g${l.grade||'C'} sm">${l.grade||'C'}</span> <a href="#" data-x="${esc(l.id)}">remove</a></span>`).join('')}</div>
+   <div class="warn" style="color:var(--muted)">Win probability counts a pushed leg as not winning. Simulation sampling adds about ±1 point on same-game joint probabilities; no parlay is a sure thing.</div></div>`;
+  const O=document.getElementById('slip-o'), Sk=document.getElementById('slip-s');
+  const upd=()=>{ try{ localStorage.setItem('egd_nfl_slipin', JSON.stringify({o:O.value, s:Sk.value})); }catch(e){}
+    const d=parseOdds(O.value); const s=parseFloat(Sk.value)||0; const ev=d?p*d-1:null;
+    document.getElementById('slip-ev').innerHTML = ev==null ? '' : `EV <b style="color:${ev>=0?'var(--green)':'var(--red)'}">${ev>=0?'+':''}${(ev*100).toFixed(1)}%</b> · pays $${(s*d).toFixed(2)} · expected $${(s*ev).toFixed(2)}`; };
+  O.oninput=upd; Sk.oninput=upd; upd();
+  document.getElementById('slip-clear').onclick=()=>{ SLIP=[]; saveSlip(); renderScanner(); renderTop(); renderSlip(); };
+  document.getElementById('slip-log').onclick=()=>{ const d=parseOdds(O.value), s=parseFloat(Sk.value);
+    if(!d || !s){ alert('Enter the book odds and the stake to log the bet.'); return; } logBet(d, s, p); };
+  el.querySelectorAll('a[data-x]').forEach(a=>a.onclick=e=>{ e.preventDefault(); const i=SLIP.findIndex(l=>l.id===a.dataset.x); if(i>=0){ SLIP.splice(i,1); saveSlip(); renderScanner(); renderTop(); renderSlip(); } }); }
+// top leans (the published leans, graded in the track record)
+function renderTop(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd'];
+  const why = {ml:'Highest win probability (market price).', spread:'Largest gap between the model alone and the spread (no measured edge).', total:'Largest gap between the model alone and the total (no measured edge).',
+    h1:'Farthest from 50% at the usual first-half line.', h2:'Same for the second half, overtime included.', fg:'Farthest from 50% at 1.5 field goals made.',
     qb_yds:'Farthest from 50% at a line set at the quarterback\'s recent average.', qb_td:'Farthest from 50% at 1.5 touchdown passes.', atd:'Highest anytime touchdown probability.'};
-  document.getElementById('picks').innerHTML = keys.map(k=>{ const L=P.picks[k]||[]; return `<div class="pk"><h3>${PK_LABEL[k]} ${verdTag(k)}</h3><p class="why">${why[k]}</p><ol>${L.map(x=>{ const id=legId(k,x); const r=pickResult(k,x);
-    return `<li class="leg2 ${SLIP.find(s=>s.id===id)?'on':''}" data-leg="${esc(id)}" data-k="${k}" data-x='${esc(JSON.stringify(x))}'><span><span class="mu">${esc(pickText(k,x))}</span> ${markTxt(r)}<br><span class="t">${esc(x.mu)}${x.edge_pts!=null?` · model ${x.edge_pts>0?'+':''}${x.edge_pts} pts vs line`:''}${x.median!=null?` · median ${Math.round(x.median)}`:''}</span></span><span class="p">${pct(x.p)}</span></li>`; }).join('')}</ol></div>`; }).join('');
-  document.querySelectorAll('#picks .leg2').forEach(li=>li.onclick=()=>{ const id=li.dataset.leg; const i=SLIP.findIndex(s=>s.id===id);
-    if(i>=0) SLIP.splice(i,1); else { const x=JSON.parse(li.dataset.x); SLIP.push({id, k:li.dataset.k, x}); }
-    try{ localStorage.setItem('egd_nfl_slip_'+P.season+'_'+P.week, JSON.stringify(SLIP)); }catch(e){} renderPicks(); renderSlip(); }); }
-function renderSlip(){ const el=document.getElementById('slip'); if(!SLIP.length){ el.innerHTML='<h3>Slip</h3><p>Tap any lean below to add it. Legs from the same game are correlated; the combined probability assumes independence and says so.</p>'; return; }
-  const p = SLIP.reduce((a,s)=>a*s.x.p, 1); const games=new Set(SLIP.map(s=>s.x.game_id)); const same = games.size < SLIP.length;
-  el.innerHTML = `<h3>Slip · ${SLIP.length} legs</h3><div class="slip"><div class="big">${pct(p)}</div><div class="row"><span>fair odds <b>${(1/p).toFixed(2)}</b> (${dec2am(1/p)})</span>
-   <label>book odds <input id="slip-o" placeholder="3.10 or +210"></label><span id="slip-ev"></span><button class="rbtn" id="slip-clear">clear</button></div>
-   ${same?'<div class="warn">Two or more legs share a game: they are correlated, so the true combined probability differs from the product shown.</div>':''}
-   <div class="row">${SLIP.map(s=>`<span>${esc(pickText(s.k,s.x))} <b>${pct(s.x.p,0)}</b></span>`).join(' · ')}</div></div>`;
-  const O=document.getElementById('slip-o'); O.oninput=()=>{ const d=parseOdds(O.value); const ev=d?p*d-1:null; document.getElementById('slip-ev').innerHTML = ev==null?'':`EV <b style="color:${ev>=0?'var(--green)':'var(--red)'}">${ev>=0?'+':''}${(ev*100).toFixed(1)}%</b>`; };
-  document.getElementById('slip-clear').onclick=()=>{ SLIP=[]; try{ localStorage.removeItem('egd_nfl_slip_'+P.season+'_'+P.week); }catch(e){} renderPicks(); renderSlip(); }; }
+  document.getElementById('picks').innerHTML = keys.map(k=>{ const L=P.picks[k]||[]; return `<div class="pk"><h3>${PK_LABEL[k]} ${verdTag(k)}</h3><p class="why">${why[k]}</p><ol>${L.map((x,i)=>{ const o=legFromPick(k,x); const r=legResult(o, byId[x.game_id], true);
+    return `<li class="leg2 ${SLIP.find(s=>s.id===o.id)?'on':''}" data-k="${k}" data-i="${i}"><span><span class="mu">${esc(pickText(k,x))}</span> ${markTxt(r)}<br><span class="t">${esc(x.mu)}${x.edge_pts!=null?` · model ${x.edge_pts>0?'+':''}${x.edge_pts} pts vs line`:''}${x.median!=null?` · median ${Math.round(x.median)}`:''}</span></span><span class="p">${pct(x.p)}</span></li>`; }).join('')}</ol></div>`; }).join('');
+  document.querySelectorAll('#picks .leg2').forEach(li=>li.onclick=()=>{ const x=P.picks[li.dataset.k][+li.dataset.i]; toggleLeg(legFromPick(li.dataset.k, x)); }); }
+
+// ------------------------------------------------------------- grading a leg from final (or live) results
+function legResult(l, g, live){ if(!g) return null; const A=g.actual||{}; let hs=A.hs, as_=A.as, h1=A.h1?A.h1[0]+A.h1[1]:null, final=hs!=null;
+  if(!final && live){ const F=finalOf(g); if(!F || (!F.final && !F.live)) return null; hs=F.hs; as_=F.as; h1=F.h1; final=F.final; }
+  if(hs==null) return null;
+  const ou = (v, done) => v==null ? null : ouRes(v, l.line, l.side, done);
+  switch(l.kind){
+    case 'ml': return final ? ((l.side==='home'?hs-as_:as_-hs)>0?'hit':(hs===as_?'tie':'miss')) : 'pending';
+    case 'spread': { if(!final) return 'pending'; const m=(l.side==='home'?hs-as_:as_-hs)+l.line; return m>0?'hit':(m===0?'tie':'miss'); }
+    case 'total': return ou(hs+as_, final);
+    case 'h1': return h1==null ? 'pending' : ouRes(h1, l.line, l.side, true);
+    case 'h2': return (final && h1!=null) ? ouRes(hs+as_-h1, l.line, l.side, true) : 'pending';
+  }
+  const o = live ? outc(g) : null; const H=l.tside==='home'; const side=H?'home':'away';
+  if(l.kind==='fg'){ const fg = A.fg || (o && o.fg); return fg ? ou(fg[side], final) : 'pending'; }
+  if(l.kind==='qb_yds'||l.kind==='qb_td'){ let q=null; if(A.qb && A.qb[side] && nameKey(A.qb[side].name)===nameKey(l.who)) q=A.qb[side]; else if(o && o.qb[side]) q=o.qb[side];
+    if(!q) return (A.qb ? 'void' : 'pending'); return ou(l.kind==='qb_yds'?q.yds:q.td, final && (!!A.qb || (o && o.propsFinal))); }
+  if(l.kind==='atd'){ if(A.scorers){ return A.scorers.includes(l.pid) ? 'hit' : 'miss'; } return o ? scored(o, {id:l.pid, name:l.who}) : 'pending'; }
+  return null; }
+
+// ------------------------------------------------------------- bet tracker (this browser)
+let BETS=[]; try{ BETS=JSON.parse(localStorage.getItem('egd_nfl_bets')||'[]'); }catch(e){}
+function saveBets(){ try{ localStorage.setItem('egd_nfl_bets', JSON.stringify(BETS)); }catch(e){} }
+function logBet(odds, stake, p){ const wk=P.season+'-w'+String(P.week).padStart(2,'0');
+  BETS.push({id:Date.now().toString(36), ts:new Date().toISOString(), week:wk, legs:SLIP.map(l=>({id:l.id, kind:l.kind, side:l.side, line:l.line, tside:l.tside, who:l.who, pid:l.pid, game_id:l.game_id, mu:l.mu, label:l.label, p:l.p, grade:l.grade, odds:l.odds||null})),
+    odds, stake, p, grade: SLIP.length===1 ? (SLIP[0].grade||'C') : 'parlay', model: M.model_version, status:'open'});
+  saveBets(); SLIP=[]; saveSlip(); renderScanner(); renderTop(); renderSlip(); renderTracker(); showTab('results', true); }
+const WEEKS_CACHE = {};
+async function gradeBets(){ const now=P.season+'-w'+String(P.week).padStart(2,'0'); let changed=false;
+  for(const b of BETS){ if(b.status!=='open') continue;
+    let games=null; if(b.week===now) games=byId; else { try{ if(!WEEKS_CACHE[b.week]) WEEKS_CACHE[b.week]=await fetchJSON(BASE+'weeks/'+b.week+'.json'); const gg={}; WEEKS_CACHE[b.week].games.forEach(g=>gg[g.game_id]=g); games=gg; }catch(e){ continue; } }
+    const rs=b.legs.map(l=>legResult(l, games[l.game_id], b.week===now)); b.results=rs;
+    if(rs.some(r=>r==='miss')){ b.status='lost'; b.ret=0; changed=true; }
+    else if(rs.every(r=>r==='hit'||r==='tie'||r==='void')){ const live=rs.filter(r=>r==='hit').length;
+      if(!live){ b.status='push'; b.ret=b.stake; } else { // a pushed or void leg drops out of a parlay: divide its price out when known
+        let o=b.odds; b.legs.forEach((l,i)=>{ if((rs[i]==='tie'||rs[i]==='void') && b.legs.length>1 && l.odds) o/=l.odds; }); b.status='won'; b.ret=b.stake*(b.legs.length===1?b.odds:o); }
+      changed=true; }
+    // closing price: the selection's price in the last build before kickoff (single bets with a book price)
+    if(b.legs.length===1 && b.closing==null){ const l=b.legs[0]; const g=games[l.game_id]; if(g && g.frozen){ const bp=bookPrice(g, l.kind, l.side, l.line, l.who); if(bp){ b.closing=bp.odds; changed=true; } } }
+  }
+  if(changed){ saveBets(); renderTracker(); } }
+function renderTracker(){ const el=document.getElementById('tracker'); const s=BETS.filter(b=>b.status!=='open'), open=BETS.length-s.length;
+  const staked=s.reduce((a,b)=>a+b.stake,0), ret=s.reduce((a,b)=>a+(b.ret||0),0), won=s.filter(b=>b.status==='won').length, lost=s.filter(b=>b.status==='lost').length, push=s.filter(b=>b.status==='push').length;
+  const avgO = BETS.length ? BETS.reduce((a,b)=>a+b.odds,0)/BETS.length : null; const avgP = (won+lost) ? s.filter(b=>b.status!=='push').reduce((a,b)=>a+b.p,0)/(won+lost) : null;
+  const clv = BETS.filter(b=>b.closing); const avgClv = clv.length ? clv.reduce((a,b)=>a+(b.odds/b.closing-1),0)/clv.length : null;
+  const group = keyf => { const t={}; s.forEach(b=>{ const k=keyf(b); t[k]=t[k]||{n:0,w:0,st:0,ret:0}; t[k].n++; t[k].w+=b.status==='won'; t[k].st+=b.stake; t[k].ret+=b.ret||0; }); return t; };
+  const tbl = (title, t, lab) => Object.keys(t).length ? `<div class="tbl"><table><tr><th>${title}</th><th>bets</th><th>won</th><th>staked</th><th>P/L</th><th>ROI</th></tr>${Object.entries(t).map(([k,v])=>`<tr><td>${esc(lab?lab(k):k)}</td><td>${v.n}</td><td>${v.w}</td><td>$${v.st.toFixed(2)}</td><td style="color:${v.ret-v.st>=0?'var(--green)':'var(--red)'}">${v.ret-v.st>=0?'+':''}$${(v.ret-v.st).toFixed(2)}</td><td>${v.st?((v.ret-v.st)/v.st*100).toFixed(1)+'%':'–'}</td></tr>`).join('')}</table></div>` : '';
+  el.innerHTML = `<h3>My bets <span class="mini" style="text-transform:none;letter-spacing:0">kept in this browser only; graded automatically from the results</span></h3>
+   ${BETS.length ? `<div class="kpis"><div><span class="k">bets</span><span class="v">${BETS.length}</span></div><div><span class="k">open</span><span class="v">${open}</span></div><div><span class="k">won-lost-push</span><span class="v">${won}-${lost}-${push}</span></div>
+     <div><span class="k">staked (settled)</span><span class="v">$${staked.toFixed(0)}</span><span class="t">${open?'$'+BETS.filter(b=>b.status==='open').reduce((a,b)=>a+b.stake,0).toFixed(0)+' open':''}</span></div><div><span class="k">profit</span><span class="v" style="color:${ret-staked>=0?'var(--green)':'var(--red)'}">${ret-staked>=0?'+':''}$${(ret-staked).toFixed(2)}</span></div>
+     <div><span class="k">ROI</span><span class="v">${staked?((ret-staked)/staked*100).toFixed(1)+'%':'–'}</span></div><div><span class="k">avg odds</span><span class="v">${avgO?avgO.toFixed(2):'–'}</span></div>
+     <div><span class="k">model said / won</span><span class="v">${avgP!=null?pct(avgP,0)+' / '+pct(won/Math.max(1,won+lost),0):'–'}</span></div><div><span class="k">avg CLV</span><span class="v">${avgClv!=null?(avgClv>=0?'+':'')+(avgClv*100).toFixed(1)+'%':'–'}</span></div></div>
+     ${tbl('Market', group(b=>b.legs.length>1?'parlay':(KIND[b.legs[0].kind]||b.legs[0].kind)))}${tbl('Grade at bet time', group(b=>b.grade))}
+     <div class="tbl"><table><tr><th>Placed</th><th>Bet</th><th>odds</th><th>model</th><th>stake</th><th>result</th><th>CLV</th><th></th></tr>${BETS.slice().reverse().map(b=>`<tr><td>${b.ts.slice(5,10)}</td><td style="white-space:normal;text-align:left">${b.legs.map(l=>esc(l.label)).join(' + ')}<span class="t"> ${esc(b.legs[0].mu)}${b.legs.length>1?' …':''}</span></td><td>${b.odds.toFixed(2)}</td><td>${pct(b.p,0)}</td><td>$${b.stake}</td><td>${b.status==='open'?'open':(b.status==='won'?`<b style="color:var(--green)">won $${(b.ret-b.stake).toFixed(2)}</b>`:(b.status==='push'?'push':`<b style="color:var(--red)">lost</b>`))}</td><td>${b.closing?((b.odds/b.closing-1)*100).toFixed(1)+'%':''}</td><td><a href="#" data-del="${b.id}">delete</a></td></tr>`).join('')}</table></div>
+     <p><button class="rbtn" style="margin:0" id="bets-csv">download CSV</button></p>` : '<p>No bets logged yet. Build a slip in the Scanner, enter your book\'s odds and stake, and press "log bet". Results grade themselves after the games; closing-line value appears once book odds are connected.</p>'}`;
+  el.querySelectorAll('a[data-del]').forEach(a=>a.onclick=e=>{ e.preventDefault(); if(!confirm('Delete this bet?')) return; BETS=BETS.filter(b=>b.id!==a.dataset.del); saveBets(); renderTracker(); });
+  const c=document.getElementById('bets-csv'); if(c) c.onclick=()=>{ const rows=[['placed','week','legs','game','odds','stake','model_prob','grade','status','return','closing_odds','model_version']].concat(BETS.map(b=>[b.ts,b.week,b.legs.map(l=>l.label).join(' + '),b.legs.map(l=>l.mu).join(' + '),b.odds,b.stake,b.p.toFixed(4),b.grade,b.status,b.ret==null?'':b.ret.toFixed(2),b.closing||'',b.model]));
+    const blob=new Blob([rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n')], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='nfl-bets.csv'; a.click(); }; }
 
 // ------------------------------------------------------------- results
 function renderResults(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd']; const t={};
-  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=pickResult(k,x); if(!r||r==='pending') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
+  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
   const any=Object.keys(t).length;
   document.getElementById('wkresults').innerHTML = `<h3>This week's leans</h3>${any?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th></tr>${keys.filter(k=>t[k]).map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${t[k].hit}</td><td>${t[k].miss}</td><td>${t[k].tie}</td></tr>`).join('')}</table></div>`:'<p>No lean has been decided yet. Results fill in live as the games are played (scores and box scores from ESPN), and are confirmed from the play-by-play the next morning.</p>'}`;
   fetchJSON(BASE+'scorecard.json').then(sc=>{ const S=sc.summary||{}; const ks=keys.filter(k=>S[k]);
@@ -465,15 +694,18 @@ function renderResults(){ const keys=['ml','spread','total','h1','h2','fg','qb_y
 function renderAbout(){ const el=document.getElementById('validation'); const C=M.cfg||{};
   if(!V){ el.innerHTML='<h3>Validation</h3><p>The walk-forward backtest has not been published yet.</p>'; }
   else { const keys=[['moneyline','Moneyline'],['spread','Spread'],['total','Total'],['h1_total','1st half total'],['h2_total','2nd half total'],['fg_over0.5','Team FGs o0.5'],['fg_over1.5','Team FGs o1.5'],['fg_over2.5','Team FGs o2.5'],['qb_yards','QB passing yards'],['qb_td_over0.5','QB TDs o0.5'],['qb_td_over1.5','QB TDs o1.5'],['qb_td_over2.5','QB TDs o2.5'],['anytime_td','Anytime TD']];
-    const row = (S,k,l) => { const m=S[k]; if(!m||!m.n) return ''; const v=m.verdict; return `<tr><td>${l}</td><td>${m.n.toLocaleString()}</td><td>${m.ll_model}</td><td>${m.ll_base}</td><td>${m.gain>=0?'+':''}${m.gain} ± ${m.se}</td><td><span class="verd ${v==='beats baseline'?'beats':(v==='marginal'?'marginal':'none')}">${v}</span></td></tr>`; };
+    const row = (S,k,l) => { const m=S[k]; if(!m||!m.n) return ''; const v=m.verdict; return `<tr><td>${l}</td><td>${m.n.toLocaleString()}</td><td>${m.ll_model}</td><td>${m.ll_base}</td><td>${m.brier_model??''}</td><td>${m.brier_base??''}</td><td>${m.accuracy!=null?pct(m.accuracy,1):''}</td><td>${m.gain>=0?'+':''}${m.gain} ± ${m.se}</td><td><span class="verd ${v==='beats baseline'?'beats':(v==='marginal'?'marginal':'none')}">${v}</span></td></tr>`; };
+    const cal = (k,l) => { const m=V.pooled[k]; if(!m||!m.calibration||!m.calibration.length) return ''; return `<details style="margin:4px 0"><summary class="small" style="cursor:pointer">${l}: predicted vs actual by probability band</summary><div class="tbl"><table><tr><th>band</th><th>predicted</th><th>actual</th><th>n</th></tr>${m.calibration.map((b,i)=>`<tr><td>${i+1}</td><td>${pct(b.p)}</td><td>${pct(b.hit)}</td><td>${b.n.toLocaleString()}</td></tr>`).join('')}</table></div></details>`; };
     const bets = m => (m && m.bets) ? m.bets.map(b=>`${pct(b.threshold,0)}+: ${b.bets} bets, ${b.win_rate!=null?pct(b.win_rate):'–'} won, ROI ${b.roi!=null?(b.roi>=0?'+':'')+(b.roi*100).toFixed(1)+'%':'–'}`).join(' · ') : '';
     const B=V.pooled.blend||{};
     el.innerHTML = `<h3>Walk-forward validation · seasons ${esc((V.seasons||[]).join(', '))}</h3>
     <p>Every week of each test season was predicted using only games played before it. Log loss (lower is better) is compared with a baseline that needs no model; the difference is the model's gain, with its standard error. "Beats baseline" means the gain is more than two standard errors.</p>
-    <div class="tbl"><table><tr><th>Market</th><th>n</th><th>model</th><th>baseline</th><th>gain</th><th>verdict</th></tr>${keys.map(([k,l])=>row(V.pooled,k,l)).join('')}</table></div>
+    <div class="tbl"><table><tr><th>Market</th><th>n</th><th>log loss</th><th>baseline</th><th>Brier</th><th>baseline</th><th>right side</th><th>gain (log loss)</th><th>verdict</th></tr>${keys.map(([k,l])=>row(V.pooled,k,l)).join('')}</table></div>
+    <p class="small">Calibration: each market's predictions split into ten bands of equal size; a well-calibrated model's "actual" matches its "predicted".</p>${keys.map(([k,l])=>cal(k,l)).join('')}
     <p class="small">Baselines: moneyline = the closing line with the vig removed; spread and total = 50/50 at the closing number; halves and field goals = the hit rate of the same line over the same games (known only in hindsight, which flatters the baseline); quarterback yards = 50/50 at his recent average; touchdowns = a Poisson at his recent rate; anytime touchdown = each player's own recent rate.</p>
     <p class="small">Betting the model alone against the closing spread: ${bets(V.pooled.spread)}.<br>Against the closing total: ${bets(V.pooled.total)}.</p>
     <p class="small">How much of the model's disagreement with the closing line to keep (regression of the result on model minus line): margin w = ${B.margin?B.margin.w+' ± '+B.margin.se:'n/a'}, total w = ${B.total?B.total.w+' ± '+B.total.se:'n/a'}. In use: margin ${(M.blend||{}).margin??0}, total ${(M.blend||{}).total??0}.</p>
+    <p class="small">Moneyline and spread on the cards: the simulated margins are about 7% wider than real NFL margins around the closing spread, which on its own understated favourites (a 7.5-point favourite near 70% where the market says 78%). Each game's simulated outcomes are therefore reweighted to match the market's vig-free moneyline and spread prices; walk-forward this matched or beat the raw simulation in both test seasons.</p>
     ${V.pooled.qb_yards?`<p class="small">Quarterback yards, mean absolute error: model median ${V.pooled.qb_yards.mae_model_median} vs his recent average ${V.pooled.qb_yards.mae_recent_avg}.</p>`:''}
     <h3 style="margin-top:12px">By season</h3><div class="tbl"><table><tr><th>Season</th>${keys.slice(0,9).map(([,l])=>`<th>${l}</th>`).join('')}</tr>${Object.entries(V.by_season||{}).map(([s,S])=>`<tr><td>${s}</td>${keys.slice(0,9).map(([k])=>{const m=S[k]; return `<td>${m&&m.n?(m.gain>=0?'+':'')+m.gain:''}</td>`;}).join('')}</tr>`).join('')}</table></div>
     <p class="small">generated ${esc(V.generated_utc||'')} · ${(V.sims||0).toLocaleString()} sims per game in the backtest.</p>`; }
@@ -487,7 +719,7 @@ function renderAbout(){ const el=document.getElementById('validation'); const C=
   <p><b>Limits.</b> No play-level personnel model (offensive line, cornerbacks), no in-game injuries, no garbage-time substitutions; questionable players are included and flagged. The market already prices most of this, which is why the game lines follow it.</p>`;
   document.getElementById('foot').innerHTML = `Model ${esc(M.model_version)} · generated ${esc(P.generated_utc)} in ${M.seconds}s · <a href="${BASE}weeks/${P.season}-w${String(P.week).padStart(2,'0')}.json">payload JSON</a> · <a href="${BASE}weeks/${P.season}-w${String(P.week).padStart(2,'0')}.csv">CSV</a>`; }
 
-function render(){ renderLivebar(); renderBoard(); renderCards(); renderPicks(); renderSlip(); renderResults(); }
+function render(){ renderLivebar(); renderBoard(); renderCards(); renderScanner(); renderTop(); renderSlip(); renderResults(); renderTracker(); gradeBets(); }
 renderToolbar(); renderPC(); renderResearch(); renderAbout(); render();
 document.getElementById('fab').onclick=()=>{ const f=document.getElementById('fab'); f.classList.add('spin'); refreshLive().finally(()=>setTimeout(()=>f.classList.remove('spin'),400)); };
 refreshLive();
@@ -498,24 +730,39 @@ setInterval(()=>{ const now=Date.now(); const near=P.games.some(g=>{ const k=kic
 """
 
 
+def _book_spread(home: str, away: str, s) -> str:
+    """nflverse's spread_line is the expected home margin; books write it as the favourite minus the points."""
+    if s is None:
+        return "no line"
+    return f"{home} -{s:g}" if s > 0 else (f"{away} -{-s:g}" if s < 0 else "pick'em")
+
+
 def static_summary(p: dict) -> str:
-    """No-JS summary (for readers and tools that do not run scripts)."""
+    """No-JS summary (for readers and tools that do not run scripts). Every number names its team."""
     rows = []
     for g in sorted(p["games"], key=lambda g: g.get("kickoff_utc") or ""):
         mk = g["markets"]; L = g.get("lines") or {}
+        a, h = g["away"], g["home"]
         sp = mk.get("spread") or {}; to = mk.get("total") or {}
         qa, qh = mk["qb"]["away"], mk["qb"]["home"]
-        top = (g.get("anytime") or {}).get("home", [])[:1] + (g.get("anytime") or {}).get("away", [])[:1]
-        tops = ", ".join("%s %.0f%%" % (x["name"], x["p"] * 100) for x in top)
-        rows.append(f"<tr><td>{g['away']} @ {g['home']}</td><td>{g['date']} {g['time']}</td><td>{mk['ml']['away']*100:.1f}% / {mk['ml']['home']*100:.1f}%</td>"
-                    f"<td>{L.get('spread', '')}: {sp.get('home_cover', 0)*100:.1f}% home</td><td>{L.get('total', '')}: {to.get('over', 0)*100:.1f}% over</td>"
-                    f"<td>{mk['h1_fair_line']} / {mk['h2_fair_line']}</td><td>{mk['fg']['away']['over1.5']*100:.0f}% / {mk['fg']['home']['over1.5']*100:.0f}%</td>"
-                    f"<td>{qa['yds_fair_line']} / {qh['yds_fair_line']}</td><td>{qa['td_over1.5']*100:.0f}% / {qh['td_over1.5']*100:.0f}%</td>"
-                    f"<td>{tops}</td></tr>")
+        s = L.get("spread")
+        fav_side = "home" if (s or 0) > 0 else "away"
+        cover = sp.get("home_cover") if fav_side == "home" else sp.get("away_cover")
+        spread_txt = f"{_book_spread(h, a, s)}: {cover*100:.1f}% covers" if s not in (None, 0) and cover is not None else _book_spread(h, a, s)
+        tops = []
+        for side in ("away", "home"):
+            lst = (g.get("anytime") or {}).get(side, [])[:2]
+            if lst:
+                tops.append(f"{g[side]}: " + ", ".join("%s %.0f%%" % (x["name"], x["p"] * 100) for x in lst))
+        rows.append(f"<tr><td>{a} @ {h}</td><td>{g['date']} {g['time']}</td><td>{a} {mk['ml']['away']*100:.1f}% · {h} {mk['ml']['home']*100:.1f}%</td>"
+                    f"<td>{spread_txt}</td><td>{L.get('total', '')}: over {to.get('over', 0)*100:.1f}%</td>"
+                    f"<td>{mk['h1_fair_line']} / {mk['h2_fair_line']}</td><td>{a} {mk['fg']['away']['over1.5']*100:.0f}% · {h} {mk['fg']['home']['over1.5']*100:.0f}%</td>"
+                    f"<td>{g['qb']['away'].get('name','')} {qa['yds_fair_line']} · {g['qb']['home'].get('name','')} {qh['yds_fair_line']}</td>"
+                    f"<td>{a} {qa['td_over1.5']*100:.0f}% · {h} {qh['td_over1.5']*100:.0f}%</td><td>{' | '.join(tops)}</td></tr>")
     return (f'<div class="static" id="static"><h1>NFL {p["season"]} week {p["week"]}</h1><p>Probabilities from {p["meta"]["sims"]:,} simulated games per matchup. '
-            f'Columns: moneyline away / home; home cover at the market spread; over at the market total; fair 1st / 2nd half lines; team field goals over 1.5 away / home; '
-            f'fair QB passing-yard lines away / home; QB over 1.5 TD passes away / home; top anytime touchdown per team. Updated {p["generated_utc"]}.</p>'
-            f'<table><tr><th>Game</th><th>Kickoff (ET)</th><th>ML</th><th>Spread</th><th>Total</th><th>1H/2H</th><th>FG o1.5</th><th>QB yds</th><th>QB TD o1.5</th><th>Anytime TD</th></tr>'
+            f'Away team listed first. Spread in sportsbook form (favourite minus points) with the favourite\'s cover probability; '
+            f'fair 1st / 2nd half total lines; team field goals made over 1.5; fair QB passing-yard lines; QB over 1.5 TD passes; top anytime touchdown scorers per team. Updated {p["generated_utc"]}.</p>'
+            f'<table><tr><th>Game</th><th>Kickoff (ET)</th><th>Moneyline</th><th>Spread</th><th>Total</th><th>1H/2H fair</th><th>FG o1.5</th><th>QB yds fair</th><th>QB TD o1.5</th><th>Anytime TD</th></tr>'
             + "".join(rows) + "</table></div>")
 
 

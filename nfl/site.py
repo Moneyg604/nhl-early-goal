@@ -104,7 +104,22 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep: int = 4
         payload = freeze_started(new, old)
         old_f.write_text(json.dumps(payload, separators=(",", ":")))
         (wdir / f"{name}.csv").write_text(_csv(payload))
-    names = sorted((p.stem for p in wdir.glob("*.json")), reverse=True)[:keep]
+        # simulation samples for same-game parlays: started games keep the samples behind their frozen numbers
+        sf = out_dir / f"week-{name}.sims.json"
+        if sf.exists():
+            new_s = json.loads(sf.read_text())
+            old_sf = wdir / f"{name}.sims.json"
+            if old_sf.exists():
+                try:
+                    old_s = json.loads(old_sf.read_text())
+                    frozen = {g["game_id"] for g in payload["games"] if g.get("frozen")}
+                    for gid in frozen:
+                        if gid in old_s.get("games", {}):
+                            new_s["games"][gid] = old_s["games"][gid]
+                except json.JSONDecodeError:
+                    pass
+            old_sf.write_text(json.dumps(new_s, separators=(",", ":")))
+    names = sorted((p.stem for p in wdir.glob("*.json") if not p.name.endswith(".sims.json")), reverse=True)[:keep]
     if not names:
         raise SystemExit("nothing to publish: run `python -m nfl run` first")
     published = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")

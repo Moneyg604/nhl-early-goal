@@ -227,7 +227,7 @@ def cmd_run(args: argparse.Namespace) -> None:
                 print(f"note: DailyFaceoff returned nothing for {d}; goalies come from overrides.json or usage.")
         print(f"{d}: {len(slate)} games, profiles from {lp.games} games ({len(current)} this season, data through {dmeta.get('data_through', 'n/a')}); simulating {sims:,} paths per game ...")
         prev_payload = None if args.demo else previous_payload(d)
-        if not args.demo and os.environ.get("ODDS_API_KEY") and i == 0:
+        if not args.demo and os.environ.get("ODDS_API_KEY") and i == 0 and os.environ.get("EGD_REASON", "morning") in ("morning", "t120"):
             try:
                 from .odds import fetch as fetch_odds
 

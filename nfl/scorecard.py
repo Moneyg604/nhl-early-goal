@@ -67,7 +67,7 @@ def build_scorecard(site_dir=None) -> dict:
     site_dir = site_dir or SITE_DIR
     wdir = site_dir / "weeks"
     payloads = []
-    for f in sorted(wdir.glob("*.json")):
+    for f in sorted(x for x in wdir.glob("*.json") if not x.name.endswith(".sims.json")):
         try:
             payloads.append(json.loads(f.read_text()))
         except json.JSONDecodeError:

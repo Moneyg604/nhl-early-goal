@@ -1,6 +1,8 @@
 """Market prices from The Odds API (https://the-odds-api.com), when a key is configured.
 
-The free tier (500 requests a month) covers a handful of calls a day. One call returns every NHL game with
+Each call costs 3 credits in region "us" (DraftKings, FanDuel, BetMGM, BetRivers and other books available in
+Ontario); the NHL build calls it on the morning and two-hours-before runs only, about 180 credits a month, so the
+free plan (500 a month) also leaves room for the NFL section. One call returns every NHL game with
 moneyline (h2h), the main total and the puck line from each listed book. We keep, per game and market,
 the best price on offer and which book offered it, and write it in the shape `rank.load_odds` reads:
 
@@ -112,7 +114,7 @@ def parse_events(events: list[dict], date_et: str | None = None) -> dict[str, di
     return out
 
 
-def fetch(date_et: str, api_key: str | None = None, regions: str = "us,us2,uk,eu", path: Path | None = None) -> dict[str, dict]:
+def fetch(date_et: str, api_key: str | None = None, regions: str = "us", path: Path | None = None) -> dict[str, dict]:
     """Fetch and merge into data/odds.json under `date_et`. Returns that day's block; {} without a key."""
     import requests  # type: ignore
 
