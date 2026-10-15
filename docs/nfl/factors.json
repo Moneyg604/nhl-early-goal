@@ -34,7 +34,7 @@
   "test_season": 2025
  },
  "switches": {},
- "updated_utc": "2026-10-15 03:33 UTC",
+ "updated_utc": "2026-10-15 05:11 UTC",
  "tested": [
   {
    "name": "Recent seasons weighted 35% / 15% (instead of 60% / 30%)",
@@ -94,6 +94,21 @@
   {
    "name": "Receptions props from reception share x simulated completions",
    "result": "7,182 player-games: gain 0.0323 +/- 0.0046 vs the trailing average; median error 1.63 vs 1.71",
+   "kept": true
+  },
+  {
+   "name": "Player candidates chosen from pregame rosters and injury reports (look-ahead removed)",
+   "result": "the test used to pick touchdown and yardage candidates from who touched the ball in the game; it now uses that week's active roster minus Out / Doubtful, exactly as the live page does, and settles only players who took the field (a scratch is a void bet). Anytime TD gain 0.0218 +/- 0.0015 over 17,710 player-games; yardage props unchanged; listed candidates score 96.5% of team touchdowns",
+   "kept": true
+  },
+  {
+   "name": "All markets read from one market-reweighted distribution (halves, field goals, passing, players share the moneyline / spread weights)",
+   "result": "1st half 0.0003 vs -0.0009, 2nd half 0.0010 vs 0.0004, QB TDs over 1.5 0.0111 vs 0.0087 (now beats baseline), QB yards and yardage props unchanged; the cards and the parlay slip now price from the same joint distribution",
+   "kept": true
+  },
+  {
+   "name": "Overtime rules (2025: both teams possess after a first-drive touchdown, then next score wins, defensive scores end it, clock expiry ties)",
+   "result": "unit-tested rule by rule; simulated overtime rate 4.5% vs 5.3% actual (2023-25), simulated ties 0.3% vs 0.1%",
    "kept": true
   }
  ],
