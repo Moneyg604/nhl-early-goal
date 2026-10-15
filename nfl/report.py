@@ -139,7 +139,7 @@ __STATIC__
   <p class="lead">Every selection the model prices, in every market, nothing hidden. Win probability and value are separate columns: the likeliest bet is not the best bet. Grades combine three things: whether the backtest found an edge in that market, how solid the inputs are, and the expected value at the best book price.</p>
   <details class="panel gradehelp"><summary><b>How the grades work</b></summary>
    <p><b>S</b>: market beats its baseline in the backtest, tier A inputs, and at least +5% expected value at the best price. <b>A</b> and <b>B</b>: two of the three are strong. <b>C</b>: marginal evidence or data. <b>D</b>: negative expected value at the best price, or a market where the backtest found no edge. Without a book price the best possible grade is B, because value is unknown. Moneyline, spread and total probabilities are the market's own (the model does not beat it), so their value comes only from finding a better price than the market consensus.</p>
-   <p>The "backtest" column shows how often selections the model rated at about the same probability actually won over 2023 to 2025.</p></details>
+   <p>The "backtest" column shows how often selections the model rated at about the same probability actually won over 2023 to 2025. Anytime TD value is judged on the average of the model's chance and the chance implied by the book's price (the price knows about roles the data cannot see); a player the book prices at less than half the model's chance is capped at C.</p></details>
   <div class="panel" id="slip"></div>
   <div class="panel" id="scanner"></div>
   <h2>Published leans <small>the strongest lean per market, graded in the track record</small></h2>
@@ -475,6 +475,7 @@ function calBand(kind, line, side, p){ if(kind==='ml'||kind==='spread'||kind==='
   return best ? {p: flip?1-best.p:best.p, hit: flip?1-best.hit:best.hit, n: best.n} : null; }
 function gradeOf(o){ const E=o.E, Q=o.Q; let v=null; if(o.ev!=null) v = o.ev>=0.05 ? 2 : (o.ev>=0 ? 1 : -1); o.Vv=v;
   if(v===-1) return 'D';
+  if(o.longshot) return 'C';                       // the market prices him at less than half the model's chance
   if(v===null) return (E===2 && Q>=1) ? 'B' : (E>=1 ? 'C' : 'D');
   if(E===2 && Q===2 && v===2) return 'S'; const s=E+Q+v; return s>=5 ? 'A' : (s>=4 ? 'B' : 'C'); }
 let MYBOOK='DraftKings'; try{ const v=localStorage.getItem('egd_book'); if(v!==null) MYBOOK=v; }catch(e){}
@@ -509,7 +510,11 @@ function buildSelections(){ const out=[];
     const uncertain = side => (g.tier_why||[]).some(w=>w.startsWith(g[side]+':') && w.includes('uncertain'));
     const add = o => { o.game_id=g.game_id; o.mu=mu; o.kick=g.kickoff_utc||''; o.tier=g.tier;
       o.fair = o.p>0 ? (1-(o.push||0))/o.p : null;
-      const bp = bookPrice(g, o.kind, o.side, o.line, o.who); if(bp){ o.odds=bp.odds; o.book=bp.book; o.cons=bp.cons; o.ev = o.p*(bp.odds-1) - (1-o.p-(o.push||0)); }
+      const bp = bookPrice(g, o.kind, o.side, o.line, o.who); if(bp){ o.odds=bp.odds; o.book=bp.book; o.cons=bp.cons;
+        // anytime TD: the book's price carries role information the data cannot see (blocking tight ends, package players),
+        // so value is judged on the average of the model and the price's implied chance (a 20% hold assumed)
+        let pe=o.p; if(o.kind==='atd'){ const imp=Math.min(0.95, 0.8/bp.odds); pe=(o.p+imp)/2; o.p_ev=pe; o.longshot = imp < o.p/2; }
+        o.ev = pe*(bp.odds-1) - (1-pe-(o.push||0)); }
       o.E = evidence(o.kind, o.line); o.Q = Math.max(0, (g.tier==='A'?2:(g.tier==='B'?1:0)) - (o.questionable?1:0));
       o.grade = gradeOf(o); o.band = calBand(o.kind, o.line, o.side, o.p);
       o.id = [o.kind, g.game_id, o.side, o.line, o.who||o.team||''].join('|'); out.push(o); };
@@ -534,7 +539,7 @@ function buildSelections(){ const out=[];
   return out; }
 const SELS = buildSelections(); const SEL_BY = {}; SELS.forEach(s=>SEL_BY[s.id]=s);
 const GRADE_ORDER = {S:0, A:1, B:2, C:3, D:4};
-let SC = {kind:'all', game:'all', team:'', grades:['S','A','B','C','D'], minp:0, odds:true, q:'', sort:'ev', n:60};
+let SC = {kind:'all', game:'all', team:'', grades:['S','A','B','C','D'], minp:0, odds:true, q:'', sort:'grade', n:60};
 try{ SC = Object.assign(SC, JSON.parse(localStorage.getItem('egd_nfl_scan')||'{}'), {n:60}); }catch(e){}
 function saveSC(){ try{ localStorage.setItem('egd_nfl_scan', JSON.stringify(SC)); }catch(e){} }
 function selResult(o){ const g=byId[o.game_id]; return legResult(o, g, true); }
@@ -563,7 +568,7 @@ function renderScanner(){ const el=document.getElementById('scanner');
       <span class="num n-win"><span class="k">win</span><b>${pct(o.p)}</b>${o.push>0.005?`<span class="t">push ${pct(o.push)}</span>`:''}</span>
       <span class="num n-fair"><span class="k">fair</span>${o.fair?o.fair.toFixed(2):'–'}<span class="t">${o.fair?dec2am(o.fair):''}</span></span>
       <span class="num n-book"><span class="k">book</span>${o.odds?o.odds.toFixed(2):'–'}<span class="t">${o.odds?esc(o.book||''):'no price'}</span></span>
-      <span class="num n-ev"><span class="k">EV</span>${o.ev==null?'–':`<b style="color:${o.ev>=0?'var(--green)':'var(--red)'}">${o.ev>=0?'+':''}${(o.ev*100).toFixed(1)}%</b>`}${o.cons!=null?`<span class="t">market ${pct(o.cons,0)}</span>`:''}</span>
+      <span class="num n-ev"><span class="k">EV</span>${o.ev==null?'–':`<b style="color:${o.ev>=0?'var(--green)':'var(--red)'}">${o.ev>=0?'+':''}${(o.ev*100).toFixed(1)}%</b>`}${o.cons!=null?`<span class="t">market ${pct(o.cons,0)}</span>`:(o.p_ev!=null?`<span class="t">on ${pct(o.p_ev,0)} blended</span>`:'')}</span>
       <span class="num n-bt"><span class="k">backtest</span>${o.band?`${pct(o.band.hit,0)} hit<span class="t">when rated ~${pct(o.band.p,0)} (n ${o.band.n})</span>`:'<span class="t">market price</span>'}</span></div>`; }).join('')}</div>
    ${total>SC.n?`<div style="text-align:center;margin-top:8px"><button class="rbtn" style="margin:0" id="sc-more">show ${Math.min(60,total-SC.n)} more</button></div>`:''}`;
   const on = (id, ev, fn) => { const e=document.getElementById(id); if(e) e[ev]=fn; };
@@ -578,7 +583,8 @@ function renderScanner(){ const el=document.getElementById('scanner');
 function gradeWhy(o){ const e = o.E===2?'the backtest found this market beats its baseline':(o.E===1?(o.kind==='ml'||o.kind==='spread'||o.kind==='total'?'game lines use the market price (no model edge)':'the backtest found this market marginal'):'the backtest found no edge in this market');
   const q = o.Q===2?'tier A data':(o.Q===1?'tier B data or a questionable player':'thin or uncertain data');
   const v = o.Vv==null?'no book price yet (top grade without a price is B)':(o.Vv===2?'EV at least +5% at the best price':(o.Vv===1?'EV 0 to +5%':'negative EV at the best price'));
-  return `${o.grade}: ${e}; ${q}; ${v}.`; }
+  const ls = o.longshot ? ' The book prices this player at less than half the model\'s chance, which usually means a role the data cannot see; capped at C.' : '';
+  return `${o.grade}: ${e}; ${q}; ${v}.${ls}`; }
 
 // ------------------------------------------------------------- slip: correlation-aware parlays
 let SLIP=[]; try{ SLIP=JSON.parse(localStorage.getItem('egd_nfl_slip_'+P.season+'_'+P.week)||'[]').filter(x=>x && x.kind); }catch(e){}

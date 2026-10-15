@@ -38,6 +38,13 @@ def candidates(P: Profiles, team: str, *, played: set[str] | None = None, availa
                 continue
             if available is None and not any(r["date"] in recent_dates for r in pp.recent[-recent_games:]):
                 continue
+        if played is None:
+            # live: a real recent role (touches or targets in the last three games, or a third of the snaps last game)
+            last3 = pp.recent[-3:]
+            usage = sum(r["car"] + r["tgt"] for r in last3)
+            snap_last = pp.snaps[-1][1] if pp.snaps else 0.0
+            if usage < 3 and snap_last < 0.33:
+                continue
         rec, rush = pp.shares(cfg)
         trend = pp.snap_trend(cfg) if cfg.use_snap_trend else 1.0
         rec, rush = rec * trend, rush * trend
