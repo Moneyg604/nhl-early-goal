@@ -26,6 +26,7 @@ ASSETS = {
     "depth": NFLVERSE + "/depth_charts/depth_charts_{season}.parquet",
     "rosters": NFLVERSE + "/weekly_rosters/roster_weekly_{season}.parquet",
     "players": NFLVERSE + "/players/players.parquet",
+    "snaps": NFLVERSE + "/snap_counts/snap_counts_{season}.parquet",
 }
 
 # Live scoreboard (public ESPN endpoint, CORS-enabled; used by the page and by the live-scores job)
@@ -53,7 +54,9 @@ class ModelConfig:
     k_dropbacks: float = 100.0                    # dropbacks per drive, in drives
     k_td_share: float = 12.0                      # player share of team touchdowns, in team touchdowns
     k_context: float = 400.0                      # home / rest / roof / wind effects, in drives
-    recency_half_life_games: float = 12.0         # exponential weighting of a player's own games
+    recency_half_life_games: float = 6.0          # exponential weighting of a player's own games (walk-forward: 6 beat 12 for anytime TD)
+    use_snap_trend: bool = True                   # scale touchdown shares by the recent change in snap share (walk-forward: kept)
+    snap_trend_weight: float = 0.5
 
     # --- game structure ----------------------------------------------------------------------
     half_seconds: int = 1800
@@ -82,7 +85,7 @@ class ModelConfig:
     tier_b_min_games: int = 2
 
 
-PRUNABLE = ("use_rest", "use_roof", "use_wind", "use_qb_blend", "use_half_shape", "use_division")
+PRUNABLE = ("use_rest", "use_roof", "use_wind", "use_qb_blend", "use_half_shape", "use_division", "use_snap_trend")
 
 
 def _load_factor_switches() -> dict:

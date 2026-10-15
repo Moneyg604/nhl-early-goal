@@ -1,5 +1,5 @@
-// Early Goal Desk service worker: network first, fall back to the last copy when offline.
-const CACHE = 'egd-v2';
+// Gill Sports service worker: network first, fall back to the last copy when offline.
+const CACHE = 'gs-v1';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch', e => {

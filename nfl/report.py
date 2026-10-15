@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 
+from earlygoal.brand import BRAND_CSS, brand_html
 from earlygoal.report import TEMPLATE as _NHL
 
 BASE_CSS = _NHL[_NHL.index("<style>") + len("<style>"):_NHL.index("</style>")]
@@ -91,7 +92,7 @@ TEMPLATE = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Early Goal Desk</title>
+<title>Gill Sports · NFL</title>
 <meta name="description" content="NFL week __WEEK__: moneyline, spread, totals, half totals, team field goals, quarterback passing and anytime touchdown probabilities from a drive-level simulation">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
@@ -101,7 +102,7 @@ TEMPLATE = r"""<!doctype html>
 <button id="fab" title="Refresh live scores" aria-label="Refresh live scores">↻</button>
 <div class="app"><div class="wrap">
   <div class="row">
-    <div class="brand"><span class="bt">Early <span>Goal</span> Desk</span><nav class="sport" aria-label="sport"><a href="__NHL_HREF__">NHL</a><a class="on" href="#">NFL</a></nav></div>
+    __BRAND__
     <div class="hmeta"><span id="dayslot"></span></div>
   </div>
   <nav class="tabs" id="tabs">
@@ -128,6 +129,7 @@ __STATIC__
 
 <section class="tab" id="tab-research">
   <p class="lead">What was measured before the numbers were produced: each team's drive results against what the league scores from the same situations, pace, passing, kicking, the quarterback, the injury report and the context of the game. Sample sizes are shown; every multiplier is shrunk toward the league in proportion to how little data stands behind it.</p>
+  <div class="panel" id="sources"></div>
   <div class="panel" id="factors"></div>
   <h2>Game dossiers</h2>
   <div id="dossiers"></div>
@@ -410,6 +412,14 @@ function teamRows(a, h){ const rows = [['Record', a.record, h.record], ['Points 
   ['Seconds per drive (pace)', a.offense&&a.offense.secs_per_drive, h.offense&&h.offense.secs_per_drive], ['EPA per play, offense', a.epa_off_per_play, h.epa_off_per_play], ['EPA per play allowed', a.epa_def_per_play, h.epa_def_per_play],
   ['Points per drive (weighted)', a.offense&&a.offense.ppd, h.offense&&h.offense.ppd], ['1H / 2H points per game', `${a.h1_pts_avg??'–'} / ${a.h2_pts_avg??'–'}`, `${h.h1_pts_avg??'–'} / ${h.h2_pts_avg??'–'}`],
   ['Field goals made per game', a.fg_made_avg, h.fg_made_avg], ['Drives in the profile', a.offense&&a.offense.drives, h.offense&&h.offense.drives]];
+  const A=(a.adv||{}), Hh=(h.adv||{});
+  const pr = (x, adv, side, k, fmt) => { const v=((adv||{})[side]||{})[k]; if(v==null) return '–'; const r=((adv||{})['rank_'+side]||{})[k];
+    return `${fmt==='s'?v.toFixed(1)+'s':(fmt==='e'?(v>=0?'+':'')+v.toFixed(2):pct(v,1))}${r?` <span class="t">${r}${r===1?'st':(r===2?'nd':(r===3?'rd':'th'))}</span>`:''}`; };
+  const adv = [['Success rate, offense', 'off','success'], ['Success rate allowed', 'def','success'], ['Explosive plays, offense', 'off','explosive'], ['Explosive plays allowed', 'def','explosive'],
+    ['Third-down conversions', 'off','third_down'], ['Third downs allowed', 'def','third_down'], ['Red-zone trips ending in a TD', 'off','red_zone_td'], ['Red-zone TD rate allowed', 'def','red_zone_td'],
+    ['Sacks taken per dropback', 'off','sack_rate'], ['Sacks per opponent dropback', 'def','sack_rate'], ['EPA per pass play', 'off','epa_pass','e'], ['EPA per pass play allowed', 'def','epa_pass','e'],
+    ['EPA per run', 'off','epa_rush','e'], ['EPA per run allowed', 'def','epa_rush','e'], ['Seconds per play (neutral)', 'off','pace','s'], ['Pass rate over expected (neutral)', 'off','proe']];
+  rows.push(...adv.map(([lab, side, k, f]) => [lab + (side==='def'?'':''), pr(a, A, side, k, f), pr(h, Hh, side, k, f)]));
   return rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]??'–'}</td><td>${r[2]??'–'}</td></tr>`).join(''); }
 function qbRows(q){ const p=q.profile; if(!p) return `<p class="small">${esc(q.name||'unknown')}: no NFL passing record in the data.</p>`;
   return `<p class="small"><b>${esc(q.name)}</b> (${esc(q.source||'')}) · ${p.games} games in the profile · ${p.ypdb} yds/dropback (x${p.ypdb_mult} after shrinkage) · ${p.yds_per_game} yds/game · ${p.td_per_game} TD/game · EPA/dropback ${p.epa_per_db}</p>
@@ -423,7 +433,10 @@ function inputsTable(g){ const NAMES={offense:'Team offense', opp_defense:'Oppos
   const anc=g.model.anchor; return `<div class="dgrid"><div class="box">${one('away')}</div><div class="box">${one('home')}</div></div>
   <p class="small">Model alone: ${g.home} ${g.model.margin>=0?'by '+g.model.margin.toFixed(1):'trails by '+(-g.model.margin).toFixed(1)}, total ${g.model.total.toFixed(1)}, ${g.home} wins ${pct(g.model.home_win)}.${g.model.target_margin!=null?` Anchored to the market at margin ${g.model.target_margin.toFixed(1)}, total ${g.model.target_total.toFixed(1)} (scoring shift ${anc.shift_home>=0?'+':''}${anc.shift_home} ${g.home}, ${anc.shift_away>=0?'+':''}${anc.shift_away} ${g.away}).`:' No market line: the model alone is used.'}</p>`; }
 function orCell2(v, i){ const r=Math.exp(v); return `<td>${orCell(r, i===1?'n':(i===2?'bad':'good'))}</td>`; }
-function renderResearch(){ const L=M.league||{}; const ctx=L.context||{}; const H=L.home||{};
+function renderSources(){ const S=M.sources||[]; if(!S.length) return; const cls={verified:'beats', projected:'marginal', unavailable:'none'};
+  document.getElementById('sources').innerHTML = `<h3>Data sources and freshness</h3><div class="tbl"><table class="kv"><tr><th>Source</th><th>Status</th><th>What it covers</th><th>Fetched</th></tr>${S.map(x=>`<tr><td>${esc(x.name)}</td><td><span class="verd ${cls[x.status]||'marginal'}">${esc(x.status)}</span></td><td>${esc(x.detail)}</td><td>${esc(x.fetched||'')}</td></tr>`).join('')}</table></div>
+  <p class="small">Verified: taken directly from the source. Projected: an estimate (starting QB vote, depth charts, forecasts). Unavailable: not used, and nothing is substituted for it.</p>`; }
+function renderResearch(){ renderSources(); const L=M.league||{}; const ctx=L.context||{}; const H=L.home||{};
   const crow = (k,lab) => { const c=ctx[k]; if(!c) return ''; return `<tr><td>${lab}</td><td>${orCell(Math.exp(c.TD),'n')}</td><td>${orCell(Math.exp(c.FG),'n')}</td><td>${orCell(Math.exp(c.TO),'n')}</td><td>${c.n.toLocaleString()}</td></tr>`; };
   const sw=M.switches||{};
   document.getElementById('factors').innerHTML = `<h3>Measured factors (league, ${esc((L.seasons||[]).join(', '))})</h3>
@@ -438,14 +451,14 @@ function renderResearch(){ const L=M.league||{}; const ctx=L.context||{}; const 
   <div class="tbl"><table class="cmp"><tr><th>Change</th><th>Result</th><th>Decision</th></tr>${T.map(t=>`<tr><td>${esc(t.name)}</td><td style="white-space:normal;text-align:left">${esc(t.result)}</td><td><span class="verd ${t.kept?'beats':'none'}">${t.kept?'kept':'rejected'}</span></td></tr>`).join('')}</table></div>`;
   document.getElementById('dossiers').innerHTML = [...P.games].sort((a,b)=>(a.kickoff_utc||'').localeCompare(b.kickoff_utc||'')).map(g=>{ const r=g.research||{}; const a=r.away||{}, h=r.home||{};
     return `<details class="dossier" id="d-${g.game_id}"><summary><span class="mu">${g.away} @ ${g.home}</span> ${tierTag(g.tier)} <span class="t">${whenTxt(g)} · ${wx(g)}</span></summary><div class="body">
-    <div class="dgrid"><div class="box"><h4>Teams</h4><table><tr><th></th><th>${g.away}</th><th>${g.home}</th></tr>${teamRows(a,h)}</table></div>
+    <div class="dgrid"><div class="box"><h4>Teams <span class="t" style="text-transform:none;letter-spacing:0">this season, league rank in grey</span></h4><table><tr><th></th><th>${g.away}</th><th>${g.home}</th></tr>${teamRows(a,h)}</table></div>
     <div class="box"><h4>Head to head (last meetings)</h4>${(r.h2h||[]).length?`<table><tr><th>date</th><th>score</th><th>1H</th><th>line</th></tr>${r.h2h.map(x=>`<tr><td>${x.date}</td><td>${x.away} ${x.as} @ ${x.home} ${x.hs}</td><td>${x.h1}</td><td>${spreadTxt(x.home,x.away,x.spread)} / ${x.total!=null?x.total:''}</td></tr>`).join('')}</table>`:'<p class="small">no meetings in the data window</p>'}
     <h4 style="margin-top:10px">Kickers</h4>${['away','home'].map(s=>{ const k=g.kicker[s]||{}; const p=k.profile; return `<p class="small"><b>${g[s]}</b> ${esc(k.name||k.id||'?')}: ${p?`${p.made}/${p.att} this season · make odds x${p.or} vs expected for his distances · 50+: ${p.long_50plus} · XP ${pct(p.xp_rate)}`:'no record'}</p>`; }).join('')}</div>
     <div class="box"><h4>${g.away} quarterback</h4>${qbRows(g.qb.away)}</div><div class="box"><h4>${g.home} quarterback</h4>${qbRows(g.qb.home)}</div>
     <div class="box"><h4>${g.away} injury report</h4>${injList((g.injuries||{}).away)}</div><div class="box"><h4>${g.home} injury report</h4>${injList((g.injuries||{}).home)}</div></div>
     <h4 style="margin:12px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Inputs to the simulation</h4>${inputsTable(g)}
     <h4 style="margin:12px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Touchdown shares</h4>
-    <div class="dgrid">${['away','home'].map(s=>`<div class="box"><table><tr><th>${g[s]}</th><th>targets</th><th>carries</th><th>red zone</th><th>TD games</th></tr>${((g.anytime||{})[s]||[]).map(x=>`<tr><td>${esc(x.name)} <span class="t">${esc(x.pos||'')}</span></td><td>${pct(x.tgt_share,0)}</td><td>${pct(x.car_share,0)}</td><td>${pct(x.rz_share,0)}</td><td>${x.td_games}/${x.games}</td></tr>`).join('')}</table></div>`).join('')}</div>
+    <div class="dgrid">${['away','home'].map(s=>`<div class="box"><table><tr><th>${g[s]}</th><th>targets</th><th>carries</th><th>red zone</th><th>snaps, last 3</th><th>TD games</th></tr>${((g.anytime||{})[s]||[]).map(x=>`<tr><td>${esc(x.name)} <span class="t">${esc(x.pos||'')}</span></td><td>${pct(x.tgt_share,0)}</td><td>${pct(x.car_share,0)}</td><td>${pct(x.rz_share,0)}</td><td>${(x.snaps||[]).map(v=>Math.round(v*100)).join(' / ')||'–'}</td><td>${x.td_games}/${x.games}</td></tr>`).join('')}</table></div>`).join('')}</div>
     </div></details>`; }).join(''); }
 
 // ------------------------------------------------------------- every selection (scanner), grades, book prices
@@ -766,10 +779,10 @@ def static_summary(p: dict) -> str:
             + "".join(rows) + "</table></div>")
 
 
-def render(payload: dict, nhl_href: str = "../index.html") -> str:
+def render(payload: dict, nhl_href: str = "../index.html", root: str = "../") -> str:
     data = json.dumps(payload, separators=(",", ":")).replace("</", "<\\/")
-    return (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
-            .replace("__WEEK__", str(payload["week"])).replace("__NHL_HREF__", nhl_href))
+    return (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
+            .replace("__WEEK__", str(payload["week"])).replace("__BRAND__", brand_html(root, "nfl", nhl_href)))
 
 
 __all__ = ["render", "TEMPLATE", "static_summary"]

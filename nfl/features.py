@@ -472,6 +472,19 @@ class PlayerProfile:
     games_td: int = 0
     last_date: str = ""
     recent: list = field(default_factory=list)
+    snaps: list = field(default_factory=list)          # (date, offensive snap share, recency weight) in his games with snap data
+
+    def snap_trend(self, cfg: ModelConfig) -> float:
+        """Recent snap share (last two games) over his recency-weighted average, pulled halfway to 1 and capped:
+        a back who went from 40% to 70% of the snaps when the starter got hurt gets a bigger share now."""
+        if len(self.snaps) < 3:
+            return 1.0
+        w = sum(x[2] for x in self.snaps); base = sum(x[1] * x[2] for x in self.snaps) / w if w else 0
+        recent = sum(x[1] for x in self.snaps[-2:]) / 2
+        if base <= 0.05:
+            return 1.0
+        r = recent / base
+        return float(min(1.8, max(0.55, 1 + cfg.snap_trend_weight * (r - 1))))
 
     def shares(self, cfg: ModelConfig) -> tuple[float, float]:
         """(share of the team's passing touchdowns caught, share of the team's rushing touchdowns scored),
@@ -552,6 +565,18 @@ class TeamProfile:
     epa_def: float = 0.0
     plays_off: float = 0.0
     plays_def: float = 0.0
+    adv_off: dict = field(default_factory=dict)        # current-season research stats, offense
+    adv_def: dict = field(default_factory=dict)        # ... and what the defense allowed
+
+    def adv_rates(self, which: str) -> dict:
+        a = self.adv_off if which == "off" else self.adv_def
+        f = lambda n, d: round(a.get(n, 0) / a[d], 4) if a.get(d) else None  # noqa: E731
+        neu = a.get("neu_n", 0); xn = a.get("neu_xn", 0)
+        return {"success": f("succ", "plays"), "explosive": f("expl", "plays"), "third_down": f("third_conv", "third"), "red_zone_td": f("rz_td", "rz"),
+                "sack_rate": f("sk", "db"), "pace": round(a["pace_s"] / a["pace_n"], 1) if a.get("pace_n") else None,
+                "neutral_pass": round(a["neu_pass"] / neu, 4) if neu else None,
+                "proe": round(a["neu_pass"] / neu - a["neu_xpass"] / xn, 4) if (neu and xn) else None,
+                "epa_pass": f("pass_epa", "passes"), "epa_rush": f("rush_epa", "runs"), "rz_trips_pg": round(a.get("rz", 0) / a["games"], 2) if a.get("games") else None}
 
     def primary_qb(self) -> str:
         src = self.qbs_cur or self.qbs
@@ -589,7 +614,7 @@ def primary_qb(g: dict, t: str) -> str | None:
     return max(q, key=lambda k: q[k]["db"]) if q else None
 
 
-def build_profiles(games: list[dict], season: int, cfg: ModelConfig = CFG, league: LeagueTable | None = None) -> Profiles:
+def build_profiles(games: list[dict], season: int, cfg: ModelConfig = CFG, league: LeagueTable | None = None, snaps: dict | None = None) -> Profiles:
     """Profiles from every game in `games` (all of which must precede the games being predicted)."""
     seasons = sorted({g["season"] for g in games})
     league_seasons = [s for s in seasons if s >= season - cfg.league_seasons + 1] or seasons[-cfg.league_seasons:]
@@ -620,6 +645,12 @@ def build_profiles(games: list[dict], season: int, cfg: ModelConfig = CFG, leagu
                 tp.h1_cur.append(sum(g["q"][side][:2])); tp.h2_cur.append(pf - sum(g["q"][side][:2]))
             tp.recent.append({"date": g["date"], "opp": opp, "home": side == "home", "pf": pf, "pa": pa, "week": g["week"], "season": g["season"]})
             tm = g["team"][t]; om = g["team"][opp]
+            if cur:
+                for src, dst in ((tm, tp.adv_off), (om, tp.adv_def)):
+                    for k2, v2 in (src.get("adv") or {}).items():
+                        dst[k2] = dst.get(k2, 0) + v2
+                    dst["sk"] = dst.get("sk", 0) + src.get("sk", 0); dst["db"] = dst.get("db", 0) + src.get("db", 0)
+                    dst["games"] = dst.get("games", 0) + 1
             tp.epa_off += sw * tm["epa"]; tp.plays_off += sw * tm["plays"]
             tp.epa_def += sw * om["epa"]; tp.plays_def += sw * om["plays"]
             # quarterback
@@ -667,6 +698,9 @@ def build_profiles(games: list[dict], season: int, cfg: ModelConfig = CFG, leagu
                 pp.t_ptd += rw * tm["td_pass"]; pp.t_rtd += rw * tm["td_rush"]
                 pp.games_td += (s["rtd"] + s["rectd"]) > 0; pp.last_date = g["date"]
                 pp.recent.append({"date": g["date"], "team": t, "car": s["car"], "tgt": s["tgt"], "td": s["rtd"] + s["rectd"]})
+                sp = (snaps or {}).get(g["game_id"], {}).get(pid)
+                if sp is not None:
+                    pp.snaps.append((g["date"], sp, rw))
             # drives
             for d in g["drives"]:
                 if d["h"] > 2 or d["res"] not in RES_IDX:

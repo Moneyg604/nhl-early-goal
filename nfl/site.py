@@ -19,11 +19,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .config import OUT_DIR, SITE_DIR
+from earlygoal.brand import copy_assets, head_tags
+
 from .report import render
 
 DAYSLOT = """<span class="lbl2">Week</span><select id="daysel" aria-label="week">{options}</select><span class="pub">published {published}</span>"""
 SCRIPT = """<script>window.NFL_BASE={base!r};(function(){{var s=document.getElementById('daysel'); if(s) s.onchange=function(){{ location.href=this.value; }};}})();</script>"""
-HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#070b12"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png">"""
+HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#070b12"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png"><meta name="apple-mobile-web-app-title" content="Gill Sports"><meta name="apple-mobile-web-app-capable" content="yes">"""
 
 
 def _csv(p: dict) -> str:
@@ -142,13 +144,15 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep: int = 4
     for n in names:
         p = json.loads((wdir / f"{n}.json").read_text())
         for target, base, root, nhl in (((wdir / f"{n}.html"), "../", "../../", "../../index.html"),) + ((((site_dir / "index.html"), "./", "../", "../index.html"),) if n == current else ()):
-            html = render(p, nhl_href=nhl)
+            html = render(p, nhl_href=nhl, root=root)
             html = html.replace('<span id="dayslot"></span>', DAYSLOT.format(options=options(n, base), published=published), 1)
-            html = html.replace("</title>", "</title>\n" + HEAD.format(root=root), 1)
+            html = html.replace("</title>", "</title>\n" + HEAD.format(root=root)
+                                + head_tags(root, f"Gill Sports · NFL week {p['week']}", "NFL week: moneyline, spread, totals, half totals, field goals, QB passing and anytime TD probabilities, every selection scanned"), 1)
             html = html.replace("<script id=\"payload\"", SCRIPT.format(base=base) + "\n<script id=\"payload\"", 1)
             target.write_text(html, encoding="utf-8")
     (site_dir / "weeks.json").write_text(json.dumps({"weeks": [{"name": n, "season": int(n.split("-w")[0]), "week": int(n.split("-w")[1])} for n in names],
                                                      "current": current, "published": published}, indent=1))
+    copy_assets(site_dir.parent)
     if not (site_dir / "scorecard.json").exists():
         (site_dir / "scorecard.json").write_text(json.dumps({"summary": {}, "weeks": {}, "items": [], "updated_utc": published}))
     return site_dir

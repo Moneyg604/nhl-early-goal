@@ -19,7 +19,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from notify import _h, send_discord, send_telegram  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = "https://moneyg604.github.io/nhl-early-goal/nfl/"
+sys.path.insert(0, str(ROOT))
+from earlygoal.brand import site_url  # noqa: E402
+
+SITE = site_url() + "nfl/"
 VKEY = {"ml": "moneyline", "spread": "spread", "total": "total", "h1": "h1_total", "h2": "h2_total", "fg": "fg_over1.5", "qb_yds": "qb_yards",
         "qb_td": "qb_td_over1.5", "atd": "anytime_td"}
 LABEL = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "h1": "1st half", "h2": "2nd half", "fg": "Team FGs", "qb_yds": "QB pass yds",
@@ -80,7 +83,7 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
     kos = [k for k in (ko(g) for g in gs) if k]
     span = f"{kos[0].astimezone(ZoneInfo('America/New_York')):%a %b %-d} to {kos[-1].astimezone(ZoneInfo('America/New_York')):%a %b %-d}" if kos else ""
     head = {"weekly": "🗓️ Week preview", "daily": "🗓️ Week preview", "t75": "⏰ Kickoff soon", "update": "🔄 Update", "test": "🧪 Test message"}.get(reason, "🔄 Update")
-    out = [f"🏈 {B('NFL ' + str(p['season']) + ' week ' + str(p['week']))} · {T(head)}", T(f"{span} · {len(gs)} games")]
+    out = [f"🏈 {B('Gill Sports · NFL week ' + str(p['week']))} · {T(head)}", T(f"{span} · {len(gs)} games")]
     if reason == "t75" and window:
         out.append("")
         for g in window:
@@ -123,7 +126,7 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
         if wx:
             out.append("🌬️ " + T("Windy: " + ", ".join(wx)))
     out.append("")
-    out.append("🔗 " + (f'<a href="{SITE}">Open the NFL desk</a>' if html else SITE))
+    out.append("🔗 " + (f'<a href="{SITE}">Open Gill Sports · NFL</a>' if html else SITE))
     return "\n".join(out)
 
 

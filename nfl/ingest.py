@@ -30,8 +30,10 @@ PBP_COLS = [
     "rushing_yards", "receiver_player_id", "receiver_player_name", "receiving_yards", "td_player_id", "td_player_name",
     "kicker_player_id", "kicker_player_name", "safety", "interception", "fumble_lost", "epa", "qb_kneel", "qb_spike",
     "penalty", "punt_attempt", "kickoff_attempt", "roof", "surface", "temp", "wind", "spread_line", "total_line",
-    "result", "total", "desc", "yardline_100", "down",
+    "result", "total", "desc", "yardline_100", "down", "success", "third_down_converted", "third_down_failed", "xpass", "pass",
+    "score_differential",
 ]
+CONVERT_VERSION = 2          # bump when the per-game record gains fields; ingest re-converts older files
 
 RESULT_CODES = {
     "Touchdown": "TD", "Field goal": "FG", "Missed field goal": "FGM", "Punt": "PUNT", "Turnover": "TO",
@@ -86,6 +88,43 @@ def fetch_reference(season: int, force: bool = False) -> dict[str, Path | None]:
     for key in ("injuries", "depth", "rosters"):
         out[key] = download(ASSETS[key].format(season=season), RAW_DIR / f"{key}_{season}.parquet", max_age_h=3, force=force)
     out["players"] = download(ASSETS["players"], RAW_DIR / "players.parquet", max_age_h=72, force=force)
+    return out
+
+
+def snaps_file(season: int) -> Path:
+    return DATA_DIR / f"snaps_{season}.json"
+
+
+def ingest_snaps(season: int, current: bool) -> int:
+    """Offensive snap share per player per game (Pro Football Reference via nflverse), keyed by gsis id."""
+    import pandas as pd  # type: ignore
+
+    src = download(ASSETS["snaps"].format(season=season), RAW_DIR / f"snaps_{season}.parquet", max_age_h=(6 if current else None))
+    pl = download(ASSETS["players"], RAW_DIR / "players.parquet", max_age_h=72)
+    if src is None or pl is None:
+        return 0
+    sn = pd.read_parquet(src)
+    ids = pd.read_parquet(pl, columns=["gsis_id", "pfr_id"]).dropna()
+    m = dict(zip(ids["pfr_id"], ids["gsis_id"]))
+    sn = sn[sn["position"].isin(["QB", "RB", "FB", "WR", "TE"]) & (sn["offense_snaps"].fillna(0) > 0)]
+    out: dict[str, dict[str, float]] = {}
+    for r in sn.itertuples(index=False):
+        gid = m.get(r.pfr_player_id)
+        if gid:
+            out.setdefault(str(r.game_id), {})[str(gid)] = round(float(r.offense_pct), 3)
+    snaps_file(season).write_text(json.dumps(out, separators=(",", ":")))
+    return len(out)
+
+
+def load_snaps(seasons: list[int]) -> dict[str, dict[str, float]]:
+    out: dict = {}
+    for s in seasons:
+        f = snaps_file(s)
+        if f.exists():
+            try:
+                out.update(json.loads(f.read_text()))
+            except json.JSONDecodeError:
+                pass
     return out
 
 
@@ -250,6 +289,33 @@ def convert_season(season: int, pbp_path: Path, schedule: "pd.DataFrame | None" 
                 if scorer_team == t:
                     n += 1
             team[t]["td_other"] = n
+        # research stats (shown on the page; only measured factors feed the model)
+        for t in (home, away):
+            o = g[(g["posteam"] == t) & g["play_type"].isin(["pass", "run"]) & (g["penalty"].fillna(0) == 0)]
+            passes = o[o["play_type"] == "pass"]; runs = o[o["play_type"] == "run"]
+            third = o[o["down"] == 3]
+            neutral = o[(o["qtr"] <= 3) & (o["score_differential"].abs() <= 7)] if "score_differential" in o else o.iloc[0:0]
+            gaps = []
+            for _, dd in o.groupby("fixed_drive"):
+                secs = dd["game_seconds_remaining"].dropna().values
+                if len(secs) > 1:
+                    gaps.extend([a - b for a, b in zip(secs[:-1], secs[1:]) if 0 <= a - b <= 60])
+            rz_trips = rz_td = 0
+            for _, dd in g[(g["posteam"] == t) & g["fixed_drive"].notna()].groupby("fixed_drive"):
+                if (dd["yardline_100"].fillna(99) <= 20).any():
+                    rz_trips += 1
+                    rz_td += str(dd["fixed_drive_result"].iloc[0]) == "Touchdown"
+            xp = neutral["xpass"].dropna() if "xpass" in neutral else []
+            team[t]["adv"] = {
+                "plays": int(len(o)), "succ": int(o["success"].fillna(0).sum()) if "success" in o else 0,
+                "expl": int(((passes["yards_gained"].fillna(0) >= 20).sum()) + ((runs["yards_gained"].fillna(0) >= 10).sum())),
+                "third": int(len(third)), "third_conv": int(third["third_down_converted"].fillna(0).sum()) if "third_down_converted" in third else 0,
+                "rz": rz_trips, "rz_td": int(rz_td), "pace_n": len(gaps), "pace_s": round(float(sum(gaps)), 1),
+                "neu_n": int(len(neutral)), "neu_pass": int((neutral["play_type"] == "pass").sum()),
+                "neu_xpass": round(float(xp.sum()), 3) if len(xp) else 0.0, "neu_xn": int(len(xp)),
+                "pass_epa": round(float(passes["epa"].fillna(0).sum()), 3), "rush_epa": round(float(runs["epa"].fillna(0).sum()), 3),
+                "passes": int(len(passes)), "runs": int(len(runs)),
+            }
         rec["team"] = team
 
         # quarterbacks
@@ -362,12 +428,19 @@ def ingest(seasons: list[int], current: int, force_current: bool = True) -> dict
         if p is None:
             counts[s] = sum(1 for _ in games_file(s).open()) if games_file(s).exists() else 0
             continue
-        fresh = games_file(s).exists() and games_file(s).stat().st_mtime >= p.stat().st_mtime
-        if fresh and not (s == current and force_current):
+        vf = DATA_DIR / f"games_{s}.version"
+        same_version = vf.exists() and vf.read_text().strip() == str(CONVERT_VERSION)
+        fresh = games_file(s).exists() and games_file(s).stat().st_mtime >= p.stat().st_mtime and same_version
+        if not fresh or (s == current and force_current):
+            counts[s] = convert_season(s, p, sched)
+            vf.write_text(str(CONVERT_VERSION))
+            print(f"  {s}: {counts[s]} games")
+        else:
             counts[s] = sum(1 for _ in games_file(s).open())
-            continue
-        counts[s] = convert_season(s, p, sched)
-        print(f"  {s}: {counts[s]} games")
+        try:
+            ingest_snaps(s, s == current)
+        except Exception as e:  # noqa: BLE001
+            print(f"  snaps {s}: {e}")
     return counts
 
 

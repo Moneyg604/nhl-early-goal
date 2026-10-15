@@ -3,15 +3,38 @@
   "margin": 0.0,
   "total": 0.0
  },
- "key_numbers": {},
+ "key_numbers": {
+  "0": 0.9069,
+  "1": 0.9349,
+  "2": 1.0976,
+  "3": 1.3667,
+  "4": 0.9589,
+  "5": 1.2681,
+  "6": 1.2784,
+  "7": 1.1457,
+  "8": 1.1189,
+  "9": 0.6112,
+  "10": 0.874,
+  "11": 0.5699,
+  "12": 0.8269,
+  "13": 0.7452,
+  "14": 1.1064,
+  "15": 0.774,
+  "16": 0.8317,
+  "17": 1.2638,
+  "18": 0.9641,
+  "19": 0.9016,
+  "20": 0.8751,
+  "21": 0.9808
+ },
  "key_number_test": {
-  "use": false,
-  "ll_without": 0.71092,
-  "ll_with": 0.71086,
+  "use": true,
+  "ll_without": 0.71103,
+  "ll_with": 0.71037,
   "test_season": 2025
  },
  "switches": {},
- "updated_utc": "2026-10-15 01:42 UTC",
+ "updated_utc": "2026-10-15 03:33 UTC",
  "tested": [
   {
    "name": "Recent seasons weighted 35% / 15% (instead of 60% / 30%)",
@@ -47,6 +70,16 @@
    "name": "Key-number correction of the margin distribution (more 3s and 7s)",
    "result": "trained on 2023-24 and tested on 2025: cover / push / miss log loss 0.71086 vs 0.71092, below the threshold",
    "kept": false
+  },
+  {
+   "name": "Players' own games weighted with a 6-game half-life (instead of 12)",
+   "result": "anytime TD gain 0.0069 vs 0.0049 (log loss vs each player's own rate, 14,788 player-games)",
+   "kept": true
+  },
+  {
+   "name": "Touchdown shares scaled by the recent change in snap share (last two games vs his average, pulled halfway to 1)",
+   "result": "anytime TD gain 0.0071 vs 0.0049 alone, 0.0082 together with the 6-game half-life; full weight (not halfway) 0.0080",
+   "kept": true
   }
  ]
 }

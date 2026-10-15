@@ -20,7 +20,10 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = "https://moneyg604.github.io/nhl-early-goal/"
+sys.path.insert(0, str(ROOT))
+from earlygoal.brand import site_url  # noqa: E402
+
+SITE = site_url()
 
 
 def slate_today() -> str:
@@ -63,7 +66,7 @@ def build_message(p: dict, reason: str, html: bool = False) -> str:
     except Exception:  # noqa: BLE001
         nice = p["date"]
     head_icon, head_txt = {"t120": ("⏰", "Two hours to puck drop"), "morning": ("☀️", "Morning slate"), "update": ("🔄", "Update"), "test": ("🧪", "Test message")}.get(reason, ("🔄", reason))
-    lines = [f"🏒 {B('Early Goal Desk')} · {T(nice)}", f"{head_icon} {T(head_txt)} · {len(games)} games · goalies {conf}/{len(qs)} confirmed", ""]
+    lines = [f"🏒 {B('Gill Sports · NHL')} · {T(nice)}", f"{head_icon} {T(head_txt)} · {len(games)} games · goalies {conf}/{len(qs)} confirmed", ""]
 
     def rng(g):
         u = (g.get("uncertainty") or {}).get("first5")

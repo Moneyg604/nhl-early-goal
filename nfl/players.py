@@ -39,13 +39,15 @@ def candidates(P: Profiles, team: str, *, played: set[str] | None = None, availa
             if available is None and not any(r["date"] in recent_dates for r in pp.recent[-recent_games:]):
                 continue
         rec, rush = pp.shares(cfg)
+        trend = pp.snap_trend(cfg) if cfg.use_snap_trend else 1.0
+        rec, rush = rec * trend, rush * trend
         if rec + rush < 0.01:
             continue
         rows.append({"id": pid, "name": pp.name, "pos": (positions or {}).get(pid, ""), "rec_share": rec, "rush_share": rush,
                      "games": pp.games, "tgt_share": round(pp.tgt / pp.t_tgt, 3) if pp.t_tgt else 0.0,
                      "car_share": round(pp.car / pp.t_car, 3) if pp.t_car else 0.0,
                      "rz_share": round((pp.rzt + pp.rzc) / (pp.t_rzt + pp.t_rzc), 3) if (pp.t_rzt + pp.t_rzc) else 0.0,
-                     "td_games": pp.games_td, "recent": pp.recent[-5:]})
+                     "td_games": pp.games_td, "recent": pp.recent[-5:], "snap_recent": [x[1] for x in pp.snaps[-3:]], "snap_trend": round(trend, 3)})
     # the listed players together score COVERAGE of the team's touchdowns: rescale each kind of share
     for key in ("rec_share", "rush_share"):
         s = sum(r[key] for r in rows)

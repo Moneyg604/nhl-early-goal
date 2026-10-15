@@ -1,4 +1,6 @@
-# Early Goal Desk
+# Gill Sports
+
+NHL and NFL research desk (this repository started as Early Goal Desk, the NHL first-5-minute tool; the package is still called `earlygoal`).
 
 **Want it on your phone with no laptop in the loop?** Follow `SETUP.md`: a GitHub repository runs the engine three times a day and publishes the dashboard as an installable web app.
 
@@ -132,6 +134,18 @@ python -m nfl scorecard         # grade published leans -> docs/nfl/scorecard.js
 python -m nfl live              # ESPN scoreboard + box scores -> docs/nfl/live.json
 ```
 
+On the page: the Week tab (every game, every market, live ESPN scores and box scores), the Scanner (every
+selection the model prices, about 860 a week, with win probability, fair odds, best book price, EV, the backtest
+hit rate for that probability band and an S-D grade; filters and sorting; a slip that prices same-game legs
+jointly from the simulated games), Research (team stats with league ranks, QB logs, kickers, injuries, snap
+shares, the measured factors and every tested change), Results (your bet tracker with ROI, grades and CLV, the
+week's graded leans, the track record) and About (validation with log loss, Brier score and calibration).
+
+Moneyline and spread probabilities are each game's simulated outcomes reweighted to the market's vig-free
+prices: the simulated margins run about 7% wider than real ones, and the market prices beat the raw simulation
+walk-forward. Sportsbook prices come from The Odds API when `ODDS_API_KEY` is set (game lines on every build;
+QB yards, TD passes, anytime TD and half totals on the pre-kickoff builds, inside the free plan's credits).
+
 What the walk-forward test says is on the page (About tab) and in `data/nfl/backtest_latest.json`. In short: the
 model alone does not beat the closing moneyline, spread or total, so those follow the market; QB passing yards,
 QB touchdown passes and anytime touchdowns beat their baselines; half totals and team field goals do not. The
@@ -146,7 +160,7 @@ Set any of these under Settings > Secrets and variables > Actions, and the next 
 |---|---|
 | `DISCORD_WEBHOOK_URL` | the slate, top picks and goalie changes posted to a Discord channel at every build (morning, update, two hours before puck drop) |
 | `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | the same message to a Telegram chat |
-| `ODDS_API_KEY` | full-game moneyline, puck-line and total prices from The Odds API on every game, with EV against the model |
+| `ODDS_API_KEY` | sportsbook prices from The Odds API: NHL moneyline, puck line and total; NFL moneyline, spread, total, QB passing yards and TD passes, anytime TD and half totals; best price per side and the market consensus, with EV against the model |
 
 Nothing else needs configuring. The keeper workflow schedules every job, the monthly revalidation re-tests every switchable factor
 (`data/factors.json`) and refreshes the validation panel, and MoneyPuck expected-goals data is fetched on the GitHub runner.

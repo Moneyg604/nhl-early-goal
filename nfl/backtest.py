@@ -38,11 +38,14 @@ from .model import run_game
 from .players import candidates
 
 _GAMES: list[dict] = []
+_SNAPS: dict = {}
 
 
 def _init(seasons: list[int]):
-    global _GAMES
+    global _GAMES, _SNAPS
+    from .ingest import load_snaps
     _GAMES = load_games(seasons)
+    _SNAPS = load_snaps(seasons)
 
 
 def ll(p: float, y: int) -> float:
@@ -71,7 +74,7 @@ def run_week(args) -> dict:
     test = [g for g in _GAMES if g["season"] == season and g["week"] == week]
     if not test or not train:
         return {"rows": []}
-    P = build_profiles(train, season, cfg)
+    P = build_profiles(train, season, cfg, snaps=_SNAPS)
     lt = P.league
     h1_share = lt.h1_share
     rows = []

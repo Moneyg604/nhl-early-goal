@@ -38,6 +38,28 @@ def head_to_head(games: list[dict], a: str, b: str, k: int = 5) -> list[dict]:
     return out
 
 
+RANKS: dict = {}
+# higher is better for the offense on these; for the defense the same stat allowed, lower is better
+_UP = ("success", "explosive", "third_down", "red_zone_td", "epa_pass", "epa_rush")
+
+
+def league_ranks(P: Profiles) -> dict:
+    """1 = best in the league this season, for each research stat (offense and defense)."""
+    out: dict = {}
+    teams = [t for t, tp in P.teams.items() if tp.games_cur > 0]
+    rates = {t: {"off": P.teams[t].adv_rates("off"), "def": P.teams[t].adv_rates("def")} for t in teams}
+    for side in ("off", "def"):
+        for k in _UP + ("sack_rate",):
+            vals = [(rates[t][side].get(k), t) for t in teams if rates[t][side].get(k) is not None]
+            better_high = (k in _UP) == (side == "off")
+            if k == "sack_rate":
+                better_high = side == "def"          # sacks taken: fewer is better; sacks made: more is better
+            vals.sort(key=lambda x: -x[0] if better_high else x[0])
+            for i, (_, t) in enumerate(vals):
+                out.setdefault(t, {}).setdefault(side, {})[k] = i + 1
+    return out
+
+
 def team_dossier(P: Profiles, t: str, games: list[dict], cfg: ModelConfig) -> dict:
     tp = P.teams.get(t)
     if tp is None:
@@ -55,6 +77,7 @@ def team_dossier(P: Profiles, t: str, games: list[dict], cfg: ModelConfig) -> di
         if tot is not None:
             T = g["hs"] + g["as"]
             ou[0 if T > tot else (2 if T == tot else 1)] += 1
+    d["adv"] = {"off": tp.adv_rates("off"), "def": tp.adv_rates("def"), "rank_off": (RANKS.get(t) or {}).get("off", {}), "rank_def": (RANKS.get(t) or {}).get("def", {})}
     d["ats"] = f"{ats[0]}-{ats[1]}" + (f"-{ats[2]}" if ats[2] else "")
     d["ou"] = f"{ou[0]}-{ou[1]}" + (f"-{ou[2]}" if ou[2] else "")
     return d
@@ -90,8 +113,10 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     # profiles from everything played before this week (the current week's finished games stay out, so the
     # numbers on the page are the pre-game numbers even after Sunday)
     train = [g for g in games if g["season"] < season or (g["season"] == season and g["week"] < week)]
-    P = build_profiles(train, season, cfg)
+    from .ingest import load_snaps
+    P = build_profiles(train, season, cfg, snaps=load_snaps([season - 3, season - 2, season - 1, season]))
     ref = load_reference(season)
+    RANKS.clear(); RANKS.update(league_ranks(P))
     rows = week_rows(sched, season, week, P, ref, with_weather=with_weather)
     blend = load_blend(); keyw = load_key_numbers()
     from .odds import for_game, load as load_odds
@@ -141,7 +166,7 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
             g["anytime"][side] = [{"id": c["id"], "name": (row.get("names") or {}).get(c["id"]) or c["name"], "short": c["name"], "pos": c["pos"], "p": c["p"], "fair": c["fair"], "q": c["id"] in qn,
                                    "rec_share": round(c["rec_share"], 3), "rush_share": round(c["rush_share"], 3), "tgt_share": c["tgt_share"],
                                    "car_share": c["car_share"], "rz_share": c["rz_share"], "games": c["games"], "td_games": c["td_games"],
-                                   "recent": c["recent"]} for c in res if c["p"] >= 0.04][:14]
+                                   "recent": c["recent"], "snaps": c.get("snap_recent", []), "snap_trend": c.get("snap_trend", 1.0)} for c in res if c["p"] >= 0.04][:14]
         g["injuries"] = row["injuries"]
         g["research"] = {"home": team_dossier(P, row["home"], train, cfg), "away": team_dossier(P, row["away"], train, cfg),
                          "h2h": head_to_head(train, row["home"], row["away"])}
@@ -164,6 +189,7 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
                          "k_kicker": cfg.k_kicker, "anchor_fg_frac": cfg.anchor_fg_frac, "league_seasons": cfg.league_seasons}},
         "games": out_games,
     }
+    payload["meta"]["sources"] = _sources(season, week, P, ref, out_games)
     payload["picks"] = picks(payload)
     payload["validation"] = _validation()
     payload["_samples"] = {"fields": SAMPLE_FIELDS, "bytes": 17, "n": SAMPLE_N, "games": samples}
@@ -207,6 +233,50 @@ def actuals(g: dict) -> dict:
     return {"hs": g["hs"], "as": g["as"], "h1": [h1h, h1a], "ot": g.get("ot", 0),
             "fg": {"home": sum(1 for k in g["fg"].get(g["home"], []) if k["r"] == "made"), "away": sum(1 for k in g["fg"].get(g["away"], []) if k["r"] == "made")},
             "qb": qb, "scorers": scorers}
+
+
+def _sources(season: int, week: int, P: Profiles, ref: dict, games: list[dict]) -> list[dict]:
+    """Where every input came from and how fresh it is (shown on the Research tab)."""
+    import os
+    from .config import RAW_DIR
+    from .ingest import load_snaps
+
+    def mtime(path):
+        try:
+            return datetime.fromtimestamp(os.path.getmtime(path), timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+        except OSError:
+            return None
+    out = [{"name": "Play-by-play (nflverse)", "status": "verified", "detail": f"every regular-season play through {P.data_through}", "fetched": mtime(RAW_DIR / f"pbp_{season}.parquet")},
+           {"name": "Schedule, kickoff times, market lines (nflverse)", "status": "verified", "detail": "spread, total and moneyline with prices; nflverse refreshes them through the week", "fetched": mtime(RAW_DIR / "games.csv")}]
+    inj = ref.get("injuries")
+    if inj is not None and len(inj):
+        wk = inj[inj["week"] == week]
+        out.append({"name": "Official injury report", "status": "verified" if len(wk) else "unavailable",
+                    "detail": (f"week {week}: {int(wk['report_status'].notna().sum())} game statuses, {len(wk)} players listed" if len(wk) else f"no week {week} report yet (it starts on Wednesday)"),
+                    "fetched": mtime(RAW_DIR / f"injuries_{season}.parquet")})
+    dc = ref.get("depth")
+    if dc is not None and len(dc):
+        out.append({"name": "Depth charts", "status": "projected", "detail": f"latest snapshot {str(dc['dt'].max())[:16]} (used as one of three votes for the starting QB)", "fetched": mtime(RAW_DIR / f"depth_{season}.parquet")})
+    ro = ref.get("rosters")
+    if ro is not None and len(ro):
+        out.append({"name": "Weekly rosters", "status": "verified", "detail": f"active players through week {int(ro['week'].max())}", "fetched": mtime(RAW_DIR / f"rosters_{season}.parquet")})
+    sn = load_snaps([season])
+    out.append({"name": "Snap counts (Pro Football Reference via nflverse)", "status": "verified" if sn else "unavailable",
+                "detail": f"{len(sn)} games this season" if sn else "not published yet", "fetched": mtime(RAW_DIR / f"snaps_{season}.parquet")})
+    wx = sum(1 for g in games if g.get("weather"))
+    outdoor = sum(1 for g in games if (g.get("roof") or "") in ("outdoors", "open") and not g.get("score"))
+    out.append({"name": "Kickoff weather (Open-Meteo forecast)", "status": "projected" if wx else "unavailable",
+                "detail": f"forecast for {wx} of {outdoor} upcoming outdoor games (out of range beyond 15 days)", "fetched": None})
+    try:
+        from .odds import ODDS_FILE
+        od = json.loads(ODDS_FILE.read_text()) if ODDS_FILE.exists() else None
+    except Exception:  # noqa: BLE001
+        od = None
+    with_odds = sum(1 for g in games if g.get("odds"))
+    out.append({"name": "Sportsbook prices (The Odds API)", "status": "verified" if with_odds else "unavailable",
+                "detail": (f"{with_odds} games priced, {sum(1 for g in games if (g.get('odds') or {}).get('props'))} with props; {od.get('credits_remaining')} credits left this month"
+                           if with_odds and od else "not connected (add ODDS_API_KEY); game lines use the nflverse consensus"), "fetched": od.get("updated_utc") if od else None})
+    return out
 
 
 def _tested() -> list:

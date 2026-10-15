@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from .brand import BRAND_CSS, NAME, brand_html, copy_assets, head_tags
 from .config import OUT_DIR, ROOT
 
 
@@ -37,7 +38,7 @@ HEAD_EXTRA = """<link rel="manifest" href="{base}manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Early Goal">
+<meta name="apple-mobile-web-app-title" content="Gill Sports">
 <link rel="apple-touch-icon" href="{base}apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="{base}icon-192.png">
 <style>
@@ -74,9 +75,9 @@ SITE_SCRIPT = """<script>
 """
 
 MANIFEST = {
-    "name": "Early Goal Desk",
-    "short_name": "Early Goal",
-    "description": "NHL first-5 and first-10 minute under 0.5, 1P and FG markets, simulated daily",
+    "name": "Gill Sports",
+    "short_name": "Gill Sports",
+    "description": "NHL and NFL research desk: simulated probabilities, research, live scores and picks",
     "start_url": "./",
     "scope": "./",
     "display": "standalone",
@@ -89,8 +90,8 @@ MANIFEST = {
     ],
 }
 
-SW = """// Early Goal Desk service worker: network first, fall back to the last copy when offline.
-const CACHE = 'egd-v2';
+SW = """// Gill Sports service worker: network first, fall back to the last copy when offline.
+const CACHE = 'gs-v1';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch', e => {
@@ -147,11 +148,14 @@ def _inject(html: str, options_html: str, published: str, base: str) -> str:
     title = "<title>Early Goal Desk</title>"
     if title not in html or "</body>" not in html:
         raise RuntimeError("dashboard template changed: <title> or </body> not found")
-    html = html.replace(title, title + "\n" + HEAD_EXTRA.format(base=base), 1)
+    new_title = f"<title>{NAME} · NHL</title>"
+    html = html.replace(title, new_title + "\n" + HEAD_EXTRA.format(base=base)
+                        + head_tags(base, f"{NAME} · NHL", "NHL slate: first-5 and first-10 minute unders, period and full-game markets, simulated 100,000 times per game"), 1)
+    # brand colours last in <head>, so they override the page's own stylesheet (older pages included)
+    html = html.replace("</head>", "<style>" + BRAND_CSS + "</style>\n</head>", 1)
     brand = '<div class="brand">Early <span>Goal</span> Desk</div>'
     if brand in html:
-        html = html.replace(brand, '<div class="brand"><span class="bt">Early <span>Goal</span> Desk</span><nav class="sport" aria-label="sport">'
-                            f'<a class="on" href="#">NHL</a><a href="{base}nfl/">NFL</a></nav></div>', 1)
+        html = html.replace(brand, brand_html(base, "nhl", f"{base}nfl/"), 1)
     if '<span id="dayslot"></span>' in html:
         html = html.replace('<span id="dayslot"></span>', DAYSLOT.format(options=options_html, published=published), 1)
     elif '<div class="wrap">\n<header>' in html:
@@ -228,6 +232,7 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: in
         shutil.copy(sc, site_dir / "scorecard.json")
     (site_dir / "sw.js").write_text(SW)
     (site_dir / ".nojekyll").write_text("")
+    copy_assets(site_dir)
     for size, name in ((192, "icon-192.png"), (512, "icon-512.png"), (180, "apple-touch-icon.png")):
         if not (site_dir / name).exists():
             _icon(size, site_dir / name)
