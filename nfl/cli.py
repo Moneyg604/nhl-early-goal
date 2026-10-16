@@ -46,6 +46,7 @@ def cmd_run(a) -> None:
         try:
             from datetime import datetime, timedelta, timezone
 
+            from .odds import PROPS_AHEAD_HOURS, props_fresh
             from .odds import fetch as fetch_odds
             from .venues import kickoff_utc
             now = datetime.now(timezone.utc)
@@ -53,9 +54,13 @@ def cmd_run(a) -> None:
             window = []
             for r in s.itertuples(index=False):
                 k = kickoff_utc(str(r.gameday), str(r.gametime))
-                # props: the games about to start on pre-kickoff runs, every game of the week on a "props" run
-                if k and (reason == "props" or (reason == "t75" and timedelta(minutes=-15) <= k - now <= timedelta(hours=3))):
-                    window.append(f"{r.away_team}@{r.home_team}")
+                gk = f"{r.away_team}@{r.home_team}"
+                # props, once per game: on a pre-kickoff run every game of the next 40 hours not priced in the last
+                # 20 (Sunday ~11:45 ET prices Sunday and Monday together); every game of the week on a "props" run.
+                # Never a game that has started (the feed would return in-play prices).
+                ahead = k is not None and timedelta(minutes=5) <= k - now
+                if ahead and (reason == "props" or (reason == "t75" and k - now <= timedelta(hours=PROPS_AHEAD_HOURS) and not props_fresh(gk))):
+                    window.append(gk)
             # the odds pull runs on the Wednesday preview, the pre-kickoff builds and an explicit "props" run; props are
             # fetched for the games about to kick off, with the number of markets set by the month's remaining credits
             if reason in ("weekly", "props", "t75") or (reason == "daily" and now.weekday() == 2):

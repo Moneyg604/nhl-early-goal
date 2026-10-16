@@ -84,6 +84,42 @@ NFL_CSS = r"""
 .gr.gS{background:rgba(94,200,255,.18);color:var(--ice);border:1px solid var(--ice)}.gr.gA{background:rgba(61,220,132,.15);color:var(--green)}.gr.gB{background:rgba(61,220,132,.07);color:#9fe7c0}
 .gr.gC{background:rgba(243,182,58,.12);color:var(--amber)}.gr.gD{background:rgba(255,107,107,.1);color:var(--red)}
 .gradehelp summary{cursor:pointer;font-size:13px}.gradehelp p{font-size:13px}
+.bbhead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin:2px 0 10px;font-size:12.5px;color:var(--muted)}
+.bbhead b{color:var(--text)}
+.bbbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;margin-bottom:10px}
+.bbbar .chips{grid-column:1/-1}
+.bbbar select{min-width:0;width:100%;background:#0a1017;border:1px solid var(--line2);color:var(--text);border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit}
+.bbl{display:flex;flex-direction:column;gap:8px}
+.bb{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-width:0}
+.bb.good{border-color:rgba(61,220,132,.45);background:linear-gradient(180deg,rgba(61,220,132,.06),var(--panel) 60%)}
+.bb.insl{box-shadow:inset 3px 0 0 var(--ice)}
+.bb .top{display:flex;gap:10px;align-items:flex-start}
+.bb .rk{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:17px;background:var(--panel2);color:var(--muted)}
+.bb.good .rk{background:rgba(61,220,132,.16);color:var(--green)}
+.bb .ti{flex:1 1 auto;min-width:0}
+.bb .ti b{display:block;font-size:15px;font-weight:600;line-height:1.25}
+.bb .ti .t{display:block;font-size:11.5px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb .evb{flex:0 0 auto;text-align:right;font-family:var(--display);font-weight:800;font-size:22px;line-height:1}
+.bb .evb .k{display:block;font-family:var(--body);font-size:9.5px;font-weight:700;letter-spacing:.08em;color:var(--dim);margin-top:3px}
+.bb .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+.bb .nums div{background:#0a1017;border:1px solid var(--line);border-radius:9px;padding:5px 8px;min-width:0}
+.bb .nums .k{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.bb .nums .v{font-family:var(--display);font-size:18px;font-weight:700;white-space:nowrap}
+.bb .nums .v .t{font-family:var(--body);font-size:11px;font-weight:500;color:var(--muted);margin-left:3px}
+@media (max-width:420px){.bb .nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bb .why{margin-top:7px;font-size:12px;color:var(--muted);line-height:1.45}
+.bb .why b{color:var(--text);font-weight:600}
+.bb details{margin-top:6px;flex:1 1 auto;min-width:0}.bb summary{cursor:pointer;font-size:12px;color:var(--ice)}
+.bb .bt{overflow-x:auto;max-width:100%}
+body[data-tab="best"] #banner{display:none}
+.bbhow{font-size:12.5px;color:var(--muted);margin:0 0 10px}.bbhow summary{cursor:pointer;color:var(--ice)}.bbhow p{margin:6px 0;max-width:72ch}
+@media (max-width:480px){.tabs button{flex:0 0 auto;padding:8px 9px}}
+.bb table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}.bb th,.bb td{padding:3px 6px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+.bb th:first-child,.bb td:first-child{text-align:left}.bb tr.dk td{color:var(--ice);font-weight:600}
+.cf{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;vertical-align:1px}
+.cf.high{color:var(--green);background:rgba(61,220,132,.12)}.cf.medium{color:var(--amber);background:rgba(243,182,58,.12)}.cf.low{color:var(--red);background:rgba(255,107,107,.12)}
+.bbsep{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.bb .addb{margin-left:auto;background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:3px 9px;font-size:11.5px;font-family:inherit;cursor:pointer}
 .slip .lg{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.slip .lg a{font-size:11px;color:var(--dim)}
 """
 
@@ -106,7 +142,8 @@ TEMPLATE = r"""<!doctype html>
     <div class="hmeta"><span id="dayslot"></span></div>
   </div>
   <nav class="tabs" id="tabs">
-    <button data-tab="week" class="on">Week</button>
+    <button data-tab="best" class="on">Best bets</button>
+    <button data-tab="week">Week</button>
     <button data-tab="scanner">Scanner</button>
     <button data-tab="research">Research</button>
     <button data-tab="results">Results</button>
@@ -118,7 +155,15 @@ TEMPLATE = r"""<!doctype html>
 <div id="banner"></div>
 __STATIC__
 
-<section class="tab on" id="tab-week">
+<section class="tab on" id="tab-best">
+  <p class="lead" style="margin-bottom:4px">DraftKings bets for the games still to play, best first. Green cards are worth betting; everything below them loses money on average.</p>
+  <details class="bbhow"><summary>How they are ranked</summary>
+   <p>Each bet is judged on its expected value at DraftKings' own line and price. The win chance comes from the whole market: every book's price with its margin removed, moved onto DraftKings' line (Pinnacle counts double). The simulation can move that chance by at most 4 points, and not at all when it disagrees with the market by 20 points or more: in the walk-forward test the model alone did not beat the closing lines, and in 2026 it under-projected high-volume quarterbacks by about 20 yards.</p>
+   <p>A bet is listed as good at +2% or better with at least three books quoting it. Anytime touchdowns need +5% and are never listed past +700, because books post only a "Yes" price and their margin has to be assumed. Bets lock at kickoff and the Results tab grades them in units at the price shown.</p></details>
+  <div id="best"></div>
+</section>
+
+<section class="tab" id="tab-week">
   <div class="status" id="status"></div>
   <div class="livebar" id="livebar"></div>
   <div class="board" id="board"></div>
@@ -136,13 +181,13 @@ __STATIC__
 </section>
 
 <section class="tab" id="tab-scanner">
-  <p class="lead">Every selection the model prices, in every market, nothing hidden. Win probability and value are separate columns: the likeliest bet is not the best bet. Grades combine three things: whether the backtest found an edge in that market, how solid the inputs are, and the expected value at the best book price.</p>
+  <p class="lead">Every selection the model prices, in every market, nothing hidden. The "win" column is the simulation's own number; the EV column judges the price on the market's fair chance (all books, no vig) wherever DraftKings lists the bet. The likeliest bet is not the best bet: start from the Best bets tab.</p>
   <details class="panel gradehelp"><summary><b>How the grades work</b></summary>
-   <p><b>S</b>: market beats its baseline in the backtest, tier A inputs, and at least +5% expected value at the best price. <b>A</b> and <b>B</b>: two of the three are strong. <b>C</b>: marginal evidence or data. <b>D</b>: negative expected value at the best price, or a market where the backtest found no edge. Without a book price the best possible grade is B, because value is unknown. Moneyline, spread and total probabilities are the market's own (the model does not beat it), so their value comes only from finding a better price than the market consensus.</p>
-   <p>The "backtest" column shows how often selections the model rated at about the same probability actually won over 2023 to 2025. Anytime TD value is judged on the average of the model's chance and the chance implied by the book's price (the price knows about roles the data cannot see); a player the book prices at less than half the model's chance is capped at C.</p></details>
+   <p>Grades are expected value at the book's price, judged on the market's fair chance. The bar is +2% (+5% for anytime touchdowns, whose one-sided prices need an assumed margin): <b>S</b> clears it by 3 points or more, <b>A</b> clears it, <b>B</b> positive but under the bar, or a long shot or thin market that is never listed, <b>C</b> 0 to -4%, <b>D</b> worse than -4%. A selection with no market consensus (the book does not list it, or too few books do) is judged on the model alone and never graded above C: in the walk-forward test the model did not beat the closing lines, and in 2026 it under-projected high-volume quarterbacks by about 20 yards. No price means value unknown (C).</p>
+   <p>The "backtest" column shows how often selections the model rated at about the same probability actually won over 2023 to 2025, against each player's recent average (not a sportsbook line).</p></details>
   <div class="panel" id="slip"></div>
   <div class="panel" id="scanner"></div>
-  <h2>Published leans <small>the strongest lean per market, graded in the track record</small></h2>
+  <h2>Best bet per market <small>the good DraftKings bets, graded in the track record</small></h2>
   <div class="groups" id="picks"></div>
 </section>
 
@@ -204,6 +249,11 @@ function nameKey(n){ n=String(n||'').trim(); if(!n) return ''; let first, rest;
   if (/^[A-Za-z]{1,2}\.[A-Za-z'-]{2,}/.test(n)) { const i=n.indexOf('.'); first=n.slice(0,i); rest=n.slice(i+1); } else { const i=n.indexOf(' '); first=i<0?n:n.slice(0,i); rest=i<0?'':n.slice(i+1); }
   const toks = rest.replace(/\./g,' ').trim().split(/\s+/).filter(t=>t && !SUFFIX.has(t.toLowerCase().replace(',','')));
   return (first.slice(0,1)+'.'+toks.join('')).toLowerCase(); }
+function fullKey(n){ const toks=String(n||'').toLowerCase().replace(/,/g,' ').replace(/'/g,'').split(/[\s.]+/).filter(t=>t && !SUFFIX.has(t)); const out=[];
+  for(const t of toks){ if(t.length===1 && out.length===1 && out[0].length<=2 && /^[a-z]+$/.test(out[0])) out[0]+=t; else out.push(t); } return out.join(' '); }
+// an odds row for a player: by full name first (two players can share a short key, e.g. Bijan and Brian Robinson), and never one whose first name conflicts
+function propRow(T, who){ T=T||{}; const fk=fullKey(who); const r=T[fk]||T[nameKey(who)]; if(!r) return null;
+  const a=fk.split(' ')[0]||'', b=fullKey(r.name||'').split(' ')[0]||''; return (a.length>2 && b.length>2 && a!==b) ? null : r; }
 let LIVE = {}; const BOX = {}; const boxAt = {};
 function parseEvent(ev){ const c=(ev.competitions||[{}])[0]; const st=c.status||ev.status||{}; const ty=st.type||{};
   const o={espn:String(ev.id), state:ty.state, detail:ty.shortDetail||ty.detail, period:st.period, clock:st.displayClock, completed:!!ty.completed};
@@ -268,15 +318,16 @@ document.getElementById('status').innerHTML = [
   `data through <b>${esc(M.data_through||'n/a')}</b>`, `updated <b>${esc(P.generated_utc)}</b>`, `${(M.sims||0).toLocaleString()} sims per game`].map(x=>`<span>${x}</span>`).join('');
 (function(){ const b=[]; if(V && V.pooled){ const gl=['moneyline','spread','total'].map(k=>V.pooled[k]).filter(Boolean);
     const none = gl.every(x=>x.verdict!=='beats baseline');
-    if(none) b.push(`<div class="banner"><b>Game lines follow the market.</b> In the walk-forward test the model alone did not beat the closing moneyline, spread or total, so the moneyline, spread and total probabilities below are the market's line re-simulated (with ${M.blend && (M.blend.margin||M.blend.total) ? 'a small measured share of the model\'s disagreement' : 'none of the model\'s disagreement'} kept). The model's own lean is shown next to it for reference. The derived markets (halves, field goals, passing, scorers) carry the team-specific information; their verdicts are on each pick group.</div>`); }
+    if(none) b.push(`<div class="banner"><b>Bets are judged on the market, not the model.</b> In the walk-forward test the model alone did not beat the closing lines, and in 2026 it under-projected high-volume quarterbacks by about 20 yards. So every bet's win chance comes from all the books' prices (margin removed) at DraftKings' line, and the model may nudge player props by at most 4 points. The game cards still show the simulation for research.</div>`); }
   else b.push(`<div class="banner"><b>Validation pending.</b> The walk-forward backtest has not been published yet; treat every number as unvalidated.</div>`);
   document.getElementById('banner').innerHTML = b.join(''); })();
 const tabs=document.getElementById('tabs');
-function showTab(name, push){ document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id==='tab-'+name));
+document.body.dataset.tab='best';
+function showTab(name, push){ document.body.dataset.tab=name; document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on', s.id==='tab-'+name));
   tabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.tab===name)); try{localStorage.setItem('egd_nfl_tab',name);}catch(e){}
   if(push && history.replaceState) history.replaceState(null,'','#'+name); window.scrollTo({top:0}); }
 tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab,true));
-function tabFromHash(){ let h=(location.hash||'').replace('#',''); if(h==='picks') h='scanner'; if(['week','scanner','research','results','about'].includes(h)) showTab(h,false); }
+function tabFromHash(){ let h=(location.hash||'').replace('#',''); if(h==='picks') h='scanner'; if(['best','week','scanner','research','results','about'].includes(h)) showTab(h,false); }
 tabFromHash(); window.addEventListener('hashchange', tabFromHash);
 
 // ------------------------------------------------------------- week tab
@@ -329,7 +380,7 @@ function atdList(g,o,side){ const a=(g.anytime||{})[side]||[];
   return `<ol><li><span>${esc(g[side])} anytime TD</span><span>prob · fair</span></li>${a.slice(0,7).map(x=>{ const r=scored(o,x);
     return `<li class="${r==='hit'?'hit':''}"><span class="nm">${esc(x.name)}<span class="pos">${esc(x.pos||'')}</span>${x.q?'<span class="qtag">Q</span>':''}${r==='hit'?' ✓':''}</span><span><span class="pp">${pct(x.p,0)}</span> <span class="t">${x.fair?x.fair.toFixed(2):''}</span></span></li>`; }).join('')}</ol>`; }
 function propList(g,o,side){ const a=((g.props||{})[side]||[]); const Pp=(g.odds||{}).props||{};
-  const line = (x,key) => { const my=myLine(g,key,x.name); const bq=(Pp[key]||{})[nameKey(x.name)]; return (my&&my.line!=null)?my.line:((bq&&bq.line!=null)?bq.line:x[key].fair_line); };
+  const line = (x,key) => { const my=myLine(g,key,x.name); const bq=propRow(Pp[key], x.name); return (my&&my.line!=null)?my.line:((bq&&bq.line!=null)?bq.line:x[key].fair_line); };
   const st = (o && byId[g.game_id].actual && byId[g.game_id].actual.stats) ? byId[g.game_id].actual.stats : null;
   return `<ol><li><span>${esc(g[side])} props</span><span>line · over</span></li>${a.filter(x=>['rec_yds','rush_yds','recs'].some(k=>x[k]&&x[k].q[2]>=(k==='recs'?2.5:20))).slice(0,7).map(x=>{ const parts=[];
     for(const [key,lab,ak] of [['rec_yds','rec','recyds'],['rush_yds','rush','ryds'],['recs','rec#','rec']]){ const d=x[key]; if(!d) continue; const ln=line(x,key); const r=propP(d,ln); const act=st&&st[x.id]?st[x.id][ak]:null; parts.push(`${lab} ${ln}: <span class="pp">${pct(r.over,0)}</span>${act!=null?` <span class="t">(${act})</span>`:''}`); }
@@ -361,10 +412,9 @@ function pickText(k, x){ if(k==='ml') return `${x.team} ML`; if(k==='spread'){ c
   if(k==='total'||k==='h1'||k==='h2') return `${x.side==='over'?'Over':'Under'} ${x.line}`; if(k==='fg') return `${x.team} ${x.side} ${x.line} FGs`;
   if(k==='qb_yds') return `${x.qb} ${x.side} ${x.line} yds`; if(k==='qb_td') return `${x.qb} ${x.side} ${x.line} TDs`; if(k==='atd') return `${x.player} (${x.team})`;
   if(k==='rec_yds') return `${x.player} ${x.side} ${x.line} rec yds`; if(k==='rush_yds') return `${x.player} ${x.side} ${x.line} rush yds`; if(k==='recs') return `${x.player} ${x.side} ${x.line} rec`; return ''; }
-function renderBoard(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd'];
+function renderBoard(){ const keys=['ml','spread','total','h1','h2','qb_yds','qb_td','rec_yds','rush_yds','recs','atd'];
   document.getElementById('board').innerHTML = keys.filter(k=>(P.picks[k]||[]).length).map(k=>{ const x=P.picks[k][0];
-    const v=verdictOf(VK[k]); const vi = v==='beats baseline'?'✓ validated':(v==='marginal'?'~ marginal':(v?'no edge':'unvalidated'));
-    return `<a href="#g-${x.game_id}" onclick="SLOT='all';renderToolbar();renderCards();setTimeout(()=>{const e=document.getElementById('g-${x.game_id}'); if(e) e.scrollIntoView({behavior:'smooth'});},20);return false;"><span class="k">${PK_LABEL[k]}</span><span class="mu">${esc(pickText(k,x))}</span><span class="v" style="${v==='beats baseline'?'':'color:var(--text)'}">${pct(x.p)}</span><span class="s">${esc(x.mu)} · ${vi}</span></a>`; }).join(''); }
+    return `<a href="#best" onclick="showTab('best',true);return false;"><span class="k">${PK_LABEL[k]}</span><span class="mu">${esc(x.label||pickText(k,x))}</span><span class="v">${evTxt(x.ev)}</span><span class="s">${esc(x.mu)} · DraftKings ${x.odds!=null?dec2am(x.odds):''}</span></a>`; }).join(''); }
 
 // ------------------------------------------------------------- price check
 const PC_MARKETS = [['ml_home','Moneyline: home'],['ml_away','Moneyline: away'],['sp_home','Spread: home'],['sp_away','Spread: away'],['over','Total: over'],['under','Total: under'],
@@ -485,6 +535,7 @@ function renderResearch(){ renderSources(); const L=M.league||{}; const ctx=L.co
 const KIND = {ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team field goals', qb_yds:'QB passing yards', qb_td:'QB passing TDs', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
 function propP(d, line){ const [off,vals]=d.pmf; const st=d.step; let o=0,p=0,u=0; vals.forEach((x,i)=>{ const v=(off+i)*st; if(v>line) o+=x; else if(v===line) p+=x; else u+=x; }); const s=o+p+u||1; return {over:o/s, push:p/s, under:u/s}; }
 const am2dec = a => a==null ? null : (a>0 ? 1+a/100 : 1+100/(-a));
+const VAL = (P.best_bets && P.best_bets.all) || {};
 const evKey = (kind, line) => kind==='fg' ? 'fg_over'+(line<1?'0.5':(line<2?'1.5':'2.5')) : (kind==='qb_td' ? 'qb_td_over'+(line<1?'0.5':(line<2?'1.5':'2.5')) : VK[kind]);
 function evidence(kind, line){ if(kind==='ml'||kind==='spread'||kind==='total') return 1; const v=verdictOf(evKey(kind,line)); return v==='beats baseline'?2:(v==='marginal'?1:0); }
 function calBand(kind, line, side, p){ if(kind==='ml'||kind==='spread'||kind==='total') return null;
@@ -492,17 +543,17 @@ function calBand(kind, line, side, p){ if(kind==='ml'||kind==='spread'||kind==='
   const flip = side==='under'; const q = flip ? 1-p : p; let best=null;
   for(const b of m.calibration){ if(!best || Math.abs(b.p-q) < Math.abs(best.p-q)) best=b; }
   return best ? {p: flip?1-best.p:best.p, hit: flip?1-best.hit:best.hit, n: best.n} : null; }
-function gradeOf(o){ const E=o.E, Q=o.Q; let v=null; if(o.ev!=null) v = o.ev>=0.05 ? 2 : (o.ev>=0 ? 1 : -1); o.Vv=v;
-  if(v===-1) return 'D';
-  if(o.longshot) return 'C';                       // the market prices him at less than half the model's chance
-  if(v===null) return (E===2 && Q>=1) ? 'B' : (E>=1 ? 'C' : 'D');
-  if(E===2 && Q===2 && v===2) return 'S'; const s=E+Q+v; return s>=5 ? 'A' : (s>=4 ? 'B' : 'C'); }
+function gradeOf(o){ let v=null; if(o.ev!=null) v = o.ev>=0.05 ? 2 : (o.ev>=0 ? 1 : -1); o.Vv=v;
+  if(v===null) return 'C';                          // no price: value unknown
+  if(o.fairsrc!=='market') return o.ev < -0.04 ? 'D' : 'C';   // the model alone is never trusted against a price
+  const need = o.need || 0.02, ok = !o.excluded;
+  if(ok && o.ev>=need+0.03) return 'S'; if(ok && o.ev>=need) return 'A'; if(o.ev>=0) return 'B'; if(o.ev>=-0.04) return 'C'; return 'D'; }
 let MYBOOK='DraftKings'; try{ const v=localStorage.getItem('egd_book'); if(v!==null) MYBOOK=v; }catch(e){}
 function allBooks(){ const b=new Set(); for(const g of P.games){ const O=g.odds||{}; for(const k of ['ml','spread','total']){ if(O[k]) ['home','away','over','under'].forEach(s=>{ if(O[k]['book_'+s]) b.add(O[k]['book_'+s]); }); }
   const Pp=O.props||{}; for(const k of ['qb_yds','qb_td','atd']) for(const x of Object.values(Pp[k]||{})) Object.keys(x.books||{}).forEach(t=>b.add(t)); for(const k of ['h1','h2']) Object.keys((Pp[k]||{}).books||{}).forEach(t=>b.add(t)); } return [...b].sort(); }
 function myLine(g, kind, who){ // the chosen book's own line and prices for a prop, else null
   if(!MYBOOK) return null; const Pp=(g.odds||{}).props||{}; let x=null;
-  if(kind==='qb_yds'||kind==='qb_td'||kind==='rec_yds'||kind==='rush_yds'||kind==='recs') x=(Pp[kind]||{})[nameKey(who)]; else if(kind==='h1'||kind==='h2') x=Pp[kind]; else if(kind==='atd') x=(Pp.atd||{})[nameKey(who)];
+  if(kind==='qb_yds'||kind==='qb_td'||kind==='rec_yds'||kind==='rush_yds'||kind==='recs') x=propRow(Pp[kind], who); else if(kind==='h1'||kind==='h2') x=Pp[kind]; else if(kind==='atd') x=propRow(Pp.atd, who);
   const b=x && x.books && x.books[MYBOOK]; return b ? {line:b.line, over:b.over, under:b.under, yes:b.yes, book:MYBOOK} : null; }
 function bookPrice(g, kind, side, line, who){
   const mine = myLine(g, kind, who);
@@ -520,23 +571,26 @@ function bookPrice(g, kind, side, line, who){
   if(kind==='total'){ if(O.total && O.total.line===line) return r(O.total[side], O.total['book_'+side], cons2(O.total.consensus_over, side==='over'));
     if(L.total===line) return r(am2dec(L[side+'_odds']), 'consensus (nflverse)', null); return null; }
   if(kind==='h1'||kind==='h2'){ const x=Pp[kind]; return (x && x.line===line) ? r(x[side], x['book_'+side], cons2(x.consensus_over, side==='over')) : null; }
-  if(kind==='qb_yds'||kind==='qb_td'||kind==='rec_yds'||kind==='rush_yds'||kind==='recs'){ const x=(Pp[kind]||{})[nameKey(who)]; return (x && x.line===line) ? r(x[side], x['book_'+side], cons2(x.consensus_over, side==='over')) : null; }
-  if(kind==='atd'){ const x=(Pp.atd||{})[nameKey(who)]; return x ? r(x.yes, x.book_yes, x.consensus_yes) : null; }
+  if(kind==='qb_yds'||kind==='qb_td'||kind==='rec_yds'||kind==='rush_yds'||kind==='recs'){ const x=propRow(Pp[kind], who); return (x && x.line===line) ? r(x[side], x['book_'+side], cons2(x.consensus_over, side==='over')) : null; }
+  if(kind==='atd'){ const x=propRow(Pp.atd, who); return x ? r(x.yes, x.book_yes, x.consensus_yes) : null; }
   return null; }
 function legTxt(o){ return o.label; }
 function buildSelections(){ const out=[];
   for(const g of P.games){ const mk=g.markets, L=g.lines||{}, O=g.odds||{}, Pp=O.props||{}; const mu=`${g.away} @ ${g.home}`;
     const uncertain = side => (g.tier_why||[]).some(w=>w.startsWith(g[side]+':') && w.includes('uncertain'));
     const add = o => { o.game_id=g.game_id; o.mu=mu; o.kick=g.kickoff_utc||''; o.tier=g.tier;
+      o.id = [o.kind, g.game_id, o.side, o.line, o.who||o.team||''].join('|');
+      const F = VAL[o.id];                                   // fair chance from the market (best-bets engine), when DraftKings lists it
       o.fair = o.p>0 ? (1-(o.push||0))/o.p : null;
       const bp = bookPrice(g, o.kind, o.side, o.line, o.who); if(bp){ o.odds=bp.odds; o.book=bp.book; o.cons=bp.cons;
-        // anytime TD: the book's price carries role information the data cannot see (blocking tight ends, package players),
-        // so value is judged on the average of the model and the price's implied chance (a 20% hold assumed)
-        let pe=o.p; if(o.kind==='atd'){ const imp=Math.min(0.95, 0.8/bp.odds); pe=(o.p+imp)/2; o.p_ev=pe; o.longshot = imp < o.p/2; }
-        o.ev = pe*(bp.odds-1) - (1-pe-(o.push||0)); }
+        if(F){ o.p_ev=F.p; o.cons=F.p_market; o.fairsrc='market'; o.need=F.need; o.excluded=F.excluded; o.ev = F.p*(bp.odds-1) - (1-F.p-(F.push||0)); }
+        else {
+          // no market consensus for this selection: the model alone, which the backtest does not trust against a price
+          let pe=o.p; if(o.kind==='atd'){ const imp=Math.min(0.95, 0.8/bp.odds); pe=(o.p+imp)/2; o.p_ev=pe; o.longshot = imp < o.p/2; }
+          o.fairsrc='model'; o.ev = pe*(bp.odds-1) - (1-pe-(o.push||0)); } }
       o.E = evidence(o.kind, o.line); o.Q = Math.max(0, (g.tier==='A'?2:(g.tier==='B'?1:0)) - (o.questionable?1:0));
       o.grade = gradeOf(o); o.band = calBand(o.kind, o.line, o.side, o.p);
-      o.id = [o.kind, g.game_id, o.side, o.line, o.who||o.team||''].join('|'); out.push(o); };
+      out.push(o); };
     for(const side of ['away','home']) add({kind:'ml', side, line:null, team:g[side], label:`${g[side]} moneyline`, p:mk.ml[side], push:mk.ml.tie});
     const myS = MYBOOK && O.spread && O.spread.books && O.spread.books[MYBOOK]; const S = myS ? -myS.line : (O.spread ? -O.spread.line : L.spread);
     if(S!=null){ const r=marginP(g, S), hl=-S;
@@ -549,13 +603,13 @@ function buildSelections(){ const out=[];
     for(const side of ['away','home']){ const t=g[side];
       for(const ln of [0.5,1.5,2.5]){ const r=fgP(g,side,ln); for(const s of ['over','under']) add({kind:'fg', side:s, line:ln, team:t, tside:side, label:`${t} ${s} ${ln} field goals`, p:r[s], push:r.push}); }
       const q=g.qb[side]||{}; if(q.name){ const who=q.name, qq=!!q.status||uncertain(side);
-        const bq=(Pp.qb_yds||{})[nameKey(who)]; const my=myLine(g,'qb_yds',who); const yl=(my && my.line!=null) ? my.line : ((bq && bq.line!=null) ? bq.line : g.markets.qb[side].yds_fair_line); const ry=qbYdsP(g,side,yl);
+        const bq=propRow(Pp.qb_yds, who); const my=myLine(g,'qb_yds',who); const yl=(my && my.line!=null) ? my.line : ((bq && bq.line!=null) ? bq.line : g.markets.qb[side].yds_fair_line); const ry=qbYdsP(g,side,yl);
         for(const s of ['over','under']) add({kind:'qb_yds', side:s, line:yl, team:t, tside:side, who, label:`${who} ${s} ${yl} passing yds`, p:ry[s], push:ry.push, questionable:qq});
-        const bt=(Pp.qb_td||{})[nameKey(who)]; const lines=[0.5,1.5,2.5]; if(bt && bt.line!=null && !lines.includes(bt.line)) lines.push(bt.line); const mt=myLine(g,'qb_td',who); if(mt && mt.line!=null && !lines.includes(mt.line)) lines.push(mt.line);
+        const bt=propRow(Pp.qb_td, who); const lines=[0.5,1.5,2.5]; if(bt && bt.line!=null && !lines.includes(bt.line)) lines.push(bt.line); const mt=myLine(g,'qb_td',who); if(mt && mt.line!=null && !lines.includes(mt.line)) lines.push(mt.line);
         for(const ln of lines){ const r=qbTdP(g,side,ln); for(const s of ['over','under']) add({kind:'qb_td', side:s, line:ln, team:t, tside:side, who, label:`${who} ${s} ${ln} TD passes`, p:r[s], push:r.push, questionable:qq}); } }
       for(const a of ((g.anytime||{})[side]||[])) add({kind:'atd', side:'yes', line:null, team:t, tside:side, who:a.name, pid:a.id, rec:a.rec_share, rush:a.rush_share, label:`${a.name} (${t}) anytime TD`, p:a.p, push:0, questionable:!!a.q});
-      for(const x of ((g.props||{})[side]||[])){ for(const [key,lab] of [['rec_yds','receiving yds'],['rush_yds','rushing yds'],['recs','receptions']]){ const d=x[key]; if(!d) continue; if(d.q[2] < (key==='recs'?2.5:20) && !(Pp[key]||{})[nameKey(x.name)]) continue;
-        const my=myLine(g,key,x.name); const bq=(Pp[key]||{})[nameKey(x.name)]; const ln=(my&&my.line!=null)?my.line:((bq&&bq.line!=null)?bq.line:d.fair_line); const r=propP(d, ln);
+      for(const x of ((g.props||{})[side]||[])){ for(const [key,lab] of [['rec_yds','receiving yds'],['rush_yds','rushing yds'],['recs','receptions']]){ const d=x[key]; if(!d) continue; if(d.q[2] < (key==='recs'?2.5:20) && !propRow(Pp[key], x.name)) continue;
+        const my=myLine(g,key,x.name); const bq=propRow(Pp[key], x.name); const ln=(my&&my.line!=null)?my.line:((bq&&bq.line!=null)?bq.line:d.fair_line); const r=propP(d, ln);
         for(const s of ['over','under']) add({kind:key, side:s, line:ln, team:t, tside:side, who:x.name, pid:x.id, label:`${x.name} ${s} ${ln} ${lab}`, p:r[s], push:r.push, questionable:!!x.q, median:d.q[2]}); } }
     } }
   return out; }
@@ -602,16 +656,15 @@ function renderScanner(){ const el=document.getElementById('scanner');
   on('sc-book','onchange',e=>{ MYBOOK=e.target.value; try{ localStorage.setItem('egd_book', MYBOOK); }catch(ex){} SELS.length=0; buildSelections().forEach(x=>SELS.push(x)); Object.keys(SEL_BY).forEach(k=>delete SEL_BY[k]); SELS.forEach(x=>SEL_BY[x.id]=x); renderScanner(); renderPC(); }); on('sc-odds','onclick',()=>{ SC.odds=!SC.odds; saveSC(); renderScanner(); });
   document.querySelectorAll('#sc-grades button[data-g]').forEach(b=>b.onclick=()=>{ const x=b.dataset.g; SC.grades = SC.grades.includes(x) ? SC.grades.filter(y=>y!==x) : [...SC.grades, x]; saveSC(); renderScanner(); });
   document.querySelectorAll('#scanner .srow').forEach(d=>d.onclick=()=>toggleLeg(SEL_BY[d.dataset.id])); }
-function gradeWhy(o){ const e = o.E===2?'the backtest found this market beats its baseline':(o.E===1?(o.kind==='ml'||o.kind==='spread'||o.kind==='total'?'game lines use the market price (no model edge)':'the backtest found this market marginal'):'the backtest found no edge in this market');
-  const q = o.Q===2?'tier A data':(o.Q===1?'tier B data or a questionable player':'thin or uncertain data');
-  const v = o.Vv==null?'no book price yet (top grade without a price is B)':(o.Vv===2?'EV at least +5% at the best price':(o.Vv===1?'EV 0 to +5%':'negative EV at the best price'));
-  const ls = o.longshot ? ' The book prices this player at less than half the model\'s chance, which usually means a role the data cannot see; capped at C.' : '';
-  return `${o.grade}: ${e}; ${q}; ${v}.${ls}`; }
+function gradeWhy(o){ if(o.Vv==null) return `${o.grade}: no book price, so the value is unknown.`;
+  const src = o.fairsrc==='market' ? 'win chance from the market consensus (all books, no vig), nudged by the model' : 'no market consensus for this selection, model alone (never graded above C)';
+  const ex = o.excluded ? ` Not listed as good: ${o.excluded}.` : '';
+  return `${o.grade}: EV ${o.ev>=0?'+':''}${(o.ev*100).toFixed(1)}% at ${o.book||'the book'}; ${src}.${ex}`; }
 
 // ------------------------------------------------------------- slip: correlation-aware parlays
 let SLIP=[]; try{ SLIP=JSON.parse(localStorage.getItem('egd_nfl_slip_'+P.season+'_'+P.week)||'[]').filter(x=>x && x.kind); }catch(e){}
 function saveSlip(){ try{ localStorage.setItem('egd_nfl_slip_'+P.season+'_'+P.week, JSON.stringify(SLIP)); }catch(e){} }
-function toggleLeg(o){ if(!o) return; const i=SLIP.findIndex(s=>s.id===o.id); if(i>=0) SLIP.splice(i,1); else SLIP.push(Object.assign({}, o)); saveSlip(); renderScanner(); renderTop(); renderSlip(); }
+function toggleLeg(o){ if(!o) return; const i=SLIP.findIndex(s=>s.id===o.id); if(i>=0) SLIP.splice(i,1); else SLIP.push(Object.assign({}, o)); saveSlip(); renderScanner(); renderTop(); renderSlip(); renderBest(); }
 function legFromPick(k, x){ const g=byId[x.game_id]; let o;
   if(k==='ml') o={kind:'ml', side:x.side, line:null}; else if(k==='spread') o={kind:'spread', side:x.side, line: x.side==='home' ? -x.line : x.line};
   else if(k==='total'||k==='h1'||k==='h2') o={kind:k, side:x.side, line:x.line}; else if(k==='fg') o={kind:'fg', side:x.side, line:x.line, tside:x.side_team, team:x.team};
@@ -675,12 +728,10 @@ function renderSlip(){ const el=document.getElementById('slip');
   el.querySelectorAll('a[data-x]').forEach(a=>a.onclick=e=>{ e.preventDefault(); const i=SLIP.findIndex(l=>l.id===a.dataset.x); if(i>=0){ SLIP.splice(i,1); saveSlip(); renderScanner(); renderTop(); renderSlip(); } }); }
 // top leans (the published leans, graded in the track record)
 function renderTop(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs'];
-  const why = {ml:'Highest win probability (market price).', spread:'Largest gap between the model alone and the spread (no measured edge).', total:'Largest gap between the model alone and the total (no measured edge).',
-    h1:'Farthest from 50% at the usual first-half line.', h2:'Same for the second half, overtime included.', fg:'Farthest from 50% at 1.5 field goals made.',
-    qb_yds:'Farthest from 50% at a line set at the quarterback\'s recent average.', qb_td:'Farthest from 50% at 1.5 touchdown passes.', atd:'Highest anytime touchdown probability.',
-    rec_yds:'Farthest from 50% at DraftKings\' line (else the fair line).', rush_yds:'Same, rushing yards.', recs:'Same, receptions.'};
-  document.getElementById('picks').innerHTML = keys.map(k=>{ const L=P.picks[k]||[]; return `<div class="pk"><h3>${PK_LABEL[k]} ${verdTag(k)}</h3><p class="why">${why[k]}</p><ol>${L.map((x,i)=>{ const o=legFromPick(k,x); const r=legResult(o, byId[x.game_id], true);
-    return `<li class="leg2 ${SLIP.find(s=>s.id===o.id)?'on':''}" data-k="${k}" data-i="${i}"><span><span class="mu">${esc(pickText(k,x))}</span> ${markTxt(r)}<br><span class="t">${esc(x.mu)}${x.edge_pts!=null?` · model ${x.edge_pts>0?'+':''}${x.edge_pts} pts vs line`:''}${x.median!=null?` · median ${Math.round(x.median)}`:''}</span></span><span class="p">${pct(x.p)}</span></li>`; }).join('')}</ol></div>`; }).join('');
+  const ks = keys.filter(k=>(P.picks[k]||[]).length);
+  document.getElementById('picks').innerHTML = ks.length ? ks.map(k=>{ const L=P.picks[k]||[]; return `<div class="pk"><h3>${PK_LABEL[k]}</h3><p class="why">Clears the bar at DraftKings' price, judged on the market's fair odds.</p><ol>${L.map((x,i)=>{ const o=legFromPick(k,x); const r=legResult(o, byId[x.game_id], true);
+    return `<li class="leg2 ${SLIP.find(s=>s.id===o.id)?'on':''}" data-k="${k}" data-i="${i}"><span><span class="mu">${esc(x.label||pickText(k,x))}</span> ${markTxt(r)}<br><span class="t">${esc(x.mu)} · DraftKings ${x.odds!=null?x.odds.toFixed(2)+' ('+dec2am(x.odds)+')':'–'} · win ${pct(x.p)}</span></span><span class="p">${evTxt(x.ev)}</span></li>`; }).join('')}</ol></div>`; }).join('')
+    : '<div class="pk"><p class="why">No bet clears the bar at DraftKings right now.</p></div>';
   document.querySelectorAll('#picks .leg2').forEach(li=>li.onclick=()=>{ const x=P.picks[li.dataset.k][+li.dataset.i]; toggleLeg(legFromPick(li.dataset.k, x)); }); }
 
 // ------------------------------------------------------------- grading a leg from final (or live) results
@@ -746,9 +797,11 @@ function renderTracker(){ const el=document.getElementById('tracker'); const s=B
 function renderResults(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
   for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
   const any=Object.keys(t).length;
-  document.getElementById('wkresults').innerHTML = `<h3>This week's leans</h3>${any?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th></tr>${keys.filter(k=>t[k]).map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${t[k].hit}</td><td>${t[k].miss}</td><td>${t[k].tie}</td></tr>`).join('')}</table></div>`:'<p>No lean has been decided yet. Results fill in live as the games are played (scores and box scores from ESPN), and are confirmed from the play-by-play the next morning.</p>'}`;
+  document.getElementById('wkresults').innerHTML = `<h3>This week's best bets</h3>${any?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th></tr>${keys.filter(k=>t[k]).map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${t[k].hit}</td><td>${t[k].miss}</td><td>${t[k].tie}</td></tr>`).join('')}</table></div>`:'<p>No lean has been decided yet. Results fill in live as the games are played (scores and box scores from ESPN), and are confirmed from the play-by-play the next morning.</p>'}`;
   fetchJSON(BASE+'scorecard.json').then(sc=>{ const S=sc.summary||{}; const ks=keys.filter(k=>S[k]);
-    document.getElementById('track').innerHTML = `<h3>Track record, every published week</h3>${ks.length?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th><th>rate</th></tr>${ks.map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${S[k].won}</td><td>${S[k].lost}</td><td>${S[k].push}</td><td>${S[k].rate!=null?pct(S[k].rate):'–'}</td></tr>`).join('')}</table></div><p class="small">updated ${esc(sc.updated_utc)}. A lean is graded at the line shown when it was published.</p>`:'<p>No completed week yet.</p>'}`; })
+    const u = x => x==null ? '–' : `<span style="color:${x>=0?'var(--green)':'var(--red)'}">${x>=0?'+':''}${x.toFixed(2)}</span>`;
+    const T=sc.total||null;
+    document.getElementById('track').innerHTML = `<h3>Track record, every published week</h3>${ks.length?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th><th>rate</th><th>units</th><th>ROI</th></tr>${ks.map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${S[k].won}</td><td>${S[k].lost}</td><td>${S[k].push}</td><td>${S[k].rate!=null?pct(S[k].rate):'–'}</td><td>${u(S[k].units)}</td><td>${S[k].roi!=null?evTxt(S[k].roi):'–'}</td></tr>`).join('')}${T?`<tr><td><b>All</b></td><td>${T.won}</td><td>${T.lost}</td><td>${T.push}</td><td>${(T.won+T.lost)?pct(T.won/(T.won+T.lost)):'–'}</td><td>${u(T.units)}</td><td>${T.roi!=null?evTxt(T.roi):'–'}</td></tr>`:''}</table></div><p class="small">updated ${esc(sc.updated_utc)}. One unit per best bet at the DraftKings price shown before kickoff.</p>`:'<p>No completed week yet.</p>'}`; })
   .catch(()=>{ document.getElementById('track').innerHTML='<h3>Track record</h3><p>Not available yet.</p>'; });
   fetchJSON(BASE+'weeks.json').then(w=>{ document.getElementById('weeklist').innerHTML=(w.weeks||[]).map(x=>`<a class="${x.name===(P.season+'-w'+String(P.week).padStart(2,'0'))?'now':''}" href="${BASE}weeks/${x.name}.html">${x.season} week ${x.week}</a>`).join(''); }).catch(()=>{}); }
 
@@ -780,10 +833,77 @@ function renderAbout(){ const el=document.getElementById('validation'); const C=
   <p><b>Quarterbacks and kickers.</b> The starting quarterback's own yards per dropback and touchdown-pass share replace the team's when he has enough dropbacks; a mid-season change applies the measured effect of new starters. The kicker's makes against the league curve for his distances shift field-goal accuracy.</p>
   <p><b>Simulation.</b> ${(M.sims||100000).toLocaleString()} games per matchup, drive by drive, with overtime. When the book's spread and total are known the scoring rates are shifted until the simulation's mean margin and total match them (plus the measured share of the model's own disagreement). Every market is read from the same simulated games, so halves, field goals, quarterback lines and touchdown scorers agree with each other and with the game line.</p>
   <p><b>Anytime touchdown.</b> Each player's share of the team's passing and rushing touchdowns is his own rate shrunk toward his usage (half overall share, half red-zone share), rescaled across the active, healthy players; the probability is computed against every simulated game's touchdown count.</p>
+  <p><b>Best bets.</b> For every bet DraftKings lists, each book's two-way price has its margin removed. Books post different lines, so each one is moved onto DraftKings' line by shifting the simulation's distribution for that stat (its spread and where pushes fall) until it reproduces that book's price at that book's line; the consensus is the weighted median (Pinnacle counts double). The simulation may then move the market's chance by at most 4 points, less when the two disagree by more than 10 points and not at all past 20 (a disagreement that large with several books is usually something the model cannot see). Game lines get no model nudge. Expected value is that chance against DraftKings' price; a bet is listed as good at +2% or better with at least three books quoting it (+5% for anytime touchdowns, whose one-sided prices need an assumed margin; never past +700). Bets lock at kickoff and are graded at the price shown.</p>
   <p><b>Limits.</b> No play-level personnel model (offensive line, cornerbacks), no in-game injuries, no garbage-time substitutions; questionable players are included and flagged. The market already prices most of this, which is why the game lines follow it.</p>`;
   document.getElementById('foot').innerHTML = `Model ${esc(M.model_version)} · generated ${esc(P.generated_utc)} in ${M.seconds}s · <a href="${BASE}weeks/${P.season}-w${String(P.week).padStart(2,'0')}.json">payload JSON</a> · <a href="${BASE}weeks/${P.season}-w${String(P.week).padStart(2,'0')}.csv">CSV</a>`; }
 
-function render(){ renderLivebar(); renderBoard(); renderCards(); renderScanner(); renderTop(); renderSlip(); renderResults(); renderTracker(); gradeBets(); }
+// ------------------------------------------------------------- best bets (DraftKings, ranked by expected value)
+const BB = P.best_bets || null;
+const BBK = {props:['qb_yds','qb_td','rec_yds','rush_yds','recs','atd'], lines:['ml','spread','total','h1','h2']};
+let BBF = {grp:'all', kind:'all', game:'all', more:0};
+try{ BBF = Object.assign(BBF, JSON.parse(localStorage.getItem('egd_nfl_bb')||'{}'), {more:0}); }catch(e){}
+function saveBBF(){ try{ localStorage.setItem('egd_nfl_bb', JSON.stringify({grp:BBF.grp, kind:BBF.kind, game:BBF.game})); }catch(e){} }
+const evTxt = ev => ev==null ? '–' : `${ev>=0?'+':''}${(ev*100).toFixed(1)}%`;
+const isoD = iso => new Date(/T\d\d:\d\dZ$/.test(iso) ? iso.replace('Z',':00Z') : iso);
+const kickTxt = iso => iso ? isoD(iso).toLocaleString('en-US',{weekday:'short',hour:'numeric',minute:'2-digit'}) : '';
+const agoTxt = iso => { if(!iso) return 'not yet'; const m=Math.round((Date.now()-isoD(iso))/60000); if(m<60) return Math.max(m,0)+' min ago'; const h=Math.round(m/60); if(h<48) return h+' h ago'; return Math.round(h/24)+' days ago'; };
+function bbWhy(b){ const I=b.inputs||{}; const n=b.books; const parts=[];
+  const ls=(I.lines||[]).filter(x=>x!=null); const lines = ls.length>1 ? `, lines ${ls[0]} to ${ls[ls.length-1]}` : '';
+  parts.push(`<b>Market ${pct(b.p_market)}</b> (no-vig consensus of ${n} book${n===1?'':'s'}${lines}${b.one_sided?`, ${Math.round((I.margin_assumed||0.07)*100)}% margin assumed on one-sided prices`:''})`);
+  if(b.p_model!=null) parts.push(`<b>model ${pct(b.p_model)}</b>: ${esc(String(b.note||'').replace(/^model \d+% /,''))}`); else parts.push(esc(b.note||''));
+  if(I.market_median!=null && I.model_median!=null && ['qb_yds','rec_yds','rush_yds','recs'].includes(b.kind)) parts.push(`market median ${I.market_median}, model ${I.model_median}`);
+  return parts.join(' · '); }
+function bbBooks(b){ const rows=(b.inputs||{}).books||[]; if(!rows.length) return '';
+  const s1 = ('home' in rows[0]) ? 'home' : 'over', s2 = s1==='home'?'away':'under';
+  const h = b.kind==='atd' ? '<tr><th>Book</th><th>Yes</th><th>no-vig</th></tr>' : `<tr><th>Book</th><th>line</th><th>${s1}</th><th>${s2}</th><th>no-vig ${s1}</th></tr>`;
+  const r = rows.slice().sort((a,c)=>(a.book==='DraftKings'?-1:(c.book==='DraftKings'?1:0))).map(x=> b.kind==='atd'
+     ? `<tr class="${x.book==='DraftKings'?'dk':''}"><td>${esc(x.book)}</td><td>${x.yes!=null?x.yes.toFixed(2):'–'}</td><td>${pct(x.nv)}</td></tr>`
+     : `<tr class="${x.book==='DraftKings'?'dk':''}"><td>${esc(x.book)}</td><td>${x.line!=null?x.line:'–'}</td><td>${x[s1]!=null?x[s1].toFixed(2):'–'}</td><td>${x[s2]!=null?x[s2].toFixed(2):'–'}</td><td>${pct(x.nv)}</td></tr>`).join('');
+  return `<details><summary>Every book's price</summary><div class="bt"><table>${h}${r}</table></div></details>`; }
+function bbCard(b, i){ const inS = SLIP.find(s=>s.id===b.id);
+  const fl = (b.flags||[]).length ? `<div class="why" style="color:var(--amber)">⚠ ${b.flags.map(esc).join(' · ')}</div>` : '';
+  return `<div class="bb ${b.good?'good':''} ${inS?'insl':''}">
+   <div class="top"><span class="rk">${i}</span><div class="ti"><b>${esc(b.label)}</b><span class="t">${esc(b.mu)} · ${esc(kickTxt(b.kick))} · ${esc(b.market)} <span class="cf ${b.confidence}" title="high: 5+ books and nothing flagged; medium: 3+ books, a flag, or a one-sided price; low: fewer than 3 books">${b.confidence}</span></span></div>
+   <div class="evb" style="color:${b.ev>=0?'var(--green)':'var(--red)'}">${evTxt(b.ev)}<span class="k">EV</span></div></div>
+   <div class="nums"><div><span class="k">DraftKings</span><span class="v">${b.odds.toFixed(2)}<span class="t">${dec2am(b.odds)}</span></span></div>
+     <div><span class="k">Fair odds</span><span class="v">${b.fair_odds?b.fair_odds.toFixed(2):'–'}<span class="t">${b.fair_odds?dec2am(b.fair_odds):''}</span></span></div>
+     <div><span class="k">Win chance</span><span class="v">${pct(b.p)}</span></div>
+     <div><span class="k">Break-even</span><span class="v">${pct(b.breakeven)}</span></div></div>
+   <div class="why">${bbWhy(b)}</div>${fl}
+   <div style="display:flex;align-items:flex-start;gap:8px">${bbBooks(b)}${SEL_BY[b.id]?`<button class="addb" data-add="${esc(b.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></div>`; }
+function renderBest(){ const el=document.getElementById('best'); if(!el) return;
+  if(!BB){ el.innerHTML='<div class="panel"><p>Best bets appear once the odds feed has DraftKings prices for this week.</p></div>'; return; }
+  const now=new Date().toISOString().slice(0,16)+'Z';
+  const upcoming = (BB.ranked||[]).filter(b=>!b.kick || b.kick>now);
+  const games=[...new Set(upcoming.map(b=>b.game_id))].map(id=>byId[id]).filter(Boolean).sort((a,c)=>(a.kickoff_utc||'').localeCompare(c.kickoff_utc||''));
+  const kinds=[...new Set(upcoming.filter(b=>BBF.grp==='all'||BBK[BBF.grp].includes(b.kind)).map(b=>b.kind))];
+  if(BBF.kind!=='all' && !kinds.includes(BBF.kind)) BBF.kind='all';
+  if(BBF.game!=='all' && !games.find(g=>g.game_id===BBF.game)) BBF.game='all';
+  const rows = upcoming.filter(b=>(BBF.grp==='all' || BBK[BBF.grp].includes(b.kind)) && (BBF.kind==='all'||b.kind===BBF.kind) && (BBF.game==='all'||b.game_id===BBF.game));
+  const good=rows.filter(b=>b.good), rest=rows.filter(b=>!b.good);
+  const propsMissing = P.games.filter(g=>(!g.kickoff_utc||g.kickoff_utc>now) && !((g.odds||{}).props_fetched)).length;
+  const R=BB.rules||{};
+  const filtered = BBF.grp!=='all'||BBF.kind!=='all'||BBF.game!=='all';
+  const head = `<div class="bbhead"><span><b>${good.length}</b> good bet${good.length===1?'':'s'} out of <b>${rows.length}</b> DraftKings markets${filtered?' in this view':''}</span>
+    <span>game lines pulled <b>${esc(agoTxt(BB.odds_fetched))}</b>${BB.props_fetched_oldest?` · props <b>${esc(agoTxt(BB.props_fetched_oldest))}</b>`:''}</span><span>bar: EV +${Math.round((R.good_ev||0.02)*100)}% or better, ${R.min_books||3}+ books${R.good_ev_atd?` (anytime TD +${Math.round(R.good_ev_atd*100)}%)`:''}</span></div>
+    ${propsMissing?`<p class="mini" style="margin:-4px 0 10px">Player props for ${propsMissing} game${propsMissing===1?' are':'s are'} not priced yet. On the free odds plan each game's props are pulled once, on its pre-kickoff run: about 11:45 am ET Sunday for the Sunday and Monday games, about 7 pm ET Thursday for Thursday's game. Game lines refresh on every run.</p>`:''}`;
+  const bar = `<div class="bbbar"><div class="chips" id="bb-grp">${[['all','All'],['props','Player props'],['lines','Game lines']].map(([k,l])=>`<button data-g="${k}" class="${BBF.grp===k?'on':''}">${l}</button>`).join('')}</div>
+    <select id="bb-kind"><option value="all">Every market</option>${kinds.map(k=>`<option value="${k}" ${BBF.kind===k?'selected':''}>${esc(KIND[k]||k)}</option>`).join('')}</select>
+    <select id="bb-game"><option value="all">Every game</option>${games.map(g=>`<option value="${g.game_id}" ${BBF.game===g.game_id?'selected':''}>${g.away} @ ${g.home} · ${esc(whenTxt(g))}</option>`).join('')}</select></div>`;
+  const nShow = BBF.more || (good.length ? 0 : 10);
+  const shown = rest.slice(0, nShow);
+  const list = good.length ? good.map((b,i)=>bbCard(b,i+1)).join('')
+    : `<div class="panel"><p style="margin:0"><b>Nothing clears the bar ${filtered?'in this view ':''}right now.</b> No DraftKings price here beats the market's fair odds by ${Math.round((R.good_ev||0.02)*100)}% or more. The closest ones are below; betting them loses money on average.</p></div>`;
+  const more = rest.length ? `<div class="bbsep">Not worth betting · ${rest.length}, least bad first</div>${shown.map((b,i)=>bbCard(b, good.length+i+1)).join('')}
+      ${rest.length>shown.length?`<div style="text-align:center;margin-top:8px"><button class="rbtn" style="margin:0" id="bb-more">show ${Math.min(25, rest.length-shown.length)} more</button></div>`:''}` : '';
+  el.innerHTML = head + bar + `<div class="bbl">${list}${more}</div>`;
+  document.querySelectorAll('#bb-grp button').forEach(x=>x.onclick=()=>{ BBF.grp=x.dataset.g; BBF.kind='all'; BBF.more=0; saveBBF(); renderBest(); });
+  const ks=document.getElementById('bb-kind'); if(ks) ks.onchange=e=>{ BBF.kind=e.target.value; BBF.more=0; saveBBF(); renderBest(); };
+  const gsel=document.getElementById('bb-game'); if(gsel) gsel.onchange=e=>{ BBF.game=e.target.value; BBF.more=0; saveBBF(); renderBest(); };
+  const mb=document.getElementById('bb-more'); if(mb) mb.onclick=()=>{ BBF.more = nShow + 25; renderBest(); };
+  el.querySelectorAll('button[data-add]').forEach(x=>x.onclick=()=>toggleLeg(SEL_BY[x.dataset.add])); }
+
+function render(){ renderLivebar(); renderBest(); renderBoard(); renderCards(); renderScanner(); renderTop(); renderSlip(); renderResults(); renderTracker(); gradeBets(); }
 renderToolbar(); renderPC(); renderResearch(); renderAbout(); render();
 document.getElementById('fab').onclick=()=>{ const f=document.getElementById('fab'); f.classList.add('spin'); refreshLive().finally(()=>setTimeout(()=>f.classList.remove('spin'),400)); };
 refreshLive();

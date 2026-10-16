@@ -110,6 +110,11 @@
    "name": "Overtime rules (2025: both teams possess after a first-drive touchdown, then next score wins, defensive scores end it, clock expiry ties)",
    "result": "unit-tested rule by rule; simulated overtime rate 4.5% vs 5.3% actual (2023-25), simulated ties 0.3% vs 0.1%",
    "kept": true
+  },
+  {
+   "name": "Lighter shrinkage on quarterback volume and efficiency (dropbacks 100 -> 30 or 15 pseudo-drives, yards per dropback 250 -> 120 or 60, recent seasons 20% / 5%)",
+   "result": "Walk-forward on 2025 weeks 2-18 and 2026 weeks 2-5 (622 QB games): the projections stop being too compressed (actual-vs-projected slope 1.30 -> 1.07 / 0.97) but get less accurate (mean absolute error 54.6 -> 54.7 / 55.0 yds, log loss 0.670 -> 0.672 / 0.674). In 2026 the model still under-projects the top third of passers by about 20 yds under every setting. Not adopted: the projection cannot be fixed by retuning, so passing props are now priced from the market and the model may only nudge them (nfl/value.py).",
+   "kept": false
   }
  ],
  "validated_markets": [

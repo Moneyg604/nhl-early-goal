@@ -130,7 +130,7 @@ python -m nfl ingest            # nflverse play-by-play, schedule + lines, injur
 python -m nfl run --weeks 2     # this week (and next week once its lines are out) -> out/nfl/
 python -m nfl publish           # docs/nfl/
 python -m nfl backtest          # walk-forward validation -> data/nfl/backtest_latest.json, factors.json
-python -m nfl scorecard         # grade published leans -> docs/nfl/scorecard.json
+python -m nfl scorecard         # grade published best bets (units at DraftKings' price) -> docs/nfl/scorecard.json
 python -m nfl live              # ESPN scoreboard + box scores -> docs/nfl/live.json
 ```
 
@@ -145,6 +145,20 @@ Moneyline and spread probabilities are each game's simulated outcomes reweighted
 prices: the simulated margins run about 7% wider than real ones, and the market prices beat the raw simulation
 walk-forward. Sportsbook prices come from The Odds API when `ODDS_API_KEY` is set (game lines on every build;
 QB yards, TD passes, anytime TD and half totals on the pre-kickoff builds, inside the free plan's credits).
+
+**Best bets (the first tab, `nfl/value.py`).** Every bet DraftKings lists, ranked best to worst by expected value
+at DraftKings' own line and price. The win chance comes from the market, not the model: each book's two-way price
+has its margin removed, books on other lines are moved onto DraftKings' line with the simulation's distribution
+shape, and the consensus is the weighted median (Pinnacle counts double). The simulation may move that chance by
+at most 4 points, fading to nothing when it disagrees with the market by 10 to 20 points. Game lines get no nudge.
+A bet is good at EV +2% or better with three or more books quoting it (anytime TD +5% and never past +700, books
+more than 25 points apart never). Bets lock at kickoff and the scorecard grades them in units at the price shown.
+Why: in Week 6 of 2026 the old page ranked by the simulation's own probability and turned its errors into
+"edges" (it projected Bryce Young at 205 passing yards while he averaged 317, so his under looked like +30% EV).
+Lighter shrinkage did not fix the projection walk-forward (`data/nfl/factors.json`, tested list), so the market
+leads. Prop prices are pulled once per game (Sunday about 11:45 ET for Sunday and Monday, Thursday's game on its
+own run), ten books per request (one region's credits), markets in the order receiving yards, receptions,
+passing yards, passing TDs, rushing yards, anytime TD, half totals, as many as the month's credits allow.
 
 What the walk-forward test says is on the page (About tab) and in `data/nfl/backtest_latest.json`. In short: the
 model alone does not beat the closing moneyline, spread or total, so those follow the market; QB passing yards,

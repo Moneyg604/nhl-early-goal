@@ -16,6 +16,19 @@ ESPN_TO_NFLVERSE = {"WSH": "WAS", "LAR": "LA", "JAC": "JAX"}
 SUFFIX = {"jr", "sr", "ii", "iii", "iv", "v"}
 
 
+def full_key(name: str) -> str:
+    """'Bijan Robinson' -> 'bijan robinson', 'Michael Penix Jr.' -> 'michael penix': tells apart players whose
+    name_key collides (Bijan and Brian Robinson are both 'b.robinson')."""
+    toks = [t for t in re.split(r"[\s.]+", (name or "").lower().replace(",", " ").replace("'", "")) if t and t not in SUFFIX]
+    out: list[str] = []
+    for t in toks:                                   # 'D.J.' and 'DJ' -> 'dj'
+        if len(t) == 1 and out and len(out[-1]) <= 2 and out[-1].isalpha() and len(out) == 1:
+            out[-1] += t
+        else:
+            out.append(t)
+    return " ".join(out)
+
+
 def name_key(name: str) -> str:
     """'Jaxon Smith-Njigba' and 'J.Smith-Njigba' -> 'j.smith-njigba'; suffixes dropped."""
     name = (name or "").strip()

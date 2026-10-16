@@ -1,11 +1,14 @@
 """Sportsbook prices from The Odds API (https://the-odds-api.com) when ODDS_API_KEY is set.
 
-Credits: a request costs (markets returned) x (regions). Game lines for the whole slate are one request
-(3 credits in one region). Props are per game: quarterback passing yards, passing touchdowns, anytime
-touchdown, and the first- and second-half totals (5 credits per game). To stay inside the free plan
-(500 credits a month) props are fetched only on the pre-kickoff runs, for the games about to start, and
-skipped when fewer than PROP_RESERVE credits remain. Region "us" covers the books available in Ontario
-(DraftKings, FanDuel, BetMGM, BetRivers, ...).
+Credits: a request costs (markets returned) x (region equivalents); up to ten named bookmakers count as one
+region. Game lines for the whole slate are one request (3 credits). Props are per game, one credit per market.
+To stay inside the free plan (500 credits a month, shared with the NHL desk) props are fetched once per game:
+on the first pre-kickoff run of the weekend (Sunday about 11:45 ET, after the inactives) every game of the
+next 40 hours that has no fresh props is priced, Thursday's game on its own run; the month's remaining credits
+decide how many markets per game.
+
+Books: the ten below (one region's cost). DraftKings is the book the page prices; Pinnacle is the sharpest
+reference the feed has and anchors the consensus in nfl/value.py; the rest are the main North American books.
 
 For every outcome we keep the best price across books (with the book's name), the number of books, and
 the consensus probability (median of each book's vig-free two-way price), so the page can show both the
@@ -22,14 +25,18 @@ import statistics
 from datetime import datetime, timezone
 
 from .config import DATA_DIR
-from .live import name_key
+from .live import full_key, name_key
 
 SPORT = "americanfootball_nfl"
 BASE = "https://api.the-odds-api.com/v4/sports/" + SPORT
 REGIONS = "us"
-# prop markets in priority order (the validated ones first); the monthly budget decides how many are requested per game
-PROP_PRIORITY = ["player_pass_yds", "player_pass_tds", "player_anytime_td", "player_reception_yds", "player_rush_yds", "player_receptions",
+BOOKMAKERS = "draftkings,fanduel,betmgm,williamhill_us,betrivers,fanatics,pinnacle,bovada,betonlineag,lowvig"
+# prop markets in priority order: one credit buys a whole market for a game, so the markets with the most players
+# and two-sided prices (where DraftKings' line can be compared with every other book's) come first
+PROP_PRIORITY = ["player_reception_yds", "player_receptions", "player_pass_yds", "player_pass_tds", "player_rush_yds", "player_anytime_td",
                  "totals_h1", "totals_h2"]
+PROPS_FRESH_HOURS = 20        # a game priced within this many hours is not priced again (one pull per game per week)
+PROPS_AHEAD_HOURS = 40        # a pre-kickoff run prices every game kicking off within this many hours (Sunday morning reaches Monday night)
 MONTHLY_CREDITS = 500
 NHL_DAILY = 3                 # the NHL morning pull
 NFL_LINES_WEEKLY = 6          # two game-line pulls a week
@@ -37,7 +44,7 @@ NFL_LINES_WEEKLY = 6          # two game-line pulls a week
 
 def prop_markets_for_budget(remaining: int | None, games_left: int, days_left: int) -> list[str]:
     """How many prop markets per game the free plan can afford for the rest of the month, after the NHL
-    morning pulls and the NFL game-line pulls. Never below the three validated markets while any budget
+    morning pulls and the NFL game-line pulls. Never below the first three markets while any budget
     remains; nothing when the reserve for the other pulls would be eaten."""
     if remaining is None:
         return PROP_PRIORITY[:3]
@@ -165,7 +172,7 @@ def parse_props(ev: dict) -> dict:
                         "player_reception_yds": "rec_yds", "player_rush_yds": "rush_yds", "player_receptions": "recs"}.get(key)
                 if not slot:
                     continue
-                k = (slot, name_key(who) if who else "game", point)
+                k = (slot, full_key(who) if who else "game", point)
                 e = acc.setdefault(k, {"name": who, "line": point, "best": {}, "pairs": [], "books": {}})
                 e["books"][title] = {sd: pr for sd, pr in d.items() if pr}      # every book's own line and price
                 for side, price in d.items():
@@ -176,11 +183,20 @@ def parse_props(ev: dict) -> dict:
                 if "yes" in d and "no" in d:
                     e["pairs"].append((d["yes"], d["no"]))
     out: dict = {"qb_yds": {}, "qb_td": {}, "atd": {}, "h1": {}, "h2": {}, "rec_yds": {}, "rush_yds": {}, "recs": {}}
-    # per player / market keep the line most books post
+    # per player / market keep the line most books post. Players are grouped by full name; the page's key is the
+    # short name_key unless two players in the same market share it (Bijan / Brian Robinson), then the full name
     by: dict = {}
     for (slot, who, point), e in acc.items():
         by.setdefault((slot, who), []).append(e)
-    for (slot, who), es in by.items():
+    short: dict = {}
+    for (slot, who) in by:
+        if who != "game":
+            short.setdefault((slot, name_key(by[(slot, who)][0]["name"])), set()).add(who)
+    for (slot, full), es in by.items():
+        who = full
+        if full != "game":
+            nk = name_key(es[0]["name"])
+            who = nk if len(short.get((slot, nk), ())) == 1 else full
         e = max(es, key=lambda x: (len(x["pairs"]), len(x["best"])))
         rec = {"name": e["name"], "line": e["line"], "n": len(e["pairs"])}
         for side, (price, title) in e["best"].items():
@@ -209,7 +225,12 @@ def fetch(reason: str, games_window: list[str] | None = None, api_key: str | Non
     key = api_key or os.environ.get("ODDS_API_KEY")
     if not key:
         return {}
-    events, rem = _get(BASE + "/odds/", {"apiKey": key, "regions": REGIONS, "markets": "h2h,spreads,totals", "oddsFormat": "decimal"})
+    books = {"bookmakers": BOOKMAKERS}
+    events, rem = _get(BASE + "/odds/", {"apiKey": key, **books, "markets": "h2h,spreads,totals", "oddsFormat": "decimal"})
+    if events is None:
+        # a bookmaker key the API no longer knows must not cost the whole pull: fall back to the US region
+        books = {"regions": REGIONS}
+        events, rem = _get(BASE + "/odds/", {"apiKey": key, **books, "markets": "h2h,spreads,totals", "oddsFormat": "decimal"})
     if events is None:
         return {}
     snap = parse_game_lines(events)
@@ -224,7 +245,7 @@ def fetch(reason: str, games_window: list[str] | None = None, api_key: str | Non
             g = snap.get(gk)
             if not g or not g.get("event_id"):
                 continue
-            ev, rem = _get(f"{BASE}/events/{g['event_id']}/odds", {"apiKey": key, "regions": REGIONS, "markets": ",".join(markets), "oddsFormat": "decimal"})
+            ev, rem = _get(f"{BASE}/events/{g['event_id']}/odds", {"apiKey": key, **books, "markets": ",".join(markets), "oddsFormat": "decimal"})
             if ev:
                 g["props"] = parse_props(ev)
                 g["props_fetched"] = now
@@ -283,6 +304,15 @@ def for_game(odds: dict, home: str, away: str, kickoff_utc: str | None) -> dict 
     return g if abs(_ts(g.get("commence")) - k) < 86400 else None
 
 
+def props_fresh(gk: str, hours: float = PROPS_FRESH_HOURS) -> bool:
+    """True when the game's props were priced within `hours` (so a run does not spend credits on it again)."""
+    g = load().get(gk) or {}
+    f = g.get("props_fetched")
+    if not f:
+        return False
+    return (datetime.now(timezone.utc).timestamp() - _ts(f)) < hours * 3600
+
+
 def load() -> dict:
     if not ODDS_FILE.exists():
         return {}
@@ -292,4 +322,4 @@ def load() -> dict:
         return {}
 
 
-__all__ = ["fetch", "load", "for_game", "parse_game_lines", "parse_props"]
+__all__ = ["fetch", "load", "for_game", "parse_game_lines", "parse_props", "props_fresh", "PROPS_AHEAD_HOURS"]

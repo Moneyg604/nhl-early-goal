@@ -78,6 +78,28 @@ def pick_line(k: str, x: dict, p: dict) -> str:
     return ""
 
 
+def _am(d: float) -> str:
+    return f"+{round((d - 1) * 100)}" if d >= 2 else f"-{round(100 / (d - 1))}"
+
+
+def best_lines(p: dict, B, T, game_ids: set | None = None, n: int = 10) -> list[str]:
+    """The good DraftKings bets, best expected value first (nfl/value.py)."""
+    bb = p.get("best_bets") or {}
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+    good = [b for b in (bb.get("ranked") or []) if b.get("good") and (not b.get("kick") or b["kick"] > now)
+            and (game_ids is None or b["game_id"] in game_ids)]
+    if not bb:
+        return []
+    if not good:
+        return ["🎯 " + B("Best bets at DraftKings") + T(": none clears the bar right now (EV +2% or better on the market's fair odds).")]
+    out = ["🎯 " + B(f"Best bets at DraftKings ({len(good)})") + T("  EV at DK's price · market win chance")]
+    for i, b in enumerate(good[:n], 1):
+        out.append(T(f"{i}. {b['label']} ({b['mu']}) {_am(b['odds'])} · EV {b['ev']*100:+.1f}% · {b['p']*100:.0f}%"))
+    if len(good) > n:
+        out.append(T(f"…and {len(good) - n} more on the page"))
+    return out
+
+
 def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) -> str:
     B = (lambda t: f"<b>{_h(t)}</b>") if html else (lambda t: str(t))
     T = _h if html else (lambda t: str(t))
@@ -93,33 +115,21 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
             fav = "home" if mk["ml"]["home"] >= mk["ml"]["away"] else "away"
             s = L.get("spread")
             sp = "no line" if s is None else (f"{g['home']} -{s:g}" if s > 0 else (f"{g['away']} -{-s:g}" if s < 0 else "pick'em"))
-            mm = g["model"]["margin"]
-            ma = f"{g['home'] if mm >= 0 else g['away']} by {abs(mm):.1f}"
             line = [f"{B(g['away'] + ' @ ' + g['home'])} · {T(et(ko(g)))}",
-                    T(f"  {g[fav]} wins {mk['ml'][fav]*100:.0f}% · {sp} · total {L.get('total')} · model alone: {ma}, {g['model']['total']:.1f} pts"),
-                    T(f"  1H fair {mk['h1_fair_line']} · 2H fair {mk['h2_fair_line']} · FGs o1.5 {g['away']} {mk['fg']['away']['over1.5']*100:.0f}% / {g['home']} {mk['fg']['home']['over1.5']*100:.0f}%")]
+                    T(f"  {g[fav]} wins {mk['ml'][fav]*100:.0f}% · {sp} · total {L.get('total')}")]
             for side in ("away", "home"):
-                q = g["qb"][side]; qm = mk["qb"][side]
-                flag = " (QB change)" if q.get("change") else ""
-                line.append(T(f"  {q.get('name','?')}{flag}: {qm['yds_fair_line']} yds fair, o1.5 TD {qm['td_over1.5']*100:.0f}%"))
-            top = sorted((g.get("anytime") or {}).get("home", [])[:3] + (g.get("anytime") or {}).get("away", [])[:3], key=lambda a: -a["p"])[:4]
-            if top:
-                line.append(T("  TD: " + ", ".join(f"{a['name']} {a['p']*100:.0f}%" for a in top)))
+                q = g["qb"][side]
+                if q.get("change"):
+                    line.append(T(f"  QB change: {q.get('name','?')} starts for {g[side]}"))
             outs = [i for s in ("away", "home") for i in (g.get("injuries") or {}).get(s, []) if i.get("status") in ("Out", "Doubtful") and i.get("pos") in ("QB", "RB", "WR", "TE", "K")]
             if outs:
                 line.append(T("  Out: " + ", ".join(f"{i['name']} {i['pos']}" for i in outs[:6])))
             out.append("\n".join(line))
             out.append("")
+        out.extend(best_lines(p, B, T, game_ids={g["game_id"] for g in window}, n=8))
     else:
         out.append("")
-        out.append("🎯 " + B("Top lean per market") + T("  (✅ beats baseline · 〰️ marginal · ⚠️ no edge in the backtest)"))
-        for k in ("ml", "spread", "total", "h1", "h2", "fg", "qb_yds", "qb_td", "rec_yds", "rush_yds", "recs"):
-            lst = (p.get("picks") or {}).get(k) or []
-            if lst:
-                out.append(T(f"{verdict_icon(p, k)} {LABEL[k]}: {pick_line(k, lst[0], p)}"))
-        atd = (p.get("picks") or {}).get("atd") or []
-        if atd:
-            out.append(T(f"{verdict_icon(p, 'atd')} Anytime TD: " + ", ".join(pick_line('atd', x, p) for x in atd[:4])))
+        out.extend(best_lines(p, B, T))
         changes = [f"{g['qb'][s]['name']} ({g[s]})" for g in gs for s in ("home", "away") if g["qb"][s].get("change")]
         if changes:
             out.append("")

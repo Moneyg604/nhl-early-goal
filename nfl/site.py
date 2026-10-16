@@ -8,6 +8,7 @@
 
 A week that has started keeps the numbers that were on the page before each kickoff: when a game's
 kickoff has passed, the newly built page carries that game's previous entry (with the result attached).
+Best bets for started games are locked by the pipeline (nfl/value.py) from the previous published build.
 """
 from __future__ import annotations
 
@@ -73,21 +74,16 @@ def freeze_started(new: dict, old: dict | None, now: datetime | None = None) -> 
             games.append(g)
     new = dict(new)
     new["games"] = games
-    if old.get("picks"):
-        # leans whose game has started stay as published
-        from .pipeline import picks as make_picks
-        try:
-            fresh = make_picks(new)
-        except (KeyError, TypeError, ValueError):
-            return new
+    if "best_bets" not in new and old.get("picks"):
+        # a build without best bets (older engine): leans whose game has started stay as published
         started_ids = {g["game_id"] for g in games if g.get("frozen")}
         merged = {}
-        for key in set(fresh) | set(old["picks"]):
+        for key in set(new.get("picks") or {}) | set(old["picks"]):
             keep = [x for x in old["picks"].get(key, []) if x["game_id"] in started_ids]
-            add = [x for x in fresh.get(key, []) if x["game_id"] not in started_ids]
-            n = max(len(old["picks"].get(key, [])), len(fresh.get(key, [])))
-            merged[key] = (keep + sorted(add, key=lambda x: -x["score"]))[:max(n, len(keep))]
+            add = [x for x in (new.get("picks") or {}).get(key, []) if x["game_id"] not in started_ids]
+            merged[key] = keep + add
         new["picks"] = merged
+    # with best bets the pipeline already carried the started games' bets over unchanged (value.best_bets "locked")
     return new
 
 

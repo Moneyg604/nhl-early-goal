@@ -10,8 +10,23 @@ from .config import SITE_DIR
 from .ingest import load_games
 from .live import name_key
 
-MARKETS = {"ml": "Moneyline", "spread": "Spread (model lean)", "total": "Total (model lean)", "h1": "1st half total", "h2": "2nd half total",
+MARKETS = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "h1": "1st half total", "h2": "2nd half total",
            "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD", "rec_yds": "Receiving yards", "rush_yds": "Rushing yards", "recs": "Receptions"}
+
+
+def _player(g: dict, pick: dict) -> dict | None:
+    """The player's line in the game record: by id, else by name on his team, else by name on either team."""
+    teams = [pick["team"]] if pick.get("team") else [g["home"], g["away"]]
+    for t in teams:
+        s_ = (g["players"].get(t) or {}).get(pick.get("id")) if pick.get("id") else None
+        if s_ is not None:
+            return s_
+    target = name_key(pick.get("player") or "")
+    for t in teams:
+        for s_ in (g["players"].get(t) or {}).values():
+            if target and name_key(s_.get("name", "")) == target:
+                return s_
+    return None
 
 
 def grade(pick: dict, g: dict, game: dict) -> str | None:
@@ -44,10 +59,9 @@ def grade(pick: dict, g: dict, game: dict) -> str | None:
         made = sum(1 for k in g["fg"].get(t, []) if k["r"] == "made")
         return "won" if (made > pick["line"]) == (pick["side"] == "over") else "lost"
     if m in ("qb_yds", "qb_td"):
-        t = pick["team"]
-        q = g["qbs"].get(t) or {}
         target = name_key(pick["qb"])
-        row = next((v for v in q.values() if name_key(v["name"]) == target), None)
+        teams = [pick["team"]] if pick.get("team") else [g["home"], g["away"]]
+        row = next((v for t in teams for v in (g["qbs"].get(t) or {}).values() if name_key(v["name"]) == target), None)
         if row is None:
             return None            # did not play: void
         v = row["yds"] if m == "qb_yds" else row["td"]
@@ -55,8 +69,7 @@ def grade(pick: dict, g: dict, game: dict) -> str | None:
             return "push"
         return "won" if (v > pick["line"]) == (pick["side"] == "over") else "lost"
     if m in ("rec_yds", "rush_yds", "recs"):
-        t = pick["team"]
-        s_ = (g["players"].get(t) or {}).get(pick.get("id"))
+        s_ = _player(g, pick)
         if s_ is None:
             return None
         v = {"rec_yds": s_.get("recyds", 0), "rush_yds": s_.get("ryds", 0), "recs": s_.get("rec", 0)}[m]
@@ -64,8 +77,7 @@ def grade(pick: dict, g: dict, game: dict) -> str | None:
             return "push"
         return "won" if (v > pick["line"]) == (pick["side"] == "over") else "lost"
     if m == "atd":
-        t = pick["team"]
-        s = (g["players"].get(t) or {}).get(pick.get("id"))
+        s = _player(g, pick)
         if s is None:
             return None            # no touch: treat as not played (void at most books only if inactive)
         return "won" if s["rtd"] + s["rectd"] > 0 else "lost"
@@ -83,7 +95,7 @@ def build_scorecard(site_dir=None) -> dict:
             continue
     seasons = sorted({p["season"] for p in payloads})
     games = {g["game_id"]: g for g in load_games(seasons)} if seasons else {}
-    tally: dict[str, dict[str, int]] = defaultdict(lambda: {"won": 0, "lost": 0, "push": 0})
+    tally: dict[str, dict[str, float]] = defaultdict(lambda: {"won": 0, "lost": 0, "push": 0, "units": 0.0, "staked": 0})
     weeks: dict[str, dict] = {}
     items = []
     for p in payloads:
@@ -99,12 +111,22 @@ def build_scorecard(site_dir=None) -> dict:
                 if r is None:
                     continue
                 wt[key][r] += 1; tally[key][r] += 1
+                odds = pk.get("odds")
+                u = None
+                if odds:
+                    u = (odds - 1) if r == "won" else (-1.0 if r == "lost" else 0.0)
+                    tally[key]["units"] += u; tally[key]["staked"] += 1
                 items.append({"week": name, "market": key, "mu": pk.get("mu"), "side": pk.get("side"), "line": pk.get("line"),
-                              "who": pk.get("qb") or pk.get("player") or pk.get("team"), "p": pk.get("p"), "result": r})
+                              "who": pk.get("qb") or pk.get("player") or pk.get("team"), "p": pk.get("p"), "result": r,
+                              "label": pk.get("label"), "odds": odds, "ev": pk.get("ev"), "units": None if u is None else round(u, 3)})
         weeks[name] = dict(wt)
-    summary = {k: {**v, "n": v["won"] + v["lost"], "rate": round(v["won"] / (v["won"] + v["lost"]), 4) if (v["won"] + v["lost"]) else None,
-                   "label": MARKETS.get(k, k)} for k, v in tally.items()}
-    out = {"updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "summary": summary, "weeks": weeks, "items": items[-400:]}
+    summary = {k: {**v, "units": round(v["units"], 3), "n": v["won"] + v["lost"], "rate": round(v["won"] / (v["won"] + v["lost"]), 4) if (v["won"] + v["lost"]) else None,
+                   "roi": round(v["units"] / v["staked"], 4) if v["staked"] else None, "label": MARKETS.get(k, k)} for k, v in tally.items()}
+    tot = {"won": sum(v["won"] for v in tally.values()), "lost": sum(v["lost"] for v in tally.values()), "push": sum(v["push"] for v in tally.values()),
+           "units": round(sum(v["units"] for v in tally.values()), 3), "staked": sum(v["staked"] for v in tally.values())}
+    tot["roi"] = round(tot["units"] / tot["staked"], 4) if tot["staked"] else None
+    out = {"updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "summary": summary, "total": tot, "weeks": weeks,
+           "items": items[-400:], "note": "Best bets at DraftKings' price, one unit each, graded at the price shown before kickoff."}
     (site_dir / "scorecard.json").write_text(json.dumps(out, separators=(",", ":")))
     return out
 

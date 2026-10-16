@@ -197,10 +197,27 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
         "games": out_games,
     }
     payload["meta"]["sources"] = _sources(season, week, P, ref, out_games)
-    payload["picks"] = picks(payload)
+    # best bets: fair probability from the market (all books, moved onto DraftKings' line), nudged by the model,
+    # expected value at DraftKings' price; bets for games that have kicked off stay as they were published
+    from .value import best_bets, picks_from_bets
+    payload["best_bets"] = best_bets(payload, prev=(_previous(season, week) or {}).get("best_bets"))
+    payload["picks"] = picks_from_bets(payload["best_bets"], payload)
     payload["validation"] = _validation()
     payload["_samples"] = {"fields": SAMPLE_FIELDS, "bytes": 17, "n": SAMPLE_N, "games": samples}
     return payload
+
+
+def _previous(season: int, week: int) -> dict | None:
+    """The last published build of this week (the site copy, else the local output)."""
+    from .config import OUT_DIR, SITE_DIR
+    name = f"{season}-w{week:02d}"
+    for f in (SITE_DIR / "weeks" / f"{name}.json", OUT_DIR / f"week-{name}.json"):
+        if f.exists():
+            try:
+                return json.loads(f.read_text())
+            except json.JSONDecodeError:
+                continue
+    return None
 
 
 SAMPLE_N = 3000
