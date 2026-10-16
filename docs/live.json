@@ -1,7 +1,7 @@
 {
  "date": "2026-10-15",
- "updated_utc": "2026-10-16 04:45 UTC",
- "updated_et": "12:45 AM ET",
+ "updated_utc": "2026-10-16 04:50 UTC",
+ "updated_et": "12:50 AM ET",
  "games": {
   "2026020108": {
    "state": "FINAL",
@@ -494,12 +494,12 @@
    ]
   },
   "2026020118": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:31",
-   "elapsed_min": 59.48,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "VGK",
    "away": "CGY",
    "home_score": 6,
@@ -508,7 +508,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
