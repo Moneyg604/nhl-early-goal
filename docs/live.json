@@ -1,7 +1,7 @@
 {
  "date": "2026-10-15",
- "updated_utc": "2026-10-16 02:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-10-16 02:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020108": {
    "state": "FINAL",
@@ -254,12 +254,12 @@
    ]
   },
   "2026020110": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:01",
-   "elapsed_min": 59.98,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "DET",
    "away": "PHI",
    "home_score": 2,
@@ -268,7 +268,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -292,12 +292,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:48",
-   "elapsed_min": 45.2,
+   "time_remaining": "13:21",
+   "elapsed_min": 46.65,
    "home": "CHI",
    "away": "WPG",
    "home_score": 3,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 8.183,
    "p1_done": true,
    "p1_home": 3,
@@ -328,6 +328,11 @@
      "period": 2,
      "minute": 24.733,
      "team": "WPG"
+    },
+    {
+     "period": 3,
+     "minute": 45.65,
+     "team": "WPG"
     }
    ]
   },
@@ -336,8 +341,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:46",
-   "elapsed_min": 46.23,
+   "time_remaining": "11:44",
+   "elapsed_min": 48.27,
    "home": "NSH",
    "away": "SJS",
    "home_score": 0,
@@ -365,8 +370,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "19:13",
-   "elapsed_min": 40.78,
+   "time_remaining": "16:22",
+   "elapsed_min": 43.63,
    "home": "MIN",
    "away": "STL",
    "home_score": 5,
@@ -419,8 +424,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "11:36",
-   "elapsed_min": 28.4,
+   "time_remaining": "08:34",
+   "elapsed_min": 31.43,
    "home": "EDM",
    "away": "UTA",
    "home_score": 0,
@@ -443,8 +448,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:18",
-   "elapsed_min": 0.7,
+   "time_remaining": "14:18",
+   "elapsed_min": 5.7,
    "home": "VGK",
    "away": "CGY",
    "home_score": 1,
