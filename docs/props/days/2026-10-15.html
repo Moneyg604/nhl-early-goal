@@ -322,6 +322,89 @@ footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
 .gr.gS{background:rgba(94,200,255,.18);color:var(--ice);border:1px solid var(--ice)}.gr.gA{background:rgba(61,220,132,.15);color:var(--green)}.gr.gB{background:rgba(61,220,132,.07);color:#9fe7c0}
 .gr.gC{background:rgba(243,182,58,.12);color:var(--amber)}.gr.gD{background:rgba(255,107,107,.1);color:var(--red)}
 .gradehelp summary{cursor:pointer;font-size:13px}.gradehelp p{font-size:13px}
+.bbhead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin:2px 0 10px;font-size:12.5px;color:var(--muted)}
+.bbhead b{color:var(--text)}
+.bbbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;margin-bottom:10px}
+.bbbar .chips{grid-column:1/-1}
+.bbbar select{min-width:0;width:100%;background:#0a1017;border:1px solid var(--line2);color:var(--text);border-radius:8px;padding:6px 9px;font-size:13px;font-family:inherit}
+.bbl{display:flex;flex-direction:column;gap:8px}
+.bb{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-width:0}
+.bb.good{border-color:rgba(61,220,132,.45);background:linear-gradient(180deg,rgba(61,220,132,.06),var(--panel) 60%)}
+.bb.insl{box-shadow:inset 3px 0 0 var(--ice)}
+.bb .top{display:flex;gap:10px;align-items:flex-start}
+.bb .rk{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:17px;background:var(--panel2);color:var(--muted)}
+.bb.good .rk{background:rgba(61,220,132,.16);color:var(--green)}
+.bb .ti{flex:1 1 auto;min-width:0}
+.bb .ti b{display:block;font-size:15px;font-weight:600;line-height:1.25}
+.bb .ti .t{display:block;font-size:11.5px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb .evb{flex:0 0 auto;text-align:right;font-family:var(--display);font-weight:800;font-size:22px;line-height:1}
+.bb .evb .k{display:block;font-family:var(--body);font-size:9.5px;font-weight:700;letter-spacing:.08em;color:var(--dim);margin-top:3px}
+.bb .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+.bb .nums div{background:#0a1017;border:1px solid var(--line);border-radius:9px;padding:5px 8px;min-width:0}
+.bb .nums .k{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.bb .nums .v{font-family:var(--display);font-size:18px;font-weight:700;white-space:nowrap}
+.bb .nums .v .t{font-family:var(--body);font-size:11px;font-weight:500;color:var(--muted);margin-left:3px}
+@media (max-width:420px){.bb .nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bb .why{margin-top:7px;font-size:12px;color:var(--muted);line-height:1.45}
+.bb .why b{color:var(--text);font-weight:600}
+.bb details{margin-top:6px;flex:1 1 auto;min-width:0}.bb summary{cursor:pointer;font-size:12px;color:var(--ice)}
+.bb .bt{overflow-x:auto;max-width:100%}
+body[data-tab="best"] #banner{display:none}
+.bb .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.bb .three div{background:#0a1017;border:1px solid var(--line);border-radius:9px;padding:6px 9px;min-width:0}
+.bb .three .k{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.bb .three .v{display:block;font-family:var(--display);font-size:19px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.bb .three .v.mid{color:var(--amber)}.bb .three .v.pos,.bb .evb.pos,.bb .v.pos,td.pos{color:var(--green)}.bb .three .v.neg,.bb .evb.neg,.bb .v.neg,td.neg{color:var(--red)}
+.bb .three .s{display:block;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:480px){.bb .three{grid-template-columns:1fr}.bb .three .s{white-space:normal}}
+.bb .chk{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.bb .chk .c{font-size:10.5px;border-radius:6px;padding:2px 7px;background:var(--panel2);color:var(--muted);white-space:nowrap}
+.bb .chk .c.ok{color:var(--green);background:rgba(61,220,132,.1)}.bb .chk .c.bad{color:var(--red);background:rgba(255,107,107,.1)}
+.bb .chkl{margin-top:6px;font-size:12px}.bb .chkl ul{margin:4px 0 0;padding-left:16px;display:flex;flex-direction:column;gap:3px}.bb .chkl li.ok{color:var(--green)}.bb .chkl li.bad{color:var(--red)}.bb .chkl li.na{color:var(--muted)}.bb .chkl li b{color:var(--text)}
+.bb .warn{margin-top:5px;font-size:12px;color:var(--amber)}
+.bb .brow{display:flex;align-items:flex-start;gap:8px;margin-top:8px}
+.bb details.books{margin-top:0}
+.bb details.books>summary{display:inline-block;background:var(--panel2);border:1px solid var(--line2);border-radius:999px;padding:5px 11px;font-size:12.5px;list-style:none;color:var(--ice)}
+.bb details.books>summary::-webkit-details-marker{display:none}
+.bb details.books>summary::before{content:'▸ ';color:var(--ice)}
+.bb details.books[open]>summary::before{content:'▾ '}
+.bb details.books[open]>summary{border-color:var(--ice)}
+.bb .rs{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}.bb .rs li::marker{color:var(--ice)}
+.bb .proj{margin-top:8px;font-size:12.5px;color:var(--text)}.bb .proj span{color:var(--muted)}
+.bb .risk{margin-top:7px;font-size:12.5px;color:#ffd37a}.bb .risk b{color:#ffe3a3}
+.bb .pers{margin-top:5px;font-size:12px;color:var(--muted)}.bb .pers b{color:var(--text)}
+.bb .fm{margin-top:8px}.bb .fm p{margin:4px 0;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bb .lim{margin-top:6px;font-size:12px;color:var(--amber)}
+.bb .stamps{margin-top:6px;font-size:11.5px;color:var(--dim)}
+.bb.parlay{border-color:var(--ice)}
+.bb td.lbl{white-space:normal;min-width:160px;text-align:left}.bb.parlay td.lbl{min-width:200px}
+.bbl .combine{background:var(--ice);color:#06121e;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+.bbl h2{margin:14px 0 0}
+.bbl .note{margin:6px 0;font-size:12px;color:var(--dim);max-width:72ch}
+.bbl .empty{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0}
+.bbl .bt{overflow-x:auto;max-width:100%}
+.bbl table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;font-variant-numeric:tabular-nums}
+.bbl th,.bbl td{padding:4px 6px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+.bbl th{color:var(--dim);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+.bbl th:first-child,.bbl td:first-child,.bbl td.lbl,.bbl th.lbl{text-align:left}
+.bb .brow .addb{white-space:nowrap;flex:0 0 auto}
+.bbl tr.dk td{color:var(--ice);font-weight:600}
+.bbl .tdb th:nth-child(2),.bbl .tdb td:nth-child(2){text-align:left}
+.bbl .tdb tr.g td{background:var(--panel2);color:var(--text);font-weight:600;text-align:left}
+.bbl .cf.medium{color:var(--amber);background:rgba(243,182,58,.12)}
+#best .stale{margin:0 0 10px;border:1px solid rgba(243,182,58,.5);background:rgba(243,182,58,.08);color:#ffd37a;border-radius:12px;padding:10px 14px;font-size:13px;max-width:72ch}
+#best .stale b{color:#ffe3a3}
+#best>.note{margin:-4px 0 10px;font-size:12px;color:var(--dim);max-width:none}
+.bbbar{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:600px){.bbbar{grid-template-columns:1fr 1fr}}
+.bbhow{font-size:12.5px;color:var(--muted);margin:0 0 10px}.bbhow summary{cursor:pointer;color:var(--ice)}.bbhow p{margin:6px 0;max-width:72ch}
+@media (max-width:480px){.tabs button{flex:0 0 auto;padding:8px 9px}}
+.bb table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}.bb th,.bb td{padding:3px 6px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+.bb th:first-child,.bb td:first-child{text-align:left}.bb tr.dk td{color:var(--ice);font-weight:600}
+.cf{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;vertical-align:1px}
+.cf.high{color:var(--green);background:rgba(61,220,132,.12)}.cf.medium{color:var(--amber);background:rgba(243,182,58,.12)}.cf.low{color:var(--red);background:rgba(255,107,107,.12)}
+.bbsep{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.bb .addb{margin-left:auto;background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:3px 9px;font-size:11.5px;font-family:inherit;cursor:pointer}
 .slip .lg{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.slip .lg a{font-size:11px;color:var(--dim)}
 
 .sk{width:100%;min-width:0 !important;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;table-layout:fixed}
@@ -355,7 +438,7 @@ footer{margin-top:24px;color:var(--dim);font-size:12px;line-height:1.5}
 <div class="app"><div class="wrap">
   <div class="row">
     <div class="brand"><img class="logo" src="../../brand-mark.png?v=2" alt="Gill Sports" width="40" height="40"><span class="bt">Gill <span>Sports</span></span><nav class="sport" aria-label="section"><a href="../../">NHL</a><a class="on" href="#">Props</a><a href="../../nfl/">NFL</a></nav></div>
-    <div class="hmeta"><select class="daysel" onchange="location.href=this.value" aria-label="day"><option value="../days/2026-10-18.html" >2026-10-18</option><option value="../days/2026-10-17.html" >2026-10-17</option><option value="../days/2026-10-16.html" >2026-10-16 · today</option><option value="../days/2026-10-15.html" selected>2026-10-15</option></select><span class="pub" style="margin-left:8px">published 2026-10-16 19:05 UTC</span></div>
+    <div class="hmeta"><select class="daysel" onchange="location.href=this.value" aria-label="day"><option value="../days/2026-10-18.html" >2026-10-18</option><option value="../days/2026-10-17.html" >2026-10-17</option><option value="../days/2026-10-16.html" >2026-10-16 · today</option><option value="../days/2026-10-15.html" selected>2026-10-15</option></select><span class="pub" style="margin-left:8px">published 2026-10-16 20:16 UTC</span></div>
   </div>
   <nav class="tabs" id="tabs">
     <button data-tab="tonight" class="on">Tonight</button>
