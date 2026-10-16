@@ -146,8 +146,16 @@ prices: the simulated margins run about 7% wider than real ones, and the market 
 walk-forward. Sportsbook prices come from The Odds API when `ODDS_API_KEY` is set (game lines on every build;
 QB yards, TD passes, anytime TD and half totals on the pre-kickoff builds, inside the free plan's credits).
 
-**Best bets (the first tab, `nfl/value.py`).** Every bet DraftKings lists, ranked best to worst by expected value
-at DraftKings' own line and price. The win chance comes from the market, not the model: each book's two-way price
+**Best bets (the first tab, `nfl/value.py` for the numbers, `nfl/brain.py` for the judgment).** Every bet DraftKings
+lists, ranked by win chance, each card with three readings (win chance, evidence confidence, price: attractive /
+fair / poor) and a drop-down with the projection, reasons, biggest risk, personnel, formulas, limits and source
+timestamps. The bot's picks come first: an analyst's checks on every bet (this season's form against the line, the
+matchup rank, the game script, injuries and workload shifts, wind, the quarterback, the price's age, the model/market
+gap); hard failures drop a bet, soft checks move its score. Lists: 4 passing, 4 receiving, 4 rushing, 4 totals, 4
+moneyline, 4 spread, 2 kicker field goals, and a button that combines them into the top six (one per game, real
+DraftKings prices 1.40 to 2.30, never anytime touchdowns, which have their own board). The Telegram / Discord
+message (`tools/notify_nfl.py`) carries the same picks, the player props at 68%+ with positive EV, and the top six.
+The numbers behind every card: expected value at DraftKings' own line and price. The win chance comes from the market, not the model: each book's two-way price
 has its margin removed, books on other lines are moved onto DraftKings' line with the simulation's distribution
 shape, and the consensus is the weighted median (Pinnacle counts double). The simulation may move that chance by
 at most 4 points, fading to nothing when it disagrees with the market by 10 to 20 points. Game lines get no nudge.

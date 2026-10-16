@@ -202,6 +202,9 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     from .value import best_bets, picks_from_bets
     payload["best_bets"] = best_bets(payload, prev=(_previous(season, week) or {}).get("best_bets"))
     payload["picks"] = picks_from_bets(payload["best_bets"], payload)
+    # the bot's judgment: analyst checks on every bet, the best per category, the combined top six, the TD board
+    from .brain import bot_block
+    payload["bot"] = bot_block(payload)
     payload["validation"] = _validation()
     payload["_samples"] = {"fields": SAMPLE_FIELDS, "bytes": 17, "n": SAMPLE_N, "games": samples}
     return payload

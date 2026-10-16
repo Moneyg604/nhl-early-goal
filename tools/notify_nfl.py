@@ -1,6 +1,6 @@
 """Send the NFL week (or the next kickoff window) to Telegram / Discord, same channels as the NHL bot.
 
-    python tools/notify_nfl.py --reason weekly    # the week's leans (sent on Wednesdays, or when the week changes)
+    python tools/notify_nfl.py --reason weekly    # the bot's picks by category, the 68%+ props, the bot's top six (Wednesdays)
     python tools/notify_nfl.py --reason t75       # the games kicking off in the next two hours, with inactives
     python tools/notify_nfl.py --reason daily     # sends only on Wednesday mornings (weekly preview)
     python tools/notify_nfl.py --reason test --dry-run
@@ -82,21 +82,77 @@ def _am(d: float) -> str:
     return f"+{round((d - 1) * 100)}" if d >= 2 else f"-{round(100 / (d - 1))}"
 
 
-def best_lines(p: dict, B, T, game_ids: set | None = None, n: int = 10) -> list[str]:
-    """The good DraftKings bets, best expected value first (nfl/value.py)."""
+PROP_KINDS = ("qb_yds", "qb_td", "rec_yds", "rush_yds", "recs")
+PROP_MIN_P = 0.68              # a player prop makes the message at this win chance or better, with positive EV at DraftKings
+CAT_ICON = {"passing": "🎯", "receiving": "🙌", "rushing": "🏃", "totals": "🔢", "moneyline": "💰", "spread": "➕", "fieldgoals": "🦵"}
+
+
+def _bet_line(b: dict, B, T, with_mu: bool = True) -> str:
+    """'Geno Smith under 1.5 pass TDs (NYJ @ NE)  67% @ 1.43  EV -3.9%' in the NHL message's shape."""
+    mu = f" ({b['mu']})" if with_mu else ""
+    odds = f" @ {b['odds']:.2f}" if b.get("odds") else " (fair " + (f"{b['fair_odds']:.2f}" if b.get("fair_odds") else "–") + ", no DK price in feed)"
+    ev = f"  EV {b['ev']*100:+.1f}%" if b.get("ev") is not None else ""
+    sim = f" · sim {b['p_model']*100:.0f}%" if b.get("p_model") is not None and b.get("p_market") is not None else ""
+    return f"{T(b['label'] + mu)}  {B(f"{b['p']*100:.0f}%")}{T(odds + ev + sim)}"
+
+
+def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
+    """The bot's picks by category, the player props at 68%+ with positive EV, and the bot's top six."""
     bb = p.get("best_bets") or {}
+    bot = p.get("bot") or {}
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
-    good = [b for b in (bb.get("ranked") or []) if b.get("good") and (not b.get("kick") or b["kick"] > now)
-            and (game_ids is None or b["game_id"] in game_ids)]
+    board = {b["id"]: b for b in (bb.get("ranked") or []) + (bot.get("extra") or [])}
+
+    def live(b):
+        return bool(b) and (not b.get("kick") or b["kick"] > now) and (game_ids is None or b.get("game_id") in game_ids)
+
+    out: list[str] = []
     if not bb:
-        return []
-    if not good:
-        return ["🎯 " + B("Best bets at DraftKings") + T(": none clears the bar right now (EV +2% or better on the market's fair odds).")]
-    out = ["🎯 " + B(f"Best bets at DraftKings ({len(good)})") + T("  EV at DK's price · market win chance")]
-    for i, b in enumerate(good[:n], 1):
-        out.append(T(f"{i}. {b['label']} ({b['mu']}) {_am(b['odds'])} · EV {b['ev']*100:+.1f}% · {b['p']*100:.0f}%"))
-    if len(good) > n:
-        out.append(T(f"…and {len(good) - n} more on the page"))
+        return out
+    if not bot:
+        out.append("🤖 " + B("Bot's picks") + T(": not built yet for this week (next site run)"))
+        return out
+    cats = bot.get("cats") or {}
+    out.append("🤖 " + B("Bot's picks") + T("  win chance @ DraftKings price · EV · simulation"))
+    any_cat = False
+    for c in (bot.get("rules") or {}).get("categories") or [{"key": k, "label": v.get("label")} for k, v in cats.items()]:
+        key = c["key"]; cat = cats.get(key) or {}
+        rows = [board.get(i) for i in cat.get("ids") or []]
+        rows = [b for b in rows if live(b)]
+        if not rows:
+            continue
+        any_cat = True
+        out.append(f"{CAT_ICON.get(key, '•')} " + B(c.get("label") or key))
+        for b in rows:
+            out.append("• " + _bet_line(b, B, T))
+    if not any_cat:
+        out.append(T("Nothing passes the bot's checks for the games still to play."))
+    # player props the bot would call strong: 68%+ to win, positive EV, a real DraftKings price, nothing flagged
+    props = [b for b in board.values() if live(b) and b["kind"] in PROP_KINDS and b.get("odds") and b["p"] >= PROP_MIN_P
+             and (b.get("ev") or 0) > 0 and not b.get("excluded") and not any("questionable" in f or "not the listed starter" in f for f in (b.get("flags") or []))]
+    props.sort(key=lambda b: (-b["p"], -(b.get("ev") or 0)))
+    out.append("")
+    if props:
+        out.append("🎟️ " + B(f"Player props {round(PROP_MIN_P*100)}%+ with positive EV at DraftKings"))
+        for b in props[:12]:
+            out.append("• " + _bet_line(b, B, T))
+        if len(props) > 12:
+            out.append(T(f"…and {len(props) - 12} more on the page"))
+    else:
+        out.append("🎟️ " + B("Player props") + T(f": no DraftKings prop at {round(PROP_MIN_P*100)}%+ with positive EV right now"))
+    # the bot's top six across every market (no anytime touchdowns), one per game, real DraftKings prices
+    C = bot.get("combine") or {}
+    legs = [l for l in (C.get("legs") or []) if live(l)]
+    out.append("")
+    if legs:
+        band = C.get("odds_band") or [1.4, 2.3]
+        out.append("🏆 " + B(f"Bot's top {len(legs)} · all markets, no anytime TD") + T(f"  one per game, DK {band[0]:.2f} to {band[1]:.2f}"))
+        for i, l in enumerate(legs, 1):
+            out.append(f"{i}. " + _bet_line(l, B, T))
+        if len(legs) == len(C.get("legs") or []) and C.get("odds"):
+            out.append(T(f"All {len(legs)} together: {C['odds']:.2f} ({C['prob']*100:.1f}% to hit, fair {C.get('fair_odds') or 0:.2f})"))
+    else:
+        out.append("🏆 " + B("Bot's top 6") + T(": fewer than six legs qualify for the games still to play"))
     return out
 
 
@@ -126,10 +182,10 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
                 line.append(T("  Out: " + ", ".join(f"{i['name']} {i['pos']}" for i in outs[:6])))
             out.append("\n".join(line))
             out.append("")
-        out.extend(best_lines(p, B, T, game_ids={g["game_id"] for g in window}, n=8))
+        out.extend(bot_lines(p, B, T, game_ids={g["game_id"] for g in window}))
     else:
         out.append("")
-        out.extend(best_lines(p, B, T))
+        out.extend(bot_lines(p, B, T))
         changes = [f"{g['qb'][s]['name']} ({g[s]})" for g in gs for s in ("home", "away") if g["qb"][s].get("change")]
         if changes:
             out.append("")
