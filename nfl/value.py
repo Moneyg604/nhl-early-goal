@@ -174,6 +174,14 @@ def _ev(p: float, push: float, odds: float) -> float:
 
 
 # ------------------------------------------------------------------------------------------- per market
+def line_tolerance(kind: str, line: float) -> float:
+    """How far another book's line may sit from DraftKings' and still count: moving a price across a few points
+    is reliable, reading it off the far tail of the model's distribution (an alternate line) is not."""
+    a = abs(line or 0.0)
+    return {"spread": 3.0, "total": 3.5, "h1": 2.5, "h2": 2.5, "qb_yds": max(15.0, 0.06 * a), "rec_yds": max(8.0, 0.15 * a),
+            "rush_yds": max(8.0, 0.15 * a), "recs": 1.0, "qb_td": 0.0}.get(kind, 0.0)
+
+
 def _two_way_market(kind: str, dist: Dist | None, books: dict, s1: str, s2: str, line_of, *, model_dist: Dist | None = None,
                     flip_line: bool = False) -> dict | None:
     """Consensus for an over/under style market at DraftKings' line.
@@ -188,11 +196,14 @@ def _two_way_market(kind: str, dist: Dist | None, books: dict, s1: str, s2: str,
     if L is None:
         return None
     shifts, ws, used = [], [], []
+    tol = line_tolerance(kind, L)
     for title, b in books.items():
         q = devig(b.get(s1), b.get(s2))
         lb = line_of(b)
         if q is None or lb is None:
             continue
+        if abs(lb - L) > tol + 1e-9:
+            continue                                   # an alternate line far from DraftKings': its price says little about this one
         if dist is None:
             if lb != L:
                 continue

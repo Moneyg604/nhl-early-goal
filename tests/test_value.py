@@ -162,7 +162,7 @@ def test_books_far_apart_are_never_good():
     # a stored row mixing two players: DraftKings and one book at 79.5, two books at 27.5
     g = _game(dk_line=79.5, other_lines=(79.5, 27.5, 27.5), model_mean=60.0)
     for b in game_bets(g):
-        assert not b["good"] and b["excluded"] == "books disagree"
+        assert not b["good"] and b["excluded"] in ("books disagree", "thin market")   # the far rows are dropped, leaving too few books
 
 
 def test_break_even_counts_pushes():
@@ -180,3 +180,11 @@ def test_an_odds_row_never_matches_a_different_first_name_in_the_model():
     g["odds"]["props"]["qb_yds"] = {"b.robinson": {"name": "Bijan Robinson", "books": g["odds"]["props"]["qb_yds"]["d.prescott"]["books"]}}
     b = game_bets(g)[0]
     assert b["p_model"] is None and b["who"] == "Bijan Robinson"
+
+
+def test_alternate_lines_far_from_draftkings_are_left_out():
+    from nfl.value import line_tolerance
+    assert line_tolerance("h1", 19.5) == 2.5 and line_tolerance("qb_td", 1.5) == 0.0
+    g = _game(dk_line=275.5, other_lines=(278.5, 278.5, 225.5), model_mean=270.0)   # one book's alternate at 225.5
+    b = game_bets(g)[0]
+    assert b["books"] == 3 and all(x["line"] != 225.5 for x in b["inputs"]["books"])
