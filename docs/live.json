@@ -1,15 +1,15 @@
 {
  "date": "2026-10-16",
- "updated_utc": "2026-10-17 03:35 UTC",
- "updated_et": "11:35 PM ET",
+ "updated_utc": "2026-10-17 03:40 UTC",
+ "updated_et": "11:40 PM ET",
  "games": {
   "2026020119": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:09",
-   "elapsed_min": 57.85,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "COL",
    "away": "PIT",
    "home_score": 5,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -62,8 +62,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:04",
-   "elapsed_min": 36.93,
+   "time_remaining": "00:03",
+   "elapsed_min": 39.95,
    "home": "ANA",
    "away": "BOS",
    "home_score": 2,
