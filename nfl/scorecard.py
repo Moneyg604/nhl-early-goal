@@ -12,8 +12,8 @@ from .live import name_key
 
 MARKETS = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "h1": "1st half total", "h2": "2nd half total",
            "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD", "rec_yds": "Receiving yards", "rush_yds": "Rushing yards", "recs": "Receptions",
-           "desk": "Research desk", "desk_wild": "Desk wild cards", "bot": "Bot's picks", "market": "DraftKings favourites"}
-LEADERS = ("desk", "desk_wild", "bot", "market")
+           "desk": "Research desk", "desk_best": "Desk best picks", "desk_wild": "Desk wild cards", "bot": "Bot's picks", "market": "DraftKings favourites"}
+LEADERS = ("desk_best", "desk", "desk_wild", "bot", "market")
 
 
 def _player(g: dict, pick: dict) -> dict | None:

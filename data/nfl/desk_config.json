@@ -1,22 +1,40 @@
 {
- "v": 1,
- "note": "Settings the NFL research desk follows on every scheduled run, and the defaults the page's Desk settings panel starts from. Edit here (or ask Claude to) to change what the desk looks for; the page's panel only filters what is shown on your own phone.",
+ "v": 2,
+ "note": "The NFL research desk's spec. The scheduled desk runs follow this file exactly; the page renders the sections it lists. Edit here (or ask Claude) to change how the desk thinks; the page's Desk settings panel only filters what is shown on your own phone.",
+ "odds_rule": "ignore",
+ "odds_rule_note": "ignore = evidence picks the selection, the DraftKings price is shown but never decides; band = only prices inside odds_band are eligible",
  "odds_band": [1.35, 2.2],
- "wild_cards": {"enabled": true, "odds_band": [2.21, 4.5], "max": 3, "min_p": 0.3},
- "markets": {"ml": true, "spread": true, "total": true, "h1": true, "h2": true, "qb_yds": true, "qb_td": true, "rec_yds": true, "recs": true, "rush_yds": true, "fg": true, "alts": true},
- "selection": {"min_grade": "C", "min_evidence": "unmeasured", "min_p": 0.52, "max_per_game": 3, "max_selections": 24, "one_player_per_market": true},
+ "lines": "draftkings",
+ "lines_note": "selections are on DraftKings' actual posted line only; no alternate lines",
+ "sections": [
+  {"key": "qb", "label": "QB props", "markets": ["qb_yds"], "min": 1, "max": 6, "note": "passing yards only; no over/under TD passes"},
+  {"key": "receiving", "label": "Receiving yards and receptions", "markets": ["rec_yds", "recs"], "min": 1, "max": 6},
+  {"key": "rushing", "label": "Rushing yards", "markets": ["rush_yds"], "min": 1, "max": 6},
+  {"key": "game", "label": "Moneyline, spreads, totals", "markets": ["ml", "spread", "total"], "min": 1, "max": 6}
+ ],
+ "best": {"label": "Best picks", "min": 3, "max": 6, "rule": "the selections with the strongest evidence of winning across every section, one per player, at most two per game"},
+ "wild_cards": {"enabled": false, "odds_band": [2.21, 4.5], "max": 3, "min_p": 0.3},
+ "markets": {"ml": true, "spread": true, "total": true, "h1": false, "h2": false, "qb_yds": true, "qb_td": false, "rec_yds": true, "recs": true, "rush_yds": true, "fg": false, "alts": false},
+ "selection": {"min_grade": "C", "min_evidence": "partial", "min_p": 0.5, "max_per_game": 3, "max_selections": 24, "one_player_per_market": true},
  "variables": {
-  "availability": {"on": true, "label": "Availability: official report, practice participation, beat-writer notes, starters"},
+  "availability": {"on": true, "label": "Availability: official report, practice participation, beat-writer notes, confirmed starters"},
   "weather": {"on": true, "label": "Weather at kickoff: wind, gusts, rain, temperature, roof"},
-  "matchup": {"on": true, "label": "Matchup: pass and run defense by EPA and success rate, pressure vs protection, tight-end coverage"},
-  "cornerbacks": {"on": true, "label": "Cornerback assignments: shadow, slot vs wide"},
+  "matchup": {"on": true, "label": "Defensive matchup: pass and run defense by EPA and success rate, pressure vs protection, tight-end coverage, defensive weak points"},
+  "cornerbacks": {"on": true, "label": "Man-to-man matchups: shadow cornerback, slot vs wide, who guards whom"},
   "usage_form": {"on": true, "label": "Usage and form, last four games: routes, targets, carries, snap share trend, air yards"},
-  "game_script": {"on": true, "label": "Game script: spread, total, pace, pass rate, expected plays"},
+  "tendencies": {"on": true, "label": "Tendencies: pass rate over expected, pace, red-zone usage, how the offense attacks this defense"},
+  "game_script": {"on": true, "label": "Game script: spread, total, pace, expected plays, who leads"},
   "line_movement": {"on": true, "label": "Line movement: opener vs now, with or without news"},
   "situational": {"on": true, "label": "Situational: rest, travel, short week, coordinator changes, resting starters"},
-  "kicker": {"on": true, "label": "Kicker form and range, field-goal try rates"},
   "stadium": {"on": true, "label": "Stadium and surface effects (altitude, turf, dome)"}
  },
+ "instructions": [
+  "Study every angle before choosing: defensive matchups, weather, injuries, confirmed starters, man-to-man matchups, stats, tendencies and defensive weak points, and any other variable the evidence calls for.",
+  "Do not let the odds determine or influence a selection: choose on evidence, then show the DraftKings price and what it implies.",
+  "Only DraftKings' actual posted lines. No alternate lines. No over/under on passing touchdowns.",
+  "Every section needs at least one selection; fill a section only with selections the research supports, up to its maximum.",
+  "Best picks are the selections with the highest evidence of actually winning, three to six of them, one per player, at most two from the same game."
+ ],
  "alerts": {"telegram": true, "line_move_points": 1.0, "odds_drop": 0.08, "injury_flags": true},
- "updated_utc": "2026-10-17 18:20 UTC"
+ "updated_utc": "2026-10-17 20:00 UTC"
 }

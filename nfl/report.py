@@ -199,6 +199,7 @@ body[data-tab="best"] #banner{display:none}
 .pcard .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-top:8px}.pcard .kv div{background:#0a1017;border:1px solid var(--line);border-radius:9px;padding:5px 8px}.pcard .kv .k{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.pcard .kv .v{font-family:var(--display);font-size:16px;font-weight:700}
 .pcard ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted)}
 .lb table td.pos{color:var(--green)}.lb table td.neg{color:var(--red)}
+.bb.best{border-color:var(--green);box-shadow:0 0 0 1px rgba(61,220,132,.25)}.bb.best .rk{background:rgba(61,220,132,.16);color:var(--green)}
 .bb.wild{border-color:rgba(120,200,255,.5)}.bb.wild .rk{background:rgba(120,200,255,.14);color:var(--ice)}
 .bbsep{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
 .bb .addb{margin-left:auto;background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:3px 9px;font-size:11.5px;font-family:inherit;cursor:pointer}
@@ -491,7 +492,7 @@ function renderCards(){ const gs=P.games.filter(g=>SLOT==='all'||slotOf(g)===SLO
 function renderLivebar(){ const live=P.games.filter(g=>(LIVE[g.game_id]||{}).state==='in'); const el=document.getElementById('livebar');
   if(!live.length){ el.style.display='none'; return; } el.style.display='block';
   el.innerHTML = `<div class="lhd"><span class="pulse"></span><b>${live.length} live</b> ${live.map(g=>{const L=LIVE[g.game_id]; return `<span>${g.away} ${L.away_score} · ${g.home} ${L.home_score} <span class="t">${esc(L.detail||'')}</span></span>`;}).join(' · ')}<button class="rbtn" onclick="refreshLive()">refresh</button></div>`; }
-const PK_LABEL = {desk:'Research desk', desk_wild:'Desk wild cards', bot:"Bot's picks", market:'DraftKings favourites', ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team FGs 1.5', qb_yds:'QB pass yards', qb_td:'QB pass TDs 1.5', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
+const PK_LABEL = {desk:'Research desk', desk_best:'Desk best picks', desk_wild:'Desk wild cards', bot:"Bot's picks", market:'DraftKings favourites', ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team FGs 1.5', qb_yds:'QB pass yards', qb_td:'QB pass TDs 1.5', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
 function pickText(k, x){ if(k==='ml') return `${x.team} ML`; if(k==='spread'){ const hl=-x.line; return x.side==='home'?`${byId[x.game_id].home} ${hl>0?'+':''}${hl}`:`${byId[x.game_id].away} ${x.line>0?'+':''}${x.line}`; }
   if(k==='total'||k==='h1'||k==='h2') return `${x.side==='over'?'Over':'Under'} ${x.line}`; if(k==='fg') return `${x.team} ${x.side} ${x.line} FGs`;
   if(k==='qb_yds') return `${x.qb} ${x.side} ${x.line} yds`; if(k==='qb_td') return `${x.qb} ${x.side} ${x.line} TDs`; if(k==='atd') return `${x.player} (${x.team})`;
@@ -878,8 +879,8 @@ function renderTracker(){ const el=document.getElementById('tracker'); const s=B
     const blob=new Blob([rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n')], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='nfl-bets.csv'; a.click(); }; }
 
 // ------------------------------------------------------------- results
-function renderResults(){ const keys=['desk','desk_wild','bot','market','ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
-  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(['desk','desk_wild','bot','market'].includes(k)?legFromPick(x.market,x):legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
+function renderResults(){ const keys=['desk_best','desk','desk_wild','bot','market','ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
+  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(['desk_best','desk','desk_wild','bot','market'].includes(k)?legFromPick(x.market,x):legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
   const any=Object.keys(t).length;
   document.getElementById('wkresults').innerHTML = `<h3>This week's best bets</h3>${any?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th></tr>${keys.filter(k=>t[k]).map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${t[k].hit}</td><td>${t[k].miss}</td><td>${t[k].tie}</td></tr>`).join('')}</table></div>`:'<p>No lean has been decided yet. Results fill in live as the games are played (scores and box scores from ESPN), and are confirmed from the play-by-play the next morning.</p>'}`;
   fetchJSON(BASE+'scorecard.json').then(sc=>{ const S=sc.summary||{}; const ks=keys.filter(k=>S[k]);
@@ -1022,8 +1023,8 @@ function dCard(x, i){ const g=byId[x.game_id]; const now=bNow(); const started =
    </div>
    <div class="brow"><details class="books"><summary>Verdict, inputs, arithmetic, risks and sources</summary>${dBlock(x)}</details>${SEL_BY[x.id]?`<button class="addb" data-add="${esc(x.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></article>`; }
 const DCFG = (BOT && BOT.desk_config) || {};
-function dDefaults(){ const c=DCFG; const sel=c.selection||{}; const w=c.wild_cards||{};
-  return {band:[(c.odds_band||[1.35,2.2])[0],(c.odds_band||[1.35,2.2])[1]], minp:Math.round(((sel.min_p||0.52))*100), grades:['A','B','C'].filter(g=>g<=(sel.min_grade||'C')), ev:{measured:true,partial:true,unmeasured:(sel.min_evidence||'unmeasured')==='unmeasured'},
+function dDefaults(){ const c=DCFG; const sel=c.selection||{}; const w=c.wild_cards||{}; const ignore=(c.odds_rule||'band')==='ignore';
+  return {band: ignore ? [1.01, 20] : [(c.odds_band||[1.35,2.2])[0],(c.odds_band||[1.35,2.2])[1]], minp:Math.round(((sel.min_p||0.52))*100), grades:['A','B','C'].filter(g=>g<=(sel.min_grade||'C')), ev:{measured:true,partial:true,unmeasured:(sel.min_evidence||'unmeasured')==='unmeasured'},
     markets:Object.assign({ml:true,spread:true,total:true,h1:true,h2:true,qb_yds:true,qb_td:true,rec_yds:true,recs:true,rush_yds:true,fg:true,alts:true}, c.markets||{}), src:{feed:true,draftkings:true,unverified:true}, perGame:sel.max_per_game||3, sort:'p', wild:w.enabled!==false, wband:[(w.odds_band||[2.21,4.5])[0],(w.odds_band||[2.21,4.5])[1]]}; }
 let DS = dDefaults(); DS.grades = ['A','B','C'];
 try{ const sv=JSON.parse(localStorage.getItem('gs_nfl_desk')||'null'); if(sv) DS=Object.assign(dDefaults(), sv, {grades: sv.grades||['A','B','C']}); }catch(e){}
@@ -1045,7 +1046,7 @@ function dSettings(){ const mk=[['ml','Moneyline'],['spread','Spread'],['total',
   const vars=Object.entries(DCFG.variables||{}).map(([k,v])=>`<span class="${v&&v.on!==false?'on':''}" title="${esc((v&&v.label)||k)}">${v&&v.on!==false?'✓':'✗'} ${esc(k.replace(/_/g,' '))}</span>`).join('');
   return `<details class="dset" id="dset"><summary>Desk settings · band ${DS.band[0].toFixed(2)} to ${DS.band[1].toFixed(2)} · min ${DS.minp}% · ${Object.values(DS.markets).filter(Boolean).length} markets · ${DS.perGame} per game${DS.wild?' · wild cards on':''}</summary>
    <div class="grid">
-    <div><label class="f">Odds band (DraftKings decimal)</label><div class="val"><span id="ds-lo">${DS.band[0].toFixed(2)}</span> to <span id="ds-hi">${DS.band[1].toFixed(2)}</span></div><input type="range" id="ds-blo" min="1.01" max="3" step="0.01" value="${DS.band[0]}"><input type="range" id="ds-bhi" min="1.1" max="6" step="0.01" value="${DS.band[1]}"></div>
+    <div><label class="f">Odds band (DraftKings decimal)</label><div class="val"><span id="ds-lo">${DS.band[0].toFixed(2)}</span> to <span id="ds-hi">${DS.band[1].toFixed(2)}</span></div><input type="range" id="ds-blo" min="1.01" max="3" step="0.01" value="${DS.band[0]}"><input type="range" id="ds-bhi" min="1.1" max="20" step="0.01" value="${Math.min(DS.band[1],20)}"></div>
     <div><label class="f">Minimum desk win chance</label><div class="val"><span id="ds-mp">${DS.minp}</span>%</div><input type="range" id="ds-minp" min="50" max="80" step="1" value="${DS.minp}"></div>
     <div><label class="f">Most selections per game</label><div class="val"><span id="ds-pg">${DS.perGame}</span></div><input type="range" id="ds-per" min="1" max="6" step="1" value="${DS.perGame}"></div>
     <div><label class="f">Sort</label><select id="ds-sort"><option value="p" ${DS.sort==='p'?'selected':''}>Desk win chance</option><option value="ev" ${DS.sort==='ev'?'selected':''}>EV at the price</option><option value="conf" ${DS.sort==='conf'?'selected':''}>Evidence confidence</option><option value="kick" ${DS.sort==='kick'?'selected':''}>Kickoff</option></select></div>
@@ -1113,7 +1114,17 @@ function bDesk(){ const D=DESK; let h = dSettings();
   h += `<div class="deskhead"><h2>★ Research desk · ${up.length} selection${up.length===1?'':'s'} to play${hidden>0?` <small style="color:var(--dim);font-weight:500">(${hidden} hidden by your settings)</small>`:''}</h2>
     <p>${esc(D.analyst||'Research desk')} read the week's news (practice reports, Friday designations, beat-writer notes, weather, line moves) and wrote every selection up with its inputs, its arithmetic and its risks. Ranked by ${{p:"the desk's own win chance",ev:'EV at the DraftKings price',conf:'evidence confidence',kick:'kickoff'}[DS.sort]||"the desk's own win chance"}; DraftKings prices ${DS.band[0].toFixed(2)} to ${DS.band[1].toFixed(2)}. Open a card for the full write-up. The desk's chance is a judgment, not a simulation: its record is graded on its own line in Results.</p>
     ${D.summary?`<p>${esc(D.summary)}</p>`:''}<p class="st">Desk run ${esc(bStamp(D.generated))} (${esc(bAgo(D.generated))}) · site simulation ${esc(bStamp(((BOT||{}).stamps||{}).model))}</p></div>`;
-  h += up.length ? up.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">No desk selection passes your settings for the games still to play${BF.game!=='all'?' in this game':''}.</p>`;
+  const byId={}; all.forEach(x=>byId[x.id]=x); const upIds=new Set(up.map(x=>x.id)); const spec=D.spec||{}; const shown=new Set();
+  const bestRows=(D.best||[]).map(i=>byId[i]).filter(x=>x&&upIds.has(x.id));
+  if(bestRows.length){ h += `<h2>🏆 ${esc((spec.best||{}).label||'Best picks')} <small style="color:var(--dim);font-size:13px;font-weight:500">${bestRows.length} of ${(spec.best||{}).max||6} · the strongest evidence of winning${spec.derived?' · ranked by the spec\'s rule':' · chosen by the desk'}</small></h2>`;
+    h += bestRows.map((x,i)=>dCard(x,i+1).replace('class="bb desk','class="bb desk best')).join(''); bestRows.forEach(x=>shown.add(x.id)); }
+  for(const sp of (spec.sections||[])){ const rows=((D.sections||{})[sp.key]||[]).map(i=>byId[i]).filter(x=>x&&upIds.has(x.id));
+    h += `<h2>${esc(sp.label)} <small style="color:var(--dim);font-size:13px;font-weight:500">${rows.length} of ${sp.max||6}${sp.note?' · '+esc(sp.note):''}</small></h2>`;
+    h += rows.length ? rows.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">Nothing in this section passes your settings for the games still to play.</p>`; rows.forEach(x=>shown.add(x.id)); }
+  const rest=up.filter(x=>!shown.has(x.id));
+  if(rest.length){ h += `<h2>${(spec.sections||[]).length?'Other selections':'Selections'} <small style="color:var(--dim);font-size:13px;font-weight:500">${rest.length}</small></h2>` + rest.map((x,i)=>dCard(x,i+1)).join(''); }
+  else if(!up.length) h += `<p class="empty">No desk selection passes your settings for the games still to play${BF.game!=='all'?' in this game':''}.</p>`;
+  if((spec.instructions||[]).length) h += `<details class="gnotes" style="margin:10px 0"><summary>The desk's standing instructions (${spec.instructions.length})</summary><ul>${spec.instructions.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`;
   if(DS.wild){ const w=dFilter(D.wild_cards||[], true).filter(x=>x.kick>now);
     h += `<h2>🃏 Wild cards <small style="color:var(--dim);font-size:13px;font-weight:500">longer prices ${DS.wband[0].toFixed(2)} to ${DS.wband[1].toFixed(2)}, smaller stakes</small></h2>`;
     h += w.length ? w.map((x,i)=>dCard(x,i+1).replace('class="bb desk','class="bb desk wild')).join('') : `<p class="empty">No wild card this run${(D.wild_cards||[]).length?' passes your settings':': the desk adds up to three when the research supports a longer price'}.</p>`; }

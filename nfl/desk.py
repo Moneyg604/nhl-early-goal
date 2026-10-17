@@ -45,7 +45,8 @@ GAME_KINDS = ("ml", "spread", "total", "h1", "h2")
 QB_KINDS = ("qb_yds", "qb_td")
 PLAYER_KINDS = ("rec_yds", "rush_yds", "recs", "atd", "pts", "reb", "ast", "threes", "pra", "fg")
 KEY_NAME = "kickoff_utc"       # the game's start-time field
-DEFAULT_CONFIG = {"v": 1, "odds_band": [1.35, 2.2], "wild_cards": {"enabled": True, "odds_band": [2.21, 4.5], "max": 3, "min_p": 0.3},
+DEFAULT_CONFIG = {"v": 2, "odds_rule": "band", "odds_band": [1.35, 2.2], "lines": "draftkings", "sections": [], "best": {"label": "Best picks", "min": 3, "max": 6},
+                  "instructions": [], "wild_cards": {"enabled": True, "odds_band": [2.21, 4.5], "max": 3, "min_p": 0.3},
                   "markets": {k: True for k in ("ml", "spread", "total", "h1", "h2", "qb_yds", "qb_td", "rec_yds", "recs", "rush_yds", "fg", "alts")},
                   "selection": {"min_grade": "C", "min_evidence": "unmeasured", "min_p": 0.52, "max_per_game": 3, "max_selections": 24, "one_player_per_market": True},
                   "variables": {}, "alerts": {"telegram": True, "line_move_points": 1.0, "odds_drop": 0.08, "injury_flags": True}}
@@ -116,10 +117,13 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
             errs.append(f"missing top-level key {k!r}")
     if errs:
         return errs
+    cfg = load_config()
     band = d.get("odds_band")
     if not (isinstance(band, list) and len(band) == 2 and all(isinstance(x, (int, float)) for x in band) and 1.0 < band[0] < band[1]):
         errs.append("odds_band must be [low, high] decimal odds with 1 < low < high")
         band = list(DEFAULT_BAND)
+    if (d.get("odds_rule") or cfg.get("odds_rule")) == "ignore":
+        band = [1.01, 1000.0]                 # evidence chooses; the price is shown, never a filter
     try:
         datetime.strptime(d["generated_utc"], "%Y-%m-%d %H:%M UTC")
     except (TypeError, ValueError):
@@ -219,6 +223,36 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
     for i, x in enumerate(d.get("declined") or []):
         if not (isinstance(x, dict) and x.get("label") and x.get("why")):
             errs.append(f"declined {i + 1}: needs label and why")
+    # sections and best picks (optional in the overlay: the merge derives them from the config when absent)
+    ids = {s["id"] for s in d["selections"] if isinstance(s, dict) and "id" in s}
+    secs = d.get("sections")
+    if secs is not None:
+        if not isinstance(secs, dict):
+            errs.append("sections must be an object {section key: [selection ids]}")
+        else:
+            spec = {x["key"]: x for x in cfg.get("sections") or [] if isinstance(x, dict) and x.get("key")}
+            for key, lst in secs.items():
+                if not isinstance(lst, list) or any(i not in ids for i in lst):
+                    errs.append(f"sections.{key}: every entry must be the id of a selection in this overlay")
+                    continue
+                sp = spec.get(key)
+                if sp:
+                    if len(lst) > int(sp.get("max") or 99):
+                        errs.append(f"sections.{key}: {len(lst)} selections, the spec allows at most {sp.get('max')}")
+                    kinds = set(sp.get("markets") or [])
+                    bad = [i for i in lst if kinds and next((s["kind"] for s in d["selections"] if s["id"] == i), None) not in kinds]
+                    if bad:
+                        errs.append(f"sections.{key}: {len(bad)} selection(s) are not {sorted(kinds)} markets")
+    best = d.get("best")
+    if best is not None:
+        if not isinstance(best, list) or any(i not in ids for i in best):
+            errs.append("best must be a list of selection ids from this overlay")
+        else:
+            bs = cfg.get("best") or {}
+            if len(best) > int(bs.get("max") or 6):
+                errs.append(f"best: {len(best)} picks, the spec allows at most {bs.get('max')}")
+            if best and len(best) < int(bs.get("min") or 1):
+                errs.append(f"best: {len(best)} picks, the spec asks for at least {bs.get('min')}")
     return errs
 
 
@@ -417,6 +451,39 @@ def hot_not(payload: dict, desk_sels: list[dict]) -> dict:
     return {"movers": movers[:16], "edges": edges[:8], "fades": sorted(edges, key=lambda x: x["gap"])[:4]}
 
 
+def _sections(d: dict, sels: list[dict], cfg: dict) -> tuple[dict, list]:
+    """{section key: [ids]} and the best-pick ids: the overlay's own when it has them, else derived from the spec
+    (selections grouped by market, each capped at the section's max; best = the strongest evidence, one per
+    player, at most two per game)."""
+    by_id = {x["id"]: x for x in sels}
+    markets_on = cfg.get("markets") or {}
+    spec = [x for x in (cfg.get("sections") or []) if isinstance(x, dict) and x.get("key")]
+    if d.get("sections") is not None:
+        sections = {k: [i for i in v if i in by_id] for k, v in d["sections"].items()}
+    else:
+        sections = {}
+        for sp in spec:
+            kinds = set(sp.get("markets") or [])
+            rows = [x for x in sels if x["kind"] in kinds and markets_on.get(x["kind"], True) and not str(x["id"]).startswith("alt|")]
+            sections[sp["key"]] = [x["id"] for x in rows[:int(sp.get("max") or 6)]]
+    if d.get("best") is not None:
+        best = [i for i in d["best"] if i in by_id]
+    else:
+        bs = cfg.get("best") or {}
+        rank = {"measured": 2, "partial": 1, "unmeasured": 0}
+        pool = sorted((x for x in sels if x["kind"] not in ("h1", "h2", "fg") and markets_on.get(x["kind"], True) and not str(x["id"]).startswith("alt|")),
+                      key=lambda x: (-rank.get(x["evidence"], 0) * 0.08 - x["p"] - 0.01 * (x["confidence"] or 0) / 100))
+        best, per_game, players = [], {}, set()
+        for x in pool:
+            pk = (x.get("who") or x.get("team") or x["id"])
+            if per_game.get(x["game_id"], 0) >= 2 or pk in players:
+                continue
+            best.append(x["id"]); per_game[x["game_id"]] = per_game.get(x["game_id"], 0) + 1; players.add(pk)
+            if len(best) >= int(bs.get("max") or 6):
+                break
+    return sections, best
+
+
 def merge(payload: dict, overlay: dict | None = None) -> dict | None:
     """Attach the overlay to the payload. Returns the desk block (also stored at payload["bot"]["desk"]) or None."""
     cfg = load_config()
@@ -456,9 +523,12 @@ def merge(payload: dict, overlay: dict | None = None) -> dict | None:
     sels.sort(key=lambda x: (-x["p"], -x["confidence"]))
     wild.sort(key=lambda x: (-x["p"] * x["odds"], -x["confidence"]))
     picks.sort(key=lambda x: -x["p"])
-    desk = {"v": 1, "ok": True, "generated": d["generated_utc"], "analyst": d["analyst"], "band": band, "summary": d.get("summary") or "",
-            "games": {gid: v for gid, v in (d.get("games") or {}).items() if gid in games},
+    sections, best = _sections(d, sels, cfg)
+    desk = {"v": 2, "ok": True, "generated": d["generated_utc"], "analyst": d["analyst"], "band": band, "odds_rule": cfg.get("odds_rule") or "band",
+            "summary": d.get("summary") or "", "games": {gid: v for gid, v in (d.get("games") or {}).items() if gid in games},
             "selections": sels, "wild_cards": wild, "wild_band": list((cfg.get("wild_cards") or {}).get("odds_band") or [2.21, 4.5]),
+            "sections": sections, "best": best, "spec": {"sections": cfg.get("sections") or [], "best": cfg.get("best") or {}, "instructions": cfg.get("instructions") or [],
+                                                         "derived": d.get("sections") is None},
             "declined": list(d.get("declined") or []), "n": len(sels),
             "alerts": [{"id": x["id"], "label": x["label"], "mu": x["mu"], "kick": x["kick"], **x["alert"]} for x in sels + wild if x.get("alert")]}
     if bot is not None:
@@ -467,6 +537,8 @@ def merge(payload: dict, overlay: dict | None = None) -> dict | None:
         bot["hot"] = hot_not(payload, sels)
     payload["picks"]["desk"] = picks
     payload["picks"]["desk_wild"] = wpicks
+    best_ids = set(best)
+    payload["picks"]["desk_best"] = [pk for pk, s in zip([_scorecard_pick(s, games[s["game_id"]]) for s in d["selections"]], d["selections"]) if s["id"] in best_ids]
     return desk
 
 

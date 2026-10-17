@@ -36,6 +36,7 @@ def main(argv=None) -> int:
     ap.add_argument("--keep", help="existing overlay whose started-game selections are kept")
     ap.add_argument("--summary", default="")
     ap.add_argument("--analyst", default="Claude research desk")
+    ap.add_argument("--best", help="comma-separated selection ids for the Best Picks list, strongest first (default: derived from the spec's rule)")
     a = ap.parse_args(argv)
     now = datetime.now(timezone.utc)
     now_s = now.strftime("%Y-%m-%dT%H:%MZ")
@@ -109,10 +110,31 @@ def main(argv=None) -> int:
         print(f"written for inspection: {bad}")
         return 1
     out["selections"].sort(key=lambda s: (-float(s["p"]), -float(s.get("confidence") or 0)))
+    # sections and best picks per the spec (the desk session may pass --best to overrule the derived ranking)
+    if a.sport == "nfl":
+        from nfl.desk import _sections, load_config
+        cfg = load_config()
+        sections, best = _sections({}, out["selections"], cfg)
+        if a.best:
+            ids = {x["id"] for x in out["selections"]}
+            best = [i.strip() for i in a.best.split(",") if i.strip() in ids]
+        out["sections"] = sections
+        out["best"] = best
+        spec = {x["key"]: x for x in cfg.get("sections") or []}
+        for key, lst in sections.items():
+            need = int((spec.get(key) or {}).get("min") or 0)
+            if len(lst) < need:
+                print(f"note: section {key} has {len(lst)} selection(s), the spec asks for at least {need}")
+        bs = cfg.get("best") or {}
+        if len(best) < int(bs.get("min") or 0):
+            print(f"note: best picks has {len(best)}, the spec asks for at least {bs.get('min')}")
     f = out_path
     f.parent.mkdir(parents=True, exist_ok=True)
     f.write_text(json.dumps(out, indent=1, ensure_ascii=False))
     print(f"wrote {f}: {len(out['selections'])} selections and {len(out['wild_cards'])} wild cards ({kept} kept from before), {len(out['declined'])} declined, {n_frag} fragments, {len(out['games'])} games with notes")
+    if out.get("best"):
+        lab = {x["id"]: x for x in out["selections"]}
+        print("best picks: " + "; ".join(f"{lab[i]['label']} ({lab[i]['odds']:.2f}, {float(lab[i]['p'])*100:.0f}%)" for i in out["best"]))
     for i, s in enumerate(out["selections"] + out["wild_cards"], 1):
         print(f"{i:2d}. {s['label']:<46} {float(s['odds']):.2f} {s['odds_source']:<11} desk {float(s['p'])*100:.0f}%  {s['grade']} {s['evidence']:<10} conf {s['confidence']}")
     return 0

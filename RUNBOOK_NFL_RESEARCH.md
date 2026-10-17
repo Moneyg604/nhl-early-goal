@@ -24,7 +24,8 @@ risks and its sources, and nothing is estimated without data behind it.
 7. Park and weather go into the arithmetic (volume and efficiency), not into a footnote.
 8. Fewer, better selections. Six to twelve across a Sunday slate; two or three for a single-game window. A slate with
    nothing that clears the bar gets an empty `selections` list and a `summary` saying why.
-9. DraftKings only. Prices inside the configured band (default 1.35 to 2.20 decimal). The odds feed's DraftKings
+9. DraftKings only. When the spec's `odds_rule` is `"band"`, prices inside the configured band (default 1.35 to
+   2.20 decimal); when it is `"ignore"`, any price, chosen on evidence alone. The odds feed's DraftKings
    price is `odds_source: "feed"` and must match the feed exactly (the validator compares the line and the price
    with the payload's DraftKings entry: a feed-sourced selection on a different line is rejected); a price read
    today from a page that shows DraftKings' own board is `"draftkings"`; anything else is `"unverified"` and must
@@ -36,16 +37,34 @@ risks and its sources, and nothing is estimated without data behind it.
     selection after its game has kicked off; a later run may add selections for games still to come and may drop a
     not-yet-started selection when the news changed (say so in `declined`).
 
-## 0b. The desk settings file
+## 0b. The desk spec (`data/nfl/desk_config.json`)
 
-`data/nfl/desk_config.json` is the owner's configuration and the desk follows it on every run: `odds_band` (the
-price band for selections), `wild_cards` (whether to add a short list of longer-priced plays, their band, how many,
-and the probability floor), `markets` (which markets are candidates at all), `selection` (minimum grade and
-evidence, minimum desk probability, at most how many per game and in total, one selection per player per market),
-`variables` (which research items to run; an item switched off is skipped and the write-up says so) and `alerts`.
-Read it first; if the file is missing or broken, the defaults in `nfl/desk.py` apply. The page's "Desk settings"
-panel shows the same values and lets the owner filter the view on his own phone; changes he wants the desk itself
-to follow go into this file.
+The owner's spec, and the desk follows it on every run; read it first. If the file is missing or broken, the
+defaults in `nfl/desk.py` apply. The page's "Desk settings" panel lets the owner filter his own view; what the desk
+itself must do lives here.
+
+- `odds_rule`: `"ignore"` means evidence chooses every selection and the DraftKings price is reported, never used
+  as a filter or a reason (a selection at 1.20 or at 3.50 is fine when the research supports it; say what the price
+  implies). `"band"` means only prices inside `odds_band` are eligible.
+- `lines`: `"draftkings"` means DraftKings' actual posted line only, never an alternate line.
+- `markets`: which markets are candidates at all (a market set to false is never selected, even when it looks good:
+  with the current spec that includes passing touchdowns, half totals, kicker field goals and alternates).
+- `sections`: the lists the page shows, in order, each with its `markets`, `min` and `max`. Every section needs at
+  least `min` selections and never more than `max`; a section is filled only with selections the research
+  supports. The overlay records them as `"sections": {"<key>": [selection ids]}`.
+- `best`: the Best Picks list, `min` to `max` selections with the strongest evidence of actually winning across
+  every section, one per player, at most two from the same game, ranked strongest first. Recorded as
+  `"best": [selection ids]`. This is the main list the owner acts on; it is graded on its own scorecard line.
+- `instructions`: the owner's own rules in plain English. They are mandatory and sit above every default in this
+  runbook except the ground rules in section 0 (an instruction cannot remove the arithmetic, the sources or the
+  honest labelling).
+- `selection`: minimum grade and evidence, minimum desk probability, at most how many per game and in total, one
+  selection per player per market. `variables`: which research items to run (an item switched off is skipped and
+  the write-up says so). `wild_cards`: whether to add longer-priced plays (see below). `alerts`: thresholds.
+
+Wild cards (when `wild_cards.enabled`): up to `max` plays priced inside `wild_cards.odds_band` that the research
+supports, each with the same write-up and a desk probability of at least `min_p`, in a separate `wild_cards` list,
+shown on their own lane and graded on their own line; never mixed into `selections`.
 
 Wild cards: when `wild_cards.enabled`, add up to `max` plays priced inside `wild_cards.odds_band` (longer than the
 main band: alternate lines, underdog moneylines, player-prop alternates) that the research supports, each with the
@@ -151,7 +170,12 @@ desk's, and the difference in points. Fair odds = 1 / p. EV at DraftKings' price
 - `declined`: candidates examined and not taken, with the reason (one line each). This is where the site's own
   picks go when the desk disagrees with them.
 
-Rank by `p`. Do not force a count. Across a Sunday slate prefer different games for the top selections.
+Rank by `p`. Fill every section of the spec to at least its `min` and never past its `max` (a section whose `min`
+cannot be met honestly gets its best candidate with grade C and the gap named in `declined`). Then choose the Best
+Picks: the selections with the strongest evidence of actually winning (measured evidence first, then the desk
+probability, then confidence), one per player, at most two per game, `best.min` to `best.max` of them, strongest
+first. Write both into the overlay (`sections`, `best`). Across a Sunday slate prefer different games for the top
+selections.
 
 ## 5. File, validate, commit, rebuild
 

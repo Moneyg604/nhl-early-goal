@@ -2,8 +2,18 @@
 from __future__ import annotations
 
 import copy
+from pathlib import Path
+
+import pytest
 
 from nfl.desk import merge, validate
+
+
+@pytest.fixture(autouse=True)
+def _defaults(monkeypatch, tmp_path):
+    """Tests run on the module's default spec (band rule), not the repository's live config."""
+    import nfl.desk as D
+    monkeypatch.setattr(D, "CONFIG_PATH", tmp_path / "none.json")
 
 SRC = [{"name": "test", "url": "https://example.com", "fetched": "2026-10-17T17:00Z"}]
 
