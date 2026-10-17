@@ -2,13 +2,13 @@
  "v": 1,
  "season": 2026,
  "week": 6,
- "generated_utc": "2026-10-17 17:39 UTC",
+ "generated_utc": "2026-10-17 21:20 UTC",
  "analyst": "Claude research desk",
  "odds_band": [
   1.35,
   2.2
  ],
- "summary": "Saturday pass on the Sunday and Monday slate: thirteen games researched on the web (final injury reports, beat-writer notes, kickoff weather, line moves). The board leans to unders and low-scoring scripts this week; three rushing selections carry prices the desk could not verify on DraftKings' own board and are marked as such.",
+ "summary": "Saturday review of the Sunday slate, thirteen games researched on the web. Best picks are the six selections with the strongest measured evidence under the owner's spec (no passing-TD markets, DraftKings' posted lines only); A.J. Brown's activation withdrew the Maye under and cut the NYJ@NE under to a C. Three rushing selections carry prices the desk could not verify on DraftKings' own board and say so.",
  "games": {
   "2026_06_ARI_LA": {
    "notes": [
@@ -2287,168 +2287,6 @@
  },
  "selections": [
   {
-   "id": "qb_td|2026_06_TEN_IND|under|1.5|Daniel Jones",
-   "game_id": "2026_06_TEN_IND",
-   "kind": "qb_td",
-   "side": "under",
-   "line": 1.5,
-   "who": "Daniel Jones",
-   "team": "IND",
-   "label": "Daniel Jones under 1.5 pass TDs",
-   "odds": 1.89,
-   "odds_source": "feed",
-   "p": 0.66,
-   "grade": "B",
-   "evidence": "measured",
-   "confidence": 58,
-   "inputs": [
-    "Jones 2026: 3 pass TD in 5 starts (0.6 per game), zero multi-TD games; one of four every-game starters without a multi-TD game (team site)",
-    "IND scoring mix: 11 TDs this season, 8 rushing (Taylor 6, Warren 1, Jones 1), 3 passing; pass-TD share 27%",
-    "Shrader 16/16 FG: IND has turned red-zone trips into 3.2 FG per game; 5 FG and 1 TD at PIT last week",
-    "TEN defense allows 5 pass TD and 5 rush TD in 5 games (1.0 pass TD per game); red-zone TD allowed 62.5% (14th)",
-    "Expected IND points: ppd 2.291 own vs 2.257 allowed, ~10.8 drives = 24.5 to 26 points, about 2.2 TDs",
-    "Prior (2025): Jones had 14 total TDs in 7 games through Oct 26, 2025 (team site article), roughly 1.4 pass TD per game, weighted one third",
-    "Tyler Warren (2 of the 3 receiving TDs) questionable with a Friday groin injury, no expected-to-play note"
-   ],
-   "arithmetic": [
-    "Offense rate: 0.6 this season x 2/3 + 1.4 prior x 1/3 = 0.87 pass TD per game; scaled to 26 expected points vs 24.8 average = 0.91",
-    "Defense: TEN allows 1.0 pass TD per game (league ~1.45); blended 2/3 season, 1/3 league = 1.15; lambda = 0.91 x 1.15 / 1.45 = 0.72",
-    "Cross-check by share: 2.2 expected TDs x pass share blended 0.37 (IND 27%, league 57% at 1/3) to 0.50 (TEN allowed) = 0.81 to 1.10",
-    "Working lambda 1.0 (upper half of the range, respecting the small sample): P(0 or 1) = e^-1.0 x (1 + 1.0) = 0.736",
-    "Market no-vig 0.519, sim 0.629: desk 0.74 is 22 points above market (re-check trigger). Reason: the measured run-heavy TD mix and Shrader FG rate; moved halfway toward the market: desk p = 0.66",
-    "Fair odds 1 / 0.66 = 1.52; EV at 1.89 = 0.66 x 1.89 - 1 = +0.25; break-even 0.529"
-   ],
-   "pros": [
-    "Under 1.5 has hit in 5 of 5 starts; IND scores on the ground and by field goal",
-    "Warren, the main red-zone target, hurt his groin Friday; if he sits the pass-TD tree thins further",
-    "TEN allows only 1.0 pass TD per game and 62.5% red-zone TDs"
-   ],
-   "risks": [
-    "Regression: a 7-point favourite projected at 26 points throws 2 TDs in roughly a third of games; five games is a small sample for a 27% pass-TD share",
-    "TEN pass defense is 29th by EPA and allows the league's highest completion rate; a 2-TD game needs only two short red-zone throws",
-    "Jones's 2025 prior (about 1.4 pass TD per game) argues the market's 1.3 mean is closer than the desk's"
-   ],
-   "verdict": "Measured evidence says Jones's TD production comes on the ground and through Shrader; take under 1.5 at 1.89 with the regression risk named.",
-   "sources": [
-    {
-     "name": "FantasyPros game log: Daniel Jones",
-     "url": "https://www.fantasypros.com/nfl/games/daniel-jones.php",
-     "fetched": "2026-10-17T17:10Z"
-    },
-    {
-     "name": "Pro Football Reference: 2026 Colts",
-     "url": "https://www.pro-football-reference.com/teams/clt/2026.htm",
-     "fetched": "2026-10-17T17:08Z"
-    },
-    {
-     "name": "Pro Football Reference: 2026 Titans",
-     "url": "https://www.pro-football-reference.com/teams/oti/2026.htm",
-     "fetched": "2026-10-17T17:08Z"
-    },
-    {
-     "name": "tennesseetitans.com six things to watch",
-     "url": "https://www.tennesseetitans.com/news/six-things-to-watch-for-the-titans-in-sunday-s-game-at-the-colts-x3426",
-     "fetched": "2026-10-17T17:12Z"
-    },
-    {
-     "name": "PFT: Colts add Tyler Warren, questionable",
-     "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/colts-add-tyler-warren-to-injury-report-list-him-as-questionable",
-     "fetched": "2026-10-17T17:03Z"
-    }
-   ]
-  },
-  {
-   "id": "qb_td|2026_06_WAS_SF|under|1.5|Jayden Daniels",
-   "game_id": "2026_06_WAS_SF",
-   "kind": "qb_td",
-   "side": "under",
-   "line": 1.5,
-   "who": "Jayden Daniels",
-   "team": "WAS",
-   "label": "Jayden Daniels under 1.5 pass TDs",
-   "odds": 1.61,
-   "odds_source": "feed",
-   "p": 0.65,
-   "grade": "B",
-   "evidence": "partial",
-   "confidence": 60,
-   "inputs": [
-    "Daniels full practice Thu and Fri (left elbow), confirmed starter; Mariota ruled out",
-    "WAS pass TDs this season 8 on 162 attempts (4.9%); Daniels' own starts 3 TD on 86 attempts (3.5%): PHI 2, DAL 1 (left at half), NYG 0",
-    "SF pass defense allows 5 pass TDs on 174 attempts (2.9%), 5.74 yds/att, fewest explosive plays allowed in the league, rank 5 red-zone TD defense (53%)",
-    "WAS attempts 32.4 per game; underdog by 7.5 so expected 34 attempts",
-    "WAS points per drive 2.05 vs SF allowed 2.02, about 10.5 drives: 21 expected WAS points",
-    "Croskey-Merritt out and McLaurin/Diggs both hamstring-questionable: the target tree is Okonkwo, A. Williams, Burks, backs",
-    "League pass-TD rate per attempt 4.5% (estimate, the partial leg)"
-   ],
-   "arithmetic": [
-    "Blended rate = 4.5% x (4.9/4.5) x (2.9/4.5) = 3.2% per attempt; x 34 attempts = 1.07 expected pass TDs",
-    "Daniels' own rate 3.5% x 34 = 1.19; take mean 1.2 (the higher, for trailing-script passing)",
-    "Poisson(1.2): P(0) = 0.301, P(1) = 0.361, P(under 1.5) = 0.66",
-    "Desk 0.65 (two-decimal, slight haircut if McLaurin and Diggs both play) vs sim 0.60 vs market no-vig 0.58: +7 points, inside the re-check band",
-    "Fair odds 1/0.65 = 1.54; EV at 1.61 = 0.65 x 1.61 - 1 = +4.7%; break-even 62.1%"
-   ],
-   "pros": [
-    "SF allows 1.0 pass TD per game and the fewest explosive plays; Daniels has 1, 1 and 0 in his full starts",
-    "WAS scores through Daniels' legs (2 rush TDs last week, 16% red-zone carry share) and through Croskey-Merritt's replacements near the goal line",
-    "Only 2 of 5 WAS games this season produced 2+ pass TDs, both by Mariota against SEA and IND"
-   ],
-   "risks": [
-    "Garbage-time passing: a 7.5-point underdog trailing by two scores throws 40+ times and two late TDs cash the over",
-    "McLaurin and Diggs both return healthy and restore the 2025 WR room; the 14 pass TDs WAS has allowed show how quickly a secondary can leak, and SF's is thinner without Greenlaw",
-    "Bosa sits again (DNP Thu/Fri) and SF's pass rush loses its best player, giving Daniels more time",
-    "Price 1.61 is short: break-even 62% leaves only a 3-point cushion on the desk figure"
-   ],
-   "verdict": "Daniels has thrown one or zero touchdowns in his full starts and faces the league's stingiest explosive-play defense with a thinned-out receiver group; under 1.5 at 1.61 is a small-edge B.",
-   "sources": [
-    {
-     "name": "Commanders.com Week 6 injury report (Thu/Fri)",
-     "url": "https://www.commanders.com/news/commanders-vs-49ers-week-6-injury-report-2026",
-     "fetched": "2026-10-17T17:11Z"
-    },
-    {
-     "name": "49ers.com injury report (Week 6)",
-     "url": "https://www.49ers.com/team/injury-report/",
-     "fetched": "2026-10-17T17:06Z"
-    },
-    {
-     "name": "NFL.com injuries, WAS at SF",
-     "url": "https://www.nfl.com/injuries/",
-     "fetched": "2026-10-17T17:15Z"
-    },
-    {
-     "name": "Yahoo/SB Nation: Commanders Friday report, Croskey-Merritt out, Mariota/Omenihu/Jean-Baptiste ruled out (Sat Oct 17)",
-     "url": "https://sports.yahoo.com/articles/commanders-vs-49ers-friday-injury-164531513.html",
-     "fetched": "2026-10-17T17:05Z"
-    },
-    {
-     "name": "CBS/RotoWire: Croskey-Merritt not at Saturday practice (Oct 17 11:24 ET)",
-     "url": "https://www.cbssports.com/fantasy/football/news/commanders-jacory-croskey-merritt-not-spotted-at-saturdays-practice/",
-     "fetched": "2026-10-17T17:12Z"
-    },
-    {
-     "name": "Pro Football Reference: 49ers 2026 game log",
-     "url": "https://www.pro-football-reference.com/teams/sfo/2026/gamelog/",
-     "fetched": "2026-10-17T17:17Z"
-    },
-    {
-     "name": "Pro Football Reference: Commanders 2026 game log",
-     "url": "https://www.pro-football-reference.com/teams/was/2026/gamelog/",
-     "fetched": "2026-10-17T17:17Z"
-    },
-    {
-     "name": "Pro Football Reference: 49ers 2026 team page",
-     "url": "https://www.pro-football-reference.com/teams/sfo/2026.htm",
-     "fetched": "2026-10-17T17:16Z"
-    },
-    {
-     "name": "Pro Football Reference: Commanders 2026 team page",
-     "url": "https://www.pro-football-reference.com/teams/was/2026.htm",
-     "fetched": "2026-10-17T17:16Z"
-    }
-   ]
-  },
-  {
    "id": "desk|rush_yds|2026_06_TEN_IND|under|89.5|Jonathan Taylor",
    "game_id": "2026_06_TEN_IND",
    "kind": "rush_yds",
@@ -2485,6 +2323,7 @@
     "IND's offense is field-goal heavy: drives stall before the volume compounds"
    ],
    "risks": [
+    "Tyler Warren (groin) is 50/50 for Sunday; without him Indianapolis leans on the run more, which is the main way 89.5 is reached.",
     "Blowout script: if IND leads by two scores Taylor gets 25+ carries and 89.5 is reachable at 3.6 YPC",
     "History: Taylor ran for 218, 102 and 153 in his last three games vs TEN; one long run skews the right tail (SD 0.5 x mean understates it)",
     "TEN's 3.54 YPC allowed is five games old and came against a schedule that includes NYJ, NYG and HOU run games"
@@ -2592,85 +2431,6 @@
      "name": "Met Office London forecast",
      "url": "https://weather.metoffice.gov.uk/forecast/gcpvj0v07",
      "fetched": "2026-10-17T17:10Z"
-    }
-   ]
-  },
-  {
-   "id": "qb_td|2026_06_CHI_ATL|under|1.5|Michael Penix Jr.",
-   "game_id": "2026_06_CHI_ATL",
-   "kind": "qb_td",
-   "side": "under",
-   "line": 1.5,
-   "who": "Michael Penix Jr.",
-   "team": "ATL",
-   "label": "Michael Penix Jr. under 1.5 pass TDs",
-   "odds": 2.05,
-   "odds_source": "feed",
-   "p": 0.59,
-   "grade": "B",
-   "evidence": "partial",
-   "confidence": 55,
-   "inputs": [
-    "Penix confirmed starter: full practice Wed-Fri, no designation, MRI on ribs clean (atlantafalcons.com 10/16)",
-    "Penix 2026: 3 starts, 77 att, 719 yds, 3 TD, exactly 1 TD pass in each start (PFR, Covers log)",
-    "Atlanta 2026 touchdowns: 4 passing (3 Penix, 1 Cooper Rush) of about 14 total; 8 rushing TDs by Bijan Robinson (4) and Brian Robinson (4): pass-TD share about 29%, 23% in Penix's starts (PFR, Covers logs, brief recent games)",
-    "Atlanta offense: neutral pass rate 47.3%, PROE -11.4%, 26.8 pass att/game, red-zone TD rate 70.6% (8th) driven by the run (brief, PFR)",
-    "Brief usage: Bijan Robinson 46% and Brian Robinson 14% of ATL red-zone touches; London 7.9%, Pitts 9.3%",
-    "Market-implied Atlanta points: total 52.5, CHI -1.5 -> ATL 25.5 (sim 25.8); sim ATL FG makes 1.77",
-    "Chicago allows 1.2 pass TD/game (6 in 5, 10th fewest) while ranking 20th by pass EPA allowed; red-zone TD allowed 64.7% (17th) (iHeart, brief)",
-    "Market no-vig P(under 1.5) 0.472 (implies about 1.75 TD passes); simulation 0.587 (1.38 TD passes); site 0.50"
-   ],
-   "arithmetic": [
-    "ATL expected points 25.5 (market) less 1.77 FG x 3 = 5.3 -> 20.2 TD points / 7 = 2.9 touchdowns",
-    "Pass-TD share: this season 0.29 weighted 2/3 + league-typical prior 0.58 weighted 1/3 = 0.39",
-    "Expected Penix TD passes = 2.9 x 0.39 = 1.13 (cross-check: CHI allows 1.2/game to all passers)",
-    "Poisson lambda 1.13: P(0) + P(1) = e^-1.13 x (1 + 1.13) = 0.323 x 2.13 = 0.69",
-    "Desk 0.69 vs market 0.47 is 22 points apart (re-check trigger): the reason is Atlanta's measured goal-line mix, which can regress with a 52.5 total; the desk moves halfway to the market and sits at the simulation: P(under 1.5) = 0.59",
-    "Fair odds 1 / 0.59 = 1.69; break-even at 2.05 is 0.488; EV = 0.59 x 2.05 - 1 = +0.21"
-   ],
-   "pros": [
-    "Penix has thrown exactly one TD in all three starts, and the under 1.5 cashed in each",
-    "Atlanta's touchdowns come on the ground (8 of about 14 from the two backs); a 70.6% red-zone TD rate has not translated into pass TDs",
-    "Chicago's pass defense gives up yards (7.6 net Y/A) but few TD passes (1.2/game) and sits 2nd in third-down defense, keeping drives short of the goal line",
-    "The simulation independently lands at 0.587 and the price (2.05) pays plus money for a side the desk has as the favorite"
-   ],
-   "risks": [
-    "A 52.5-total shootout: if Caleb Williams plays and Chicago scores early, Atlanta throws more and in the red zone (Penix threw 35 times vs BAL when trailing)",
-    "Small sample: three starts; one two-TD game flips the under, and Pitts (TD last week) and London (0 TD on 37 targets, overdue) are both live in the red zone",
-    "Chicago is missing three front-seven starters (Edwards, Odeyingbo, Sweat); if the run is that easy Atlanta scores more TDs overall, raising the pass-TD count even at a low share",
-    "Odds are the feed's 61-hour-old DraftKings price; the live number may be shorter"
-   ],
-   "verdict": "Atlanta scores through Bijan and Brian Robinson, not Penix's arm; one TD pass is the modal outcome and 2.05 pays for it. Play at 1.95 or better.",
-   "sources": [
-    {
-     "name": "atlantafalcons.com: Falcons injury report, C.J. Henderson out (10/16)",
-     "url": "https://www.atlantafalcons.com/news/falcons-injury-report-c-j-henderson-ruled-out-of-week-6-matchup-vs-bears",
-     "fetched": "2026-10-17T17:06Z"
-    },
-    {
-     "name": "Pro Football Reference: 2026 Atlanta Falcons",
-     "url": "https://www.pro-football-reference.com/teams/atl/2026.htm",
-     "fetched": "2026-10-17T17:11Z"
-    },
-    {
-     "name": "Covers: Michael Penix Jr. props and game log",
-     "url": "https://www.covers.com/sport/football/nfl/players/298789/michael-penix-jr",
-     "fetched": "2026-10-17T17:13Z"
-    },
-    {
-     "name": "Covers: Bijan Robinson game log (rush/rec TDs)",
-     "url": "https://www.covers.com/sport/football/nfl/players/197459/bijan-robinson",
-     "fetched": "2026-10-17T17:10Z"
-    },
-    {
-     "name": "iHeart: Drake London Week 6 preview (Bears pass TDs allowed)",
-     "url": "https://sports.iheart.com/content/2026-10-16-drake-london-week-6-preview-vs-the-bears/",
-     "fetched": "2026-10-17T17:09Z"
-    },
-    {
-     "name": "VegasInsider: Bears vs Falcons odds (10/17)",
-     "url": "https://www.vegasinsider.com/nfl/matchups/bears-vs-falcons/",
-     "fetched": "2026-10-17T17:08Z"
     }
    ]
   },
@@ -3136,8 +2896,8 @@
    "label": "Under 43.5",
    "odds": 1.93,
    "odds_source": "feed",
-   "p": 0.56,
-   "grade": "B",
+   "p": 0.53,
+   "grade": "C",
    "evidence": "partial",
    "confidence": 55,
    "inputs": [
@@ -3167,6 +2927,7 @@
     "The market has moved this way (44.5 to 43.5) without an injury driver"
    ],
    "risks": [
+    "A.J. Brown was activated on Saturday (Oct 17): New England's passing ceiling rises, which weakens the under. Grade cut to C.",
     "NE offense is on a two-week tear (74 points, 3.36 ppd); another 29-plus from NE alone puts the under in trouble",
     "Jets defense allowed 381 and 492 yards to DET and CHI; it has been hit by functional offenses",
     "A.J. Brown activation Saturday raises NE's passing efficiency; this write-up assumes no change",
@@ -3461,85 +3222,6 @@
      "name": "Chiefs.com Week 6 injury report (Oct 16)",
      "url": "https://www.chiefs.com/news/week-6-injury-report-chargers-vs-chiefs-2026",
      "fetched": "2026-10-17T17:02Z"
-    }
-   ]
-  },
-  {
-   "id": "qb_yds|2026_06_NYJ_NE|under|236.5|Drake Maye",
-   "game_id": "2026_06_NYJ_NE",
-   "kind": "qb_yds",
-   "side": "under",
-   "line": 236.5,
-   "who": "Drake Maye",
-   "team": "NE",
-   "label": "Drake Maye under 236.5 pass yds",
-   "odds": 1.9,
-   "odds_source": "feed",
-   "p": 0.55,
-   "grade": "B",
-   "evidence": "partial",
-   "confidence": 55,
-   "inputs": [
-    "Maye 2026 (PFR): 151 attempts, 1,228 gross yards, 8.1 Y/A, 11 sacks; 162 dropbacks in 5 games = 32.4 per game; 7.58 yards per dropback (brief 7.65)",
-    "Maye game log (brief): 178, 208, 199, 269, 374 yards on 36, 25, 28, 39, 35 dropbacks; under 236.5 in 3 of 5",
-    "League yards per dropback 6.227 (brief)",
-    "Jets pass defense: 160 opponent attempts + 17 sacks = 177 dropbacks, 875 net yards allowed (PFR); gross estimated at ~985 (sack yardage not published) = 5.56 per dropback; 8th by EPA (brief); 62.2% two-high (5th); pressure rate 25.7% to 48.9% by opponent (Sharp Football)",
-    "Maye vs two-high this season: 55 of 76, 10.0 YPA (2nd); without pressure 76% comp, 8.0 YPA (Sharp Football). Counter-input: he is hot and efficient against exactly this coverage shell",
-    "NE volume: 63.8 plays/g x 52.7% pass = 33.6 pass plays; neutral pass rate 53.1%, PROE -0.046; NE favoured by 7.5 (fewer late passes); Jets allow 63.4 opponent plays/g",
-    "Receivers: Doubs 23 tgt/219 yds, Henry 19/177, Douglas 22/147, Chism 13/98 (PFR); A.J. Brown questionable (decision Saturday); Mack Hollins on IR",
-    "Offensive line: Campbell questionable (Lomu at LT allowed 1 pressure on 29 snaps), Moses cleared; Jets sack rate 9.1% (2nd) vs NE sack rate allowed 5.9% (17th)",
-    "Weather: no effect (3-5 mph wind)"
-   ],
-   "arithmetic": [
-    "Maye ratio to league: 7.58 / 6.227 = 1.22; Jets allowed ratio: 5.56 / 6.227 = 0.89",
-    "Blended yards per dropback = 6.227 x 1.22 x 0.89 = 6.76",
-    "Dropbacks: 33.6 from plays x pass rate, trimmed to 33.5 for the favourite script and the Jets' slow pace (simulation 35.9)",
-    "Mean = 33.5 x 6.76 = 226.5 yards; SD 70",
-    "P(under 236.5) = Phi((236.5 - 226.5) / 70) = Phi(0.143) = 0.557; shaded to 0.55 for the last two games (269, 374) and Maye's two-high splits",
-    "Market no-vig 0.50, simulation 0.538, desk 0.55 (+5 pts vs market). Fair odds 1 / 0.55 = 1.82; EV at 1.90 = 0.55 x 1.90 - 1 = +0.045; break-even 0.526"
-   ],
-   "pros": [
-    "Jets allow about 5.6 gross yards per dropback (11% under league) and rank 8th in pass EPA allowed; three of Maye's five games are under this line",
-    "NE is a 7.5-point favourite with a bottom-ten pass rate and negative PROE, so the volume leg is capped near 33 dropbacks",
-    "Jets' sack rate (9.1%, 2nd) against a line missing or compromised at left tackle trims completed yardage"
-   ],
-   "risks": [
-    "Maye's form: 643 yards and 7 TD the last two weeks, 10.0 YPA against two-high looks, which is the Jets' base shell; one more 270-plus game beats this",
-    "A.J. Brown activation Saturday adds a true WR1 and raises yards per target; re-check before kickoff",
-    "If the Jets keep it close, NE's dropbacks climb toward the simulation's 35.9 and the mean moves to ~242",
-    "Opponent gross yards per dropback is estimated from net yards plus assumed sack yardage (evidence partial)"
-   ],
-   "verdict": "Under 236.5 at 1.90 is a modest edge built on the Jets' per-dropback defense and a capped volume leg; take it only if Brown is not activated Saturday, and pass if the line drops below 232.5.",
-   "sources": [
-    {
-     "name": "Pro Football Reference, 2026 Patriots",
-     "url": "https://www.pro-football-reference.com/teams/nwe/2026.htm",
-     "fetched": "2026-10-17T17:16Z"
-    },
-    {
-     "name": "Pro Football Reference, 2026 Jets",
-     "url": "https://www.pro-football-reference.com/teams/nyj/2026.htm",
-     "fetched": "2026-10-17T17:16Z"
-    },
-    {
-     "name": "Sharp Football Analysis, Hribar worksheet",
-     "url": "https://www.sharpfootballanalysis.com/fantasy/jets-patriots-week-6-fantasy-football-preview-nfl-worksheet-rich-hribar-2026/amp/",
-     "fetched": "2026-10-17T17:13Z"
-    },
-    {
-     "name": "Patriots.com injury report analysis (Oct 16)",
-     "url": "https://www.patriots.com/news/injury-report-analysis-christian-gonzalez-expected-to-play-a-j-brown-officially-questionable-for-sunday-s-game-vs-jets",
-     "fetched": "2026-10-17T17:15Z"
-    },
-    {
-     "name": "Newsweek, Brown 'up in the air' (Oct 15)",
-     "url": "https://www.newsweek.com/sports/nfl/patriots-wr-aj-brown-addresses-uncertain-playing-status-for-jets-game-12575073",
-     "fetched": "2026-10-17T17:15Z"
-    },
-    {
-     "name": "NWS forecast, Foxborough area",
-     "url": "https://forecast.weather.gov/MapClick.php?lat=42.0909&lon=-71.2643",
-     "fetched": "2026-10-17T17:12Z"
     }
    ]
   },
@@ -3942,6 +3624,30 @@
  ],
  "declined": [
   {
+   "id": "qb_td|2026_06_CHI_ATL|under|1.5|Michael Penix Jr.",
+   "label": "Michael Penix Jr. under 1.5 pass TDs",
+   "why": "Passing-touchdown markets are excluded by the owner's spec; and Caleb Williams practised fully three days and is expected to play (Oct 17), which raises Atlanta's passing need. Withdrawn.",
+   "game_id": "2026_06_CHI_ATL"
+  },
+  {
+   "id": "qb_td|2026_06_WAS_SF|under|1.5|Jayden Daniels",
+   "label": "Jayden Daniels under 1.5 pass TDs",
+   "why": "Strong read (65%), but passing-touchdown markets are excluded by the owner's spec. Published here as the desk's view, not a selection.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "qb_td|2026_06_TEN_IND|under|1.5|Daniel Jones",
+   "label": "Daniel Jones under 1.5 pass TDs",
+   "why": "Strong read (measured, 66%), but passing-touchdown markets are excluded by the owner's spec. Published here as the desk's view, not a selection.",
+   "game_id": "2026_06_TEN_IND"
+  },
+  {
+   "id": "qb_yds|2026_06_NYJ_NE|under|236.5|Drake Maye",
+   "label": "Drake Maye under 236.5 pass yds",
+   "why": "The selection assumed A.J. Brown stayed on injured reserve; New England activated him on Saturday afternoon (Garafolo, 98.5 The Sports Hub, Oct 17), which raises Maye's passing projection past the line. Withdrawn.",
+   "game_id": "2026_06_NYJ_NE"
+  },
+  {
    "id": "desk|total|2026_06_WAS_SF|under|52.5|",
    "label": "Under 52.5",
    "why": "DraftKings' total in the odds feed is 50.5 (2.00), not 52.5: at 50.5 the desk's edge is inside the noise, so no selection",
@@ -4343,5 +4049,39 @@
    "why": "0 of 3 starts over the line; 34 to 36 dropbacks x 5.7 blended yds/dropback = 195 to 205, P(over) about 0.46 at 1.89 with McLaurin and Diggs hamstring-questionable; the under's DraftKings price was not seen so it is not listed.",
    "game_id": "2026_06_WAS_SF"
   }
- ]
+ ],
+ "best": [
+  "desk|rush_yds|2026_06_TEN_IND|under|89.5|Jonathan Taylor",
+  "desk|rec_yds|2026_06_DAL_GB|under|50.5|Tucker Kraft",
+  "desk|recs|2026_06_HOU_JAX|over|3.5|Brenton Strange",
+  "qb_yds|2026_06_TEN_IND|under|239.5|Daniel Jones",
+  "qb_yds|2026_06_CAR_PHI|over|239.5|Bryce Young",
+  "desk|recs|2026_06_DAL_GB|over|2.5|Javonte Williams"
+ ],
+ "sections": {
+  "qb": [
+   "qb_yds|2026_06_TEN_IND|under|239.5|Daniel Jones",
+   "qb_yds|2026_06_CAR_PHI|over|239.5|Bryce Young",
+   "qb_yds|2026_06_PIT_TB|under|233.5|Aaron Rodgers"
+  ],
+  "receiving": [
+   "desk|recs|2026_06_HOU_JAX|over|3.5|Brenton Strange",
+   "desk|rec_yds|2026_06_DAL_GB|under|50.5|Tucker Kraft",
+   "desk|recs|2026_06_DAL_GB|over|2.5|Javonte Williams",
+   "desk|recs|2026_06_NO_NYG|over|5.5|Isaiah Likely"
+  ],
+  "rushing": [
+   "desk|rush_yds|2026_06_TEN_IND|under|89.5|Jonathan Taylor",
+   "desk|rush_yds|2026_06_CAR_PHI|over|71.5|Chuba Hubbard",
+   "desk|rush_yds|2026_06_BUF_LV|over|94.5|James Cook",
+   "desk|rush_yds|2026_06_LAC_KC|over|91.5|Kenneth Walker III",
+   "desk|rush_yds|2026_06_CHI_ATL|over|93.5|Bijan Robinson",
+   "desk|rush_yds|2026_06_NO_NYG|over|58.5|Cam Skattebo"
+  ],
+  "game": [
+   "total|2026_06_NYJ_NE|under|43.5|",
+   "total|2026_06_HOU_JAX|under|42.5|",
+   "desk|total|2026_06_PIT_TB|under|38.5|"
+  ]
+ }
 }
