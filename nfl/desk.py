@@ -39,6 +39,26 @@ from pathlib import Path
 from .config import DATA_DIR
 
 RESEARCH_DIR = DATA_DIR / "research"
+CONFIG_PATH = DATA_DIR / "desk_config.json"
+DEFAULT_CONFIG = {"v": 1, "odds_band": [1.35, 2.2], "wild_cards": {"enabled": True, "odds_band": [2.21, 4.5], "max": 3, "min_p": 0.3},
+                  "markets": {k: True for k in ("ml", "spread", "total", "h1", "h2", "qb_yds", "qb_td", "rec_yds", "recs", "rush_yds", "fg", "alts")},
+                  "selection": {"min_grade": "C", "min_evidence": "unmeasured", "min_p": 0.52, "max_per_game": 3, "max_selections": 24, "one_player_per_market": True},
+                  "variables": {}, "alerts": {"telegram": True, "line_move_points": 1.0, "odds_drop": 0.08, "injury_flags": True}}
+
+
+def load_config() -> dict:
+    """data/nfl/desk_config.json merged over the defaults (a missing or broken file leaves the defaults)."""
+    cfg = json.loads(json.dumps(DEFAULT_CONFIG))
+    try:
+        d = json.loads(CONFIG_PATH.read_text())
+    except (OSError, json.JSONDecodeError):
+        return cfg
+    for k, v in d.items():
+        if isinstance(v, dict) and isinstance(cfg.get(k), dict):
+            cfg[k].update(v)
+        else:
+            cfg[k] = v
+    return cfg
 KINDS = ("ml", "spread", "total", "h1", "h2", "qb_yds", "qb_td", "rec_yds", "rush_yds", "recs", "fg", "atd")
 SIDES = {"ml": ("home", "away"), "spread": ("home", "away"), "atd": ("yes",)}
 GRADES = ("A", "B", "C")
@@ -98,9 +118,14 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
                 errs.append(f"games: {gid} is not in week {d['week']}")
     if not isinstance(d["selections"], list):
         return errs + ["selections must be a list"]
+    wild = d.get("wild_cards") or []
+    if not isinstance(wild, list):
+        errs.append("wild_cards must be a list"); wild = []
+    wband = list((d.get("wild_band") or (load_config().get("wild_cards") or {}).get("odds_band") or [2.21, 4.5]))
     seen = set()
-    for i, s in enumerate(d["selections"]):
-        tag = f"selection {i + 1} ({s.get('label') if isinstance(s, dict) else '?'})"
+    rows = [(s, band, 0.5, "selection") for s in d["selections"]] + [(s, wband, 0.2, "wild card") for s in wild]
+    for i, (s, band, p_floor, what) in enumerate(rows):
+        tag = f"{what} {i + 1} ({s.get('label') if isinstance(s, dict) else '?'})"
         if not isinstance(s, dict):
             errs.append(f"{tag}: not an object"); continue
         missing = [k for k in ("id", "game_id", "kind", "side", "label", "odds", "odds_source", "p", "grade", "evidence", "confidence", "verdict", "sources") + LIST_FIELDS if k not in s]
@@ -130,6 +155,8 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
             errs.append(f"{tag}: odds must be decimal odds above 1.0")
         elif not (band[0] <= s["odds"] <= band[1]):
             errs.append(f"{tag}: odds {s['odds']} outside the band {band[0]} to {band[1]}")
+        if isinstance(s["p"], (int, float)) and s["p"] < p_floor:
+            errs.append(f"{tag}: p {s['p']} is below the floor {p_floor} for a {what}")
         if s["odds_source"] not in ODDS_SOURCES:
             errs.append(f"{tag}: odds_source must be one of {ODDS_SOURCES}")
         if not (isinstance(s["p"], (int, float)) and 0.0 < s["p"] < 1.0):
@@ -163,6 +190,15 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
                     errs.append(f"{tag}: line {s['line']} differs from the board's {b['line']} for the same id (use a desk| id for a different line)")
             elif not str(s["id"]).startswith("desk|"):
                 errs.append(f"{tag}: id {s['id']} is not on the board; ids that are not on the board must start with 'desk|'")
+            if s.get("odds_source") == "feed" and s["game_id"] in games and s["kind"] in KINDS:
+                now = current_price(s, games[s["game_id"]])
+                if now is None:
+                    errs.append(f"{tag}: odds_source is 'feed' but the odds feed has no DraftKings price for this market; use 'draftkings' or 'unverified'")
+                else:
+                    if now.get("line") is not None and s.get("line") is not None and abs(float(now["line"]) - float(s["line"])) > 1e-9:
+                        errs.append(f"{tag}: odds_source is 'feed' but DraftKings' line in the feed is {now['line']} (selection says {s['line']})")
+                    if now.get("odds") and isinstance(s.get("odds"), (int, float)) and abs(float(now["odds"]) - float(s["odds"])) > 0.06:
+                        errs.append(f"{tag}: odds_source is 'feed' but DraftKings' price in the feed is {now['odds']} (selection says {s['odds']})")
     for i, x in enumerate(d.get("declined") or []):
         if not (isinstance(x, dict) and x.get("label") and x.get("why")):
             errs.append(f"declined {i + 1}: needs label and why")
@@ -208,52 +244,204 @@ def _scorecard_pick(s: dict, g: dict) -> dict:
     return pk
 
 
+def _enrich(s: dict, g: dict, board: dict) -> dict:
+    b = board.get(s["id"])
+    tside = _side_of(s, g)
+    x = {k: s.get(k) for k in ("id", "game_id", "kind", "side", "line", "who", "team", "label", "odds", "odds_source", "p", "grade", "evidence", "confidence",
+                               "inputs", "arithmetic", "pros", "risks", "verdict", "sources")}
+    x["mu"] = f'{g["away"]} @ {g["home"]}'
+    x["kick"] = g.get("kickoff_utc") or ""
+    x["tside"] = tside
+    x["pid"] = _player_id(g, tside, s.get("who"))
+    x["fair_odds"] = round(1 / s["p"], 3)
+    x["ev"] = round(s["p"] * s["odds"] - 1, 4)
+    if b is not None:
+        x["board"] = {k: b.get(k) for k in ("p", "p_model", "p_market", "ev", "fair_odds", "odds", "conf", "price", "flags")}
+        x["board"]["judge"] = (b.get("judge") or {}).get("score")
+        b["desk"] = {k: x[k] for k in ("p", "grade", "evidence", "confidence", "verdict", "pros", "risks", "inputs", "arithmetic", "sources", "odds", "odds_source")}
+    x["now"] = current_price(s, g)
+    return x
+
+
+def current_price(s: dict, g: dict) -> dict | None:
+    """DraftKings' line and price for the selection's market as of the latest odds pull in the payload
+    (game lines, halves, QB props); None when the feed has no such market."""
+    O = g.get("odds") or {}
+    k, side = s["kind"], s["side"]
+    dk = None
+    if k == "ml":
+        dk = ((O.get("ml") or {}).get("books") or {}).get("DraftKings")
+        if dk and dk.get(side):
+            return {"line": None, "odds": dk[side], "fetched": O.get("fetched")}
+        return None
+    if k in ("spread", "total"):
+        dk = ((O.get(k) or {}).get("books") or {}).get("DraftKings")
+        if not dk or dk.get("line") is None:
+            return None
+        line = dk["line"] if k == "total" else (dk["line"] if side == "home" else -dk["line"])
+        return {"line": line, "odds": dk.get(side), "fetched": O.get("fetched")}
+    P = O.get("props") or {}
+    if k in ("h1", "h2", "qb_yds", "qb_td") and k in P:
+        rows = P[k]
+        if k in ("h1", "h2"):
+            r = rows if isinstance(rows, dict) and "books" in rows else None
+        else:
+            from .live import name_key
+            r = next((v for v in rows.values() if isinstance(v, dict) and name_key(v.get("name") or "") == name_key(s.get("who") or "")), None)
+        dk = ((r or {}).get("books") or {}).get("DraftKings")
+        if dk and dk.get("line") is not None:
+            return {"line": dk["line"], "odds": dk.get(side), "fetched": O.get("props_fetched")}
+    return None
+
+
+def _against(s: dict, now: dict | None, cfg: dict) -> dict | None:
+    """Did DraftKings move against the selection since the desk priced it? Returns the alert or None."""
+    if not now:
+        return None
+    k, side = s["kind"], s["side"]
+    pts = float((cfg.get("alerts") or {}).get("line_move_points") or 1.0)
+    drop = float((cfg.get("alerts") or {}).get("odds_drop") or 0.08)
+    out = {"line_was": s.get("line"), "line_now": now.get("line"), "odds_was": s.get("odds"), "odds_now": now.get("odds"), "fetched": now.get("fetched")}
+    moved = 0.0
+    if k != "ml" and now.get("line") is not None and s.get("line") is not None:
+        d = float(now["line"]) - float(s["line"])
+        # worse for the bettor: an over whose line rose, an under whose line fell, a spread whose points shrank
+        moved = d if side in ("over",) else (-d if side == "under" else -d)
+        if k == "spread":
+            moved = -d                      # team-relative points: fewer points is worse for either side
+    worse_odds = (now.get("odds") or 0) and s.get("odds") and (now["odds"] - s["odds"]) <= -drop
+    if moved >= pts or worse_odds:
+        out["why"] = (f"line moved {s.get('line')} to {now.get('line')}" if moved >= pts else f"price {s.get('odds'):.2f} to {now['odds']:.2f}")
+        out["severity"] = "line" if moved >= pts else "price"
+        return out
+    return None
+
+
+def _bot_picks(payload: dict, board: dict, games: dict) -> list[dict]:
+    """The bot's category picks in scorecard form (the leaderboard's 'bot' line)."""
+    cats = (payload.get("bot") or {}).get("cats") or {}
+    out = []
+    for key, c in cats.items():
+        for i in c.get("ids") or []:
+            b = board.get(i)
+            if not b or not b.get("odds") or b["kind"] == "fg":
+                continue
+            g = games.get(b["game_id"])
+            if not g:
+                continue
+            s = {"game_id": b["game_id"], "kind": b["kind"], "side": b["side"], "line": b.get("line"), "who": b.get("who"), "team": b.get("team"),
+                 "label": b["label"], "odds": b["odds"], "p": b["p"]}
+            pk = _scorecard_pick(s, g); pk["desk"] = False; pk["cat"] = key
+            out.append(pk)
+    return out
+
+
+def _market_picks(games: dict) -> list[dict]:
+    """The DraftKings favourite on the moneyline in every game (the leaderboard's 'market' baseline)."""
+    out = []
+    for g in games.values():
+        dk = (((g.get("odds") or {}).get("ml") or {}).get("books") or {}).get("DraftKings")
+        if not dk or not dk.get("home") or not dk.get("away"):
+            continue
+        side = "home" if dk["home"] <= dk["away"] else "away"
+        odds = dk[side]
+        p = round((1 / odds) / (1 / dk["home"] + 1 / dk["away"]), 4)
+        s = {"game_id": g["game_id"], "kind": "ml", "side": side, "line": None, "who": None, "team": g[side], "label": f"{g[side]} moneyline (favourite)", "odds": odds, "p": p}
+        pk = _scorecard_pick(s, g); pk["desk"] = False
+        out.append(pk)
+    return out
+
+
+def hot_not(payload: dict, desk_sels: list[dict]) -> dict:
+    """What's hot and what's not: the biggest DraftKings line moves since the opener (spread, total, moneyline), the
+    steam side of each, and where the desk disagrees most with the market."""
+    movers = []
+    for g in payload.get("games", []):
+        O = g.get("odds") or {}
+        op = O.get("opening") or {}
+        mu = f'{g["away"]} @ {g["home"]}'
+        kick = g.get("kickoff_utc") or ""
+        for k in ("spread", "total"):
+            a = ((op.get(k) or {}).get("books") or {}).get("DraftKings") or (op.get(k) or {})
+            b = ((O.get(k) or {}).get("books") or {}).get("DraftKings") or (O.get(k) or {})
+            if a.get("line") is None or b.get("line") is None:
+                continue
+            d = float(b["line"]) - float(a["line"])
+            if abs(d) < 0.5:
+                continue
+            if k == "spread":
+                hot = g["away"] if d > 0 else g["home"]                   # book line is the home team's points: more points = market moved to the away side
+                label = f"{mu} spread {g['home']} {a['line']:+g} → {b['line']:+g}"
+            else:
+                hot = "Over" if d > 0 else "Under"
+                label = f"{mu} total {a['line']:g} → {b['line']:g}"
+            movers.append({"game_id": g["game_id"], "mu": mu, "kick": kick, "kind": k, "move": round(d, 1), "size": abs(d), "hot": hot,
+                           "cold": (g["away"] if hot == g["home"] else g["home"]) if k == "spread" else ("Under" if hot == "Over" else "Over"),
+                           "label": label, "opened": O.get("opening_at") or "", "now": O.get("fetched") or ""})
+        a = (op.get("ml") or {}); b = (O.get("ml") or {})
+        if a.get("consensus_home") is not None and b.get("consensus_home") is not None:
+            d = float(b["consensus_home"]) - float(a["consensus_home"])
+            if abs(d) >= 0.03:
+                hot = g["home"] if d > 0 else g["away"]
+                movers.append({"game_id": g["game_id"], "mu": mu, "kick": kick, "kind": "ml", "move": round(d * 100, 1), "size": abs(d) * 100 / 4,
+                               "hot": hot, "cold": g["away"] if hot == g["home"] else g["home"],
+                               "label": f"{mu} moneyline {g['home']} {a['consensus_home']*100:.0f}% → {b['consensus_home']*100:.0f}%", "now": O.get("fetched") or ""})
+    movers.sort(key=lambda x: -x["size"])
+    edges = []
+    for x in desk_sels:
+        pm = (x.get("board") or {}).get("p_market")
+        if pm is not None:
+            edges.append({"id": x["id"], "label": x["label"], "mu": x["mu"], "kick": x["kick"], "desk": x["p"], "market": pm, "gap": round(x["p"] - pm, 4), "odds": x["odds"]})
+    edges.sort(key=lambda x: -x["gap"])
+    return {"movers": movers[:16], "edges": edges[:8], "fades": sorted(edges, key=lambda x: x["gap"])[:4]}
+
+
 def merge(payload: dict, overlay: dict | None = None) -> dict | None:
     """Attach the overlay to the payload. Returns the desk block (also stored at payload["bot"]["desk"]) or None."""
     season, week = int(payload.get("season") or 0), int(payload.get("week") or 0)
+    cfg = load_config()
     d = overlay if overlay is not None else load_overlay(season, week)
     bot = payload.setdefault("bot", {}) if payload.get("bot") is not None else None
+    games = {g["game_id"]: g for g in payload.get("games", [])}
+    board = {b["id"]: b for b in (payload.get("best_bets") or {}).get("ranked", []) + ((payload.get("bot") or {}).get("extra") or [])}
+    # leaderboard baselines are built whether or not a desk file exists
+    payload.setdefault("picks", {})["bot"] = _bot_picks(payload, board, games)
+    payload["picks"]["market"] = _market_picks(games)
     if d is None:
         if bot is not None:
             bot["desk"] = None
+            bot["desk_config"] = cfg
+            bot["hot"] = hot_not(payload, [])
         return None
     errs = validate(d, payload)
     if errs:
         if bot is not None:
             bot["desk"] = {"v": 1, "ok": False, "errors": errs[:12], "generated": d.get("generated_utc"), "analyst": d.get("analyst")}
-        payload.setdefault("picks", {}).pop("desk", None)
+            bot["desk_config"] = cfg
+            bot["hot"] = hot_not(payload, [])
+        payload["picks"].pop("desk", None); payload["picks"].pop("desk_wild", None)
         return bot["desk"] if bot is not None else None
-    games = {g["game_id"]: g for g in payload.get("games", [])}
-    board = {b["id"]: b for b in (payload.get("best_bets") or {}).get("ranked", []) + ((payload.get("bot") or {}).get("extra") or [])}
     band = list(d.get("odds_band") or DEFAULT_BAND)
-    sels = []
-    picks = []
-    for s in d["selections"]:
-        g = games[s["game_id"]]
-        b = board.get(s["id"])
-        tside = _side_of(s, g)
-        x = {k: s.get(k) for k in ("id", "game_id", "kind", "side", "line", "who", "team", "label", "odds", "odds_source", "p", "grade", "evidence", "confidence",
-                                   "inputs", "arithmetic", "pros", "risks", "verdict", "sources")}
-        x["mu"] = f'{g["away"]} @ {g["home"]}'
-        x["kick"] = g.get("kickoff_utc") or ""
-        x["tside"] = tside
-        x["pid"] = _player_id(g, tside, s.get("who"))
-        x["fair_odds"] = round(1 / s["p"], 3)
-        x["ev"] = round(s["p"] * s["odds"] - 1, 4)
-        if b is not None:
-            x["board"] = {k: b.get(k) for k in ("p", "p_model", "p_market", "ev", "fair_odds", "odds", "conf", "price", "flags")}
-            x["board"]["judge"] = (b.get("judge") or {}).get("score")
-            b["desk"] = {k: x[k] for k in ("p", "grade", "evidence", "confidence", "verdict", "pros", "risks", "inputs", "arithmetic", "sources", "odds", "odds_source")}
-        sels.append(x)
-        picks.append(_scorecard_pick(s, g))
+    sels = [_enrich(s, games[s["game_id"]], board) for s in d["selections"]]
+    wild = [_enrich(s, games[s["game_id"]], board) for s in (d.get("wild_cards") or [])]
+    for x in sels + wild:
+        x["alert"] = _against(x, x.get("now"), cfg)
+    picks = [_scorecard_pick(s, games[s["game_id"]]) for s in d["selections"]]
+    wpicks = [_scorecard_pick(s, games[s["game_id"]]) for s in (d.get("wild_cards") or [])]
     sels.sort(key=lambda x: (-x["p"], -x["confidence"]))
+    wild.sort(key=lambda x: (-x["p"] * x["odds"], -x["confidence"]))
     picks.sort(key=lambda x: -x["p"])
     desk = {"v": 1, "ok": True, "generated": d["generated_utc"], "analyst": d["analyst"], "band": band, "summary": d.get("summary") or "",
             "games": {gid: v for gid, v in (d.get("games") or {}).items() if gid in games},
-            "selections": sels, "declined": list(d.get("declined") or []), "n": len(sels)}
+            "selections": sels, "wild_cards": wild, "wild_band": list((cfg.get("wild_cards") or {}).get("odds_band") or [2.21, 4.5]),
+            "declined": list(d.get("declined") or []), "n": len(sels),
+            "alerts": [{"id": x["id"], "label": x["label"], "mu": x["mu"], "kick": x["kick"], **x["alert"]} for x in sels + wild if x.get("alert")]}
     if bot is not None:
         bot["desk"] = desk
-    payload.setdefault("picks", {})["desk"] = picks
+        bot["desk_config"] = cfg
+        bot["hot"] = hot_not(payload, sels)
+    payload["picks"]["desk"] = picks
+    payload["picks"]["desk_wild"] = wpicks
     return desk
 
 
@@ -268,4 +456,4 @@ def now_utc() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
 
-__all__ = ["load_overlay", "validate", "merge", "write_overlay", "overlay_path", "RESEARCH_DIR", "DEFAULT_BAND", "KINDS"]
+__all__ = ["load_overlay", "validate", "merge", "write_overlay", "overlay_path", "load_config", "hot_not", "current_price", "RESEARCH_DIR", "DEFAULT_BAND", "KINDS"]

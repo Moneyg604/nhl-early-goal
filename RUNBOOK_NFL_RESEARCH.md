@@ -24,14 +24,33 @@ risks and its sources, and nothing is estimated without data behind it.
 7. Park and weather go into the arithmetic (volume and efficiency), not into a footnote.
 8. Fewer, better selections. Six to twelve across a Sunday slate; two or three for a single-game window. A slate with
    nothing that clears the bar gets an empty `selections` list and a `summary` saying why.
-9. DraftKings only. Prices between 1.35 and 2.20 decimal. The odds feed's DraftKings price is `odds_source: "feed"`;
-   a price read today from a page that shows DraftKings' own board is `"draftkings"`; anything else is
-   `"unverified"` and must say so. Never list a price you could not see somewhere.
+9. DraftKings only. Prices inside the configured band (default 1.35 to 2.20 decimal). The odds feed's DraftKings
+   price is `odds_source: "feed"` and must match the feed exactly (the validator compares the line and the price
+   with the payload's DraftKings entry: a feed-sourced selection on a different line is rejected); a price read
+   today from a page that shows DraftKings' own board is `"draftkings"`; anything else is `"unverified"` and must
+   say so. Never list a price you could not see somewhere. When the feed's line is stale and DraftKings has moved,
+   re-do the arithmetic at the current line and use `"draftkings"` with the source named.
 10. No anytime-touchdown selections (the page has its own TD board). Alternate lines are allowed when a DraftKings
     alt price is found and the arithmetic supports it.
 11. Measure the desk honestly: the scorecard grades every selection at the price listed. Do not remove or edit a
     selection after its game has kicked off; a later run may add selections for games still to come and may drop a
     not-yet-started selection when the news changed (say so in `declined`).
+
+## 0b. The desk settings file
+
+`data/nfl/desk_config.json` is the owner's configuration and the desk follows it on every run: `odds_band` (the
+price band for selections), `wild_cards` (whether to add a short list of longer-priced plays, their band, how many,
+and the probability floor), `markets` (which markets are candidates at all), `selection` (minimum grade and
+evidence, minimum desk probability, at most how many per game and in total, one selection per player per market),
+`variables` (which research items to run; an item switched off is skipped and the write-up says so) and `alerts`.
+Read it first; if the file is missing or broken, the defaults in `nfl/desk.py` apply. The page's "Desk settings"
+panel shows the same values and lets the owner filter the view on his own phone; changes he wants the desk itself
+to follow go into this file.
+
+Wild cards: when `wild_cards.enabled`, add up to `max` plays priced inside `wild_cards.odds_band` (longer than the
+main band: alternate lines, underdog moneylines, player-prop alternates) that the research supports, each with the
+same write-up and a desk probability of at least `min_p`. They go in a separate `wild_cards` list in the overlay,
+are shown on their own lane, and are graded on their own scorecard line. They are never mixed into `selections`.
 
 ## 1. Set-up (mechanical)
 
@@ -144,7 +163,7 @@ Rank by `p`. Do not force a count. Across a Sunday slate prefer different games 
    `python tools/assemble_desk.py --season <s> --week <w> --frags <dir> --keep data/nfl/research/<s>-wNN.json --summary "<two sentences on the slate>"`
 2. `python tools/validate_desk.py data/nfl/research/<season>-wNN.json` and fix every problem it lists. It also
    prints the ranked list the page will show.
-3. Commit and push only that file:
+3. Commit and push only that file (the config file is the owner's; never edit it from a run):
    `git add data/nfl/research/<season>-wNN.json && git commit -m "desk: week N research <date> <run>" && git pull --rebase origin main && git push origin main`
    (retry the pull/push a few times if the site's bot pushed in between).
 4. Rebuild the site so the page and the Telegram message carry the desk:

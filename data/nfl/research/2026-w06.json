@@ -2891,93 +2891,6 @@
    ]
   },
   {
-   "id": "desk|total|2026_06_WAS_SF|under|52.5|",
-   "game_id": "2026_06_WAS_SF",
-   "kind": "total",
-   "side": "under",
-   "line": 52.5,
-   "who": null,
-   "team": null,
-   "label": "Under 52.5",
-   "odds": 1.87,
-   "odds_source": "feed",
-   "p": 0.58,
-   "grade": "B",
-   "evidence": "partial",
-   "confidence": 50,
-   "inputs": [
-    "DraftKings total 52.5 today (StatSniper DK column; the brief's market_lines also 52.5 with under -115); opened 50.5 at DraftKings Oct 12, consensus 52, FanDuel 51.5",
-    "Drives: SF 177 s/drive, WAS 167 s/drive, about 10.5 possessions each",
-    "Points per drive: SF offense 2.57 vs WAS defense allowed 2.52; WAS offense 2.05 vs SF defense allowed 2.02",
-    "Points per game: SF scores 30.8 and WAS allows 29.8; WAS scores 23.0 and SF allows 18.6",
-    "Pace: SF 32.4 s/play (slowest in the brief), PROE -0.041; WAS PROE -0.087; SF defense allows the fewest explosive plays",
-    "Weather: 63-66F, wind about 9 mph, dry through the game: no effect",
-    "Personnel: SF without Deebo Samuel, possibly Evans; WAS without Croskey-Merritt, McLaurin and Diggs hamstring-questionable, QB with a recently dislocated elbow"
-   ],
-   "arithmetic": [
-    "Method A (points per drive): SF (2.57+2.52)/2 x 10.5 = 26.7; WAS (2.05+2.02)/2 x 10.5 = 21.4; total 48.1",
-    "Method B (points per game): SF (30.8+29.8)/2 = 30.3; WAS (23.0+18.6)/2 = 20.8; total 51.1",
-    "Desk mean = (48.1 + 51.1)/2 = 49.6; SD 13.5; P(under 52.5) = Phi((52.5-49.6)/13.5) = Phi(0.215) = 0.585",
-    "Desk 0.58 vs sim 0.63 (sim total 48.0) vs market no-vig 0.51: +7 points, inside the re-check band; moved toward the market from Method A because the 2-point rise since the opener came from money, not news",
-    "Fair odds 1/0.58 = 1.72; EV at 1.87 = 0.58 x 1.87 - 1 = +8.5%; break-even 53.5%"
-   ],
-   "pros": [
-    "DraftKings' 52.5 is the highest number on the market (consensus 52), so the under buys a half point",
-    "Both offenses lost a top-three skill player this week and the market moved the total up anyway",
-    "SF's slow pace and run-leaning PROE cap plays, and its defense allows 18.6 points and the fewest explosive plays",
-    "Sim and desk agree on a sub-50 figure from two different methods"
-   ],
-   "risks": [
-    "SF scores 30+ at home (30.8 per game, 87.5% red-zone TD rate) against a WAS defense that allowed 27+ in four straight and 30th in points allowed: 31-24 cashes the over",
-    "WAS games are 4-1 to the over and the 27-27 tie with NYG shows this offense can keep pace when Daniels runs",
-    "Market money moved the total two points toward the over since Monday; the desk is betting against that flow",
-    "A Bosa return is priced in neither direction; if Evans and Kirk both play SF's passing efficiency rebounds"
-   ],
-   "verdict": "Two independent methods put the game at 48 to 51 points and DraftKings is posting the market's highest total at 52.5; under at 1.87 is a B with the market flow against it.",
-   "sources": [
-    {
-     "name": "StatSniper WAS at SF odds board (DraftKings column: -7.5 / 52.5 / +330 -425)",
-     "url": "https://statsniper.com/leagues/nfl/game/2026/week-6/was-vs-sf/",
-     "fetched": "2026-10-17T17:13Z"
-    },
-    {
-     "name": "SI Week 6 opening odds, DraftKings (SF -7.5, 50.5), Oct 12",
-     "url": "https://www.si.com/betting/nfl-week-6-opening-odds-for-every-game-seahawks-packers-49ers-favored-in-primetime-2026",
-     "fetched": "2026-10-17T17:12Z"
-    },
-    {
-     "name": "Pro Football Reference: 49ers 2026 game log",
-     "url": "https://www.pro-football-reference.com/teams/sfo/2026/gamelog/",
-     "fetched": "2026-10-17T17:17Z"
-    },
-    {
-     "name": "Pro Football Reference: Commanders 2026 game log",
-     "url": "https://www.pro-football-reference.com/teams/was/2026/gamelog/",
-     "fetched": "2026-10-17T17:17Z"
-    },
-    {
-     "name": "Pro Football Reference: 49ers 2026 team page",
-     "url": "https://www.pro-football-reference.com/teams/sfo/2026.htm",
-     "fetched": "2026-10-17T17:16Z"
-    },
-    {
-     "name": "Pro Football Reference: Commanders 2026 team page",
-     "url": "https://www.pro-football-reference.com/teams/was/2026.htm",
-     "fetched": "2026-10-17T17:16Z"
-    },
-    {
-     "name": "Yahoo: Can the Commanders shock the 5-0 49ers (ppg, pass D ranks, Oct 16)",
-     "url": "https://sports.yahoo.com/articles/commanders-shock-5-0-49ers-202844454.html",
-     "fetched": "2026-10-17T17:11Z"
-    },
-    {
-     "name": "NWS point forecast Santa Clara CA (Mon Oct 19: mostly sunny high 66, night mostly cloudy low 51, rain possible after 11 pm)",
-     "url": "https://forecast.weather.gov/MapClick.php?lat=37.403&lon=-121.97",
-     "fetched": "2026-10-17T17:14Z"
-    }
-   ]
-  },
-  {
    "id": "qb_yds|2026_06_CAR_PHI|over|239.5|Bryce Young",
    "game_id": "2026_06_CAR_PHI",
    "kind": "qb_yds",
@@ -3891,7 +3804,7 @@
    "team": null,
    "label": "Under 38.5",
    "odds": 1.98,
-   "odds_source": "feed",
+   "odds_source": "draftkings",
    "p": 0.53,
    "grade": "B",
    "evidence": "partial",
@@ -3919,6 +3832,7 @@
     "Total has already moved 40.5 to 38.5 with the market, so the desk is not fighting the move"
    ],
    "risks": [
+    "DraftKings' total in the odds feed was 39.5 (Wednesday); 38.5 at 1.98 was read from Covers' DraftKings board on Saturday. Confirm the number on DraftKings before betting",
     "Pittsburgh's last three games all went into the 50s (Rodgers 3 TD passes in each); one Steelers touchdown burst makes 39 easy",
     "Daniels' turnovers (3 INT in 55 attempts) can hand PIT short fields, which score points without long drives",
     "Winfield out and Morrison doubtful weakens TB's coverage against Metcalf and Warren in space",
@@ -4027,6 +3941,12 @@
   }
  ],
  "declined": [
+  {
+   "id": "desk|total|2026_06_WAS_SF|under|52.5|",
+   "label": "Under 52.5",
+   "why": "DraftKings' total in the odds feed is 50.5 (2.00), not 52.5: at 50.5 the desk's edge is inside the noise, so no selection",
+   "game_id": "2026_06_WAS_SF"
+  },
   {
    "id": "qb_yds|2026_06_ARI_LA|under|243.5|Jacoby Brissett",
    "label": "Jacoby Brissett under 243.5 pass yds",

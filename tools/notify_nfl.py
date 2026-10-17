@@ -126,6 +126,26 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
                 out.append(T(f"…and {len(rows) - 12} more on the page"))
             out.append(T(f"Desk run {desk.get('generated', '')}. Open a card on the page for inputs, arithmetic and risks."))
             out.append("")
+        wild = [x for x in desk.get("wild_cards") or [] if live(x)]
+        if wild:
+            wb = desk.get("wild_band") or [2.21, 4.5]
+            out.append("🃏 " + B(f"Wild cards · {len(wild)}") + T(f"  longer prices {wb[0]:.2f} to {wb[1]:.2f}, smaller stakes"))
+            for x in wild:
+                out.append("• " + T(f"{x['label']} ({x['mu']})") + "  " + B(f"{x['p']*100:.0f}%") + T(f" @ {x['odds']:.2f} · {x['grade']}"))
+            out.append("")
+        alerts = [a for a in desk.get("alerts") or [] if (not a.get("kick") or a["kick"] > now) and (game_ids is None or a.get("game_id") in game_ids)]
+        if alerts:
+            out.append("🚨 " + B("Line moved against a desk pick") + T("  re-check before betting"))
+            for a in alerts:
+                out.append("• " + T(f"{a['label']} ({a['mu']}): {a['why']} (DraftKings, {a.get('fetched') or ''})"))
+            out.append("")
+    hot = bot.get("hot") or {}
+    movers = [m for m in hot.get("movers") or [] if (not m.get("kick") or m["kick"] > now) and (game_ids is None or m.get("game_id") in game_ids)][:6]
+    if movers:
+        out.append("🔥 " + B("What's hot / what's not") + T("  DraftKings line moves since the opener"))
+        for m in movers:
+            out.append("• " + T(f"{m['label']} · hot {m['hot']}, cold {m['cold']}"))
+        out.append("")
     cats = bot.get("cats") or {}
     out.append("🤖 " + B("Bot's picks") + T("  win chance @ DraftKings price · EV · simulation"))
     any_cat = False

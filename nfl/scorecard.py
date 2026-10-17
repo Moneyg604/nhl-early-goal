@@ -12,7 +12,8 @@ from .live import name_key
 
 MARKETS = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "h1": "1st half total", "h2": "2nd half total",
            "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD", "rec_yds": "Receiving yards", "rush_yds": "Rushing yards", "recs": "Receptions",
-           "desk": "Research desk"}
+           "desk": "Research desk", "desk_wild": "Desk wild cards", "bot": "Bot's picks", "market": "DraftKings favourites"}
+LEADERS = ("desk", "desk_wild", "bot", "market")
 
 
 def _player(g: dict, pick: dict) -> dict | None:
@@ -126,7 +127,14 @@ def build_scorecard(site_dir=None) -> dict:
     tot = {"won": sum(v["won"] for v in tally.values()), "lost": sum(v["lost"] for v in tally.values()), "push": sum(v["push"] for v in tally.values()),
            "units": round(sum(v["units"] for v in tally.values()), 3), "staked": sum(v["staked"] for v in tally.values())}
     tot["roi"] = round(tot["units"] / tot["staked"], 4) if tot["staked"] else None
-    out = {"updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "summary": summary, "total": tot, "weeks": weeks,
+    leans = [k for k in tally if k not in LEADERS]
+    lt = {"won": sum(tally[k]["won"] for k in leans), "lost": sum(tally[k]["lost"] for k in leans), "push": sum(tally[k]["push"] for k in leans),
+          "units": round(sum(tally[k]["units"] for k in leans), 3), "staked": sum(tally[k]["staked"] for k in leans)}
+    lt["roi"] = round(lt["units"] / lt["staked"], 4) if lt["staked"] else None
+    lt["rate"] = round(lt["won"] / (lt["won"] + lt["lost"]), 4) if (lt["won"] + lt["lost"]) else None
+    board = [{"key": k, "label": MARKETS.get(k, k), **summary[k]} for k in LEADERS if k in summary] + [{"key": "leans", "label": "Model leans (all markets)", **lt, "n": lt["won"] + lt["lost"]}]
+    board.sort(key=lambda r: -(r["units"] or 0))
+    out = {"updated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "summary": summary, "total": tot, "weeks": weeks, "leaderboard": board,
            "items": items[-400:], "note": "Best bets at DraftKings' price, one unit each, graded at the price shown before kickoff."}
     (site_dir / "scorecard.json").write_text(json.dumps(out, separators=(",", ":")))
     return out

@@ -179,6 +179,27 @@ body[data-tab="best"] #banner{display:none}
 .bbl .deskhead h2{margin:0 0 4px;font-size:16px}.bbl .deskhead p{margin:4px 0;font-size:12.5px;color:var(--muted);max-width:none}
 .bbl .deskhead .st{font-size:11.5px;color:var(--dim)}
 .bbl .gnotes summary{cursor:pointer;color:var(--ice);font-size:12.5px}.bbl .gnotes ul{margin:4px 0 8px;padding-left:18px;font-size:12px;color:var(--muted)}
+.dset{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:10px 14px;margin:0 0 10px}
+.dset>summary{cursor:pointer;color:var(--ice);font-weight:600;font-size:13.5px;list-style:none}.dset>summary::-webkit-details-marker{display:none}.dset>summary::before{content:'▸ '}.dset[open]>summary::before{content:'▾ '}
+.dset .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 18px;margin-top:10px}
+.dset label.f{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.dset input[type=range]{width:100%}.dset .val{font-family:var(--display);font-size:17px;font-weight:700;color:var(--text)}
+.dset .chips2{display:flex;flex-wrap:wrap;gap:6px}.dset .chips2 label{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer}
+.dset .chips2 label.on{border-color:var(--ice);color:var(--ice)}.dset .chips2 input{display:none}
+.dset .vars{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.dset .vars span{font-size:11.5px;border-radius:6px;padding:3px 8px;background:var(--panel2);color:var(--muted)}.dset .vars span.on{color:var(--green);background:rgba(61,220,132,.1)}
+.dset .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.dset .btns button,.dset select{background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:6px 11px;font-size:12.5px;font-family:inherit;cursor:pointer}
+.dset .note2{font-size:11.5px;color:var(--dim);margin-top:8px;max-width:72ch}
+.alertbar{border:1px solid rgba(255,107,107,.55);background:rgba(255,107,107,.08);border-radius:12px;padding:10px 14px;margin:0 0 10px;font-size:13px}.alertbar b{color:var(--red)}.alertbar ul{margin:4px 0 0;padding-left:18px}
+.hotgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (max-width:600px){.hotgrid{grid-template-columns:1fr}}
+.hotbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 14px}.hotbox h3{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.hotbox .row{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:12.5px}.hotbox .row:first-of-type{border-top:0}
+.hotbox .hot{color:var(--green);font-weight:700}.hotbox .cold{color:var(--red);font-weight:700}.hotbox .mv{font-family:var(--display);font-weight:700;white-space:nowrap}
+.psearch{display:flex;gap:8px;margin:6px 0 10px}.psearch input{flex:1;background:var(--panel2);border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:9px 12px;font-size:14px;font-family:inherit}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}.pcard h3{margin:0 0 4px;font-size:16px}.pcard .sub{font-size:12px;color:var(--dim)}
+.pcard .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-top:8px}.pcard .kv div{background:#0a1017;border:1px solid var(--line);border-radius:9px;padding:5px 8px}.pcard .kv .k{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.pcard .kv .v{font-family:var(--display);font-size:16px;font-weight:700}
+.pcard ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted)}
+.lb table td.pos{color:var(--green)}.lb table td.neg{color:var(--red)}
+.bb.wild{border-color:rgba(120,200,255,.5)}.bb.wild .rk{background:rgba(120,200,255,.14);color:var(--ice)}
 .bbsep{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
 .bb .addb{margin-left:auto;background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:3px 9px;font-size:11.5px;font-family:inherit;cursor:pointer}
 .slip .lg{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.slip .lg a{font-size:11px;color:var(--dim)}
@@ -470,7 +491,7 @@ function renderCards(){ const gs=P.games.filter(g=>SLOT==='all'||slotOf(g)===SLO
 function renderLivebar(){ const live=P.games.filter(g=>(LIVE[g.game_id]||{}).state==='in'); const el=document.getElementById('livebar');
   if(!live.length){ el.style.display='none'; return; } el.style.display='block';
   el.innerHTML = `<div class="lhd"><span class="pulse"></span><b>${live.length} live</b> ${live.map(g=>{const L=LIVE[g.game_id]; return `<span>${g.away} ${L.away_score} · ${g.home} ${L.home_score} <span class="t">${esc(L.detail||'')}</span></span>`;}).join(' · ')}<button class="rbtn" onclick="refreshLive()">refresh</button></div>`; }
-const PK_LABEL = {desk:'Research desk', ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team FGs 1.5', qb_yds:'QB pass yards', qb_td:'QB pass TDs 1.5', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
+const PK_LABEL = {desk:'Research desk', desk_wild:'Desk wild cards', bot:"Bot's picks", market:'DraftKings favourites', ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team FGs 1.5', qb_yds:'QB pass yards', qb_td:'QB pass TDs 1.5', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
 function pickText(k, x){ if(k==='ml') return `${x.team} ML`; if(k==='spread'){ const hl=-x.line; return x.side==='home'?`${byId[x.game_id].home} ${hl>0?'+':''}${hl}`:`${byId[x.game_id].away} ${x.line>0?'+':''}${x.line}`; }
   if(k==='total'||k==='h1'||k==='h2') return `${x.side==='over'?'Over':'Under'} ${x.line}`; if(k==='fg') return `${x.team} ${x.side} ${x.line} FGs`;
   if(k==='qb_yds') return `${x.qb} ${x.side} ${x.line} yds`; if(k==='qb_td') return `${x.qb} ${x.side} ${x.line} TDs`; if(k==='atd') return `${x.player} (${x.team})`;
@@ -857,14 +878,16 @@ function renderTracker(){ const el=document.getElementById('tracker'); const s=B
     const blob=new Blob([rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n')], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='nfl-bets.csv'; a.click(); }; }
 
 // ------------------------------------------------------------- results
-function renderResults(){ const keys=['desk','ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
-  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(k==='desk'?legFromPick(x.market,x):legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
+function renderResults(){ const keys=['desk','desk_wild','bot','market','ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
+  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(['desk','desk_wild','bot','market'].includes(k)?legFromPick(x.market,x):legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
   const any=Object.keys(t).length;
   document.getElementById('wkresults').innerHTML = `<h3>This week's best bets</h3>${any?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th></tr>${keys.filter(k=>t[k]).map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${t[k].hit}</td><td>${t[k].miss}</td><td>${t[k].tie}</td></tr>`).join('')}</table></div>`:'<p>No lean has been decided yet. Results fill in live as the games are played (scores and box scores from ESPN), and are confirmed from the play-by-play the next morning.</p>'}`;
   fetchJSON(BASE+'scorecard.json').then(sc=>{ const S=sc.summary||{}; const ks=keys.filter(k=>S[k]);
     const u = x => x==null ? '–' : `<span style="color:${x>=0?'var(--green)':'var(--red)'}">${x>=0?'+':''}${x.toFixed(2)}</span>`;
     const T=sc.total||null;
-    document.getElementById('track').innerHTML = `<h3>Track record, every published week</h3>${ks.length?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th><th>rate</th><th>units</th><th>ROI</th></tr>${ks.map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${S[k].won}</td><td>${S[k].lost}</td><td>${S[k].push}</td><td>${S[k].rate!=null?pct(S[k].rate):'–'}</td><td>${u(S[k].units)}</td><td>${S[k].roi!=null?evTxt(S[k].roi):'–'}</td></tr>`).join('')}${T?`<tr><td><b>All</b></td><td>${T.won}</td><td>${T.lost}</td><td>${T.push}</td><td>${(T.won+T.lost)?pct(T.won/(T.won+T.lost)):'–'}</td><td>${u(T.units)}</td><td>${T.roi!=null?evTxt(T.roi):'–'}</td></tr>`:''}</table></div><p class="small">updated ${esc(sc.updated_utc)}. One unit per best bet at the DraftKings price shown before kickoff.</p>`:'<p>No completed week yet.</p>'}`; })
+    const LB=(sc.leaderboard||[]).filter(r=>r.n);
+    const lb = LB.length ? `<h3>Leaderboard · who is actually winning</h3><p class="small">One unit per pick at the DraftKings price shown before kickoff, every published week. The research desk, the bot's category picks, the simulation's leans and the plain DraftKings favourite, side by side. Judge after 300 picks, not 30.</p><div class="tbl lb"><table><tr><th>Line</th><th>picks</th><th>won</th><th>lost</th><th>push</th><th>rate</th><th>units</th><th>ROI</th></tr>${LB.map(r=>`<tr><td><b>${esc(r.label)}</b></td><td>${r.n}</td><td>${r.won}</td><td>${r.lost}</td><td>${r.push}</td><td>${r.rate!=null?pct(r.rate):'–'}</td><td class="${(r.units||0)>=0?'pos':'neg'}">${(r.units||0)>=0?'+':''}${(r.units||0).toFixed(2)}</td><td class="${(r.roi||0)>=0?'pos':'neg'}">${r.roi!=null?evTxt(r.roi):'–'}</td></tr>`).join('')}</table></div>` : '';
+    document.getElementById('track').innerHTML = lb + `<h3>Track record, every published week</h3>${ks.length?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th><th>rate</th><th>units</th><th>ROI</th></tr>${ks.map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${S[k].won}</td><td>${S[k].lost}</td><td>${S[k].push}</td><td>${S[k].rate!=null?pct(S[k].rate):'–'}</td><td>${u(S[k].units)}</td><td>${S[k].roi!=null?evTxt(S[k].roi):'–'}</td></tr>`).join('')}${T?`<tr><td><b>All</b></td><td>${T.won}</td><td>${T.lost}</td><td>${T.push}</td><td>${(T.won+T.lost)?pct(T.won/(T.won+T.lost)):'–'}</td><td>${u(T.units)}</td><td>${T.roi!=null?evTxt(T.roi):'–'}</td></tr>`:''}</table></div><p class="small">updated ${esc(sc.updated_utc)}. One unit per best bet at the DraftKings price shown before kickoff.</p>`:'<p>No completed week yet.</p>'}`; })
   .catch(()=>{ document.getElementById('track').innerHTML='<h3>Track record</h3><p>Not available yet.</p>'; });
   fetchJSON(BASE+'weeks.json').then(w=>{ document.getElementById('weeklist').innerHTML=(w.weeks||[]).map(x=>`<a class="${x.name===(P.season+'-w'+String(P.week).padStart(2,'0'))?'now':''}" href="${BASE}weeks/${x.name}.html">${x.season} week ${x.week}</a>`).join(''); }).catch(()=>{}); }
 
@@ -998,15 +1021,105 @@ function dCard(x, i){ const g=byId[x.game_id]; const now=bNow(); const started =
      <div><span class="k">Biggest risk</span><span class="v" style="font-size:12.5px;white-space:normal;font-family:var(--body);font-weight:500;color:#ffd37a">${esc((x.risks||[])[0]||'ordinary variance')}</span></div>
    </div>
    <div class="brow"><details class="books"><summary>Verdict, inputs, arithmetic, risks and sources</summary>${dBlock(x)}</details>${SEL_BY[x.id]?`<button class="addb" data-add="${esc(x.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></article>`; }
-function bDesk(){ const D=DESK; if(!D) return `<p class="empty">No research desk file for this week yet. The desk runs before each kickoff window (Thursday, Saturday evening, Sunday morning, Monday afternoon).</p>`;
+const DCFG = (BOT && BOT.desk_config) || {};
+function dDefaults(){ const c=DCFG; const sel=c.selection||{}; const w=c.wild_cards||{};
+  return {band:[(c.odds_band||[1.35,2.2])[0],(c.odds_band||[1.35,2.2])[1]], minp:Math.round(((sel.min_p||0.52))*100), grades:['A','B','C'].filter(g=>g<=(sel.min_grade||'C')), ev:{measured:true,partial:true,unmeasured:(sel.min_evidence||'unmeasured')==='unmeasured'},
+    markets:Object.assign({ml:true,spread:true,total:true,h1:true,h2:true,qb_yds:true,qb_td:true,rec_yds:true,recs:true,rush_yds:true,fg:true,alts:true}, c.markets||{}), src:{feed:true,draftkings:true,unverified:true}, perGame:sel.max_per_game||3, sort:'p', wild:w.enabled!==false, wband:[(w.odds_band||[2.21,4.5])[0],(w.odds_band||[2.21,4.5])[1]]}; }
+let DS = dDefaults(); DS.grades = ['A','B','C'];
+try{ const sv=JSON.parse(localStorage.getItem('gs_nfl_desk')||'null'); if(sv) DS=Object.assign(dDefaults(), sv, {grades: sv.grades||['A','B','C']}); }catch(e){}
+const saveDS = () => { try{ localStorage.setItem('gs_nfl_desk', JSON.stringify(DS)); }catch(e){} };
+function dPass(x, wild){ const band = wild ? DS.wband : DS.band;
+  if(x.odds < band[0] || x.odds > band[1]) return false;
+  if(!wild && x.p*100 < DS.minp) return false;
+  if(!DS.grades.includes(x.grade)) return false;
+  if(!DS.ev[x.evidence]) return false;
+  const mk = (x.id||'').startsWith('alt|') ? 'alts' : x.kind; if(DS.markets[mk]===false) return false;
+  if(DS.src[x.odds_source]===false) return false;
+  return true; }
+function dFilter(list, wild){ const per={}; const out=[];
+  const key={p:x=>-x.p, ev:x=>-(x.ev||0), conf:x=>-(x.confidence||0), kick:x=>x.kick}[DS.sort]||(x=>-x.p);
+  const rows=list.filter(x=>dPass(x,wild) && (BF.game==='all'||x.game_id===BF.game)).slice().sort((a,c)=>{const ka=key(a),kc=key(c); return ka<kc?-1:(ka>kc?1:0);});
+  for(const x of rows){ per[x.game_id]=(per[x.game_id]||0)+1; if(per[x.game_id]>DS.perGame) continue; out.push(x); } return out; }
+function dSettings(){ const mk=[['ml','Moneyline'],['spread','Spread'],['total','Total'],['h1','1H total'],['h2','2H total'],['qb_yds','Pass yds'],['qb_td','Pass TDs'],['rec_yds','Rec yds'],['recs','Receptions'],['rush_yds','Rush yds'],['fg','Kicker FGs'],['alts','Alt lines']];
+  const chip=(group,k,l,on)=>`<label class="${on?'on':''}"><input type="checkbox" data-grp="${group}" data-k="${k}" ${on?'checked':''}>${l}</label>`;
+  const vars=Object.entries(DCFG.variables||{}).map(([k,v])=>`<span class="${v&&v.on!==false?'on':''}" title="${esc((v&&v.label)||k)}">${v&&v.on!==false?'✓':'✗'} ${esc(k.replace(/_/g,' '))}</span>`).join('');
+  return `<details class="dset" id="dset"><summary>Desk settings · band ${DS.band[0].toFixed(2)} to ${DS.band[1].toFixed(2)} · min ${DS.minp}% · ${Object.values(DS.markets).filter(Boolean).length} markets · ${DS.perGame} per game${DS.wild?' · wild cards on':''}</summary>
+   <div class="grid">
+    <div><label class="f">Odds band (DraftKings decimal)</label><div class="val"><span id="ds-lo">${DS.band[0].toFixed(2)}</span> to <span id="ds-hi">${DS.band[1].toFixed(2)}</span></div><input type="range" id="ds-blo" min="1.01" max="3" step="0.01" value="${DS.band[0]}"><input type="range" id="ds-bhi" min="1.1" max="6" step="0.01" value="${DS.band[1]}"></div>
+    <div><label class="f">Minimum desk win chance</label><div class="val"><span id="ds-mp">${DS.minp}</span>%</div><input type="range" id="ds-minp" min="50" max="80" step="1" value="${DS.minp}"></div>
+    <div><label class="f">Most selections per game</label><div class="val"><span id="ds-pg">${DS.perGame}</span></div><input type="range" id="ds-per" min="1" max="6" step="1" value="${DS.perGame}"></div>
+    <div><label class="f">Sort</label><select id="ds-sort"><option value="p" ${DS.sort==='p'?'selected':''}>Desk win chance</option><option value="ev" ${DS.sort==='ev'?'selected':''}>EV at the price</option><option value="conf" ${DS.sort==='conf'?'selected':''}>Evidence confidence</option><option value="kick" ${DS.sort==='kick'?'selected':''}>Kickoff</option></select></div>
+    <div><label class="f">Grades</label><div class="chips2">${['A','B','C'].map(g=>chip('grades',g,'Grade '+g,DS.grades.includes(g))).join('')}</div></div>
+    <div><label class="f">Evidence</label><div class="chips2">${['measured','partial','unmeasured'].map(g=>chip('ev',g,g,DS.ev[g])).join('')}</div></div>
+    <div><label class="f">Price source</label><div class="chips2">${[['feed','odds feed'],['draftkings','DK checked'],['unverified','unverified']].map(([k,l])=>chip('src',k,l,DS.src[k])).join('')}</div></div>
+    <div style="grid-column:1/-1"><label class="f">Markets</label><div class="chips2">${mk.map(([k,l])=>chip('markets',k,l,DS.markets[k]!==false)).join('')}</div></div>
+    <div style="grid-column:1/-1"><label class="f">Wild cards</label><div class="chips2">${chip('wild','on','Show wild cards',DS.wild)}</div><div class="val" style="margin-top:6px;font-size:14px">band <span id="ds-wlo">${DS.wband[0].toFixed(2)}</span> to <span id="ds-whi">${DS.wband[1].toFixed(2)}</span></div><input type="range" id="ds-wlo-r" min="1.5" max="6" step="0.01" value="${DS.wband[0]}"><input type="range" id="ds-whi-r" min="2" max="12" step="0.01" value="${DS.wband[1]}"></div>
+    <div style="grid-column:1/-1"><label class="f">Variables the desk run checks (from the repo's desk_config.json)</label><div class="vars">${vars||'<span>defaults</span>'}</div></div>
+   </div>
+   <div class="btns"><button type="button" id="ds-reset">Reset to the desk's defaults</button><button type="button" id="ds-copy">Copy config JSON</button></div>
+   <p class="note2">These settings filter what you see on this phone and are kept here. The desk's scheduled runs follow <code>data/nfl/desk_config.json</code> in the repository: copy the JSON and paste it there (or ask Claude) to change what the desk looks for next time.</p></details>`; }
+function dWire(el){ const q=id=>el.querySelector('#'+id); const rr=()=>{ saveDS(); renderBest(); };
+  const bl=q('ds-blo'), bh=q('ds-bhi'); if(bl) bl.oninput=e=>{ DS.band[0]=Math.min(+e.target.value, DS.band[1]-0.01); q('ds-lo').textContent=DS.band[0].toFixed(2); }; if(bl) bl.onchange=rr;
+  if(bh) bh.oninput=e=>{ DS.band[1]=Math.max(+e.target.value, DS.band[0]+0.01); q('ds-hi').textContent=DS.band[1].toFixed(2); }; if(bh) bh.onchange=rr;
+  const mp=q('ds-minp'); if(mp){ mp.oninput=e=>{ DS.minp=+e.target.value; q('ds-mp').textContent=DS.minp; }; mp.onchange=rr; }
+  const pg=q('ds-per'); if(pg){ pg.oninput=e=>{ DS.perGame=+e.target.value; q('ds-pg').textContent=DS.perGame; }; pg.onchange=rr; }
+  const wl=q('ds-wlo-r'), wh=q('ds-whi-r'); if(wl){ wl.oninput=e=>{ DS.wband[0]=Math.min(+e.target.value, DS.wband[1]-0.01); q('ds-wlo').textContent=DS.wband[0].toFixed(2); }; wl.onchange=rr; }
+  if(wh){ wh.oninput=e=>{ DS.wband[1]=Math.max(+e.target.value, DS.wband[0]+0.01); q('ds-whi').textContent=DS.wband[1].toFixed(2); }; wh.onchange=rr; }
+  const so=q('ds-sort'); if(so) so.onchange=e=>{ DS.sort=e.target.value; rr(); };
+  el.querySelectorAll('.dset input[type=checkbox]').forEach(cb=>cb.onchange=()=>{ const g=cb.dataset.grp, k=cb.dataset.k;
+    if(g==='grades'){ DS.grades = cb.checked ? [...new Set(DS.grades.concat([k]))] : DS.grades.filter(x=>x!==k); }
+    else if(g==='wild'){ DS.wild=cb.checked; } else { DS[g][k]=cb.checked; } rr(); });
+  const rs=q('ds-reset'); if(rs) rs.onclick=()=>{ DS=dDefaults(); DS.grades=['A','B','C']; rr(); };
+  const cp=q('ds-copy'); if(cp) cp.onclick=()=>{ const sel=DCFG.selection||{}; const cfg=Object.assign({}, DCFG, {odds_band:[+DS.band[0].toFixed(2), +DS.band[1].toFixed(2)], wild_cards:Object.assign({}, DCFG.wild_cards||{}, {enabled:DS.wild, odds_band:[+DS.wband[0].toFixed(2), +DS.wband[1].toFixed(2)]}), markets:DS.markets, selection:Object.assign({}, sel, {min_p:DS.minp/100, max_per_game:DS.perGame, min_grade:DS.grades.slice().sort().pop()||'C', min_evidence: DS.ev.unmeasured?'unmeasured':(DS.ev.partial?'partial':'measured')}), updated_utc:new Date().toISOString().slice(0,16).replace('T',' ')+' UTC'});
+    const txt=JSON.stringify(cfg,null,1); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{ cp.textContent='Copied: paste into data/nfl/desk_config.json'; },()=>{ prompt('Copy this into data/nfl/desk_config.json', txt); }); }; }
+function dAlerts(D){ const now=bNow(); const rows=(D.alerts||[]).filter(a=>a.kick>now && (BF.game==='all'||a.game_id===BF.game)); if(!rows.length) return '';
+  return `<div class="alertbar"><b>🚨 DraftKings moved against ${rows.length} desk pick${rows.length===1?'':'s'} since the desk priced them.</b> Re-check before betting.<ul>${rows.map(a=>`<li>${esc(a.label)} (${esc(a.mu)}): ${esc(a.why)}${a.fetched?' · feed '+esc(bStamp(a.fetched)):''}</li>`).join('')}</ul></div>`; }
+function dHot(){ const H=(BOT&&BOT.hot)||{}; const now=bNow(); const mv=(H.movers||[]).filter(m=>m.kick>now && (BF.game==='all'||m.game_id===BF.game)); const ed=(H.edges||[]).filter(e=>e.kick>now); const fd=(H.fades||[]).filter(e=>e.kick>now);
+  const row=m=>`<div class="row"><span>${esc(m.label)}</span><span><span class="hot">🔥 ${esc(m.hot)}</span> · <span class="cold">🧊 ${esc(m.cold)}</span></span></div>`;
+  const erow=e=>`<div class="row"><span>${esc(e.label)} <span style="color:var(--dim)">${esc(e.mu)}</span></span><span class="mv ${e.gap>=0?'hot':'cold'}">desk ${pct(e.desk,0)} vs mkt ${pct(e.market,0)}</span></div>`;
+  return `<h2>What's hot, what's not</h2><div class="hotgrid"><div class="hotbox"><h3>DraftKings line moves since the opener</h3>${mv.length?mv.slice(0,10).map(row).join(''):'<div class="row"><span style="color:var(--dim)">No move of half a point or more yet. Lines refresh on Wednesday and before each kickoff window.</span></div>'}</div>
+   <div class="hotbox"><h3>Desk vs market: biggest edges and fades</h3>${ed.length?ed.slice(0,6).map(erow).join(''):'<div class="row"><span style="color:var(--dim)">No desk selection on a feed-priced market yet.</span></div>'}${fd.length&&fd[0].gap<0?`<h3 style="margin-top:8px">Where the desk is below the market</h3>${fd.map(erow).join('')}`:''}</div></div>`; }
+function pFind(q){ q=(q||'').trim().toLowerCase(); if(q.length<2) return []; const out=[];
+  for(const g of P.games){ for(const side of ['home','away']){ const team=g[side];
+    const qb=((g.qb||{})[side])||{}; if(qb.name && qb.name.toLowerCase().includes(q)) out.push({name:qb.name, team, side, g, pos:'QB', qb});
+    for(const a of ((g.anytime||{})[side]||[])) if(a.name && a.name.toLowerCase().includes(q)) out.push({name:a.name, team, side, g, pos:a.pos||'', at:a});
+    for(const x of ((g.props||{})[side]||[])) if(x.name && x.name.toLowerCase().includes(q) && !out.some(o=>o.name===x.name&&o.team===team)) out.push({name:x.name, team, side, g, pos:'', pr:x}); } }
+  const seen={}; return out.filter(o=>{ const k=o.name+'|'+o.team; if(seen[k]) return false; seen[k]=true; return true; }).slice(0,6); }
+function pCard(o){ const g=o.g; const opp=o.side==='home'?g.away:g.home; const now=bNow();
+  const pr = o.pr || ((g.props||{})[o.side]||[]).find(x=>x.name===o.name) || {}; const at = o.at || ((g.anytime||{})[o.side]||[]).find(x=>x.name===o.name) || {};
+  const u=pr.usage||{}; const inj=(((g.injuries||{})[o.side])||[]).find(i=>i.name===o.name);
+  const lines = BOARD.filter(b=>b.who===o.name && b.game_id===g.game_id && b.kick>now && b.kind!=='atd');
+  const desk = DESK ? (DESK.selections||[]).concat(DESK.wild_cards||[]).filter(x=>x.who===o.name && x.game_id===g.game_id) : [];
+  const kv=[]; if(o.qb){ const pf=o.qb.profile||{}; kv.push(['yds / dropback', pf.ypdb!=null?pf.ypdb:'–'],['dropbacks', pf.dropbacks||'–']); }
+  if(at.tgt_share!=null) kv.push(['target share', pct(at.tgt_share,0)]); if(at.car_share!=null) kv.push(['carry share', pct(at.car_share,0)]); if(at.rz_share!=null) kv.push(['red-zone share', pct(at.rz_share,0)]);
+  if(at.snap_trend!=null) kv.push(['snap trend', '×'+Number(at.snap_trend).toFixed(2)]); if(at.p!=null) kv.push(['TD chance', pct(at.p,0)]); if(u.ypc) kv.push(['yds / carry', Number(u.ypc).toFixed(2)]);
+  for(const k of ['rec_yds','recs','rush_yds']) if(pr[k]&&pr[k].mean!=null) kv.push([{rec_yds:'sim rec yds',recs:'sim receptions',rush_yds:'sim rush yds'}[k], Number(pr[k].mean).toFixed(1)]);
+  const rec=(at.recent||[]).slice(-4).map(r=>`${r.car||0} car / ${r.tgt||0} tgt / ${r.td||0} TD`).join(' · ');
+  const qlog=o.qb && (o.qb.profile||{}).last_games ? o.qb.profile.last_games.slice(-4).map(x=>`${x.yds} yds / ${x.td} TD vs ${x.opp}`).join(' · ') : '';
+  return `<div class="pcard"><h3>${esc(o.name)} <span class="sub">${esc(o.team)} ${esc(o.pos||'')} · vs ${esc(opp)} · ${esc(bKick(g.kickoff_utc))}</span></h3>
+    ${inj?`<div class="warn" style="color:var(--amber);font-size:12.5px">⚠ Injury report: ${esc(inj.status||inj.practice||'')}${inj.injury?', '+esc(inj.injury):''}</div>`:''}
+    ${kv.length?`<div class="kv">${kv.map(([k,v])=>`<div><span class="k">${esc(k)}</span><span class="v">${esc(String(v))}</span></div>`).join('')}</div>`:''}
+    ${rec?`<ul><li><b>Last games:</b> ${esc(rec)}</li></ul>`:''}${qlog?`<ul><li><b>Last starts:</b> ${esc(qlog)}</li></ul>`:''}
+    ${lines.length?`<ul>${lines.map(b=>`<li>${esc(b.label)} · DK ${b.odds!=null?b.odds.toFixed(2):'no price'} · site ${pct(b.p,0)}${b.desk?` · <b style="color:#ffd37a">desk ${pct(b.desk.p,0)} ${esc(b.desk.grade)}</b>`:''}</li>`).join('')}</ul>`:'<ul><li style="color:var(--dim)">No priced market for him in this week\'s feed.</li></ul>'}
+    ${desk.length?`<ul>${desk.map(x=>`<li><b style="color:#ffd37a">★ Desk:</b> ${esc(x.label)} ${pct(x.p,0)} @ ${x.odds.toFixed(2)} · ${esc(x.verdict)}</li>`).join('')}</ul>`:''}</div>`; }
+function dSearch(){ return `<h2>Player lookup</h2><div class="psearch"><input id="ps-q" type="search" placeholder="Type a player's name (this week's games)" value="${esc(DS.q||'')}" autocomplete="off"></div><div id="ps-out">${(DS.q&&DS.q.length>=2)?(pFind(DS.q).map(pCard).join('')||'<p class="empty">No player by that name in this week\'s games.</p>'):''}</div>`; }
+function bDesk(){ const D=DESK; let h = dSettings();
+  if(!D){ h += `<p class="empty">No research desk file for this week yet. The desk runs before each kickoff window (Thursday, Saturday evening, Sunday morning, Monday afternoon).</p>`; return h + dHot() + dSearch(); }
   const now=bNow();
-  const rows=(D.selections||[]).filter(x=>BF.game==='all'||x.game_id===BF.game);
+  h += dAlerts(D);
+  const all=(D.selections||[]); const rows=dFilter(all, false);
   const up=rows.filter(x=>x.kick>now), done=rows.filter(x=>x.kick<=now);
-  let h = `<div class="deskhead"><h2>★ Research desk · ${D.n} selection${D.n===1?'':'s'}</h2>
-    <p>${esc(D.analyst||'Research desk')} read the week's news (practice reports, Friday designations, beat-writer notes, weather, line moves) and wrote every selection up with its inputs, its arithmetic and its risks. Ranked by the desk's own win chance; DraftKings prices ${(D.band||[1.35,2.2])[0].toFixed(2)} to ${(D.band||[1.35,2.2])[1].toFixed(2)} only. Open a card for the full write-up. The desk's chance is a judgment, not a simulation: its record is graded on its own line in Results.</p>
+  const hidden = all.filter(x=>x.kick>now && (BF.game==='all'||x.game_id===BF.game)).length - up.length;
+  h += `<div class="deskhead"><h2>★ Research desk · ${up.length} selection${up.length===1?'':'s'} to play${hidden>0?` <small style="color:var(--dim);font-weight:500">(${hidden} hidden by your settings)</small>`:''}</h2>
+    <p>${esc(D.analyst||'Research desk')} read the week's news (practice reports, Friday designations, beat-writer notes, weather, line moves) and wrote every selection up with its inputs, its arithmetic and its risks. Ranked by ${{p:"the desk's own win chance",ev:'EV at the DraftKings price',conf:'evidence confidence',kick:'kickoff'}[DS.sort]||"the desk's own win chance"}; DraftKings prices ${DS.band[0].toFixed(2)} to ${DS.band[1].toFixed(2)}. Open a card for the full write-up. The desk's chance is a judgment, not a simulation: its record is graded on its own line in Results.</p>
     ${D.summary?`<p>${esc(D.summary)}</p>`:''}<p class="st">Desk run ${esc(bStamp(D.generated))} (${esc(bAgo(D.generated))}) · site simulation ${esc(bStamp(((BOT||{}).stamps||{}).model))}</p></div>`;
-  h += up.length ? up.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">No desk selection for the games still to play${BF.game!=='all'?' in this game':''}.</p>`;
+  h += up.length ? up.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">No desk selection passes your settings for the games still to play${BF.game!=='all'?' in this game':''}.</p>`;
+  if(DS.wild){ const w=dFilter(D.wild_cards||[], true).filter(x=>x.kick>now);
+    h += `<h2>🃏 Wild cards <small style="color:var(--dim);font-size:13px;font-weight:500">longer prices ${DS.wband[0].toFixed(2)} to ${DS.wband[1].toFixed(2)}, smaller stakes</small></h2>`;
+    h += w.length ? w.map((x,i)=>dCard(x,i+1).replace('class="bb desk','class="bb desk wild')).join('') : `<p class="empty">No wild card this run${(D.wild_cards||[]).length?' passes your settings':': the desk adds up to three when the research supports a longer price'}.</p>`; }
   if(done.length) h += `<div class="bbsep">Already kicked off</div>` + done.map((x,i)=>dCard(x,up.length+i+1)).join('');
+  h += dHot();
+  h += dSearch();
   const dec=(D.declined||[]); if(dec.length) h += `<h2>Looked at and declined</h2><div class="bt"><table><tr><th class="lbl">Candidate</th><th class="lbl">Why not</th></tr>${dec.map(x=>`<tr><td class="lbl"><b>${esc(x.label)}</b></td><td class="lbl" style="white-space:normal">${esc(x.why)}</td></tr>`).join('')}</table></div>`;
   const gn=Object.entries(D.games||{}).map(([gid,v])=>[byId[gid],v]).filter(([g])=>g).sort((a,c)=>(a[0].kickoff_utc||'').localeCompare(c[0].kickoff_utc||''));
   if(gn.length) h += `<h2>Game notes</h2>` + gn.map(([g,v])=>`<details class="gnotes"><summary>${esc(g.away)} @ ${esc(g.home)} · ${esc(bKick(g.kickoff_utc))}</summary>${v.weather?`<ul><li><b>Weather:</b> ${esc(v.weather)}</li></ul>`:''}${(v.injuries||[]).length?`<ul>${v.injuries.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.notes||[]).length?`<ul>${v.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.sources||[]).length?`<div class="small" style="color:var(--dim);margin:0 0 8px">Sources: ${dSrc(v.sources)}</div>`:''}</details>`).join('');
@@ -1077,7 +1190,8 @@ function renderBest(){ const el=document.getElementById('best'); if(!el) return;
   const ss=document.getElementById('bb-sort'); if(ss) ss.onchange=e=>{ BF.sort=e.target.value; BF.more=0; saveBF(); renderBest(); };
   const mb=document.getElementById('bb-more'); if(mb) mb.onclick=()=>{ BF.more = nShow + 25; renderBest(); };
   const cb=document.getElementById('combine'); if(cb) cb.onclick=()=>{ SHOW_COMBINE=!SHOW_COMBINE; renderBest(); if(SHOW_COMBINE){ const e=el.querySelector('.parlay'); if(e) e.scrollIntoView({behavior:'smooth',block:'start'}); } };
-  el.querySelectorAll('button[data-add]').forEach(x=>x.onclick=()=>toggleLeg(SEL_BY[x.dataset.add])); }
+  el.querySelectorAll('button[data-add]').forEach(x=>x.onclick=()=>toggleLeg(SEL_BY[x.dataset.add]));
+  if(BF.grp==='desk'){ dWire(el); const ps=el.querySelector('#ps-q'); if(ps){ ps.oninput=()=>{ DS.q=ps.value; saveDS(); const o=el.querySelector('#ps-out'); if(o) o.innerHTML = DS.q.length>=2 ? (pFind(DS.q).map(pCard).join('')||'<p class="empty">No player by that name in this week\'s games.</p>') : ''; }; } } }
 
 function render(){ renderLivebar(); renderBest(); renderBoard(); renderCards(); renderScanner(); renderTop(); renderSlip(); renderResults(); renderTracker(); gradeBets(); }
 renderToolbar(); renderPC(); renderResearch(); renderAbout(); render();

@@ -10,9 +10,15 @@ SRC = [{"name": "test", "url": "https://example.com", "fetched": "2026-10-17T17:
 
 def _payload():
     g1 = {"game_id": "2026_06_NYJ_NE", "home": "NE", "away": "NYJ", "kickoff_utc": "2026-10-18T17:00Z",
-          "props": {"away": [], "home": []}, "anytime": {"away": [{"name": "Breece Hall", "id": "00-1"}], "home": []}}
+          "props": {"away": [], "home": []}, "anytime": {"away": [{"name": "Breece Hall", "id": "00-1"}], "home": []},
+          "odds": {"fetched": "2026-10-15T04:00Z", "props_fetched": "2026-10-15T04:00Z",
+                   "ml": {"books": {"DraftKings": {"home": 1.3, "away": 3.6}}},
+                   "props": {"qb_td": {"g.smith": {"name": "Geno Smith", "line": 1.5, "books": {"DraftKings": {"line": 1.5, "over": 2.5, "under": 1.43}}}}}}}
     g2 = {"game_id": "2026_06_BAL_CLE", "home": "CLE", "away": "BAL", "kickoff_utc": "2026-10-18T17:00Z",
-          "props": {"away": [{"name": "Derrick Henry", "id": "00-2"}], "home": []}, "anytime": {"away": [], "home": []}}
+          "props": {"away": [{"name": "Derrick Henry", "id": "00-2"}], "home": []}, "anytime": {"away": [], "home": []},
+          "odds": {"fetched": "2026-10-15T04:00Z", "ml": {"books": {"DraftKings": {"home": 3.1, "away": 1.39}}},
+                   "spread": {"books": {"DraftKings": {"line": 5.5, "home": 1.87, "away": 1.95}}},
+                   "opening": {"spread": {"books": {"DraftKings": {"line": 4.5}}}, "ml": {"consensus_home": 0.33}}}}
     board = [{"id": "qb_td|2026_06_NYJ_NE|under|1.5|Geno Smith", "game_id": "2026_06_NYJ_NE", "kind": "qb_td", "side": "under", "line": 1.5,
               "who": "Geno Smith", "team": "NYJ", "label": "Geno Smith under 1.5 pass TDs", "odds": 1.43, "p": 0.67, "p_model": 0.68, "p_market": 0.66,
               "ev": -0.04, "fair_odds": 1.49, "judge": {"score": 0.7}},
@@ -84,4 +90,24 @@ def test_missing_overlay_leaves_payload_alone(tmp_path, monkeypatch):
     p = _payload()
     q = copy.deepcopy(p)
     assert merge(p, None) is None and p["bot"]["desk"] is None
-    assert p["picks"] == q["picks"]
+    assert "desk" not in p["picks"] and p["picks"]["market"][0]["team"] == "NE"     # leaderboard baselines still built
+
+
+def test_feed_source_must_match_the_feed_and_alerts_fire():
+    p = _payload()
+    bad = validate(_overlay(_sel(odds=1.6)), p)
+    assert any("DraftKings' price in the feed is 1.43" in e for e in bad)
+    ov = _overlay(_sel(), _sel(id="spread|2026_06_BAL_CLE|home|5.5|CLE", game_id="2026_06_BAL_CLE", kind="spread", side="home", line=5.5, who=None, team="CLE",
+                             label="CLE +5.5", odds=1.87, p=0.56, grade="C", evidence="partial", confidence=55))
+    assert validate(ov, p) == []
+    desk = merge(p, ov)
+    cle = next(x for x in desk["selections"] if x["label"] == "CLE +5.5")
+    assert cle["now"] == {"line": 5.5, "odds": 1.87, "fetched": "2026-10-15T04:00Z"} and cle["alert"] is None
+    # the opener was CLE +4.5, now +5.5: the market moved toward BAL, so BAL is hot and CLE is cold
+    hot = p["bot"]["hot"]
+    assert hot["movers"][0]["hot"] == "BAL" and hot["movers"][0]["cold"] == "CLE" and hot["movers"][0]["move"] == 1.0
+    # a price drop of 0.08 or more is an alert
+    ov2 = _overlay(_sel(id="desk|ml|2026_06_BAL_CLE|away||BAL", game_id="2026_06_BAL_CLE", kind="ml", side="away", line=None, who=None, team="BAL",
+                        label="BAL moneyline", odds=1.5, odds_source="draftkings", p=0.72))
+    desk2 = merge(_payload(), ov2)
+    assert desk2["alerts"] and desk2["alerts"][0]["severity"] == "price"
