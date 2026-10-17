@@ -1,0 +1,95 @@
+name: Update NBA
+
+on:
+  schedule:
+    # 14:45 UTC daily (10:45 am Eastern in daylight time): yesterday's box scores, today's lines and injuries
+    - cron: "45 14 * * *"
+    # 20:40 UTC daily (4:40 pm Eastern): tonight's props within the credit cap, the pre-tip rebuild
+    - cron: "40 20 * * *"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "why this run happens (daily | props | research | quiet | update)"
+        default: "update"
+        required: false
+      ingest_back:
+        description: "seasons back to ingest (1 = last season and this one)"
+        default: "1"
+        required: false
+
+permissions:
+  contents: write
+  pages: write
+  actions: write
+
+concurrency:
+  group: update-nba
+  cancel-in-progress: false
+
+jobs:
+  nba:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Restore NBA data
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/nba/games_*.jsonl
+            data/nba/days_*.json
+            data/nba/cache
+          key: nba-data-${{ github.run_id }}
+          restore-keys: |
+            nba-data-
+
+      - run: pip install -r requirements.txt
+
+      - name: Box scores (ESPN)
+        run: python -m nba ingest --back ${{ github.event.inputs.ingest_back || '1' }}
+
+      - name: Grade published days (track record)
+        run: python -m nba scorecard || echo "nothing to grade yet"
+
+      - name: Tonight's props (The Odds API, within the nightly credit cap)
+        if: ${{ github.event.schedule == '40 20 * * *' || github.event.inputs.reason == 'props' }}
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m nba props || echo "props skipped"
+
+      - name: Lines, model, bot, desk
+        run: python -m nba run
+
+      - name: Build the NBA section
+        run: python -m nba publish
+
+      - name: Commit the site
+        run: |
+          git config user.name "gill-sports-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/nba
+          for f in data/nba/odds.json data/nba/odds_history.jsonl; do [ -f "$f" ] && git add "$f"; done; true
+          git commit -m "nba update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "nothing changed"
+          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i * 7)); done
+
+      - name: Publish the site (gh-pages branch)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+          commit_message: "site ${{ github.run_number }} (nba)"
+
+      - name: Send to Telegram / Discord
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python tools/notify_nba.py --reason "${{ github.event.inputs.reason || (github.event.schedule == '40 20 * * *' && 'props' || 'daily') }}" || echo "notify skipped"

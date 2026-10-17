@@ -17,20 +17,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from nfl.desk import merge, validate  # noqa: E402
-
-
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("overlay")
-    ap.add_argument("--payload", help="week payload JSON (default: docs/nfl/weeks/<season>-wNN.json for the overlay's week)")
+    ap.add_argument("--payload", help="payload JSON (default: docs/nfl/weeks/<season>-wNN.json for an NFL week, docs/nba/days/<date>.json for an NBA date)")
+    ap.add_argument("--sport", default=None, help="nfl (default) or nba; inferred from the overlay when it has a 'date' key")
     a = ap.parse_args(argv)
     try:
         d = json.loads(Path(a.overlay).read_text())
     except (OSError, json.JSONDecodeError) as e:
         print(f"cannot read {a.overlay}: {e}")
         return 1
-    pf = Path(a.payload) if a.payload else ROOT / "docs" / "nfl" / "weeks" / f"{d.get('season')}-w{int(d.get('week') or 0):02d}.json"
+    sport = a.sport or ("nba" if "date" in d and "week" not in d else "nfl")
+    if sport == "nba":
+        from nba.desk import merge, validate
+        default_pf = ROOT / "docs" / "nba" / "days" / f"{d.get('date')}.json"
+    else:
+        from nfl.desk import merge, validate
+        default_pf = ROOT / "docs" / "nfl" / "weeks" / f"{d.get('season')}-w{int(d.get('week') or 0):02d}.json"
+    pf = Path(a.payload) if a.payload else default_pf
     payload = None
     if pf.exists():
         payload = json.loads(pf.read_text())

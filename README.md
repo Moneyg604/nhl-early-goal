@@ -188,6 +188,31 @@ QB touchdown passes and anytime touchdowns beat their baselines; half totals and
 page labels every market with its verdict. Workflows: `update-nfl.yml` (daily, and 75 minutes before each
 kickoff window via the keeper), `nfl-revalidate.yml` (monthly), NFL live scores ride on `live-scores.yml`.
 
+## NBA section (`nba/`, published under `/nba/`)
+
+Markets: moneyline, spread, total (DraftKings' lines from ESPN, free), and player props (points, rebounds, assists,
+threes, PRA) priced by The Odds API for two games a night inside the free plan's credit cap (`data/nba/desk_config.json`
+→ `odds`); every other prop shows as a model line to compare with DraftKings by hand.
+
+```bash
+python -m nba ingest --back 1   # ESPN box scores: last season and this one (only days not stored yet)
+python -m nba props             # tonight's props from The Odds API, within the nightly credit cap
+python -m nba run               # today's slate: lines, model, props, bot, desk -> out/nba/
+python -m nba publish           # docs/nba/
+python -m nba scorecard         # grade every published day -> docs/nba/scorecard.json
+```
+
+How it works: team ratings are points per 100 possessions scored and allowed and pace, from every box score
+(exponentially weighted, opponent-adjusted, shrunk toward the league; last season about a third per game); expected
+points = pace × offense × opponent defense ÷ league, home court +2.3, margin sd 12.6, total sd 18.5. Players:
+minutes from recent games shrunk toward the season average and trimmed for blowouts; per-minute rates for each stat
+shrunk toward last season's; scaled by pace and (for points) the opponent's defensive rating; sd from the player's
+own game log. Props follow the market's vig-free consensus moved onto DraftKings' line, nudged by the model by at
+most 5 points. The page (Best bets, Tonight, Players, Results, About) and the research desk (`nba/desk.py`,
+`RUNBOOK_NBA_RESEARCH.md`, `data/nba/research/<date>.json`) work exactly as the NFL ones; `update-nba.yml` runs
+at 10:45 and 16:40 ET. Early in the season last season's rates carry most of the weight; the model has no
+lineup-level logic yet (who inherits a sitting starter's minutes), which is the desk's job until it does.
+
 ## Optional connections (GitHub repository secrets)
 
 Set any of these under Settings > Secrets and variables > Actions, and the next build uses them:

@@ -71,7 +71,7 @@ def test_rejects_bad_selections():
     assert any("not on the board" in e for e in validate(_overlay(_sel(id="qb_td|2026_06_NYJ_NE|under|2.5|Geno Smith", line=2.5)), p))
     assert any("differs from the board" in e for e in validate(_overlay(_sel(line=2.5)), p))
     assert any("missing" in e for e in validate(_overlay({k: v for k, v in _sel().items() if k != "risks"}), p))
-    assert any("not in week" in e for e in validate(_overlay(_sel(game_id="2026_06_XX_YY")), p))
+    assert any("is not in 6" in e for e in validate(_overlay(_sel(game_id="2026_06_XX_YY")), p))
     assert any("sources" in e for e in validate(_overlay(_sel(sources=[])), p))
     assert any("duplicate" in e for e in validate(_overlay(_sel(), _sel()), p))
 

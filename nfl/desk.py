@@ -40,6 +40,11 @@ from .config import DATA_DIR
 
 RESEARCH_DIR = DATA_DIR / "research"
 CONFIG_PATH = DATA_DIR / "desk_config.json"
+# markets the desk knows; a sport module may extend KINDS / PLAYER_KINDS / QB_KINDS before using the desk
+GAME_KINDS = ("ml", "spread", "total", "h1", "h2")
+QB_KINDS = ("qb_yds", "qb_td")
+PLAYER_KINDS = ("rec_yds", "rush_yds", "recs", "atd", "pts", "reb", "ast", "threes", "pra", "fg")
+KEY_NAME = "kickoff_utc"       # the game's start-time field
 DEFAULT_CONFIG = {"v": 1, "odds_band": [1.35, 2.2], "wild_cards": {"enabled": True, "odds_band": [2.21, 4.5], "max": 3, "min_p": 0.3},
                   "markets": {k: True for k in ("ml", "spread", "total", "h1", "h2", "qb_yds", "qb_td", "rec_yds", "recs", "rush_yds", "fg", "alts")},
                   "selection": {"min_grade": "C", "min_evidence": "unmeasured", "min_p": 0.52, "max_per_game": 3, "max_selections": 24, "one_player_per_market": True},
@@ -59,14 +64,14 @@ def load_config() -> dict:
         else:
             cfg[k] = v
     return cfg
-KINDS = ("ml", "spread", "total", "h1", "h2", "qb_yds", "qb_td", "rec_yds", "rush_yds", "recs", "fg", "atd")
+KINDS = ("ml", "spread", "total", "h1", "h2", "qb_yds", "qb_td", "rec_yds", "rush_yds", "recs", "fg", "atd", "pts", "reb", "ast", "threes", "pra")
 SIDES = {"ml": ("home", "away"), "spread": ("home", "away"), "atd": ("yes",)}
 GRADES = ("A", "B", "C")
 EVIDENCE = ("measured", "partial", "unmeasured")
 ODDS_SOURCES = ("feed", "draftkings", "unverified")
 DEFAULT_BAND = (1.35, 2.20)
 LIST_FIELDS = ("inputs", "arithmetic", "pros", "risks")
-ID_RE = re.compile(r"^(desk\|)?[a-z_0-9]+\|\d{4}_\d{2}_[A-Z]{2,3}_[A-Z]{2,3}\|")
+ID_RE = re.compile(r"^(desk\|)?[a-z_0-9]+\|\d{4}_\d{2}(_\d{2})?_[A-Z]{2,4}_[A-Z]{2,4}\|")
 
 
 def overlay_path(season: int, week: int) -> Path:
@@ -86,6 +91,16 @@ def load_overlay(season: int, week: int) -> dict | None:
     return d
 
 
+def load_overlay_file(f: Path) -> dict | None:
+    """An overlay at an explicit path (the NBA desk is keyed by date, not week)."""
+    if not f.exists():
+        return None
+    try:
+        return json.loads(f.read_text())
+    except json.JSONDecodeError:
+        return None
+
+
 def _is_list_of_str(x) -> bool:
     return isinstance(x, list) and all(isinstance(s, str) and s.strip() for s in x)
 
@@ -95,7 +110,8 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
     errs: list[str] = []
     if not isinstance(d, dict):
         return ["overlay is not a JSON object"]
-    for k in ("v", "season", "week", "generated_utc", "analyst", "odds_band", "games", "selections"):
+    keyed_by_date = "date" in d and "week" not in d
+    for k in ("v", "season", "generated_utc", "analyst", "odds_band", "games", "selections") + (("date",) if keyed_by_date else ("week",)):
         if k not in d:
             errs.append(f"missing top-level key {k!r}")
     if errs:
@@ -113,9 +129,10 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
     games = {g["game_id"]: g for g in (payload or {}).get("games", [])} if payload else {}
     board = {b["id"]: b for b in ((payload or {}).get("best_bets") or {}).get("ranked", []) + (((payload or {}).get("bot") or {}).get("extra") or [])} if payload else {}
     if payload:
+        wk = d.get("week") if "week" in d else d.get("date")
         for gid in d["games"]:
             if gid not in games:
-                errs.append(f"games: {gid} is not in week {d['week']}")
+                errs.append(f"games: {gid} is not in {wk}")
     if not isinstance(d["selections"], list):
         return errs + ["selections must be a list"]
     wild = d.get("wild_cards") or []
@@ -147,9 +164,9 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
                 errs.append(f"{tag}: line must be null for {s['kind']}")
         elif not isinstance(s.get("line"), (int, float)):
             errs.append(f"{tag}: line must be a number")
-        if s["kind"] in ("qb_yds", "qb_td", "rec_yds", "rush_yds", "recs", "fg", "atd") and not (isinstance(s.get("who"), str) and s["who"].strip()):
+        if s["kind"] in QB_KINDS + PLAYER_KINDS and not (isinstance(s.get("who"), str) and s["who"].strip()):
             errs.append(f"{tag}: who (the player) is required for {s['kind']}")
-        if s["kind"] in ("ml", "spread", "qb_yds", "qb_td", "rec_yds", "rush_yds", "recs", "fg", "atd") and not (isinstance(s.get("team"), str) and s["team"]):
+        if s["kind"] in ("ml", "spread") + QB_KINDS + PLAYER_KINDS and not (isinstance(s.get("team"), str) and s["team"]):
             errs.append(f"{tag}: team is required for {s['kind']}")
         if not (isinstance(s["odds"], (int, float)) and s["odds"] > 1.0):
             errs.append(f"{tag}: odds must be decimal odds above 1.0")
@@ -178,7 +195,7 @@ def validate(d: dict, payload: dict | None = None) -> list[str]:
             errs.append(f"{tag}: an unmeasured selection cannot be grade A")
         if payload:
             if s["game_id"] not in games:
-                errs.append(f"{tag}: game_id {s['game_id']} is not in week {d['week']}")
+                errs.append(f"{tag}: game_id {s['game_id']} is not in {d.get('week') if 'week' in d else d.get('date')}")
             elif s.get("team") and s["team"] not in (games[s["game_id"]]["home"], games[s["game_id"]]["away"]):
                 errs.append(f"{tag}: team {s['team']} is not in {s['game_id']}")
             b = board.get(s["id"])
@@ -234,14 +251,18 @@ def _scorecard_pick(s: dict, g: dict) -> dict:
         pk["line"] = -float(s["line"]) if s["side"] == "home" else float(s["line"])
     elif k not in ("ml", "atd"):
         pk["line"] = float(s["line"])
-    if k in ("qb_yds", "qb_td"):
+    if k in QB_KINDS:
         pk["qb"] = s.get("who")
-    elif k in ("rec_yds", "rush_yds", "recs", "atd"):
+    elif k in PLAYER_KINDS and k != "fg":
         pk["player"] = s.get("who")
         pid = _player_id(g, tside, s.get("who"))
         if pid:
             pk["id"] = pid
     return pk
+
+
+def _start(g: dict) -> str:
+    return g.get("kickoff_utc") or g.get("tip_utc") or ""
 
 
 def _enrich(s: dict, g: dict, board: dict) -> dict:
@@ -250,7 +271,7 @@ def _enrich(s: dict, g: dict, board: dict) -> dict:
     x = {k: s.get(k) for k in ("id", "game_id", "kind", "side", "line", "who", "team", "label", "odds", "odds_source", "p", "grade", "evidence", "confidence",
                                "inputs", "arithmetic", "pros", "risks", "verdict", "sources")}
     x["mu"] = f'{g["away"]} @ {g["home"]}'
-    x["kick"] = g.get("kickoff_utc") or ""
+    x["kick"] = _start(g)
     x["tside"] = tside
     x["pid"] = _player_id(g, tside, s.get("who"))
     x["fair_odds"] = round(1 / s["p"], 3)
@@ -281,10 +302,10 @@ def current_price(s: dict, g: dict) -> dict | None:
         line = dk["line"] if k == "total" else (dk["line"] if side == "home" else -dk["line"])
         return {"line": line, "odds": dk.get(side), "fetched": O.get("fetched")}
     P = O.get("props") or {}
-    if k in ("h1", "h2", "qb_yds", "qb_td") and k in P:
+    if k in P and isinstance(P[k], dict):
         rows = P[k]
         if k in ("h1", "h2"):
-            r = rows if isinstance(rows, dict) and "books" in rows else None
+            r = rows if "books" in rows else None
         else:
             from .live import name_key
             r = next((v for v in rows.values() if isinstance(v, dict) and name_key(v.get("name") or "") == name_key(s.get("who") or "")), None)
@@ -360,7 +381,7 @@ def hot_not(payload: dict, desk_sels: list[dict]) -> dict:
         O = g.get("odds") or {}
         op = O.get("opening") or {}
         mu = f'{g["away"]} @ {g["home"]}'
-        kick = g.get("kickoff_utc") or ""
+        kick = _start(g)
         for k in ("spread", "total"):
             a = ((op.get(k) or {}).get("books") or {}).get("DraftKings") or (op.get(k) or {})
             b = ((O.get(k) or {}).get("books") or {}).get("DraftKings") or (O.get(k) or {})
@@ -398,9 +419,13 @@ def hot_not(payload: dict, desk_sels: list[dict]) -> dict:
 
 def merge(payload: dict, overlay: dict | None = None) -> dict | None:
     """Attach the overlay to the payload. Returns the desk block (also stored at payload["bot"]["desk"]) or None."""
-    season, week = int(payload.get("season") or 0), int(payload.get("week") or 0)
     cfg = load_config()
-    d = overlay if overlay is not None else load_overlay(season, week)
+    if overlay is not None:
+        d = overlay
+    elif payload.get("week") is not None:
+        d = load_overlay(int(payload.get("season") or 0), int(payload.get("week") or 0))
+    else:
+        d = load_overlay_file(RESEARCH_DIR / f"{payload.get('date')}.json")
     bot = payload.setdefault("bot", {}) if payload.get("bot") is not None else None
     games = {g["game_id"]: g for g in payload.get("games", [])}
     board = {b["id"]: b for b in (payload.get("best_bets") or {}).get("ranked", []) + ((payload.get("bot") or {}).get("extra") or [])}
