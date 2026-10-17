@@ -1,110 +1,368 @@
 {
- "date": "2026-10-16",
- "updated_utc": "2026-10-17 07:43 UTC",
- "updated_et": "3:43 AM ET",
+ "date": "2026-10-17",
+ "updated_utc": "2026-10-17 23:00 UTC",
+ "updated_et": "7:00 PM ET",
  "games": {
-  "2026020119": {
+  "2026020121": {
    "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
-   "home": "COL",
-   "away": "PIT",
-   "home_score": 5,
+   "home": "WSH",
+   "away": "NJD",
+   "home_score": 4,
    "away_score": 2,
-   "first_goal_min": 8.467,
+   "first_goal_min": 10.067,
    "p1_done": true,
    "p1_home": 1,
-   "p1_away": 2,
+   "p1_away": 1,
    "ended_in": "REG",
    "goals": [
     {
      "period": 1,
-     "minute": 8.467,
-     "team": "PIT"
+     "minute": 10.067,
+     "team": "NJD"
     },
     {
      "period": 1,
-     "minute": 8.95,
-     "team": "PIT"
-    },
-    {
-     "period": 1,
-     "minute": 11.017,
-     "team": "COL"
+     "minute": 16.7,
+     "team": "WSH"
     },
     {
      "period": 2,
-     "minute": 20.417,
-     "team": "COL"
+     "minute": 21.267,
+     "team": "WSH"
     },
     {
      "period": 2,
-     "minute": 24.4,
-     "team": "COL"
+     "minute": 24.6,
+     "team": "WSH"
     },
     {
      "period": 2,
-     "minute": 34.95,
-     "team": "COL"
+     "minute": 31.233,
+     "team": "WSH"
     },
     {
      "period": 3,
-     "minute": 55.1,
-     "team": "COL"
+     "minute": 59.683,
+     "team": "NJD"
     }
    ]
   },
-  "2026020120": {
+  "2026020122": {
    "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
-   "home": "ANA",
-   "away": "BOS",
+   "home": "WPG",
+   "away": "CAR",
    "home_score": 2,
-   "away_score": 4,
-   "first_goal_min": 19.367,
+   "away_score": 3,
+   "first_goal_min": 24.383,
    "p1_done": true,
-   "p1_home": 2,
+   "p1_home": 0,
    "p1_away": 0,
    "ended_in": "REG",
    "goals": [
     {
-     "period": 1,
-     "minute": 19.367,
-     "team": "ANA"
-    },
-    {
-     "period": 1,
-     "minute": 19.717,
-     "team": "ANA"
+     "period": 2,
+     "minute": 24.383,
+     "team": "WPG"
     },
     {
      "period": 2,
-     "minute": 23.25,
-     "team": "BOS"
+     "minute": 28.317,
+     "team": "CAR"
+    },
+    {
+     "period": 2,
+     "minute": 30.983,
+     "team": "WPG"
+    },
+    {
+     "period": 2,
+     "minute": 36.833,
+     "team": "CAR"
     },
     {
      "period": 3,
-     "minute": 43.433,
-     "team": "BOS"
-    },
-    {
-     "period": 3,
-     "minute": 48.3,
-     "team": "BOS"
-    },
-    {
-     "period": 3,
-     "minute": 56.333,
-     "team": "BOS"
+     "minute": 46.717,
+     "team": "CAR"
     }
    ]
+  },
+  "2026020123": {
+   "state": "FINAL",
+   "live": false,
+   "final": true,
+   "period": 3,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
+   "home": "TBL",
+   "away": "VAN",
+   "home_score": 4,
+   "away_score": 2,
+   "first_goal_min": 15.533,
+   "p1_done": true,
+   "p1_home": 0,
+   "p1_away": 1,
+   "ended_in": "REG",
+   "goals": [
+    {
+     "period": 1,
+     "minute": 15.533,
+     "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 24.583,
+     "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 26.5,
+     "team": "TBL"
+    },
+    {
+     "period": 2,
+     "minute": 31.383,
+     "team": "TBL"
+    },
+    {
+     "period": 3,
+     "minute": 42.067,
+     "team": "TBL"
+    },
+    {
+     "period": 3,
+     "minute": 55.95,
+     "team": "TBL"
+    }
+   ]
+  },
+  "2026020124": {
+   "state": "LIVE",
+   "live": true,
+   "final": false,
+   "period": 1,
+   "time_remaining": "08:07",
+   "elapsed_min": 19.12,
+   "home": "FLA",
+   "away": "SEA",
+   "home_score": 3,
+   "away_score": 1,
+   "first_goal_min": 1.083,
+   "p1_done": false,
+   "p1_home": 3,
+   "p1_away": 1,
+   "ended_in": null,
+   "goals": [
+    {
+     "period": 1,
+     "minute": 1.083,
+     "team": "FLA"
+    },
+    {
+     "period": 1,
+     "minute": 4.9,
+     "team": "SEA"
+    },
+    {
+     "period": 1,
+     "minute": 17.933,
+     "team": "FLA"
+    },
+    {
+     "period": 1,
+     "minute": 19.117,
+     "team": "FLA"
+    }
+   ]
+  },
+  "2026020125": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "TOR",
+   "away": "NYI",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020126": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "MTL",
+   "away": "BUF",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020127": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "DET",
+   "away": "SJS",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020128": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "PHI",
+   "away": "OTT",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020129": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "CBJ",
+   "away": "NYR",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020130": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "CHI",
+   "away": "DAL",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020131": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "NSH",
+   "away": "STL",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020132": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "LAK",
+   "away": "BOS",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020133": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "UTA",
+   "away": "EDM",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020134": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "VGK",
+   "away": "PIT",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
   }
  }
 }
