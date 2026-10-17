@@ -722,7 +722,7 @@ CATEGORIES = [
     ("fieldgoals", "Kicker field goals", ("fg",), 2),
 ]
 COMBINE_LEGS = 6
-COMBINE_ODDS = (1.40, 2.30)
+COMBINE_ODDS = (1.35, 2.20)
 SEASON_CUTOFF = "-08-01"
 
 

@@ -153,7 +153,7 @@ timestamps. The bot's picks come first: an analyst's checks on every bet (this s
 matchup rank, the game script, injuries and workload shifts, wind, the quarterback, the price's age, the model/market
 gap); hard failures drop a bet, soft checks move its score. Lists: 4 passing, 4 receiving, 4 rushing, 4 totals, 4
 moneyline, 4 spread, 2 kicker field goals, and a button that combines them into the top six (one per game, real
-DraftKings prices 1.40 to 2.30, never anytime touchdowns, which have their own board). The Telegram / Discord
+DraftKings prices 1.35 to 2.20, never anytime touchdowns, which have their own board). The Telegram / Discord
 message (`tools/notify_nfl.py`) carries the same picks, the player props at 68%+ with positive EV, and the top six.
 The numbers behind every card: expected value at DraftKings' own line and price. The win chance comes from the market, not the model: each book's two-way price
 has its margin removed, books on other lines are moved onto DraftKings' line with the simulation's distribution
@@ -167,6 +167,20 @@ Lighter shrinkage did not fix the projection walk-forward (`data/nfl/factors.jso
 leads. Prop prices are pulled once per game (Sunday about 11:45 ET for Sunday and Monday, Thursday's game on its
 own run), ten books per request (one region's credits), markets in the order receiving yards, receptions,
 passing yards, passing TDs, rushing yards, anytime TD, half totals, as many as the month's credits allow.
+
+**Research desk (`nfl/desk.py`, `RUNBOOK_NFL_RESEARCH.md`).** The layer that reads what the simulation cannot: a
+scheduled Claude session (Thursday before the night game, Saturday evening, Sunday morning, Monday afternoon)
+researches every game on the web (official report and beat-writer notes on the starters, kickoff weather, the
+cornerback on the main receiver, routes and targets over the last four games, line movement, rest and travel),
+does the arithmetic for each candidate (volume × rate = mean, spread of outcomes, P(side), fair odds) and writes
+`data/nfl/research/<season>-wNN.json`: selections at DraftKings prices between 1.35 and 2.20, each with its desk
+probability, grade (A / B / C), evidence label (measured / partial / unmeasured), inputs, arithmetic, pros, risks,
+verdict and sources with fetch times, plus the candidates it declined and per-game notes. `tools/validate_desk.py`
+checks the file against the published payload before it is committed (ids on the board must match the board's
+market, side and line; prices in band; no grade A on unmeasured evidence); the site build merges it as the first
+tab in Best bets (desk chance beside the simulation's and the market's), flags board cards the desk also took,
+and grades the desk's record on its own line in Results and the scorecard (`picks.desk`). The Telegram message
+leads with the desk's selections. The simulation's numbers are never edited by the desk.
 
 What the walk-forward test says is on the page (About tab) and in `data/nfl/backtest_latest.json`. In short: the
 model alone does not beat the closing moneyline, spread or total, so those follow the market; QB passing yards,

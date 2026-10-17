@@ -11,7 +11,8 @@ from .ingest import load_games
 from .live import name_key
 
 MARKETS = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "h1": "1st half total", "h2": "2nd half total",
-           "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD", "rec_yds": "Receiving yards", "rush_yds": "Rushing yards", "recs": "Receptions"}
+           "fg": "Team field goals 1.5", "qb_yds": "QB passing yards", "qb_td": "QB passing TDs 1.5", "atd": "Anytime TD", "rec_yds": "Receiving yards", "rush_yds": "Rushing yards", "recs": "Receptions",
+           "desk": "Research desk"}
 
 
 def _player(g: dict, pick: dict) -> dict | None:

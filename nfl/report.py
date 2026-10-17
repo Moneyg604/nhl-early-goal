@@ -165,6 +165,20 @@ body[data-tab="best"] #banner{display:none}
 .bb th:first-child,.bb td:first-child{text-align:left}.bb tr.dk td{color:var(--ice);font-weight:600}
 .cf{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;vertical-align:1px}
 .cf.high{color:var(--green);background:rgba(61,220,132,.12)}.cf.medium{color:var(--amber);background:rgba(243,182,58,.12)}.cf.low{color:var(--red);background:rgba(255,107,107,.12)}
+.bb.desk{border-color:rgba(243,182,58,.55)}.bb.desk .rk{background:rgba(243,182,58,.16);color:#ffd37a}
+.bb .gr{display:inline-block;font-family:var(--display);font-weight:800;font-size:13px;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.bb .gr.A{color:var(--green);background:rgba(61,220,132,.14)}.bb .gr.B{color:var(--amber);background:rgba(243,182,58,.14)}.bb .gr.C{color:var(--muted);background:var(--panel2)}
+.bb .res{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;margin-left:6px;vertical-align:1px}
+.bb .res.hit{color:var(--green);background:rgba(61,220,132,.14)}.bb .res.miss{color:var(--red);background:rgba(255,107,107,.14)}.bb .res.tie,.bb .res.void{color:var(--amber);background:rgba(243,182,58,.14)}.bb .res.live{color:var(--ice);background:rgba(120,200,255,.12)}
+.bb .deskr{margin-top:8px;border:1px solid rgba(243,182,58,.35);background:rgba(243,182,58,.05);border-radius:10px;padding:8px 10px}
+.bb .deskr h4{margin:0 0 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ffd37a}
+.bb .deskr p{margin:4px 0;font-size:12.5px;color:var(--text)}.bb .deskr ul{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.bb .deskr .ar li{font-variant-numeric:tabular-nums}.bb .deskr .pr li::marker{color:var(--green)}.bb .deskr .ri li::marker{color:var(--red)}
+.bb .deskr .src{margin-top:6px;font-size:11.5px;color:var(--dim)}.bb .deskr .src a{color:var(--ice)}
+.bbl .deskhead{background:var(--panel);border:1px solid rgba(243,182,58,.4);border-radius:14px;padding:12px 14px;margin:0 0 10px}
+.bbl .deskhead h2{margin:0 0 4px;font-size:16px}.bbl .deskhead p{margin:4px 0;font-size:12.5px;color:var(--muted);max-width:none}
+.bbl .deskhead .st{font-size:11.5px;color:var(--dim)}
+.bbl .gnotes summary{cursor:pointer;color:var(--ice);font-size:12.5px}.bbl .gnotes ul{margin:4px 0 8px;padding-left:18px;font-size:12px;color:var(--muted)}
 .bbsep{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
 .bb .addb{margin-left:auto;background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:3px 9px;font-size:11.5px;font-family:inherit;cursor:pointer}
 .slip .lg{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.slip .lg a{font-size:11px;color:var(--dim)}
@@ -207,7 +221,7 @@ __STATIC__
   <details class="bbhow"><summary>How the bets are ranked</summary>
    <p><b>Win chance.</b> Starts from the whole market: every book's price with its margin removed, moved onto DraftKings' line, with Pinnacle counting double. The simulation (100,000 drive-by-drive games per matchup, built from matchups, pace, quarterbacks, usage, injuries, rest and weather) then moves that chance by up to 4 points on player props and half totals, less when the two disagree by more than 10 points and not at all past 20. Game lines (moneyline, spread, total) take the market's chance unchanged, because in the walk-forward test the simulation did not beat the closing line.</p>
    <p><b>Evidence confidence</b> rates the quality of the inputs, not the chance of winning: it counts the books pricing the market, how closely the simulation and the market agree, how much current-season data stands behind both teams, and flags (a quarterback change, a questionable player, a one-sided price, a player with no independent projection).</p>
-   <p><b>Bot's picks</b> runs an analyst's checks on every bet and keeps the best per category: this season's form against the line, the opponent's rank for that stat, the game script the spread implies, receivers or blockers out, workload shifts from teammates out, wind, the quarterback situation, the price's age, and how far the simulation sits from the market. A failed hard check (form pointing the other way, a questionable player, a non-starter, a 15-point model/market gap) removes the bet; soft checks move its score. "Combine into the top 6" takes the six highest-scoring legs across the lists, one per game, at real DraftKings prices between 1.40 and 2.30; anytime touchdowns are never in the lists (they have their own board).</p>
+   <p><b>Bot's picks</b> runs an analyst's checks on every bet and keeps the best per category: this season's form against the line, the opponent's rank for that stat, the game script the spread implies, receivers or blockers out, workload shifts from teammates out, wind, the quarterback situation, the price's age, and how far the simulation sits from the market. A failed hard check (form pointing the other way, a questionable player, a non-starter, a 15-point model/market gap) removes the bet; soft checks move its score. "Combine into the top 6" takes the six highest-scoring legs across the lists, one per game, at real DraftKings prices between 1.35 and 2.20; anytime touchdowns are never in the lists (they have their own board).</p>
    <p><b>Price.</b> Attractive: DraftKings pays at least 2% more than the win chance justifies (5% for anytime touchdowns, whose margin has to be assumed). Fair: within 3% of fair. Poor: worse than that. Unreliable: too few books, a long shot past +700, or books more than 25 points apart. Kicker field goals and alternate lines come from the simulation only (DraftKings' prices for them are not in the feed), so those cards show fair odds to compare by hand. Attractively priced bets lock at kickoff and are graded in the Results tab.</p></details>
   <div id="best"></div>
 </section>
@@ -456,7 +470,7 @@ function renderCards(){ const gs=P.games.filter(g=>SLOT==='all'||slotOf(g)===SLO
 function renderLivebar(){ const live=P.games.filter(g=>(LIVE[g.game_id]||{}).state==='in'); const el=document.getElementById('livebar');
   if(!live.length){ el.style.display='none'; return; } el.style.display='block';
   el.innerHTML = `<div class="lhd"><span class="pulse"></span><b>${live.length} live</b> ${live.map(g=>{const L=LIVE[g.game_id]; return `<span>${g.away} ${L.away_score} · ${g.home} ${L.home_score} <span class="t">${esc(L.detail||'')}</span></span>`;}).join(' · ')}<button class="rbtn" onclick="refreshLive()">refresh</button></div>`; }
-const PK_LABEL = {ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team FGs 1.5', qb_yds:'QB pass yards', qb_td:'QB pass TDs 1.5', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
+const PK_LABEL = {desk:'Research desk', ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half total', h2:'2nd half total', fg:'Team FGs 1.5', qb_yds:'QB pass yards', qb_td:'QB pass TDs 1.5', atd:'Anytime TD', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions'};
 function pickText(k, x){ if(k==='ml') return `${x.team} ML`; if(k==='spread'){ const hl=-x.line; return x.side==='home'?`${byId[x.game_id].home} ${hl>0?'+':''}${hl}`:`${byId[x.game_id].away} ${x.line>0?'+':''}${x.line}`; }
   if(k==='total'||k==='h1'||k==='h2') return `${x.side==='over'?'Over':'Under'} ${x.line}`; if(k==='fg') return `${x.team} ${x.side} ${x.line} FGs`;
   if(k==='qb_yds') return `${x.qb} ${x.side} ${x.line} yds`; if(k==='qb_td') return `${x.qb} ${x.side} ${x.line} TDs`; if(k==='atd') return `${x.player} (${x.team})`;
@@ -843,8 +857,8 @@ function renderTracker(){ const el=document.getElementById('tracker'); const s=B
     const blob=new Blob([rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n')], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='nfl-bets.csv'; a.click(); }; }
 
 // ------------------------------------------------------------- results
-function renderResults(){ const keys=['ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
-  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
+function renderResults(){ const keys=['desk','ml','spread','total','h1','h2','fg','qb_yds','qb_td','atd','rec_yds','rush_yds','recs']; const t={};
+  for(const k of keys) for(const x of (P.picks[k]||[])){ const r=legResult(k==='desk'?legFromPick(x.market,x):legFromPick(k,x), byId[x.game_id], true); if(!r||r==='pending'||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; }
   const any=Object.keys(t).length;
   document.getElementById('wkresults').innerHTML = `<h3>This week's best bets</h3>${any?`<div class="tbl"><table><tr><th>Market</th><th>won</th><th>lost</th><th>push</th></tr>${keys.filter(k=>t[k]).map(k=>`<tr><td>${PK_LABEL[k]}</td><td>${t[k].hit}</td><td>${t[k].miss}</td><td>${t[k].tie}</td></tr>`).join('')}</table></div>`:'<p>No lean has been decided yet. Results fill in live as the games are played (scores and box scores from ESPN), and are confirmed from the play-by-play the next morning.</p>'}`;
   fetchJSON(BASE+'scorecard.json').then(sc=>{ const S=sc.summary||{}; const ks=keys.filter(k=>S[k]);
@@ -897,13 +911,14 @@ const bStamp = s => { if(!s) return 'not available'; const d=bIso(s); return isN
 const bAgo = s => { if(!s) return 'not yet'; const m=Math.round((Date.now()-bIso(s))/60000); if(m<1) return 'just now'; if(m<60) return m+' min ago'; const h=Math.round(m/60); if(h<48) return h+' h ago'; return Math.round(h/24)+' days ago'; };
 const evTxt = ev => ev==null ? '–' : `${ev>=0?'+':''}${(ev*100).toFixed(1)}%`;
 const BKIND = {ml:'Moneyline', spread:'Spread', total:'Game total', h1:'1st half total', h2:'2nd half total', qb_yds:'Passing yards', qb_td:'Passing TDs', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions', atd:'Anytime TD', fg:'Kicker field goals'};
-const BGROUPS = [['bot',"Bot's picks"],['tdboard','Anytime TD'],['winners','Team winners'],['spreads','Spreads'],['totals','Totals'],['props','Player props'],['kickers','Kicker FGs'],['alts','Alt lines']];
+const DESK = (BOT && BOT.desk && BOT.desk.ok) ? BOT.desk : null;
+const BGROUPS = [['desk','Research desk'],['bot',"Bot's picks"],['tdboard','Anytime TD'],['winners','Team winners'],['spreads','Spreads'],['totals','Totals'],['props','Player props'],['kickers','Kicker FGs'],['alts','Alt lines']];
 const BPRICE = {attractive:['Attractive','pos'], fair:['Fair','mid'], poor:['Poor','neg'], unreliable:['Unreliable','neg'], 'no price':['Not in feed','mid']};
 const BOARD = ((BB&&BB.ranked)||[]).concat((BOT&&BOT.extra)||[]);
 const BYID = {}; BOARD.forEach(b=>BYID[b.id]=b);
-let BF = {grp:'bot', kind:'all', game:'all', sort:'p', more:0};
-try{ Object.assign(BF, JSON.parse(localStorage.getItem('gs_nfl_best')||'{}'), {more:0}); }catch(e){}
-const saveBF = () => { try{ localStorage.setItem('gs_nfl_best', JSON.stringify({grp:BF.grp, kind:BF.kind, game:BF.game, sort:BF.sort})); }catch(e){} };
+let BF = {grp:DESK?'desk':'bot', kind:'all', game:'all', sort:'p', more:0};
+try{ Object.assign(BF, JSON.parse(localStorage.getItem('gs_nfl_best2')||'{}'), {more:0}); }catch(e){}
+const saveBF = () => { try{ localStorage.setItem('gs_nfl_best2', JSON.stringify({grp:BF.grp, kind:BF.kind, game:BF.game, sort:BF.sort})); }catch(e){} };
 let SHOW_COMBINE = false;
 function bWhy(b){ const I=b.inputs||{}; const parts=[]; const n=b.books;
   const ls=(I.lines||[]).filter(x=>x!=null); const lines = ls.length>1 ? `, lines ${ls[0]} to ${ls[ls.length-1]}` : '';
@@ -933,9 +948,11 @@ function bCard(b, i){
      <div><span class="k">Evidence confidence</span><span class="v"><span class="cf ${cf.label}">${cf.label}</span> ${cf.score}</span><span class="s">${b.books||0} book${b.books===1?'':'s'} · data tier ${esc(b.tier||'?')} · rates data quality, not win likelihood</span></div>
      <div><span class="k">DraftKings price</span><span class="v ${pr[1]}">${pr[0]}</span><span class="s">${b.odds!=null?`${b.odds.toFixed(2)} (${dec2am(b.odds)}) · EV ${evTxt(b.ev)}`:'not in the odds feed: check DraftKings'}${stale?' · <b style="color:var(--amber)">stale</b>':''}</span></div>
    </div>
+   ${b.desk?`<div class="chk"><span class="c ok">★ Research desk ${pct(b.desk.p,0)} · grade ${esc(b.desk.grade)}</span></div>`:''}
    ${J?`<div class="chk">${J.checks.map(c=>`<span class="c ${c.ok===true?'ok':(c.ok===false?'bad':'na')}" title="${esc(c.txt)}">${c.ok===true?'✓':(c.ok===false?'✗':'·')} ${esc(c.name)}</span>`).join('')}</div>`:''}
    ${fl}
    <div class="brow"><details class="books"><summary>Research, risk, formulas and every book's price</summary>
+     ${b.desk?dBlock(b.desk):''}
      ${J?`<div class="chkl"><b>Bot's checks (score ${J.score.toFixed(2)})</b><ul>${J.checks.map(c=>`<li class="${c.ok===true?'ok':(c.ok===false?'bad':'na')}">${c.ok===true?'✓':(c.ok===false?'✗':'·')} <b>${esc(c.name)}:</b> ${esc(c.txt)}</li>`).join('')}</ul></div>`:''}
      ${A.proj?`<div class="proj"><b>Projection:</b> ${esc(A.proj)}${A.range?` · <span>${esc(A.range)}</span>`:''}</div>`:''}
      ${(A.reasons||[]).length?`<ul class="rs">${A.reasons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
@@ -946,7 +963,7 @@ function bCard(b, i){
      <div class="stamps">Sources: odds ${bStamp(st.odds||b.priced_at)} · injury report ${bStamp(st.injuries)} · usage / snaps ${bStamp(st.usage)} (play-by-play through ${esc(st.data_through||'?')}) · weather forecast ${bStamp(st.weather)} · simulation run ${bStamp(st.model)}</div>
      ${b.p_market!=null?`<div class="why">${bWhy(b)}</div>`:''}${bBooks(b)}</details>${SEL_BY[b.id]?`<button class="addb" data-add="${esc(b.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></article>`; }
 function bCombine(C){ const R=(BOT||{}).rules||{}; if(!C||!C.n) return `<p class="empty">No combined top ${R.legs||6}: fewer than ${R.legs||6} qualifying legs this week.</p>`;
-  const band=C.odds_band||R.combine_odds||[1.4,2.3];
+  const band=C.odds_band||R.combine_odds||[1.35,2.2];
   const rows = C.legs.map((l,i)=>`<tr><td>${i+1}</td><td class="lbl"><b>${esc(l.label)}</b><br><span style="color:var(--dim)">${esc(l.mu)} · ${esc(bKick(l.kick))}</span><br><span style="color:var(--muted)">${esc(l.basis)}${l.why?' · '+esc(String(l.why).split(';')[0]):''}</span></td><td>${l.odds!=null?l.odds.toFixed(2):'–'}</td><td>${pct(l.p,0)}</td><td>${l.p_model!=null?pct(l.p_model,0):'–'}</td></tr>`).join('');
   return `<article class="bb parlay"><div class="top"><span class="rk">6</span><div class="ti"><b>The bot's top ${C.n} this week</b><span class="t">the highest-scoring legs across the lists by the bot's judgment · one per game · real DraftKings prices ${band[0]} to ${band[1]} · no anytime touchdowns · ${C.n_candidates||0} eligible${C.complete?'':' · only '+C.n+' legs qualify this week'}</span></div>
     <div class="evb ${C.ev>=0?'pos':'neg'}">${C.odds.toFixed(2)}<span class="k">combined odds</span></div></div>
@@ -955,6 +972,45 @@ function bCombine(C){ const R=(BOT||{}).rules||{}; if(!C||!C.n) return `<p class
       <div><span class="k">Parlay EV</span><span class="v ${C.ev>=0?'pos':'neg'}">${evTxt(C.ev)}</span><span class="s">DraftKings' cut compounds across legs</span></div></div>
     <div class="bt"><table><tr><th>#</th><th class="lbl">Leg</th><th>DK</th><th>Win</th><th>Sim</th></tr>${rows}</table></div>
     <div class="why">Singles or a parlay, as you like: a ${C.n}-leg parlay at these probabilities wins about one time in ${C.prob>0?Math.round(1/C.prob):'–'}. Check each leg's DraftKings price before placing it; a scratched player voids that leg at DraftKings.</div></article>`; }
+function dSrc(list){ return (list||[]).map(x=>`${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`:esc(x.name)} (${esc(bStamp(x.fetched))})`).join(' · '); }
+function dBlock(D){ return `<div class="deskr"><h4>Research desk · ${pct(D.p,0)} to win · grade ${esc(D.grade)} · evidence ${esc(D.evidence)} · confidence ${D.confidence}</h4>
+   <p><b>Verdict:</b> ${esc(D.verdict)}</p>
+   ${(D.inputs||[]).length?`<p><b>Inputs</b></p><ul>${D.inputs.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+   ${(D.arithmetic||[]).length?`<p><b>Arithmetic</b></p><ul class="ar">${D.arithmetic.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+   ${(D.pros||[]).length?`<p><b>For</b></p><ul class="pr">${D.pros.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+   ${(D.risks||[]).length?`<p><b>Risks</b></p><ul class="ri">${D.risks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+   <div class="src">Sources: ${dSrc(D.sources)||'none listed'}${D.odds_source?` · DraftKings price ${D.odds!=null?D.odds.toFixed(2):'–'} (${esc(D.odds_source==='feed'?'odds feed':(D.odds_source==='draftkings'?'checked on DraftKings':'not verified'))})`:''}</div></div>`; }
+function dLeg(x){ const o={kind:x.kind, side:x.side, line:x.line, tside:x.tside, who:x.who, pid:x.pid, team:x.team, game_id:x.game_id}; if(x.kind==='atd'){ o.side='yes'; } return o; }
+function dCard(x, i){ const g=byId[x.game_id]; const now=bNow(); const started = x.kick && x.kick <= now;
+  let r = null; try{ r = started ? legResult(dLeg(x), g, true) : null; }catch(e){ r=null; }
+  const live = started && (!r || r==='pending');
+  const res = started ? (r && r!=='pending' ? `<span class="res ${r}">${r==='hit'?'won':(r==='miss'?'lost':(r==='tie'?'push':'void'))}</span>` : `<span class="res live">in play</span>`) : '';
+  const B=x.board||{}; const bp = B.p!=null ? ` · site ${pct(B.p,0)}${B.p_model!=null?' (sim '+pct(B.p_model,0)+')':''}` : ' · not on the site board';
+  const osrc = {feed:'odds feed', draftkings:'checked on DraftKings', unverified:'not verified'}[x.odds_source]||'';
+  const lineTxt = x.line!=null ? (x.kind==='spread' ? `${x.line>0?'+':''}${x.line}` : `${x.side} ${x.line}`) : (x.kind==='atd'?'anytime':(x.kind==='ml'?'moneyline':''));
+  const inS = SLIP.find(s=>s.id===x.id);
+  return `<article class="bb desk ${inS?'insl':''}">
+   <div class="top"><span class="rk">${i}</span><div class="ti"><b>${esc(x.label)}<span class="gr ${esc(x.grade)}">${esc(x.grade)}</span>${res}</b><span class="t">${esc(x.mu)} · ${esc(bKick(x.kick))} · ${esc(BKIND[x.kind]||x.kind)}${lineTxt?' · line '+esc(lineTxt):''}</span></div>
+   <div class="evb pos">${pct(x.p,0)}<span class="k">Desk win chance</span></div></div>
+   <div class="three">
+     <div><span class="k">DraftKings price</span><span class="v ${x.ev>=0.02?'pos':(x.ev>=-0.03?'mid':'neg')}">${x.odds.toFixed(2)}</span><span class="s">${dec2am(x.odds)} · ${esc(osrc)} · EV at the desk's chance ${evTxt(x.ev)}</span></div>
+     <div><span class="k">Evidence</span><span class="v"><span class="cf ${x.evidence==='measured'?'high':(x.evidence==='partial'?'medium':'low')}">${esc(x.evidence)}</span> ${x.confidence}</span><span class="s">fair odds ${x.fair_odds.toFixed(2)}${bp}</span></div>
+     <div><span class="k">Biggest risk</span><span class="v" style="font-size:12.5px;white-space:normal;font-family:var(--body);font-weight:500;color:#ffd37a">${esc((x.risks||[])[0]||'ordinary variance')}</span></div>
+   </div>
+   <div class="brow"><details class="books"><summary>Verdict, inputs, arithmetic, risks and sources</summary>${dBlock(x)}</details>${SEL_BY[x.id]?`<button class="addb" data-add="${esc(x.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></article>`; }
+function bDesk(){ const D=DESK; if(!D) return `<p class="empty">No research desk file for this week yet. The desk runs before each kickoff window (Thursday, Saturday evening, Sunday morning, Monday afternoon).</p>`;
+  const now=bNow();
+  const rows=(D.selections||[]).filter(x=>BF.game==='all'||x.game_id===BF.game);
+  const up=rows.filter(x=>x.kick>now), done=rows.filter(x=>x.kick<=now);
+  let h = `<div class="deskhead"><h2>★ Research desk · ${D.n} selection${D.n===1?'':'s'}</h2>
+    <p>${esc(D.analyst||'Research desk')} read the week's news (practice reports, Friday designations, beat-writer notes, weather, line moves) and wrote every selection up with its inputs, its arithmetic and its risks. Ranked by the desk's own win chance; DraftKings prices ${(D.band||[1.35,2.2])[0].toFixed(2)} to ${(D.band||[1.35,2.2])[1].toFixed(2)} only. Open a card for the full write-up. The desk's chance is a judgment, not a simulation: its record is graded on its own line in Results.</p>
+    ${D.summary?`<p>${esc(D.summary)}</p>`:''}<p class="st">Desk run ${esc(bStamp(D.generated))} (${esc(bAgo(D.generated))}) · site simulation ${esc(bStamp(((BOT||{}).stamps||{}).model))}</p></div>`;
+  h += up.length ? up.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">No desk selection for the games still to play${BF.game!=='all'?' in this game':''}.</p>`;
+  if(done.length) h += `<div class="bbsep">Already kicked off</div>` + done.map((x,i)=>dCard(x,up.length+i+1)).join('');
+  const dec=(D.declined||[]); if(dec.length) h += `<h2>Looked at and declined</h2><div class="bt"><table><tr><th class="lbl">Candidate</th><th class="lbl">Why not</th></tr>${dec.map(x=>`<tr><td class="lbl"><b>${esc(x.label)}</b></td><td class="lbl" style="white-space:normal">${esc(x.why)}</td></tr>`).join('')}</table></div>`;
+  const gn=Object.entries(D.games||{}).map(([gid,v])=>[byId[gid],v]).filter(([g])=>g).sort((a,c)=>(a[0].kickoff_utc||'').localeCompare(c[0].kickoff_utc||''));
+  if(gn.length) h += `<h2>Game notes</h2>` + gn.map(([g,v])=>`<details class="gnotes"><summary>${esc(g.away)} @ ${esc(g.home)} · ${esc(bKick(g.kickoff_utc))}</summary>${v.weather?`<ul><li><b>Weather:</b> ${esc(v.weather)}</li></ul>`:''}${(v.injuries||[]).length?`<ul>${v.injuries.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.notes||[]).length?`<ul>${v.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.sources||[]).length?`<div class="small" style="color:var(--dim);margin:0 0 8px">Sources: ${dSrc(v.sources)}</div>`:''}</details>`).join('');
+  return h; }
 function bBot(up){
   const B = BOT||{}; const now=bNow(); const cats=B.cats||{};
   let h = `<p class="note">The bot runs the checks an analyst would on every bet: this season's form against the line, the matchup rank, the game script from the spread, injuries and workload shifts, weather, how fresh the price is, and how far the simulation sits from the market. Each list shows its best bets by that judgment, with the checks on every card. Open a card's drop-down for the full reasoning.</p>`;
@@ -983,8 +1039,9 @@ function renderBest(){ const el=document.getElementById('best'); if(!el) return;
   const now = bNow();
   const up = BOARD.filter(b => b.kick && b.kick > now);
   const games = P.games.filter(g => g.kickoff_utc && g.kickoff_utc > now && (g.odds||{}).fetched).map(g=>({game_id:g.game_id, mu:`${g.away} @ ${g.home}`, kick:g.kickoff_utc, props:!!((g.odds||{}).props_fetched)})).sort((a,c)=>a.kick.localeCompare(c.kick));
+  if(!DESK && BF.grp==='desk') BF.grp = BOT ? 'bot' : 'winners';
   if(!BOT && BF.grp==='bot') BF.grp='winners';
-  if(!['bot','tdboard'].includes(BF.grp) && !up.some(b=>b.group===BF.grp)) BF.grp = BOT ? 'bot' : 'winners';
+  if(!['bot','tdboard','desk'].includes(BF.grp) && !up.some(b=>b.group===BF.grp)) BF.grp = DESK ? 'desk' : (BOT ? 'bot' : 'winners');
   const kinds = [...new Set(up.filter(b=>b.group===BF.grp).map(b=>b.kind))];
   if(BF.kind!=='all' && !kinds.includes(BF.kind)) BF.kind='all';
   if(BF.game!=='all' && !games.find(g=>g.game_id===BF.game)) BF.game='all';
@@ -1000,14 +1057,15 @@ function renderBest(){ const el=document.getElementById('best'); if(!el) return;
   const fresh = `<p class="note"><b>Data as of (ET):</b> DraftKings game lines ${bStamp(BB.odds_fetched)} · player props ${bStamp(BB.props_fetched_oldest)} · injury report ${bStamp(SS.injuries)} · usage and snap counts ${bStamp(SS.usage)} (play-by-play through ${esc(SS.data_through||'?')}) · weather forecast ${bStamp(SS.weather)} · simulation run ${bStamp(SS.model)}.`
     + (noProps ? ` Player props for ${noProps} game${noProps===1?' are':'s are'} not priced yet: they are pulled about 75 minutes before each kickoff window.` : '') + `</p>`;
   const stats = `<div class="bbhead"><span><b>${up.length}</b> DraftKings markets across <b>${games.length}</b> games</span><span><b>${attractive}</b> attractively priced</span><span>${BOT?esc(BOT.week_label||''):''}</span></div>`;
-  const bar = `<div class="bbbar"><div class="chips" id="bb-grp">${BGROUPS.filter(([k])=>k!=='bot'&&k!=='tdboard' ? true : !!BOT).map(([k,l])=>`<button type="button" data-g="${k}" class="${BF.grp===k?'on':''}">${l} <small>${k==='bot'?Object.values((BOT||{}).cats||{}).reduce((a,c)=>a+(c.ids||[]).length,0):(k==='tdboard'?((BOT||{}).tds||[]).filter(t=>t.kick>now).length:up.filter(b=>b.group===k).length)}</small></button>`).join('')}</div>
+  const bar = `<div class="bbbar"><div class="chips" id="bb-grp">${BGROUPS.filter(([k])=>k==='desk' ? !!DESK : (k!=='bot'&&k!=='tdboard' ? true : !!BOT)).map(([k,l])=>`<button type="button" data-g="${k}" class="${BF.grp===k?'on':''}">${k==='desk'?'★ ':''}${l} <small>${k==='desk'?(DESK.selections||[]).filter(x=>x.kick>now).length:(k==='bot'?Object.values((BOT||{}).cats||{}).reduce((a,c)=>a+(c.ids||[]).length,0):(k==='tdboard'?((BOT||{}).tds||[]).filter(t=>t.kick>now).length:up.filter(b=>b.group===k).length))}</small></button>`).join('')}</div>
     <select id="bb-kind" aria-label="Market"><option value="all">Every market</option>${kinds.map(k=>`<option value="${k}" ${BF.kind===k?'selected':''}>${esc(BKIND[k]||k)}</option>`).join('')}</select>
     <select id="bb-game" aria-label="Game"><option value="all">Every game</option>${games.map(g=>`<option value="${g.game_id}" ${BF.game===g.game_id?'selected':''}>${esc(g.mu)} · ${esc(bKick(g.kick))}</option>`).join('')}</select>
     <select id="bb-sort" aria-label="Sort"><option value="p" ${BF.sort==='p'?'selected':''}>Sort: win chance</option><option value="conf" ${BF.sort==='conf'?'selected':''}>Sort: evidence</option><option value="ev" ${BF.sort==='ev'?'selected':''}>Sort: price (EV)</option></select></div>`;
   const nShow = BF.more || 15;
   const shown = rows.slice(0, nShow);
   let h;
-  if(BF.grp==='bot') h = bBot(up);
+  if(BF.grp==='desk') h = bDesk();
+  else if(BF.grp==='bot') h = bBot(up);
   else if(BF.grp==='tdboard') h = bTd();
   else { h = rows.length ? shown.map((b,i)=>bCard(b,i+1)).join('') : (up.length ? `<p class="empty">Nothing in this view.</p>` : `<p class="empty"><b>No DraftKings prices for upcoming games yet.</b> Lines for the next week usually arrive Wednesday morning.</p>`);
     if(BF.grp==='alts') h = `<p class="note">Alternate lines priced from the simulation's distribution and the market's consensus shift. DraftKings' alternate prices are not in the odds feed: bet one only when DraftKings pays more than the fair odds shown.</p>` + h;

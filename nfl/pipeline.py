@@ -205,6 +205,9 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     # the bot's judgment: analyst checks on every bet, the best per category, the combined top six, the TD board
     from .brain import bot_block
     payload["bot"] = bot_block(payload)
+    # the research desk: the overlay a Claude research session wrote for this week, if any
+    from .desk import merge as merge_desk
+    merge_desk(payload)
     payload["validation"] = _validation()
     payload["_samples"] = {"fields": SAMPLE_FIELDS, "bytes": 17, "n": SAMPLE_N, "games": samples}
     return payload

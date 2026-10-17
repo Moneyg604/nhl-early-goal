@@ -112,6 +112,20 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
     if not bot:
         out.append("🤖 " + B("Bot's picks") + T(": not built yet for this week (next site run)"))
         return out
+    # the research desk's selections (the Claude research session's write-ups), ranked by its own win chance
+    desk = bot.get("desk") or {}
+    if desk.get("ok"):
+        rows = [x for x in desk.get("selections") or [] if live(x)]
+        if rows:
+            band = desk.get("band") or [1.35, 2.2]
+            out.append("⭐ " + B(f"Research desk · {len(rows)} selection{'s' if len(rows) != 1 else ''}") + T(f"  desk win chance @ DK {band[0]:.2f} to {band[1]:.2f} · grade"))
+            for i, x in enumerate(rows[:12], 1):
+                src = {"feed": "", "draftkings": " (DK checked)", "unverified": " (price unverified)"}.get(x.get("odds_source") or "", "")
+                out.append(f"{i}. " + T(f"{x['label']} ({x['mu']})") + "  " + B(f"{x['p']*100:.0f}%") + T(f" @ {x['odds']:.2f}{src} · {x['grade']} · {x.get('evidence', '')}"))
+            if len(rows) > 12:
+                out.append(T(f"…and {len(rows) - 12} more on the page"))
+            out.append(T(f"Desk run {desk.get('generated', '')}. Open a card on the page for inputs, arithmetic and risks."))
+            out.append("")
     cats = bot.get("cats") or {}
     out.append("🤖 " + B("Bot's picks") + T("  win chance @ DraftKings price · EV · simulation"))
     any_cat = False
@@ -145,7 +159,7 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
     legs = [l for l in (C.get("legs") or []) if live(l)]
     out.append("")
     if legs:
-        band = C.get("odds_band") or [1.4, 2.3]
+        band = C.get("odds_band") or [1.35, 2.2]
         out.append("🏆 " + B(f"Bot's top {len(legs)} · all markets, no anytime TD") + T(f"  one per game, DK {band[0]:.2f} to {band[1]:.2f}"))
         for i, l in enumerate(legs, 1):
             out.append(f"{i}. " + _bet_line(l, B, T))
@@ -162,7 +176,7 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
     gs = sorted(p["games"], key=lambda g: g.get("kickoff_utc") or "")
     kos = [k for k in (ko(g) for g in gs) if k]
     span = f"{kos[0].astimezone(ZoneInfo('America/New_York')):%a %b %-d} to {kos[-1].astimezone(ZoneInfo('America/New_York')):%a %b %-d}" if kos else ""
-    head = {"weekly": "🗓️ Week preview", "daily": "🗓️ Week preview", "t75": "⏰ Kickoff soon", "update": "🔄 Update", "test": "🧪 Test message"}.get(reason, "🔄 Update")
+    head = {"weekly": "🗓️ Week preview", "daily": "🗓️ Week preview", "t75": "⏰ Kickoff soon", "update": "🔄 Update", "research": "⭐ Research desk", "test": "🧪 Test message"}.get(reason, "🔄 Update")
     out = [f"🏈 {B('Gill Sports · NFL week ' + str(p['week']))} · {T(head)}", T(f"{span} · {len(gs)} games")]
     if reason == "t75" and window:
         out.append("")
