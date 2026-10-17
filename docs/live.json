@@ -1,7 +1,7 @@
 {
  "date": "2026-10-17",
- "updated_utc": "2026-10-17 23:30 UTC",
- "updated_et": "7:30 PM ET",
+ "updated_utc": "2026-10-17 23:35 UTC",
+ "updated_et": "7:35 PM ET",
  "games": {
   "2026020121": {
    "state": "OFF",
@@ -150,11 +150,11 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "06:56",
-   "elapsed_min": 33.07,
+   "time_remaining": "05:45",
+   "elapsed_min": 34.25,
    "home": "FLA",
    "away": "SEA",
-   "home_score": 5,
+   "home_score": 6,
    "away_score": 1,
    "first_goal_min": 1.083,
    "p1_done": true,
@@ -191,6 +191,11 @@
      "period": 2,
      "minute": 26.7,
      "team": "FLA"
+    },
+    {
+     "period": 2,
+     "minute": 33.217,
+     "team": "FLA"
     }
    ]
   },
@@ -199,8 +204,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "11:11",
-   "elapsed_min": 8.82,
+   "time_remaining": "07:04",
+   "elapsed_min": 12.93,
    "home": "TOR",
    "away": "NYI",
    "home_score": 0,
@@ -223,8 +228,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "11:30",
-   "elapsed_min": 8.5,
+   "time_remaining": "09:35",
+   "elapsed_min": 10.42,
    "home": "MTL",
    "away": "BUF",
    "home_score": 0,
@@ -247,26 +252,32 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:00",
-   "elapsed_min": 11.0,
+   "time_remaining": "05:30",
+   "elapsed_min": 14.5,
    "home": "DET",
    "away": "SJS",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 12.75,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 12.75,
+     "team": "DET"
+    }
+   ]
   },
   "2026020128": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "10:55",
-   "elapsed_min": 9.08,
+   "time_remaining": "09:24",
+   "elapsed_min": 10.6,
    "home": "PHI",
    "away": "OTT",
    "home_score": 0,
@@ -283,8 +294,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:21",
-   "elapsed_min": 10.65,
+   "time_remaining": "06:35",
+   "elapsed_min": 13.42,
    "home": "CBJ",
    "away": "NYR",
    "home_score": 0,
@@ -301,24 +312,18 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:50",
-   "elapsed_min": 12.17,
+   "time_remaining": "07:13",
+   "elapsed_min": 12.78,
    "home": "CHI",
    "away": "DAL",
    "home_score": 0,
-   "away_score": 1,
-   "first_goal_min": 12.133,
+   "away_score": 0,
+   "first_goal_min": null,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 1,
+   "p1_away": 0,
    "ended_in": null,
-   "goals": [
-    {
-     "period": 1,
-     "minute": 12.133,
-     "team": "DAL"
-    }
-   ]
+   "goals": []
   },
   "2026020131": {
    "state": "PRE",
