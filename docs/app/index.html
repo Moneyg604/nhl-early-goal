@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gill Sports · Desk</title>
+<meta name="description" content="The research desk's best picks, sections, logic and record for NFL and NBA">
+<meta name="theme-color" content="#0F1529">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gill Sports">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ink:#0F1529; --slate:#1A2340; --slate2:#212C4F; --line:rgba(190,205,240,.13); --line2:rgba(190,205,240,.24);
+  --text:#EEF1F8; --muted:#A9B3CC; --dim:#6F7A99;
+  --gold:#E6B84F; --gold2:#F5D27A; --ice:#B49BFF; --green:#39D98A; --red:#FF6B6B; --amber:#F3B63A;
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+  --r:18px; --nav:64px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom))}
+a{color:var(--ice);text-decoration:none}
+button{font-family:inherit}
+.app{max-width:1100px;margin:0 auto;padding:0 16px}
+/* top bar */
+.top{display:flex;align-items:center;gap:12px;padding:14px 0 6px}
+.top .mark{width:42px;height:42px;border-radius:12px;object-fit:cover;box-shadow:0 0 0 1px rgba(230,184,79,.35)}
+.top .word{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;line-height:1}
+.top .word span{color:var(--gold)}
+.top .sub{display:block;font-size:12px;color:var(--dim);font-family:var(--body);font-weight:500;margin-top:3px}
+.sports{margin-left:auto;display:flex;background:var(--slate);border:1px solid var(--line);border-radius:999px;padding:3px}
+.sports button{background:transparent;border:0;color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer}
+.sports button.on{background:var(--slate2);color:var(--text);box-shadow:inset 0 0 0 1px var(--line2)}
+/* status line */
+.status{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--dim);padding:6px 0 14px}
+.status b{color:var(--muted);font-weight:600}
+.status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px;vertical-align:1px}
+.status .dot.old{background:var(--amber)}
+/* views */
+.view{display:none}.view.on{display:block}
+h1{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1.02;margin:6px 0 4px}
+h1 small{display:block;font-family:var(--body);font-weight:500;font-size:14px;color:var(--muted);letter-spacing:0;margin-top:8px;line-height:1.4;max-width:64ch}
+h2{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em;margin:26px 0 8px}
+h2 small{font-family:var(--body);font-weight:500;font-size:13px;color:var(--dim);margin-left:8px;letter-spacing:0}
+.lead{color:var(--muted);max-width:64ch;margin:0 0 14px}
+.empty{background:var(--slate);border:1px dashed var(--line2);border-radius:var(--r);padding:16px;color:var(--muted);font-size:14px}
+.empty b{color:var(--text)}
+/* tickets */
+.tickets{display:grid;gap:12px}
+@media (min-width:860px){.tickets{grid-template-columns:1fr 1fr}}
+.ticket{position:relative;background:var(--slate);border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 14px 22px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.ticket:before{content:'';position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--gold);
+  -webkit-mask:radial-gradient(circle at 3.5px 50%,transparent 2.6px,#000 2.9px) 0 0/7px 11px repeat-y;mask:radial-gradient(circle at 3.5px 50%,transparent 2.6px,#000 2.9px) 0 0/7px 11px repeat-y}
+.ticket.sec:before{background:var(--line2)}
+.ticket.wild:before{background:var(--ice)}
+.ticket:hover,.ticket:focus-within{border-color:var(--line2)}
+.ticket .head{display:flex;gap:12px;align-items:flex-start}
+.ticket .who{flex:1 1 auto;min-width:0}
+.ticket .label{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em;line-height:1.15}
+.ticket .meta{font-size:12.5px;color:var(--dim);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ring{flex:0 0 auto;width:66px;height:66px;position:relative}
+.ring svg{width:66px;height:66px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:5}
+.ring .bg{stroke:rgba(255,255,255,.08)}
+.ring .fg{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.ticket.sec .ring .fg{stroke:var(--ice)}
+.ring .n{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;line-height:1}
+.ring .n small{font-family:var(--body);font-weight:500;font-size:9.5px;color:var(--dim);margin-top:2px}
+.ticket .row2{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:9px;padding:4px 9px;font-size:12px;font-weight:600;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
+.chip.price{color:var(--text);font-family:var(--display);font-size:14px;font-weight:700}
+.chip.price small{font-family:var(--body);font-weight:500;color:var(--dim);font-size:11px}
+.chip.g-A{color:var(--green);border-color:rgba(57,217,138,.35)}.chip.g-B{color:var(--gold2);border-color:rgba(230,184,79,.35)}.chip.g-C{color:var(--muted)}
+.chip.won{color:var(--green);background:rgba(57,217,138,.12)}.chip.lost{color:var(--red);background:rgba(255,107,107,.12)}.chip.live{color:var(--ice);background:rgba(180,155,255,.12)}.chip.push{color:var(--amber)}
+.chip.alert{color:var(--red);border-color:rgba(255,107,107,.4)}
+.ticket .verdict{margin:12px 0 0;font-size:14px;color:var(--text);line-height:1.45}
+.ticket .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.2,.8,.2,1)}
+.ticket.open .more{grid-template-rows:1fr}
+.ticket .more>div{overflow:hidden}
+.ticket .body{padding-top:12px;font-size:13.5px;color:var(--muted)}
+.ticket .body h4{margin:12px 0 4px;font-size:12px;font-weight:600;color:var(--text)}
+.ticket .body ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.ticket .body ul.ar li{font-variant-numeric:tabular-nums}
+.ticket .body ul.ri li::marker{color:var(--red)}.ticket .body ul.pr li::marker{color:var(--green)}
+.ticket .body .src{margin-top:10px;font-size:11.5px;color:var(--dim)}
+.ticket .body .src a{color:var(--ice)}
+.ticket .tap{position:absolute;right:14px;bottom:10px;font-size:11.5px;color:var(--dim)}
+/* section rows */
+.rows{display:grid;gap:8px}
+/* alerts and strips */
+.strip{border:1px solid rgba(255,107,107,.45);background:rgba(255,107,107,.08);border-radius:14px;padding:12px 14px;margin:0 0 12px;font-size:13.5px}
+.strip b{color:var(--red)}
+.strip ul{margin:6px 0 0;padding-left:18px}
+.note{background:var(--slate);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--muted)}
+/* chips nav for sections */
+.jump{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:0 0 auto;background:var(--slate);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:12.5px;color:var(--muted);font-weight:600}
+/* board */
+.table{overflow-x:auto;background:var(--slate);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+th{color:var(--dim);font-weight:600;font-size:12px;border-top:0}
+th:first-child,td:first-child{text-align:left}
+td.lbl{white-space:normal;min-width:180px}
+td.pos{color:var(--green)}td.neg{color:var(--red)}
+.hot{display:grid;gap:10px}@media (min-width:860px){.hot{grid-template-columns:1fr 1fr}}
+.box{background:var(--slate);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.box h3{margin:0 0 6px;font-family:var(--display);font-size:16px;font-weight:700}
+.box .r{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+.box .r:first-of-type{border-top:0}
+.box .up{color:var(--green);font-weight:600}.box .dn{color:var(--red);font-weight:600}
+/* logic */
+.spec{display:grid;gap:10px}
+.rule{background:var(--slate);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.rule .k{font-size:12px;color:var(--dim);font-weight:600}
+.rule .v{font-family:var(--display);font-size:18px;font-weight:700;margin-top:2px}
+.rule p{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.secs{display:grid;gap:8px}
+.secs .s{display:flex;justify-content:space-between;gap:10px;background:var(--slate);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px}
+.secs .s span{color:var(--dim);font-size:12.5px;white-space:nowrap}
+.inst{display:grid;gap:8px}
+.inst .i{display:flex;gap:10px;background:var(--slate);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.4}
+.inst .i em{font-style:normal;color:var(--gold);font-family:var(--display);font-weight:700;flex:0 0 auto}
+.editor{margin-top:14px;background:var(--slate);border:1px solid var(--line);border-radius:14px;padding:14px}
+.editor textarea{width:100%;min-height:92px;background:var(--ink);color:var(--text);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;resize:vertical}
+.editor .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{background:var(--slate2);border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:9px 14px;font-size:13.5px;font-weight:600;cursor:pointer}
+.btn.gold{background:var(--gold);color:#1b1402;border-color:transparent}
+.btn.ghost{background:transparent}
+.vars{display:flex;flex-wrap:wrap;gap:6px}
+.vars label{display:inline-flex;align-items:center;gap:6px;background:var(--slate);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:12.5px;cursor:pointer;color:var(--muted)}
+.vars label.on{color:var(--text);border-color:rgba(230,184,79,.5)}
+.vars input{display:none}
+.toast{position:fixed;left:50%;bottom:calc(var(--nav) + 14px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:var(--gold);color:#1b1402;border-radius:12px;padding:10px 16px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.toast.on{opacity:1;transform:translateX(-50%)}
+/* record */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:12px}
+.kpi{background:var(--slate);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi .k{font-size:12px;color:var(--dim);font-weight:600}
+.kpi .v{font-family:var(--display);font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-top:2px}
+.kpi .v.pos{color:var(--green)}.kpi .v.neg{color:var(--red)}
+.kpi .t{font-size:12px;color:var(--muted);margin-top:2px}
+.spark{height:46px;width:100%;margin-top:6px}
+/* bottom nav */
+.nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--nav) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(15,21,41,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;z-index:20}
+.nav button{flex:1;background:transparent;border:0;color:var(--dim);font-size:11.5px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav button.on{color:var(--gold)}
+@media (min-width:860px){
+  body{padding-bottom:20px;padding-left:92px}
+  .nav{top:0;bottom:0;left:0;right:auto;width:78px;height:auto;flex-direction:column;justify-content:flex-start;padding-top:18px;border-top:0;border-right:1px solid var(--line)}
+  .nav button{flex:0 0 auto;padding:12px 0}
+}
+.foot{color:var(--dim);font-size:12px;padding:30px 0 10px}
+.foot a{color:var(--ice)}
+@media (prefers-reduced-motion:no-preference){
+  .ticket.in{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <img class="mark" src="../brand-mark.png?v=2" alt="Gill Sports" width="42" height="42">
+    <div><div class="word">Gill <span>Sports</span><span class="sub" id="sub">Research desk</span></div></div>
+    <div class="sports" id="sports"><button data-s="nfl" class="on">NFL</button><button data-s="nba">NBA</button><button data-s="nhl">NHL</button></div>
+  </div>
+  <div class="status" id="status"></div>
+
+  <section class="view on" id="v-picks"></section>
+  <section class="view" id="v-board"></section>
+  <section class="view" id="v-logic"></section>
+  <section class="view" id="v-record"></section>
+  <div class="foot" id="foot"></div>
+</div>
+<nav class="nav" id="nav">
+  <button data-v="picks" class="on"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM8 7v10M4 12h4"/></svg>Picks</button>
+  <button data-v="board"><svg viewBox="0 0 24 24"><path d="M4 19V5M10 19V9M16 19v-6M22 19H2"/></svg>Board</button>
+  <button data-v="logic"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>Logic</button>
+  <button data-v="record"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 5-8 4 5"/></svg>Record</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct = (x,d=0) => x==null ? '–' : (x*100).toFixed(d)+'%';
+const am = d => d==null ? '' : (d>=2 ? '+'+Math.round((d-1)*100) : '-'+Math.round(100/(d-1)));
+const TZ = 'America/Toronto';
+const iso = s => { s=String(s||''); if(/^\d{4}-\d\d-\d\d \d\d:\d\d UTC$/.test(s)) s=s.replace(' ','T').replace(' UTC','Z'); return new Date(/T\d\d:\d\dZ$/.test(s)?s.replace('Z',':00Z'):s); };
+const when = s => s ? iso(s).toLocaleString('en-US',{timeZone:TZ,weekday:'short',hour:'numeric',minute:'2-digit'})+' ET' : '';
+const stamp = s => { if(!s) return 'not yet'; const d=iso(s); return isNaN(d)?esc(s):d.toLocaleString('en-US',{timeZone:TZ,month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'; };
+const ago = s => { if(!s) return ''; const m=Math.round((Date.now()-iso(s))/60000); if(m<1) return 'just now'; if(m<60) return m+' min ago'; const h=Math.round(m/60); if(h<48) return h+' h ago'; return Math.round(h/24)+' days ago'; };
+const now = () => new Date().toISOString().slice(0,16)+'Z';
+const KIND = {ml:'Moneyline', spread:'Spread', total:'Total', h1:'1st half', h2:'2nd half', qb_yds:'Passing yards', qb_td:'Passing TDs', rec_yds:'Receiving yards', recs:'Receptions', rush_yds:'Rushing yards', fg:'Kicker FGs', pts:'Points', reb:'Rebounds', ast:'Assists', threes:'Threes', pra:'PRA'};
+const NBA_SECTIONS = [{key:'pts',label:'Points',markets:['pts']},{key:'reb',label:'Rebounds',markets:['reb']},{key:'ast',label:'Assists',markets:['ast']},{key:'threes',label:'Threes and PRA',markets:['threes','pra']},{key:'game',label:'Moneyline, spreads, totals',markets:['ml','spread','total']}];
+
+const S = {sport:'nfl', view:'picks', open:new Set(), P:null, SC:null, vars:{}, extra:''};
+try{ Object.assign(S, JSON.parse(localStorage.getItem('gs_app')||'{}'), {open:new Set()}); }catch(e){}
+const save = () => { try{ localStorage.setItem('gs_app', JSON.stringify({sport:S.sport, view:S.view, extra:S.extra, vars:S.vars})); }catch(e){} };
+const start = g => g.kickoff_utc || g.tip_utc || '';
+
+async function load(){
+  const base = S.sport==='nfl' ? '../nfl/' : (S.sport==='nba' ? '../nba/' : null);
+  $('#status').innerHTML = '<span>Loading…</span>';
+  if(!base){ S.P=null; S.SC=null; render(); return; }
+  try{
+    const idx = await (await fetch(base + (S.sport==='nfl'?'weeks.json':'days.json'), {cache:'no-cache'})).json();
+    const cur = idx.current;
+    const file = base + (S.sport==='nfl' ? `weeks/${cur}.json` : `days/${cur}.json`);
+    S.P = await (await fetch(file, {cache:'no-cache'})).json();
+    S.P._base = base;
+  }catch(e){ S.P = null; }
+  try{ S.SC = await (await fetch(base + 'scorecard.json', {cache:'no-cache'})).json(); }catch(e){ S.SC=null; }
+  render();
+}
+
+function deskOf(){ const B=(S.P&&S.P.bot)||{}; return (B.desk && B.desk.ok) ? B.desk : null; }
+function games(){ const m={}; ((S.P&&S.P.games)||[]).forEach(g=>m[g.game_id]=g); return m; }
+function result(x){ const g=games()[x.game_id]; if(!g) return null; const A=g.actual; if(!A||A.hs==null) return (start(g)<=now()) ? 'live' : null;
+  const hs=A.hs, as_=A.as; const ou=v=> v==null?null:(v>x.line?(x.side==='over'?'won':'lost'):(v<x.line?(x.side==='over'?'lost':'won'):'push'));
+  if(x.kind==='ml') return (x.side==='home'?hs-as_:as_-hs)>0?'won':'lost';
+  if(x.kind==='spread'){ const m=(x.side==='home'?hs-as_:as_-hs)+x.line; return m>0?'won':(m===0?'push':'lost'); }
+  if(x.kind==='total') return ou(hs+as_);
+  if(S.sport==='nba'){ const st=((A.players||{})[x.team]||{})[x.pid]; return st?ou(st[x.kind]):null; }
+  if(x.kind==='h1'&&A.h1) return ou(A.h1[0]+A.h1[1]);
+  if((x.kind==='qb_yds'||x.kind==='qb_td') && A.qb){ const side=g.home===x.team?'home':'away'; const q=A.qb[side]; if(!q) return 'void'; return ou(x.kind==='qb_yds'?q.yds:q.td); }
+  if(['rec_yds','rush_yds','recs'].includes(x.kind) && A.stats){ const st=A.stats[x.pid]; if(!st) return 'void'; return ou(x.kind==='rec_yds'?st.recyds:(x.kind==='rush_yds'?st.ryds:st.rec)); }
+  return null; }
+
+function ring(p, cls){ const r=28, c=2*Math.PI*r; const off=c*(1-Math.max(0,Math.min(1,p||0)));
+  return `<div class="ring ${cls||''}"><svg viewBox="0 0 66 66"><circle class="bg" cx="33" cy="33" r="${r}"/><circle class="fg" cx="33" cy="33" r="${r}" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${c.toFixed(1)}" data-off="${off.toFixed(1)}"/></svg><div class="n">${pct(p)}<small>to win</small></div></div>`; }
+
+function ticket(x, kind, i){
+  const r = result(x); const isOpen = S.open.has(x.id);
+  const res = r ? `<span class="chip ${r==='won'?'won':(r==='lost'?'lost':(r==='live'?'live':'push'))}">${r==='live'?'in play':r}</span>` : '';
+  const src = {feed:'odds feed', draftkings:'DraftKings checked', unverified:'price not verified'}[x.odds_source]||'';
+  const al = x.alert ? `<span class="chip alert">moved: ${esc(x.alert.why)}</span>` : '';
+  const B = x.board||{};
+  return `<article class="ticket ${kind} ${isOpen?'open':''} in" style="animation-delay:${Math.min(i*60,420)}ms" data-id="${esc(x.id)}" tabindex="0" role="button" aria-expanded="${isOpen}">
+    <div class="head"><div class="who"><div class="label">${esc(x.label)}</div><div class="meta">${esc(x.mu)} · ${esc(when(x.kick))} · ${esc(KIND[x.kind]||x.kind)}</div></div>${ring(x.p, '')}</div>
+    <div class="row2"><span class="chip price">${x.odds.toFixed(2)} <small>${am(x.odds)} · ${esc(src)}</small></span><span class="chip g-${esc(x.grade)}">grade ${esc(x.grade)}</span><span class="chip">${esc(x.evidence)} · ${x.confidence}</span>${B.p!=null?`<span class="chip">site ${pct(B.p)}</span>`:''}${res}${al}</div>
+    <p class="verdict">${esc(x.verdict)}</p>
+    <div class="more"><div><div class="body">
+      ${(x.inputs||[]).length?`<h4>What the desk measured</h4><ul>${x.inputs.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}
+      ${(x.arithmetic||[]).length?`<h4>The arithmetic</h4><ul class="ar">${x.arithmetic.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}
+      ${(x.pros||[]).length?`<h4>For</h4><ul class="pr">${x.pros.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}
+      ${(x.risks||[]).length?`<h4>Risks</h4><ul class="ri">${x.risks.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:''}
+      <div class="src">Sources: ${(x.sources||[]).map(s=>`${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)} (${esc(stamp(s.fetched))})`).join(' · ')||'none listed'}</div>
+    </div></div></div>
+    <span class="tap">${isOpen?'tap to close':'tap for the write-up'}</span></article>`; }
+
+function viewPicks(){
+  const D=deskOf(); const el=$('#v-picks');
+  if(!S.P){ el.innerHTML = S.sport==='nhl' ? `<h1>NHL</h1><p class="empty">The NHL desk lives on its own page for now. <a href="../">Open the NHL page</a>.</p>` : `<h1>Nothing loaded</h1><p class="empty">The ${S.sport.toUpperCase()} data could not be fetched. Check the connection and pull to refresh.</p>`; return; }
+  const label = S.sport==='nfl' ? `Week ${S.P.week}` : S.P.date;
+  if(!D){ el.innerHTML = `<h1>${esc(label)}<small>The desk has not run for this slate yet. It runs before each window; the board and the model are ready meanwhile.</small></h1>`; return; }
+  const t=now(); const byId={}; (D.selections||[]).forEach(x=>byId[x.id]=x); (D.wild_cards||[]).forEach(x=>byId[x.id]=x);
+  const spec = D.spec||{}; const sections = (spec.sections&&spec.sections.length) ? spec.sections : (S.sport==='nba' ? NBA_SECTIONS : []);
+  const upcoming = x => x && start(games()[x.game_id]||{})>t;
+  const best = (D.best||[]).map(i=>byId[i]).filter(Boolean);
+  const bestUp = best.filter(upcoming), bestDone = best.filter(x=>!upcoming(x));
+  let h = `<h1>${esc(label)}<small>${esc(D.analyst||'The research desk')} read the news, worked out every candidate and chose. Desk run ${esc(stamp(D.generated))} (${esc(ago(D.generated))}). ${D.odds_rule==='ignore'?'Chosen on evidence; the price is shown, never the reason.':`Prices ${D.band[0].toFixed(2)} to ${D.band[1].toFixed(2)}.`}</small></h1>`;
+  const alerts=(D.alerts||[]).filter(a=>a.kick>t);
+  if(alerts.length) h += `<div class="strip"><b>DraftKings moved against ${alerts.length} pick${alerts.length===1?'':'s'}.</b> Check the number before betting.<ul>${alerts.map(a=>`<li>${esc(a.label)} (${esc(a.mu)}): ${esc(a.why)}</li>`).join('')}</ul></div>`;
+  h += `<div class="jump"><a href="#best">Best picks</a>${sections.map(s=>`<a href="#s-${esc(s.key)}">${esc(s.label)}</a>`).join('')}${(D.wild_cards||[]).length?'<a href="#wild">Wild cards</a>':''}</div>`;
+  h += `<h2 id="best">${esc((spec.best||{}).label||'Best picks')}<small>${bestUp.length} to play${spec.derived?' · ranked by the spec\'s rule':''}</small></h2>`;
+  h += bestUp.length ? `<div class="tickets">${bestUp.map((x,i)=>ticket(x,'best',i)).join('')}</div>` : `<p class="empty"><b>No best pick left to play.</b> The next desk run adds the next window's.</p>`;
+  const shown = new Set(best.map(x=>x.id));
+  sections.forEach(sp=>{ const ids=(D.sections||{})[sp.key]; let rows = ids ? ids.map(i=>byId[i]).filter(Boolean) : (D.selections||[]).filter(x=>(sp.markets||[]).includes(x.kind));
+    rows = rows.filter(upcoming);
+    h += `<h2 id="s-${esc(sp.key)}">${esc(sp.label)}<small>${rows.length}${sp.max?' of '+sp.max:''}${sp.note?' · '+esc(sp.note):''}</small></h2>`;
+    h += rows.length ? `<div class="tickets">${rows.map((x,i)=>ticket(x, shown.has(x.id)?'best':'sec', i)).join('')}</div>` : `<p class="empty">No selection in this section for the games still to play.</p>`; rows.forEach(x=>shown.add(x.id)); });
+  const MK=(((S.P.bot||{}).desk_config||{}).markets)||{}; const rest=(D.selections||[]).filter(x=>upcoming(x)&&!shown.has(x.id)&&MK[x.kind]!==false&&!String(x.id).startsWith('alt|'));
+  if(rest.length) h += `<h2>Other selections<small>${rest.length}</small></h2><div class="tickets">${rest.map((x,i)=>ticket(x,'sec',i)).join('')}</div>`;
+  const wild=(D.wild_cards||[]).filter(upcoming);
+  if(wild.length) h += `<h2 id="wild">Wild cards<small>longer prices, smaller stakes</small></h2><div class="tickets">${wild.map((x,i)=>ticket(x,'wild',i)).join('')}</div>`;
+  const done=(D.selections||[]).filter(x=>!upcoming(x));
+  if(done.length) h += `<h2>Already started<small>${done.length}</small></h2><div class="tickets">${done.map((x,i)=>ticket(x, best.some(b=>b.id===x.id)?'best':'sec', i)).join('')}</div>`;
+  if((D.declined||[]).length) h += `<h2>Looked at and declined<small>${D.declined.length}</small></h2><div class="table"><table><tr><th>Candidate</th><th>Why not</th></tr>${D.declined.map(d=>`<tr><td class="lbl"><b>${esc(d.label)}</b></td><td class="lbl" style="text-align:left">${esc(d.why)}</td></tr>`).join('')}</table></div>`;
+  el.innerHTML = h;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.querySelectorAll('.ring .fg').forEach(c=>c.setAttribute('stroke-dashoffset', c.dataset.off))));
+  el.querySelectorAll('.ticket').forEach(a=>{ const toggle=()=>{ const id=a.dataset.id; if(S.open.has(id)) S.open.delete(id); else S.open.add(id); a.classList.toggle('open'); a.setAttribute('aria-expanded', a.classList.contains('open')); a.querySelector('.tap').textContent = a.classList.contains('open')?'tap to close':'tap for the write-up'; };
+    a.addEventListener('click', e=>{ if(e.target.closest('a')) return; toggle(); }); a.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } }); });
+}
+
+function viewBoard(){ const el=$('#v-board'); if(!S.P){ el.innerHTML='<h1>Board</h1><p class="empty">Nothing loaded.</p>'; return; }
+  const t=now(); const H=((S.P.bot||{}).hot)||{}; const D=deskOf();
+  const mv=(H.movers||[]).filter(m=>m.kick>t); const ed=(H.edges||[]).filter(e=>e.kick>t); const fd=(H.fades||[]).filter(e=>e.kick>t&&e.gap<0);
+  const board=((S.P.best_bets||{}).ranked||[]).filter(b=>b.odds&&b.kick>t).slice().sort((a,b)=>b.p-a.p);
+  let h = `<h1>Board<small>Every DraftKings market the site prices for the games still to play, ranked by win chance, with the line moves since the opener and where the desk disagrees with the market.</small></h1>`;
+  h += `<div class="hot"><div class="box"><h3>Line moves since the opener</h3>${mv.length?mv.slice(0,10).map(m=>`<div class="r"><span>${esc(m.label)}</span><span><span class="up">${esc(m.hot)}</span> / <span class="dn">${esc(m.cold)}</span></span></div>`).join(''):'<div class="r"><span style="color:var(--dim)">No move of half a point or more yet.</span></div>'}</div>
+    <div class="box"><h3>Desk vs market</h3>${ed.length?ed.slice(0,6).map(e=>`<div class="r"><span>${esc(e.label)}</span><span class="up">desk ${pct(e.desk)} · market ${pct(e.market)}</span></div>`).join(''):'<div class="r"><span style="color:var(--dim)">No desk selection on a priced market yet.</span></div>'}${fd.length?fd.map(e=>`<div class="r"><span>${esc(e.label)}</span><span class="dn">desk ${pct(e.desk)} · market ${pct(e.market)}</span></div>`).join(''):''}</div></div>`;
+  h += `<h2>Every priced market<small>${board.length}</small></h2><div class="table"><table><tr><th>Bet</th><th>DK</th><th>Win</th><th>Market</th><th>Model</th><th>EV</th></tr>${board.slice(0,80).map(b=>`<tr><td class="lbl"><b>${esc(b.label)}</b><br><span style="color:var(--dim);font-size:12px">${esc(b.mu)} · ${esc(when(b.kick))}${b.desk?' · <span style="color:var(--gold)">desk '+pct(b.desk.p)+'</span>':''}</span></td><td>${b.odds.toFixed(2)}</td><td><b>${pct(b.p)}</b></td><td>${b.p_market!=null?pct(b.p_market):'–'}</td><td>${b.p_model!=null?pct(b.p_model):'–'}</td><td class="${(b.ev||0)>=0.02?'pos':((b.ev||0)<-0.03?'neg':'')}">${b.ev!=null?((b.ev>=0?'+':'')+(b.ev*100).toFixed(1)+'%'):'–'}</td></tr>`).join('')}</table></div>${board.length>80?`<p class="note" style="margin-top:8px">${board.length-80} more on the <a href="${S.P._base}">full ${S.sport.toUpperCase()} page</a>.</p>`:''}`;
+  el.innerHTML=h; }
+
+function viewLogic(){ const el=$('#v-logic'); const C=((S.P||{}).bot||{}).desk_config||{}; const D=deskOf();
+  const secs=(C.sections&&C.sections.length)?C.sections:(S.sport==='nba'?NBA_SECTIONS:[]); const best=C.best||{}; const sel=C.selection||{};
+  const vars=Object.entries(C.variables||{});
+  let h = `<h1>How the desk thinks<small>The spec the research desk follows on every run. Change a rule here, copy the result, and send it to Claude in one message; the next run follows it. Nothing on this page edits the live spec by itself.</small></h1>`;
+  h += `<div class="spec"><div class="rule"><div class="k">Prices</div><div class="v">${C.odds_rule==='ignore'?'Evidence chooses; the price is shown, never the reason':`Only ${(C.odds_band||[])[0]} to ${(C.odds_band||[])[1]}`}</div><p>${esc(C.odds_rule_note||'')}</p></div>
+    <div class="rule"><div class="k">Lines</div><div class="v">${C.lines==='draftkings'?"DraftKings' actual posted lines only":'Any line'}</div><p>${esc(C.lines_note||'')}</p></div>
+    <div class="rule"><div class="k">${esc(best.label||'Best picks')}</div><div class="v">${best.min||3} to ${best.max||6}</div><p>${esc(best.rule||'')}</p></div></div>`;
+  h += `<h2>Sections</h2><div class="secs">${secs.map(s=>`<div class="s"><div><b>${esc(s.label)}</b>${s.note?`<div style="color:var(--dim);font-size:12.5px">${esc(s.note)}</div>`:''}</div><span>${(s.markets||[]).map(m=>KIND[m]||m).join(', ')} · ${s.min||1} to ${s.max||6}</span></div>`).join('')}</div>`;
+  h += `<h2>Markets in play</h2><div class="vars">${Object.entries(C.markets||{}).map(([k,v])=>`<label class="${v?'on':''}"><input type="checkbox" data-m="${esc(k)}" ${v?'checked':''}>${esc(KIND[k]||k)}</label>`).join('')}</div>`;
+  h += `<h2>Variables the desk checks</h2><div class="vars">${vars.map(([k,v])=>`<label class="${v&&v.on!==false?'on':''}" title="${esc((v&&v.label)||k)}"><input type="checkbox" data-var="${esc(k)}" ${v&&v.on!==false?'checked':''}>${esc(k.replace(/_/g,' '))}</label>`).join('')}</div>`;
+  const inst=C.instructions||[];
+  h += `<h2>Standing instructions<small>${inst.length}</small></h2><div class="inst">${inst.map((x,i)=>`<div class="i"><em>${i+1}</em><span>${esc(x)}</span></div>`).join('')||'<p class="empty">None yet. Add the first one below.</p>'}</div>`;
+  h += `<div class="editor"><label for="newrule" style="font-size:13px;color:var(--muted)">Add a rule in plain English (one per line). It becomes a standing instruction the desk must follow.</label><textarea id="newrule" placeholder="Never pick a receiver whose quarterback is a game-time decision.">${esc(S.extra||'')}</textarea>
+    <div class="btns"><button class="btn gold" id="copy-spec">Copy the updated spec</button><button class="btn" id="copy-msg">Copy a message for Claude</button><button class="btn ghost" id="clear-rules">Clear</button></div>
+    <p style="font-size:12.5px;color:var(--dim);margin:10px 0 0">Paste the spec into <code>data/${S.sport}/desk_config.json</code> in the repository, or paste the message to Claude and it will apply it and rebuild. ${D?`The current desk run (${esc(stamp(D.generated))}) used the spec as it was then.`:''}</p></div>`;
+  el.innerHTML=h;
+  const spec = () => { const c=JSON.parse(JSON.stringify(C)); c.markets=c.markets||{}; el.querySelectorAll('input[data-m]').forEach(i=>c.markets[i.dataset.m]=i.checked); c.variables=c.variables||{}; el.querySelectorAll('input[data-var]').forEach(i=>{ c.variables[i.dataset.var]=Object.assign({}, c.variables[i.dataset.var]||{}, {on:i.checked}); });
+    const add=(S.extra||'').split('\n').map(x=>x.trim()).filter(Boolean); c.instructions=(c.instructions||[]).concat(add.filter(x=>!(c.instructions||[]).includes(x))); c.updated_utc=new Date().toISOString().slice(0,16).replace('T',' ')+' UTC'; return c; };
+  const copy = (txt, msg) => (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(msg), ()=>prompt('Copy this', txt));
+  el.querySelectorAll('.vars label').forEach(l=>{ const i=l.querySelector('input'); i.onchange=()=>{ l.classList.toggle('on', i.checked); }; });
+  $('#newrule').oninput = e => { S.extra=e.target.value; save(); };
+  $('#copy-spec').onclick = () => copy(JSON.stringify(spec(),null,1), 'Spec copied');
+  $('#copy-msg').onclick = () => { const c=spec(); const add=(S.extra||'').split('\n').map(x=>x.trim()).filter(Boolean); const off=Object.entries(c.markets).filter(([k,v])=>!v).map(([k])=>KIND[k]||k); const voff=Object.entries(c.variables).filter(([k,v])=>v&&v.on===false).map(([k])=>k);
+    const msg = `Update the ${S.sport.toUpperCase()} desk spec (data/${S.sport}/desk_config.json) and rebuild:\n`+(add.length?`- add these standing instructions:\n${add.map(x=>'  • '+x).join('\n')}\n`:'')+`- markets off: ${off.join(', ')||'none'}\n- variables off: ${voff.join(', ')||'none'}\n- prices: ${c.odds_rule==='ignore'?'evidence chooses, price shown only':'band '+c.odds_band.join(' to ')}\nThen run the desk again for the current slate.`; copy(msg, 'Message copied'); };
+  $('#clear-rules').onclick = () => { S.extra=''; save(); $('#newrule').value=''; }; }
+
+function viewRecord(){ const el=$('#v-record'); const SC=S.SC; if(!SC){ el.innerHTML='<h1>Record</h1><p class="empty">No scorecard yet.</p>'; return; }
+  const LB=(SC.leaderboard||[]).filter(r=>r.n); const items=(SC.items||[]).filter(i=>['desk','desk_best','desk_wild'].includes(i.market||i.line));
+  let h = `<h1>Record<small>Every pick graded at the DraftKings price shown before it started, one unit each. Judge the desk on this page, not on a hot week.</small></h1>`;
+  const d = LB.find(r=>r.key==='desk_best')||LB.find(r=>r.key==='desk');
+  if(d){ h += `<div class="kpis"><div class="kpi"><div class="k">${esc(d.label)}</div><div class="v ${(d.units||0)>=0?'pos':'neg'}">${(d.units||0)>=0?'+':''}${(d.units||0).toFixed(2)}</div><div class="t">units over ${d.n} picks</div></div>
+    <div class="kpi"><div class="k">Hit rate</div><div class="v">${d.rate!=null?pct(d.rate):'–'}</div><div class="t">${d.won} won · ${d.lost} lost · ${d.push} push</div></div>
+    <div class="kpi"><div class="k">ROI</div><div class="v ${(d.roi||0)>=0?'pos':'neg'}">${d.roi!=null?((d.roi>=0?'+':'')+(d.roi*100).toFixed(1)+'%'):'–'}</div><div class="t">per unit staked</div></div></div>`;
+    // cumulative units sparkline from the items
+    const seq=(SC.items||[]).filter(i=>(i.market===d.key||i.line===d.key)&&i.units!=null); if(seq.length>1){ let c=0; const pts=seq.map(i=>c+=i.units); const mn=Math.min(0,...pts), mx=Math.max(0,...pts); const W=600,H=46; const x=i=>i/(pts.length-1)*W, y=v=>H-((v-mn)/((mx-mn)||1))*H;
+      h += `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="M0 ${y(0)} H${W}" stroke="rgba(255,255,255,.15)" stroke-width="1"/><path d="${pts.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join(' ')}" fill="none" stroke="${c>=0?'#39D98A':'#FF6B6B'}" stroke-width="2.5" stroke-linejoin="round"/></svg>`; } }
+  h += `<h2>Leaderboard<small>who is actually winning</small></h2>` + (LB.length ? `<div class="table"><table><tr><th>Line</th><th>picks</th><th>won</th><th>lost</th><th>rate</th><th>units</th><th>ROI</th></tr>${LB.map(r=>`<tr><td><b>${esc(r.label)}</b></td><td>${r.n}</td><td>${r.won}</td><td>${r.lost}</td><td>${r.rate!=null?pct(r.rate):'–'}</td><td class="${(r.units||0)>=0?'pos':'neg'}">${(r.units||0)>=0?'+':''}${(r.units||0).toFixed(2)}</td><td class="${(r.roi||0)>=0?'pos':'neg'}">${r.roi!=null?((r.roi>=0?'+':'')+(r.roi*100).toFixed(1)+'%'):'–'}</td></tr>`).join('')}</table></div>` : `<p class="empty"><b>Nothing graded yet.</b> Results land the morning after each game.</p>`);
+  const recent=(SC.items||[]).filter(i=>['desk','desk_best','desk_wild','bot','market'].includes(i.market)||['desk','desk_best','desk_wild','bot','market'].includes(i.line)).slice(-40).reverse();
+  if(recent.length) h += `<h2>Latest graded picks</h2><div class="table"><table><tr><th>Pick</th><th>line</th><th>DK</th><th>said</th><th>result</th><th>units</th></tr>${recent.map(i=>`<tr><td class="lbl"><b>${esc(i.label||'')}</b><br><span style="color:var(--dim);font-size:12px">${esc(i.mu||'')} · ${esc(i.week||i.day||'')}</span></td><td>${esc(i.market||i.line)}</td><td>${i.odds!=null?Number(i.odds).toFixed(2):'–'}</td><td>${i.p!=null?pct(i.p):'–'}</td><td class="${i.result==='won'?'pos':(i.result==='lost'?'neg':'')}">${esc(i.result)}</td><td class="${(i.units||0)>=0?'pos':'neg'}">${i.units!=null?((i.units>=0?'+':'')+i.units.toFixed(2)):'–'}</td></tr>`).join('')}</table></div>`;
+  h += `<p style="color:var(--dim);font-size:12.5px;margin-top:10px">updated ${esc(SC.updated_utc||'')}</p>`;
+  el.innerHTML=h; }
+
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'), 1800); }
+function status(){ const el=$('#status'); if(!S.P){ el.innerHTML=''; return; } const D=deskOf(); const P=S.P; const fresh = D && (Date.now()-iso(D.generated) < 12*3600000);
+  el.innerHTML = `<span><span class="dot ${fresh?'':'old'}"></span>desk ${D?esc(ago(D.generated)):'not run yet'}</span><span><b>${(P.games||[]).length}</b> games</span><span>site model ${esc(ago(P.generated_utc))}</span>${P.best_bets&&P.best_bets.odds_fetched?`<span>DraftKings lines ${esc(ago(P.best_bets.odds_fetched))}</span>`:''}`; }
+function render(){ $('#sub').textContent = S.sport==='nfl' ? (S.P?`NFL week ${S.P.week}`:'NFL') : (S.sport==='nba' ? `NBA ${S.P?S.P.date:''}` : 'NHL');
+  document.querySelectorAll('#sports button').forEach(b=>b.classList.toggle('on', b.dataset.s===S.sport));
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on', b.dataset.v===S.view));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on', v.id==='v-'+S.view));
+  status(); viewPicks(); viewBoard(); viewLogic(); viewRecord();
+  $('#foot').innerHTML = `Gill Sports desk · ${S.P?`<a href="${S.P._base}">full ${S.sport.toUpperCase()} page</a> · `:''}<a href="../">NHL</a> · the desk is a research tool; every pick is graded and nothing here is a guarantee`; }
+document.querySelectorAll('#sports button').forEach(b=>b.onclick=()=>{ S.sport=b.dataset.s; S.open=new Set(); save(); load(); });
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{ S.view=b.dataset.v; save(); render(); window.scrollTo({top:0}); });
+load();
+setInterval(()=>{ if(document.visibilityState==='visible') load(); }, 5*60000);
+</script>
+</body>
+</html>
