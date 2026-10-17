@@ -403,6 +403,41 @@ body[data-tab="best"] #banner{display:none}
 .bb th:first-child,.bb td:first-child{text-align:left}.bb tr.dk td{color:var(--ice);font-weight:600}
 .cf{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;vertical-align:1px}
 .cf.high{color:var(--green);background:rgba(61,220,132,.12)}.cf.medium{color:var(--amber);background:rgba(243,182,58,.12)}.cf.low{color:var(--red);background:rgba(255,107,107,.12)}
+.bb.desk{border-color:rgba(243,182,58,.55)}.bb.desk .rk{background:rgba(243,182,58,.16);color:#ffd37a}
+.bb .gr{display:inline-block;font-family:var(--display);font-weight:800;font-size:13px;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.bb .gr.A{color:var(--green);background:rgba(61,220,132,.14)}.bb .gr.B{color:var(--amber);background:rgba(243,182,58,.14)}.bb .gr.C{color:var(--muted);background:var(--panel2)}
+.bb .res{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;border-radius:5px;padding:1px 6px;text-transform:uppercase;margin-left:6px;vertical-align:1px}
+.bb .res.hit{color:var(--green);background:rgba(61,220,132,.14)}.bb .res.miss{color:var(--red);background:rgba(255,107,107,.14)}.bb .res.tie,.bb .res.void{color:var(--amber);background:rgba(243,182,58,.14)}.bb .res.live{color:var(--ice);background:rgba(120,200,255,.12)}
+.bb .deskr{margin-top:8px;border:1px solid rgba(243,182,58,.35);background:rgba(243,182,58,.05);border-radius:10px;padding:8px 10px}
+.bb .deskr h4{margin:0 0 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ffd37a}
+.bb .deskr p{margin:4px 0;font-size:12.5px;color:var(--text)}.bb .deskr ul{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.bb .deskr .ar li{font-variant-numeric:tabular-nums}.bb .deskr .pr li::marker{color:var(--green)}.bb .deskr .ri li::marker{color:var(--red)}
+.bb .deskr .src{margin-top:6px;font-size:11.5px;color:var(--dim)}.bb .deskr .src a{color:var(--ice)}
+.bbl .deskhead{background:var(--panel);border:1px solid rgba(243,182,58,.4);border-radius:14px;padding:12px 14px;margin:0 0 10px}
+.bbl .deskhead h2{margin:0 0 4px;font-size:16px}.bbl .deskhead p{margin:4px 0;font-size:12.5px;color:var(--muted);max-width:none}
+.bbl .deskhead .st{font-size:11.5px;color:var(--dim)}
+.bbl .gnotes summary{cursor:pointer;color:var(--ice);font-size:12.5px}.bbl .gnotes ul{margin:4px 0 8px;padding-left:18px;font-size:12px;color:var(--muted)}
+.dset{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:10px 14px;margin:0 0 10px}
+.dset>summary{cursor:pointer;color:var(--ice);font-weight:600;font-size:13.5px;list-style:none}.dset>summary::-webkit-details-marker{display:none}.dset>summary::before{content:'▸ '}.dset[open]>summary::before{content:'▾ '}
+.dset .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 18px;margin-top:10px}
+.dset label.f{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.dset input[type=range]{width:100%}.dset .val{font-family:var(--display);font-size:17px;font-weight:700;color:var(--text)}
+.dset .chips2{display:flex;flex-wrap:wrap;gap:6px}.dset .chips2 label{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer}
+.dset .chips2 label.on{border-color:var(--ice);color:var(--ice)}.dset .chips2 input{display:none}
+.dset .vars{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.dset .vars span{font-size:11.5px;border-radius:6px;padding:3px 8px;background:var(--panel2);color:var(--muted)}.dset .vars span.on{color:var(--green);background:rgba(61,220,132,.1)}
+.dset .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.dset .btns button,.dset select{background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:6px 11px;font-size:12.5px;font-family:inherit;cursor:pointer}
+.dset .note2{font-size:11.5px;color:var(--dim);margin-top:8px;max-width:72ch}
+.alertbar{border:1px solid rgba(255,107,107,.55);background:rgba(255,107,107,.08);border-radius:12px;padding:10px 14px;margin:0 0 10px;font-size:13px}.alertbar b{color:var(--red)}.alertbar ul{margin:4px 0 0;padding-left:18px}
+.hotgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (max-width:600px){.hotgrid{grid-template-columns:1fr}}
+.hotbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 14px}.hotbox h3{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.hotbox .row{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:12.5px}.hotbox .row:first-of-type{border-top:0}
+.hotbox .hot{color:var(--green);font-weight:700}.hotbox .cold{color:var(--red);font-weight:700}.hotbox .mv{font-family:var(--display);font-weight:700;white-space:nowrap}
+.psearch{display:flex;gap:8px;margin:6px 0 10px}.psearch input{flex:1;background:var(--panel2);border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:9px 12px;font-size:14px;font-family:inherit}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}.pcard h3{margin:0 0 4px;font-size:16px}.pcard .sub{font-size:12px;color:var(--dim)}
+.pcard .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-top:8px}.pcard .kv div{background:#0a1017;border:1px solid var(--line);border-radius:9px;padding:5px 8px}.pcard .kv .k{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.pcard .kv .v{font-family:var(--display);font-size:16px;font-weight:700}
+.pcard ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted)}
+.lb table td.pos{color:var(--green)}.lb table td.neg{color:var(--red)}
+.bb.wild{border-color:rgba(120,200,255,.5)}.bb.wild .rk{background:rgba(120,200,255,.14);color:var(--ice)}
 .bbsep{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700}
 .bb .addb{margin-left:auto;background:var(--panel2);border:1px solid var(--line2);color:var(--ice);border-radius:8px;padding:3px 9px;font-size:11.5px;font-family:inherit;cursor:pointer}
 .slip .lg{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 8px}.slip .lg a{font-size:11px;color:var(--dim)}
@@ -437,8 +472,8 @@ body[data-tab="best"] #banner{display:none}
 <body>
 <div class="app"><div class="wrap">
   <div class="row">
-    <div class="brand"><img class="logo" src="../../brand-mark.png?v=2" alt="Gill Sports" width="40" height="40"><span class="bt">Gill <span>Sports</span></span><nav class="sport" aria-label="section"><a href="../../">NHL</a><a class="on" href="#">Props</a><a href="../../nfl/">NFL</a></nav></div>
-    <div class="hmeta"><select class="daysel" onchange="location.href=this.value" aria-label="day"><option value="../days/2026-10-19.html" >2026-10-19</option><option value="../days/2026-10-18.html" >2026-10-18</option><option value="../days/2026-10-17.html" >2026-10-17 · today</option><option value="../days/2026-10-16.html" selected>2026-10-16</option><option value="../days/2026-10-15.html" >2026-10-15</option></select><span class="pub" style="margin-left:8px">published 2026-10-17 16:58 UTC</span></div>
+    <div class="brand"><img class="logo" src="../../brand-mark.png?v=2" alt="Gill Sports" width="40" height="40"><span class="bt">Gill <span>Sports</span></span><nav class="sport" aria-label="section"><a href="../../">NHL</a><a class="on" href="#">Props</a><a href="../../nfl/">NFL</a><a href="../nba/">NBA</a></nav></div>
+    <div class="hmeta"><select class="daysel" onchange="location.href=this.value" aria-label="day"><option value="../days/2026-10-19.html" >2026-10-19</option><option value="../days/2026-10-18.html" >2026-10-18</option><option value="../days/2026-10-17.html" >2026-10-17 · today</option><option value="../days/2026-10-16.html" selected>2026-10-16</option><option value="../days/2026-10-15.html" >2026-10-15</option></select><span class="pub" style="margin-left:8px">published 2026-10-17 19:05 UTC</span></div>
   </div>
   <nav class="tabs" id="tabs">
     <button data-tab="tonight" class="on">Tonight</button>
