@@ -1,13 +1,13 @@
 {
  "date": "2026-10-16",
- "credits_remaining": 388,
- "updated_utc": "2026-10-16 22:35 UTC",
+ "credits_remaining": 386,
+ "updated_utc": "2026-10-17 00:44 UTC",
  "games": {
   "PIT@COL": {
    "home": "COL",
    "away": "PIT",
    "commence": "2026-10-17T01:10:00Z",
-   "fetched_utc": "2026-10-16 20:16 UTC",
+   "fetched_utc": "2026-10-17 00:44 UTC",
    "requested": [
     "player_blocked_shots"
    ],
@@ -3389,6 +3389,46 @@
        }
       }
      }
+    },
+    "blk": {
+     "d carlile": {
+      "name": "Declan Carlile",
+      "line": 1.5,
+      "n": 1,
+      "over": 1.87,
+      "book_over": "DraftKings",
+      "under": 1.8,
+      "book_under": "DraftKings",
+      "consensus": 0.4905,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.87,
+         "under": 1.8
+        }
+       }
+      }
+     },
+     "c makar": {
+      "name": "Cale Makar",
+      "line": 1.5,
+      "n": 1,
+      "over": 2.05,
+      "book_over": "DraftKings",
+      "under": 1.67,
+      "book_under": "DraftKings",
+      "consensus": 0.4489,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.05,
+         "under": 1.67
+        }
+       }
+      }
+     }
     }
    }
   },
@@ -3396,13 +3436,8 @@
    "home": "ANA",
    "away": "BOS",
    "commence": "2026-10-17T02:10:00Z",
-   "fetched_utc": "2026-10-16 19:05 UTC",
+   "fetched_utc": "2026-10-17 00:44 UTC",
    "requested": [
-    "player_shots_on_goal",
-    "player_points",
-    "player_goal_scorer_anytime",
-    "team_totals",
-    "player_assists",
     "player_blocked_shots"
    ],
    "markets": {
@@ -6472,9 +6507,49 @@
        }
       }
      }
+    },
+    "blk": {
+     "c mcavoy": {
+      "name": "Charlie McAvoy",
+      "line": 1.5,
+      "n": 1,
+      "over": 1.62,
+      "book_over": "DraftKings",
+      "under": 2.15,
+      "book_under": "DraftKings",
+      "consensus": 0.5703,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.62,
+         "under": 2.15
+        }
+       }
+      }
+     },
+     "j lacombe": {
+      "name": "Jackson LaCombe",
+      "line": 1.5,
+      "n": 1,
+      "over": 1.69,
+      "book_over": "DraftKings",
+      "under": 2.05,
+      "book_under": "DraftKings",
+      "consensus": 0.5481,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.69,
+         "under": 2.05
+        }
+       }
+      }
+     }
     }
    }
   }
  },
- "spent": 13
+ "spent": 15
 }
