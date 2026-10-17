@@ -148,7 +148,7 @@ Rank by `p`. Do not force a count. Across a Sunday slate prefer different games 
    `git add data/nfl/research/<season>-wNN.json && git commit -m "desk: week N research <date> <run>" && git pull --rebase origin main && git push origin main`
    (retry the pull/push a few times if the site's bot pushed in between).
 4. Rebuild the site so the page and the Telegram message carry the desk:
-   `gh workflow run update-nfl.yml -R Moneyg604/nhl-early-goal -f reason=research`
+   `gh workflow run update-nfl.yml --ref main -R Moneyg604/nhl-early-goal -f reason=research`
    The run takes a few minutes; `gh run list -R Moneyg604/nhl-early-goal -w update-nfl.yml -L 1` shows it.
 5. Finish with a short note: how many selections, the top three with price and desk chance, and anything that
    needs the owner's attention (a missing price, a game with no usable news). Nothing else.
