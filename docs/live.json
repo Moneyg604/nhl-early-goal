@@ -1,7 +1,7 @@
 {
  "date": "2026-10-17",
- "updated_utc": "2026-10-18 04:35 UTC",
- "updated_et": "12:35 AM ET",
+ "updated_utc": "2026-10-18 04:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020121": {
    "state": "OFF",
@@ -571,8 +571,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "03:41",
-   "elapsed_min": 56.32,
+   "time_remaining": "01:28",
+   "elapsed_min": 58.53,
    "home": "UTA",
    "away": "EDM",
    "home_score": 2,
@@ -626,21 +626,21 @@
    ]
   },
   "2026020134": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
    "home": "VGK",
    "away": "PIT",
-   "home_score": 5,
+   "home_score": 6,
    "away_score": 2,
    "first_goal_min": 1.1,
    "p1_done": true,
    "p1_home": 3,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -676,6 +676,11 @@
      "period": 3,
      "minute": 44.717,
      "team": "PIT"
+    },
+    {
+     "period": 3,
+     "minute": 57.783,
+     "team": "VGK"
     }
    ]
   }
