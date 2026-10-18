@@ -1,7 +1,7 @@
 {
  "date": "2026-10-17",
- "updated_utc": "2026-10-18 01:45 UTC",
- "updated_et": "9:45 PM ET",
+ "updated_utc": "2026-10-18 01:50 UTC",
+ "updated_et": "9:50 PM ET",
  "games": {
   "2026020121": {
    "state": "OFF",
@@ -264,21 +264,21 @@
    ]
   },
   "2026020126": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
-   "period": 3,
-   "time_remaining": "00:00",
+   "state": "FINAL",
+   "live": false,
+   "final": true,
+   "period": 4,
+   "time_remaining": "04:06",
    "elapsed_min": 60.0,
    "home": "MTL",
    "away": "BUF",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 3,
    "first_goal_min": 8.35,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -309,6 +309,11 @@
      "period": 3,
      "minute": 50.2,
      "team": "BUF"
+    },
+    {
+     "period": 4,
+     "minute": 60.9,
+     "team": "MTL"
     }
    ]
   },
@@ -317,7 +322,7 @@
    "live": true,
    "final": false,
    "period": 4,
-   "time_remaining": "03:15",
+   "time_remaining": "00:58",
    "elapsed_min": 60.0,
    "home": "DET",
    "away": "SJS",
@@ -366,11 +371,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:13",
-   "elapsed_min": 55.78,
+   "time_remaining": "00:10",
+   "elapsed_min": 59.83,
    "home": "PHI",
    "away": "OTT",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 1,
    "first_goal_min": 25.917,
    "p1_done": true,
@@ -392,6 +397,11 @@
      "period": 2,
      "minute": 38.55,
      "team": "PHI"
+    },
+    {
+     "period": 3,
+     "minute": 59.767,
+     "team": "PHI"
     }
    ]
   },
@@ -400,8 +410,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "01:13",
-   "elapsed_min": 58.78,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CBJ",
    "away": "NYR",
    "home_score": 0,
@@ -457,8 +467,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "12:04",
-   "elapsed_min": 27.93,
+   "time_remaining": "07:01",
+   "elapsed_min": 32.98,
    "home": "NSH",
    "away": "STL",
    "home_score": 3,
@@ -501,8 +511,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "01:14",
-   "elapsed_min": 18.77,
+   "time_remaining": "16:04",
+   "elapsed_min": 3.93,
    "home": "LAK",
    "away": "BOS",
    "home_score": 1,
