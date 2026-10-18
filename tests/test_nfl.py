@@ -173,6 +173,7 @@ def test_overtime_rules():
     assert not over(TO, 2, 100.0, False)         # a turnover with the score level keeps going
 
 
+@pytest.mark.skipif(not HAVE_DATA, reason="nflverse seasons not ingested")
 def test_overtime_frequency_and_ties():
     from nfl.features import build_profiles
     from nfl.ingest import load_games

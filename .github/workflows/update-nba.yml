@@ -76,7 +76,7 @@ jobs:
           git add docs/nba
           for f in data/nba/odds.json data/nba/odds_history.jsonl; do [ -f "$f" ] && git add "$f"; done; true
           git commit -m "nba update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "nothing changed"
-          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i * 7)); done
+          ok=0; for i in 1 2 3 4; do if git pull --rebase origin main && git push; then ok=1; break; fi; git rebase --abort 2>/dev/null || true; sleep $((i * 7)); done; [ "$ok" = 1 ] || { echo "push failed after 4 tries"; exit 1; }
 
       - name: Publish the site (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v4

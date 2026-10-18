@@ -1,5 +1,10 @@
 # Daily update runbook (for the scheduled Claude session)
 
+> **Legacy (NHL only).** This is the older flow that rebuilt a stand-alone claude.ai artifact of the NHL page. The
+> GitHub Pages site does not use it: the NHL slate is built by `.github/workflows/update-slate.yml`. Older scheduled
+> tasks in the owner's Claude chat may still follow it, so its steps are kept exactly as they were. The NFL research
+> desk follows `RUNBOOK_NFL_RESEARCH.md`; the NBA desk follows `RUNBOOK_NBA_RESEARCH.md`. See `START_HERE.md`.
+
 This is what the scheduled task does, step by step, so a human can follow or audit it.
 
 1. Fetch `code/nhl-early-goal.zip` and `days.json` from the published artifact, unzip, `pip install -r requirements.txt`.

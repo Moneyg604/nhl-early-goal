@@ -22,7 +22,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from .brand import BRAND_CSS, NAME, brand_html, copy_assets, head_tags
+from .brand import BRAND_CSS, NAME, brand_html, copy_assets, finish_page, head_tags
 from .config import OUT_DIR, ROOT
 
 
@@ -34,7 +34,7 @@ def slate_today(now: datetime | None = None) -> str:
 SITE_DIR = ROOT / "docs"
 
 HEAD_EXTRA = """<link rel="manifest" href="{base}manifest.webmanifest">
-<meta name="theme-color" content="#070b12">
+<meta name="theme-color" content="#0F1529">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -77,12 +77,12 @@ SITE_SCRIPT = """<script>
 MANIFEST = {
     "name": "Gill Sports",
     "short_name": "Gill Sports",
-    "description": "NHL and NFL research desk: simulated probabilities, research, live scores and picks",
-    "start_url": "./",
+    "description": "The Gill Sports research desk: NFL, NBA and NHL picks, the board, research and the graded record",
+    "start_url": "./app/",
     "scope": "./",
     "display": "standalone",
-    "background_color": "#070c14",
-    "theme_color": "#070c14",
+    "background_color": "#0F1529",
+    "theme_color": "#0F1529",
     "icons": [
         {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
         {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
@@ -162,7 +162,8 @@ def _inject(html: str, options_html: str, published: str, base: str) -> str:
         html = html.replace('<div class="wrap">\n<header>', '<div class="wrap">\n' + LEGACY_BAR.format(options=options_html, published=published) + "<header>", 1)
     else:
         raise RuntimeError("dashboard template changed: no slot for the day switcher")
-    return html.replace("</body>", SITE_SCRIPT.format(base=base) + "</body>", 1)
+    html = html.replace("</body>", SITE_SCRIPT.format(base=base) + "</body>", 1)
+    return finish_page(html, base, "nhl", f"{base}nfl/")
 
 
 def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: int = 30, prior_days: list[str] | None = None, artifact: bool = False) -> Path:
@@ -226,7 +227,10 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep_days: in
         idx = (site_dir / "index.html").read_text(encoding="utf-8")
         start, end = idx.index("<title>"), idx.rindex("</body>")
         (site_dir / "index.artifact.html").write_text(idx[start:end], encoding="utf-8")
-    (site_dir / "manifest.webmanifest").write_text(json.dumps(MANIFEST, indent=1))
+    from urllib.parse import urlparse
+    from .brand import site_url
+    manifest = {"id": urlparse(site_url()).path or "/", **MANIFEST}     # the identity earlier installs already have
+    (site_dir / "manifest.webmanifest").write_text(json.dumps(manifest, indent=1))
     sc = ROOT / "data" / "scorecard.json"
     if sc.exists():
         shutil.copy(sc, site_dir / "scorecard.json")

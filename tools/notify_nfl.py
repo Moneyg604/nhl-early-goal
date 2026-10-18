@@ -93,7 +93,83 @@ def _bet_line(b: dict, B, T, with_mu: bool = True) -> str:
     odds = f" @ {b['odds']:.2f}" if b.get("odds") else " (fair " + (f"{b['fair_odds']:.2f}" if b.get("fair_odds") else "–") + ", no DK price in feed)"
     ev = f"  EV {b['ev']*100:+.1f}%" if b.get("ev") is not None else ""
     sim = f" · sim {b['p_model']*100:.0f}%" if b.get("p_model") is not None and b.get("p_market") is not None else ""
-    return f"{T(b['label'] + mu)}  {B(f"{b['p']*100:.0f}%")}{T(odds + ev + sim)}"
+    pct = f"{b['p']*100:.0f}%"
+    return f"{T(b['label'] + mu)}  {B(pct)}{T(odds + ev + sim)}"
+
+
+SRC_NOTE = {"feed": "", "draftkings": " (DK checked)", "unverified": " ⚠ price not verified on DraftKings"}
+
+
+def _desk_line(i, x: dict, B, T) -> str:
+    """'1. Jonathan Taylor under 89.5 rush yds (TEN @ IND)  60% @ 1.89 (DK checked) · B · measured'"""
+    head = f"{i}. " if isinstance(i, int) else "• "
+    pct = f"{x['p']*100:.0f}%"
+    return head + T(f"{x['label']} ({x['mu']})") + "  " + B(pct) + T(f" @ {x['odds']:.2f}{SRC_NOTE.get(x.get('odds_source') or '', '')} · {x['grade']} · {x.get('evidence', '')}")
+
+
+def desk_lines(desk: dict, B, T, live, windowed: bool = False) -> list[str]:
+    """The research desk in the spec's order: the Best picks, then each section, then the alerts. Prices are shown,
+    never used to choose, when the spec's odds_rule is 'ignore'."""
+    out: list[str] = []
+    if not desk:
+        return out
+    if not desk.get("ok"):
+        errs = desk.get("errors") or []
+        out.append("⚠️ " + B("Research desk file rejected") + T(f": {len(errs)} problem(s), first: {errs[0] if errs else 'unknown'}. The next desk run fixes it."))
+        out.append("")
+        return out
+    by = {x["id"]: x for x in desk.get("selections") or []}
+    spec = desk.get("spec") or {}
+    rule = desk.get("odds_rule") or "band"
+    up = [x for x in desk.get("selections") or [] if live(x)]
+    how = "picked on evidence; DraftKings price shown, never the reason" if rule == "ignore" else f"DraftKings prices {(desk.get('band') or [1.35, 2.2])[0]:.2f} to {(desk.get('band') or [1.35, 2.2])[1]:.2f}"
+    out.append("⭐ " + B(f"Research desk · {len(up)} pick{'s' if len(up) != 1 else ''} to play") + T(f"  desk win chance · {how}"))
+    if desk.get("summary"):
+        s = str(desk["summary"]).strip()
+        out.append(T(s if len(s) <= 400 else s[:397] + "…"))
+    out.append("")
+    best = [by[i] for i in desk.get("best") or [] if i in by and live(by[i])]
+    if best:
+        out.append("🏆 " + B(f"{(spec.get('best') or {}).get('label') or 'Best picks'} · {len(best)}") + T("  strongest evidence of winning"))
+        for n, x in enumerate(best, 1):
+            out.append(_desk_line(n, x, B, T))
+        out.append("")
+    shown = {x["id"] for x in best}
+    for sp in spec.get("sections") or []:
+        rows = [by[i] for i in (desk.get("sections") or {}).get(sp.get("key"), []) if i in by and live(by[i]) and i not in shown]
+        if not rows:
+            continue
+        out.append("📋 " + B(sp.get("label") or sp.get("key")))
+        for x in rows:
+            out.append(_desk_line(None, x, B, T))
+        out.append("")
+    if not spec.get("sections"):
+        rest = [x for x in up if x["id"] not in shown]
+        for n, x in enumerate(rest[:12], 1):
+            out.append(_desk_line(n, x, B, T))
+        if len(rest) > 12:
+            out.append(T(f"…and {len(rest) - 12} more in the app"))
+        if rest:
+            out.append("")
+    if not up:
+        out.append(T("No desk pick in these games." if windowed else "No desk pick left to play."))
+        out.append("")
+    wild = [x for x in desk.get("wild_cards") or [] if live(x)]
+    if wild:
+        wb = desk.get("wild_band") or [2.21, 4.5]
+        out.append("🃏 " + B(f"Wild cards · {len(wild)}") + T(f"  longer prices {wb[0]:.2f} to {wb[1]:.2f}, smaller stakes"))
+        for x in wild:
+            out.append(_desk_line(None, x, B, T))
+        out.append("")
+    alerts = [a for a in desk.get("alerts") or [] if live(a)]
+    if alerts:
+        out.append("🚨 " + B("DraftKings moved against a desk pick") + T("  re-check before betting"))
+        for a in alerts:
+            out.append("• " + T(f"{a['label']} ({a['mu']}): {a['why']} (DraftKings, {a.get('fetched') or ''})"))
+        out.append("")
+    out.append(T(f"Desk run {desk.get('generated', '')}. Open a pick in the app for the inputs, the arithmetic and the risks."))
+    out.append("")
+    return out
 
 
 def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
@@ -107,38 +183,13 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
         return bool(b) and (not b.get("kick") or b["kick"] > now) and (game_ids is None or b.get("game_id") in game_ids)
 
     out: list[str] = []
+    # the research desk first, in the spec's order (shown even before the odds feed has a board)
+    out.extend(desk_lines(bot.get("desk") or {}, B, T, live, windowed=game_ids is not None))
     if not bb:
         return out
     if not bot:
         out.append("🤖 " + B("Bot's picks") + T(": not built yet for this week (next site run)"))
         return out
-    # the research desk's selections (the Claude research session's write-ups), ranked by its own win chance
-    desk = bot.get("desk") or {}
-    if desk.get("ok"):
-        rows = [x for x in desk.get("selections") or [] if live(x)]
-        if rows:
-            band = desk.get("band") or [1.35, 2.2]
-            out.append("⭐ " + B(f"Research desk · {len(rows)} selection{'s' if len(rows) != 1 else ''}") + T(f"  desk win chance @ DK {band[0]:.2f} to {band[1]:.2f} · grade"))
-            for i, x in enumerate(rows[:12], 1):
-                src = {"feed": "", "draftkings": " (DK checked)", "unverified": " (price unverified)"}.get(x.get("odds_source") or "", "")
-                out.append(f"{i}. " + T(f"{x['label']} ({x['mu']})") + "  " + B(f"{x['p']*100:.0f}%") + T(f" @ {x['odds']:.2f}{src} · {x['grade']} · {x.get('evidence', '')}"))
-            if len(rows) > 12:
-                out.append(T(f"…and {len(rows) - 12} more on the page"))
-            out.append(T(f"Desk run {desk.get('generated', '')}. Open a card on the page for inputs, arithmetic and risks."))
-            out.append("")
-        wild = [x for x in desk.get("wild_cards") or [] if live(x)]
-        if wild:
-            wb = desk.get("wild_band") or [2.21, 4.5]
-            out.append("🃏 " + B(f"Wild cards · {len(wild)}") + T(f"  longer prices {wb[0]:.2f} to {wb[1]:.2f}, smaller stakes"))
-            for x in wild:
-                out.append("• " + T(f"{x['label']} ({x['mu']})") + "  " + B(f"{x['p']*100:.0f}%") + T(f" @ {x['odds']:.2f} · {x['grade']}"))
-            out.append("")
-        alerts = [a for a in desk.get("alerts") or [] if (not a.get("kick") or a["kick"] > now) and (game_ids is None or a.get("game_id") in game_ids)]
-        if alerts:
-            out.append("🚨 " + B("Line moved against a desk pick") + T("  re-check before betting"))
-            for a in alerts:
-                out.append("• " + T(f"{a['label']} ({a['mu']}): {a['why']} (DraftKings, {a.get('fetched') or ''})"))
-            out.append("")
     hot = bot.get("hot") or {}
     movers = [m for m in hot.get("movers") or [] if (not m.get("kick") or m["kick"] > now) and (game_ids is None or m.get("game_id") in game_ids)][:6]
     if movers:
@@ -147,7 +198,7 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
             out.append("• " + T(f"{m['label']} · hot {m['hot']}, cold {m['cold']}"))
         out.append("")
     cats = bot.get("cats") or {}
-    out.append("🤖 " + B("Bot's picks") + T("  win chance @ DraftKings price · EV · simulation"))
+    out.append("🤖 " + B("Bot's picks") + T("  the site's model, separate from the desk and its spec · win chance @ DraftKings price · EV · simulation"))
     any_cat = False
     for c in (bot.get("rules") or {}).get("categories") or [{"key": k, "label": v.get("label")} for k, v in cats.items()]:
         key = c["key"]; cat = cats.get(key) or {}
@@ -156,6 +207,7 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
         if not rows:
             continue
         any_cat = True
+        out.append("")
         out.append(f"{CAT_ICON.get(key, '•')} " + B(c.get("label") or key))
         for b in rows:
             out.append("• " + _bet_line(b, B, T))

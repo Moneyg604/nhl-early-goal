@@ -2,9 +2,23 @@
 
 The NBA desk follows the NFL runbook (`RUNBOOK_NFL_RESEARCH.md`) in every respect that is not sport-specific:
 the ground rules in section 0 (no probability without inputs, show the arithmetic, do not anchor, qualitative reads
-run optimistic, verify availability independently, fewer better selections, DraftKings only, the honest
-scorecard), the settings file in 0b, the write-up fields and grades in section 4, and the commit / rebuild steps
-in section 5. What differs is below.
+run optimistic, verify availability independently, the honest scorecard), the write-up fields and grades in
+section 4, the commit / rebuild / check steps in section 5 and the owner's spec changes in section 6. What differs
+is below.
+
+## The NBA spec (`data/nba/desk_config.json`), read it first
+
+The NBA spec is its own file and differs from the NFL one:
+
+- `odds_rule: "band"`: only DraftKings prices inside `odds_band` (1.35 to 2.20) are eligible.
+- `lines: "any"`: DraftKings' posted line, or a DraftKings alternate line when `markets.alts` is true (it is). A price
+  you could not confirm on DraftKings may be listed as `"unverified"` (it is labelled on the page and never a Best pick).
+- `markets`: ml, spread, total, pts, reb, ast, threes, pra, alts.
+- No sections yet. `best`: 3 to 6 Best picks, the strongest evidence of winning, one per player, at most two per game
+  (fewer on a one- or two-game night is fine; say so in `summary`).
+- `wild_cards`: on, up to 2, prices 2.21 to 4.50, desk chance at least 0.30, in their own `wild_cards` list.
+- `selection`: `min_p` 0.52, at most 3 per game and 16 in total, one pick per player per market.
+- `instructions`: the owner's plain-English rules (none yet); mandatory when present.
 
 ## Files
 
@@ -16,8 +30,11 @@ in section 5. What differs is below.
   (games with `tip_utc`, `lines`, `injuries`, `model`, `markets`, `research` ratings, `props` with each player's
   projection per stat, and `best_bets.ranked` with every DraftKings-priced market; `bot.extra` holds the model lines
   for props the free credits did not price).
-- Validate: `python tools/validate_desk.py data/nba/research/<date>.json --payload docs/nba/days/<date>.json --sport nba`.
-- Assemble per-game fragments: `python tools/assemble_desk.py --sport nba --date <date> --frags <dir> --keep data/nba/research/<date>.json --summary "..."`.
+- Validate: `python tools/validate_desk.py data/nba/research/<date>.json --payload docs/nba/days/<date>.json --sport nba`
+  (the strict check: the NBA spec, the board and DraftKings' price in the feed; it prints the Best picks and the list).
+- Assemble per-game fragments (same fragment shape as the NFL runbook, section 2):
+  `python tools/assemble_desk.py --sport nba --date <date> --frags <dir> --keep data/nba/research/<date>.json --summary "..."`
+  (optional `--best <id,id,...>` for the desk's own Best-pick order).
 - Rebuild: `gh workflow run update-nba.yml --ref main -R Moneyg604/nhl-early-goal -f reason=research`.
 
 ## Prices
@@ -59,6 +76,7 @@ night within the credit cap (`"feed"` for those); every other prop needs a Draft
 
 ## Selections
 
-Six to twelve across a full slate (two or three per game at most), the configured band; up to two wild cards.
+Fewer, better selections: up to the spec's 16 across a full slate, at most three per game, inside the band; up to
+two wild cards; then the Best picks (3 to 6, from the selections, by evidence, one per player, at most two per game).
 Prefer props on players whose role is stable tonight; decline props on players whose minutes depend on a
 game-time decision unless a same-day source settles it.

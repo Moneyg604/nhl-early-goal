@@ -200,14 +200,15 @@ def build_week(season: int, week: int, cfg: ModelConfig = CFG, sims: int | None 
     # best bets: fair probability from the market (all books, moved onto DraftKings' line), nudged by the model,
     # expected value at DraftKings' price; bets for games that have kicked off stay as they were published
     from .value import best_bets, picks_from_bets
-    payload["best_bets"] = best_bets(payload, prev=(_previous(season, week) or {}).get("best_bets"))
+    prev = _previous(season, week)
+    payload["best_bets"] = best_bets(payload, prev=(prev or {}).get("best_bets"))
     payload["picks"] = picks_from_bets(payload["best_bets"], payload)
     # the bot's judgment: analyst checks on every bet, the best per category, the combined top six, the TD board
     from .brain import bot_block
     payload["bot"] = bot_block(payload)
     # the research desk: the overlay a Claude research session wrote for this week, if any
     from .desk import merge as merge_desk
-    merge_desk(payload)
+    merge_desk(payload, prev=prev)
     payload["validation"] = _validation()
     payload["_samples"] = {"fields": SAMPLE_FIELDS, "bytes": 17, "n": SAMPLE_N, "games": samples}
     return payload

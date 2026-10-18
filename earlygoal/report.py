@@ -610,15 +610,15 @@ function hazardSvg(g){
   const W=320,H=90,pad=22,bw=(W-pad-6)/10,mx=Math.max(...lh.map((x,i)=>x+la[i]))*1.15||0.1;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}">`;
   for(let i=0;i<10;i++){const tot=lh[i]+la[i],h=(tot/mx)*(H-28),x=pad+i*bw,hh=(lh[i]/mx)*(H-28);
-    s+=`<rect x="${x+2}" y="${H-16-h}" width="${bw-4}" height="${h}" fill="#1f6f8f" rx="2"/><rect x="${x+2}" y="${H-16-hh}" width="${bw-4}" height="${hh}" fill="#5ec8ff" rx="2"/><text x="${x+bw/2}" y="${H-4}" font-size="9" fill="#5e6f88" text-anchor="middle">${i+1}</text>`;}
-  s+=`<text x="${pad-4}" y="12" font-size="9" fill="#5e6f88" text-anchor="end">${mx.toFixed(3)}</text><text x="${pad-4}" y="${H-16}" font-size="9" fill="#5e6f88" text-anchor="end">0</text><line x1="${pad}" y1="${H-16}" x2="${W-4}" y2="${H-16}" stroke="#1d2838"/></svg>`;
+    s+=`<rect x="${x+2}" y="${H-16-h}" width="${bw-4}" height="${h}" fill="#1f6f8f" rx="2"/><rect x="${x+2}" y="${H-16-hh}" width="${bw-4}" height="${hh}" fill="#5ec8ff" rx="2"/><text x="${x+bw/2}" y="${H-4}" font-size="11.5" fill="#8E99B9" text-anchor="middle">${i+1}</text>`;}
+  s+=`<text x="${pad-4}" y="12" font-size="11.5" fill="#8E99B9" text-anchor="end">${mx.toFixed(3)}</text><text x="${pad-4}" y="${H-16}" font-size="11.5" fill="#8E99B9" text-anchor="end">0</text><line x1="${pad}" y1="${H-16}" x2="${W-4}" y2="${H-16}" stroke="#1d2838"/></svg>`;
   return s;
 }
 function histSvg(g){
   const h=g.first_goal_hist,W=320,H=90,pad=22,bw=(W-pad-6)/10,mx=Math.max(...h)*1.15||0.1;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}">`;
-  h.forEach((v,i)=>{const hh=(v/mx)*(H-28),x=pad+i*bw;s+=`<rect x="${x+2}" y="${H-16-hh}" width="${bw-4}" height="${hh}" fill="#3ddc84" rx="2" opacity=".85"/><text x="${x+bw/2}" y="${H-4}" font-size="9" fill="#5e6f88" text-anchor="middle">${i+1}</text>`;});
-  s+=`<text x="${pad-4}" y="12" font-size="9" fill="#5e6f88" text-anchor="end">${(mx*100).toFixed(0)}%</text><line x1="${pad}" y1="${H-16}" x2="${W-4}" y2="${H-16}" stroke="#1d2838"/></svg>`;
+  h.forEach((v,i)=>{const hh=(v/mx)*(H-28),x=pad+i*bw;s+=`<rect x="${x+2}" y="${H-16-hh}" width="${bw-4}" height="${hh}" fill="#3ddc84" rx="2" opacity=".85"/><text x="${x+bw/2}" y="${H-4}" font-size="11.5" fill="#8E99B9" text-anchor="middle">${i+1}</text>`;});
+  s+=`<text x="${pad-4}" y="12" font-size="11.5" fill="#8E99B9" text-anchor="end">${(mx*100).toFixed(0)}%</text><line x1="${pad}" y1="${H-16}" x2="${W-4}" y2="${H-16}" stroke="#1d2838"/></svg>`;
   return s;
 }
 function lbl(x){return `<span class="lbl ${x.label}">${x.label}</span>`}
@@ -1012,12 +1012,12 @@ function renderSimulator(){
     let dayPnl=0; gs.forEach(x=>{ const pnl = x.hit ? SIM.stake*(SIM.price-1) : -SIM.stake; dayPnl+=pnl; rows.push({d, ...x, pnl}); });
     cum+=dayPnl; series.push({d, cum}); });
   const n=rows.length, hits=rows.reduce((a,r)=>a+r.hit,0), staked=n*SIM.stake, pnl=rows.reduce((a,r)=>a+r.pnl,0), meanp=n?rows.reduce((a,r)=>a+r.p,0)/n:0;
-  const W=640,H=160,pad=36; const ys=series.map(s=>s.cum); const lo=Math.min(0,...ys), hi=Math.max(0,...ys); const span=(hi-lo)||1;
+  const W=innerWidth<640?Math.max(300,innerWidth-66):640,H=160,pad=44; const ys=series.map(s=>s.cum); const lo=Math.min(0,...ys), hi=Math.max(0,...ys); const span=(hi-lo)||1;
   const x=i=>pad+(series.length>1? i*(W-pad-8)/(series.length-1) : (W-pad-8)/2), y=v=>H-20-((v-lo)/span)*(H-32);
   const path = series.map((s,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(s.cum).toFixed(1)}`).join(' ');
   const chart = series.length ? `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}"><line x1="${pad}" y1="${y(0)}" x2="${W-8}" y2="${y(0)}" stroke="#27344a"/><path d="${path}" fill="none" stroke="${pnl>=0?'#3ddc84':'#ff6b6b'}" stroke-width="2"/>
-      <text x="${pad-4}" y="${y(hi)+4}" font-size="10" fill="#5e6f88" text-anchor="end">${hi>=0?'+':''}$${hi.toFixed(0)}</text><text x="${pad-4}" y="${y(lo)+4}" font-size="10" fill="#5e6f88" text-anchor="end">${lo>=0?'+':''}$${lo.toFixed(0)}</text>
-      <text x="${pad}" y="${H-6}" font-size="10" fill="#5e6f88">${esc(series[0].d)}</text><text x="${W-8}" y="${H-6}" font-size="10" fill="#5e6f88" text-anchor="end">${esc(series[series.length-1].d)}</text></svg>` : '';
+      <text x="${pad-4}" y="${y(hi)+4}" font-size="12" fill="#8E99B9" text-anchor="end">${hi>=0?'+':'-'}$${Math.abs(hi).toFixed(0)}</text><text x="${pad-4}" y="${y(lo)+4}" font-size="12" fill="#8E99B9" text-anchor="end">${lo>=0?'+':'-'}$${Math.abs(lo).toFixed(0)}</text>
+      <text x="${pad}" y="${H-6}" font-size="12" fill="#8E99B9">${esc(series[0].d)}</text><text x="${W-8}" y="${H-6}" font-size="12" fill="#8E99B9" text-anchor="end">${esc(series[series.length-1].d)}</text></svg>` : '';
   const scoredDays = new Set(rows.map(r=>r.d)).size;
   el.innerHTML = `<h3>Flat-bet simulator · ${scoredDays} scored day${scoredDays!==1?'s':''}</h3>
     <p>What a fixed stake on this market would have returned at your price, using the numbers that were on the page before each game. Short records swing wildly; judge this over months, not nights.</p>

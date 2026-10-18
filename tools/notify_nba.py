@@ -47,7 +47,8 @@ def _bet_line(b: dict, B, T, with_mu: bool = True) -> str:
     mu = f" ({b['mu']})" if with_mu else ""
     odds = f" @ {b['odds']:.2f}" if b.get("odds") else " (model line, no DK price)"
     ev = f"  EV {b['ev']*100:+.1f}%" if b.get("ev") is not None else ""
-    return f"{T(b['label'] + mu)}  {B(f'{b['p']*100:.0f}%')}{T(odds + ev)}"
+    pct = f"{b['p']*100:.0f}%"
+    return f"{T(b['label'] + mu)}  {B(pct)}{T(odds + ev)}"
 
 
 def build(p: dict, reason: str, html: bool) -> str:
@@ -69,26 +70,10 @@ def build(p: dict, reason: str, html: bool) -> str:
             continue
         sp = f"{g['home']} {L['spread']:+g}" if L.get("spread") is not None else "no line"
         out.append(T(f"• {g['away']} @ {g['home']} {et(g.get('tip_utc') or '')} · {sp} · total {L.get('total', '–')} · model {g['home']} {m.get('home_win', 0)*100:.0f}%, margin {m.get('margin', 0):+}, total {m.get('total')}"))
-    desk = bot.get("desk") or {}
-    if desk.get("ok"):
-        rows = [x for x in desk.get("selections") or [] if live(x)]
-        out.append("")
-        if rows:
-            band = desk.get("band") or [1.35, 2.2]
-            out.append("⭐ " + B(f"Research desk · {len(rows)} selection{'s' if len(rows) != 1 else ''}") + T(f"  desk win chance @ DK {band[0]:.2f} to {band[1]:.2f} · grade"))
-            for i, x in enumerate(rows[:12], 1):
-                src = {"feed": "", "draftkings": " (DK checked)", "unverified": " (price unverified)"}.get(x.get("odds_source") or "", "")
-                out.append(f"{i}. " + T(f"{x['label']} ({x['mu']})") + "  " + B(f"{x['p']*100:.0f}%") + T(f" @ {x['odds']:.2f}{src} · {x['grade']} · {x.get('evidence', '')}"))
-        wild = [x for x in desk.get("wild_cards") or [] if live(x)]
-        if wild:
-            out.append("🃏 " + B(f"Wild cards · {len(wild)}"))
-            for x in wild:
-                out.append("• " + T(f"{x['label']} ({x['mu']})") + "  " + B(f"{x['p']*100:.0f}%") + T(f" @ {x['odds']:.2f} · {x['grade']}"))
-        alerts = [a for a in desk.get("alerts") or [] if not a.get("kick") or a["kick"] > now]
-        if alerts:
-            out.append("🚨 " + B("Line moved against a desk pick"))
-            for a in alerts:
-                out.append("• " + T(f"{a['label']} ({a['mu']}): {a['why']}"))
+    # the research desk in the spec's order (Best picks, then the rest), the same block as the NFL message
+    from notify_nfl import desk_lines
+    out.append("")
+    out.extend(desk_lines(bot.get("desk") or {}, B, T, live))
     cats = bot.get("cats") or {}
     out.append("")
     out.append("🤖 " + B("Bot's picks") + T("  win chance @ DraftKings price · EV"))
@@ -100,6 +85,7 @@ def build(p: dict, reason: str, html: bool) -> str:
         if not rows:
             continue
         any_cat = True
+        out.append("")
         out.append(f"{CAT_ICON.get(c['key'], '•')} " + B(c.get("label") or c["key"]))
         for b in rows:
             out.append("• " + _bet_line(b, B, T))

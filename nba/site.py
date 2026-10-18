@@ -23,7 +23,7 @@ from .report import render
 
 DAYSLOT = """<span class="lbl2">Day</span><select id="daysel" aria-label="day">{options}</select><span class="pub">published {published}</span>"""
 SCRIPT = """<script>window.NBA_BASE={base!r};(function(){{var s=document.getElementById('daysel'); if(s) s.onchange=function(){{ location.href=this.value; }};}})();</script>"""
-HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#070b12"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png"><meta name="apple-mobile-web-app-title" content="Gill Sports"><meta name="apple-mobile-web-app-capable" content="yes">"""
+HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#0F1529"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png"><meta name="apple-mobile-web-app-title" content="Gill Sports"><meta name="apple-mobile-web-app-capable" content="yes">"""
 
 
 def freeze_started(new: dict, old: dict | None, now: datetime | None = None) -> dict:
@@ -82,13 +82,20 @@ def build_site(out_dir: Path | None = None, site_dir: Path | None = None, keep: 
     if not names:
         raise SystemExit("nothing to publish: run `python -m nba run` first")
     published = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    current = None
-    for n in sorted(names):
-        p = json.loads((ddir / f"{n}.json").read_text())
-        if any(not g.get("actual") for g in p["games"]) and p["games"]:
-            current = n
-            break
-    current = current or names[0]
+    # the front page: today (Eastern) when today has games, else the latest earlier day with games, else the newest day.
+    # A day is built only on that day, so results may never land on it: the date decides, not the results.
+    from zoneinfo import ZoneInfo
+    today = datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
+    has_games = {}
+    for n in names:
+        try:
+            has_games[n] = bool(json.loads((ddir / f"{n}.json").read_text()).get("games"))
+        except (OSError, json.JSONDecodeError):
+            has_games[n] = False
+    if today in has_games and has_games[today]:
+        current = today
+    else:
+        current = next((n for n in names if n <= today and has_games[n]), None) or names[0]
 
     def options(sel: str, base: str) -> str:
         return "".join(f'<option value="{base}days/{n}.html" {"selected" if n == sel else ""}>{n}{" · now" if n == current else ""}</option>' for n in names)
@@ -101,7 +108,13 @@ def build_site(out_dir: Path | None = None, site_dir: Path | None = None, keep: 
             html = html.replace("</title>", "</title>\n" + HEAD.format(root=root), 1)
             html = html.replace("<script>\nconst P = ", SCRIPT.format(base=base) + "\n<script>\nconst P = ", 1)
             target.write_text(html, encoding="utf-8")
-    (site_dir / "days.json").write_text(json.dumps({"days": names, "current": current, "published": published}, indent=1))
+    index = {"days": names, "current": current, "published": published}
+    # the phone app's feed for the current day (docs/app/index.html); the app falls back to the full payload without it
+    from nfl.appfeed import write as write_app
+    entry = write_app(site_dir, json.loads((ddir / f"{current}.json").read_text()), current, published)
+    if entry:
+        index["app"] = entry
+    (site_dir / "days.json").write_text(json.dumps(index, indent=1))
     copy_assets(site_dir.parent)
     if not (site_dir / "scorecard.json").exists():
         (site_dir / "scorecard.json").write_text(json.dumps({"summary": {}, "leaderboard": [], "days": {}, "items": [], "updated_utc": published}))

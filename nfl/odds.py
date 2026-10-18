@@ -31,9 +31,10 @@ SPORT = "americanfootball_nfl"
 BASE = "https://api.the-odds-api.com/v4/sports/" + SPORT
 REGIONS = "us"
 BOOKMAKERS = "draftkings,fanduel,betmgm,williamhill_us,betrivers,fanatics,pinnacle,bovada,betonlineag,lowvig"
-# prop markets in priority order: one credit buys a whole market for a game, so the markets with the most players
-# and two-sided prices (where DraftKings' line can be compared with every other book's) come first
-PROP_PRIORITY = ["player_reception_yds", "player_receptions", "player_pass_yds", "player_pass_tds", "player_rush_yds", "player_anytime_td",
+# prop markets in priority order: one credit buys a whole market for a game. The research desk's sections come first
+# (receiving yards, receptions, passing yards, rushing yards: data/nfl/desk_config.json), then the markets the desk spec
+# switches off but the site's board still shows (passing TDs, anytime TD, half totals)
+PROP_PRIORITY = ["player_reception_yds", "player_receptions", "player_pass_yds", "player_rush_yds", "player_pass_tds", "player_anytime_td",
                  "totals_h1", "totals_h2"]
 PROPS_FRESH_HOURS = 20        # a game priced within this many hours is not priced again (one pull per game per week)
 PROPS_AHEAD_HOURS = 40        # a pre-kickoff run prices every game kicking off within this many hours (Sunday morning reaches Monday night)

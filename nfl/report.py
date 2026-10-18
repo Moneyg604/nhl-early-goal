@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 
-from earlygoal.brand import BRAND_CSS, brand_html
+from earlygoal.brand import BRAND_CSS, brand_html, finish_page
 from earlygoal.report import TEMPLATE as _NHL
 
 BASE_CSS = _NHL[_NHL.index("<style>") + len("<style>"):_NHL.index("</style>")]
@@ -403,7 +403,7 @@ document.getElementById('status').innerHTML = [
   `data through <b>${esc(M.data_through||'n/a')}</b>`, `updated <b>${esc(P.generated_utc)}</b>`, `${(M.sims||0).toLocaleString()} sims per game`].map(x=>`<span>${x}</span>`).join('');
 (function(){ const b=[]; if(V && V.pooled){ const gl=['moneyline','spread','total'].map(k=>V.pooled[k]).filter(Boolean);
     const none = gl.every(x=>x.verdict!=='beats baseline');
-    if(none) b.push(`<div class="banner"><b>Bets are judged on the market, not the model.</b> In the walk-forward test the model alone did not beat the closing lines, and in 2026 it under-projected high-volume quarterbacks by about 20 yards. So every bet's win chance comes from all the books' prices (margin removed) at DraftKings' line, and the model may nudge player props by at most 4 points. The game cards still show the simulation for research.</div>`); }
+    if(none) b.push(`<details class="banner"><summary><b>Bets are judged on the market, not the model.</b><span class="more">Why</span></summary><p>In the walk-forward test the model alone did not beat the closing lines, and in 2026 it under-projected high-volume quarterbacks by about 20 yards. So every bet's win chance comes from all the books' prices (margin removed) at DraftKings' line, and the model may nudge player props by at most 4 points. The game cards still show the simulation for research.</p></details>`); }
   else b.push(`<div class="banner"><b>Validation pending.</b> The walk-forward backtest has not been published yet; treat every number as unvalidated.</div>`);
   document.getElementById('banner').innerHTML = b.join(''); })();
 const tabs=document.getElementById('tabs');
@@ -936,6 +936,7 @@ const bAgo = s => { if(!s) return 'not yet'; const m=Math.round((Date.now()-bIso
 const evTxt = ev => ev==null ? '–' : `${ev>=0?'+':''}${(ev*100).toFixed(1)}%`;
 const BKIND = {ml:'Moneyline', spread:'Spread', total:'Game total', h1:'1st half total', h2:'2nd half total', qb_yds:'Passing yards', qb_td:'Passing TDs', rec_yds:'Receiving yards', rush_yds:'Rushing yards', recs:'Receptions', atd:'Anytime TD', fg:'Kicker field goals'};
 const DESK = (BOT && BOT.desk && BOT.desk.ok) ? BOT.desk : null;
+const DESK_BAD = (BOT && BOT.desk && BOT.desk.ok===false) ? BOT.desk : null;
 const BGROUPS = [['desk','Research desk'],['bot',"Bot's picks"],['tdboard','Anytime TD'],['winners','Team winners'],['spreads','Spreads'],['totals','Totals'],['props','Player props'],['kickers','Kicker FGs'],['alts','Alt lines']];
 const BPRICE = {attractive:['Attractive','pos'], fair:['Fair','mid'], poor:['Poor','neg'], unreliable:['Unreliable','neg'], 'no price':['Not in feed','mid']};
 const BOARD = ((BB&&BB.ranked)||[]).concat((BOT&&BOT.extra)||[]);
@@ -1021,16 +1022,23 @@ function dCard(x, i){ const g=byId[x.game_id]; const now=bNow(); const started =
      <div><span class="k">Evidence</span><span class="v"><span class="cf ${x.evidence==='measured'?'high':(x.evidence==='partial'?'medium':'low')}">${esc(x.evidence)}</span> ${x.confidence}</span><span class="s">fair odds ${x.fair_odds.toFixed(2)}${bp}</span></div>
      <div><span class="k">Biggest risk</span><span class="v" style="font-size:12.5px;white-space:normal;font-family:var(--body);font-weight:500;color:#ffd37a">${esc((x.risks||[])[0]||'ordinary variance')}</span></div>
    </div>
-   <div class="brow"><details class="books"><summary>Verdict, inputs, arithmetic, risks and sources</summary>${dBlock(x)}</details>${SEL_BY[x.id]?`<button class="addb" data-add="${esc(x.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></article>`; }
+   <div class="brow"><details class="books"><summary title="Verdict, inputs, arithmetic, risks and sources">Full write-up</summary>${dBlock(x)}</details>${SEL_BY[x.id]?`<button class="addb" data-add="${esc(x.id)}">${inS?'remove from slip':'+ slip'}</button>`:''}</div></article>`; }
 const DCFG = (BOT && BOT.desk_config) || {};
 function dDefaults(){ const c=DCFG; const sel=c.selection||{}; const w=c.wild_cards||{}; const ignore=(c.odds_rule||'band')==='ignore';
   return {band: ignore ? [1.01, 20] : [(c.odds_band||[1.35,2.2])[0],(c.odds_band||[1.35,2.2])[1]], minp:Math.round(((sel.min_p||0.52))*100), grades:['A','B','C'].filter(g=>g<=(sel.min_grade||'C')), ev:{measured:true,partial:true,unmeasured:(sel.min_evidence||'unmeasured')==='unmeasured'},
     markets:Object.assign({ml:true,spread:true,total:true,h1:true,h2:true,qb_yds:true,qb_td:true,rec_yds:true,recs:true,rush_yds:true,fg:true,alts:true}, c.markets||{}), src:{feed:true,draftkings:true,unverified:true}, perGame:sel.max_per_game||3, sort:'p', wild:w.enabled!==false, wband:[(w.odds_band||[2.21,4.5])[0],(w.odds_band||[2.21,4.5])[1]]}; }
 let DS = dDefaults(); DS.grades = ['A','B','C'];
-try{ const sv=JSON.parse(localStorage.getItem('gs_nfl_desk')||'null'); if(sv) DS=Object.assign(dDefaults(), sv, {grades: sv.grades||['A','B','C']}); }catch(e){}
+const DSPEC = (DCFG.updated_utc||'')+'|'+(DCFG.odds_rule||'band');
+const IGNORE = (DCFG.odds_rule||'band')==='ignore';
+try{ const sv=JSON.parse(localStorage.getItem('gs_nfl_desk')||'null');
+  if(sv && sv._spec===DSPEC) DS=Object.assign(dDefaults(), sv, {grades: sv.grades||['A','B','C']});
+  else if(sv) DS=Object.assign(dDefaults(), {sort: sv.sort||'p', q: sv.q||''}); }catch(e){}
+DS._spec = DSPEC; DS.grades = DS.grades || ['A','B','C'];
+if(IGNORE) DS.band = [1.01, 20];
+Object.entries(DCFG.markets||{}).forEach(([k,v])=>{ if(v===false) DS.markets[k]=false; });
 const saveDS = () => { try{ localStorage.setItem('gs_nfl_desk', JSON.stringify(DS)); }catch(e){} };
 function dPass(x, wild){ const band = wild ? DS.wband : DS.band;
-  if(x.odds < band[0] || x.odds > band[1]) return false;
+  if((wild || !IGNORE) && (x.odds < band[0] || x.odds > band[1])) return false;
   if(!wild && x.p*100 < DS.minp) return false;
   if(!DS.grades.includes(x.grade)) return false;
   if(!DS.ev[x.evidence]) return false;
@@ -1044,9 +1052,9 @@ function dFilter(list, wild){ const per={}; const out=[];
 function dSettings(){ const mk=[['ml','Moneyline'],['spread','Spread'],['total','Total'],['h1','1H total'],['h2','2H total'],['qb_yds','Pass yds'],['qb_td','Pass TDs'],['rec_yds','Rec yds'],['recs','Receptions'],['rush_yds','Rush yds'],['fg','Kicker FGs'],['alts','Alt lines']];
   const chip=(group,k,l,on)=>`<label class="${on?'on':''}"><input type="checkbox" data-grp="${group}" data-k="${k}" ${on?'checked':''}>${l}</label>`;
   const vars=Object.entries(DCFG.variables||{}).map(([k,v])=>`<span class="${v&&v.on!==false?'on':''}" title="${esc((v&&v.label)||k)}">${v&&v.on!==false?'✓':'✗'} ${esc(k.replace(/_/g,' '))}</span>`).join('');
-  return `<details class="dset" id="dset"><summary>Desk settings · band ${DS.band[0].toFixed(2)} to ${DS.band[1].toFixed(2)} · min ${DS.minp}% · ${Object.values(DS.markets).filter(Boolean).length} markets · ${DS.perGame} per game${DS.wild?' · wild cards on':''}</summary>
+  return `<details class="dset" id="dset"><summary>Desk settings · ${IGNORE?'prices shown, never a filter':'band '+DS.band[0].toFixed(2)+' to '+DS.band[1].toFixed(2)} · min ${DS.minp}% · ${Object.values(DS.markets).filter(Boolean).length} markets · ${DS.perGame} per game${DS.wild?' · wild cards on':''}</summary>
    <div class="grid">
-    <div><label class="f">Odds band (DraftKings decimal)</label><div class="val"><span id="ds-lo">${DS.band[0].toFixed(2)}</span> to <span id="ds-hi">${DS.band[1].toFixed(2)}</span></div><input type="range" id="ds-blo" min="1.01" max="3" step="0.01" value="${DS.band[0]}"><input type="range" id="ds-bhi" min="1.1" max="20" step="0.01" value="${Math.min(DS.band[1],20)}"></div>
+    ${IGNORE?'':`<div><label class="f">Odds band (DraftKings decimal)</label><div class="val"><span id="ds-lo">${DS.band[0].toFixed(2)}</span> to <span id="ds-hi">${DS.band[1].toFixed(2)}</span></div><input type="range" id="ds-blo" min="1.01" max="3" step="0.01" value="${DS.band[0]}"><input type="range" id="ds-bhi" min="1.1" max="20" step="0.01" value="${Math.min(DS.band[1],20)}"></div>`}
     <div><label class="f">Minimum desk win chance</label><div class="val"><span id="ds-mp">${DS.minp}</span>%</div><input type="range" id="ds-minp" min="50" max="80" step="1" value="${DS.minp}"></div>
     <div><label class="f">Most selections per game</label><div class="val"><span id="ds-pg">${DS.perGame}</span></div><input type="range" id="ds-per" min="1" max="6" step="1" value="${DS.perGame}"></div>
     <div><label class="f">Sort</label><select id="ds-sort"><option value="p" ${DS.sort==='p'?'selected':''}>Desk win chance</option><option value="ev" ${DS.sort==='ev'?'selected':''}>EV at the price</option><option value="conf" ${DS.sort==='conf'?'selected':''}>Evidence confidence</option><option value="kick" ${DS.sort==='kick'?'selected':''}>Kickoff</option></select></div>
@@ -1071,15 +1079,17 @@ function dWire(el){ const q=id=>el.querySelector('#'+id); const rr=()=>{ saveDS(
     if(g==='grades'){ DS.grades = cb.checked ? [...new Set(DS.grades.concat([k]))] : DS.grades.filter(x=>x!==k); }
     else if(g==='wild'){ DS.wild=cb.checked; } else { DS[g][k]=cb.checked; } rr(); });
   const rs=q('ds-reset'); if(rs) rs.onclick=()=>{ DS=dDefaults(); DS.grades=['A','B','C']; rr(); };
-  const cp=q('ds-copy'); if(cp) cp.onclick=()=>{ const sel=DCFG.selection||{}; const cfg=Object.assign({}, DCFG, {odds_band:[+DS.band[0].toFixed(2), +DS.band[1].toFixed(2)], wild_cards:Object.assign({}, DCFG.wild_cards||{}, {enabled:DS.wild, odds_band:[+DS.wband[0].toFixed(2), +DS.wband[1].toFixed(2)]}), markets:DS.markets, selection:Object.assign({}, sel, {min_p:DS.minp/100, max_per_game:DS.perGame, min_grade:DS.grades.slice().sort().pop()||'C', min_evidence: DS.ev.unmeasured?'unmeasured':(DS.ev.partial?'partial':'measured')}), updated_utc:new Date().toISOString().slice(0,16).replace('T',' ')+' UTC'});
+  const cp=q('ds-copy'); if(cp) cp.onclick=()=>{ const sel=DCFG.selection||{}; const base=Object.assign({}, DCFG); delete base._error; const mk={}; Object.keys(DCFG.markets||{}).forEach(k=>mk[k]=DS.markets[k]!==false);
+    const cfg=Object.assign(base, {wild_cards:Object.assign({}, DCFG.wild_cards||{}, {enabled:DS.wild, odds_band:[+DS.wband[0].toFixed(2), +DS.wband[1].toFixed(2)]}), markets:mk, selection:Object.assign({}, sel, {min_p:DS.minp/100, max_per_game:DS.perGame}), updated_utc:new Date().toISOString().slice(0,16).replace('T',' ')+' UTC'});
+    if(!IGNORE) cfg.odds_band=[+DS.band[0].toFixed(2), +DS.band[1].toFixed(2)];
     const txt=JSON.stringify(cfg,null,1); (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{ cp.textContent='Copied: paste into data/nfl/desk_config.json'; },()=>{ prompt('Copy this into data/nfl/desk_config.json', txt); }); }; }
 function dAlerts(D){ const now=bNow(); const rows=(D.alerts||[]).filter(a=>a.kick>now && (BF.game==='all'||a.game_id===BF.game)); if(!rows.length) return '';
   return `<div class="alertbar"><b>🚨 DraftKings moved against ${rows.length} desk pick${rows.length===1?'':'s'} since the desk priced them.</b> Re-check before betting.<ul>${rows.map(a=>`<li>${esc(a.label)} (${esc(a.mu)}): ${esc(a.why)}${a.fetched?' · feed '+esc(bStamp(a.fetched)):''}</li>`).join('')}</ul></div>`; }
-function dHot(){ const H=(BOT&&BOT.hot)||{}; const now=bNow(); const mv=(H.movers||[]).filter(m=>m.kick>now && (BF.game==='all'||m.game_id===BF.game)); const ed=(H.edges||[]).filter(e=>e.kick>now); const fd=(H.fades||[]).filter(e=>e.kick>now);
+function dHot(){ const H=(BOT&&BOT.hot)||{}; const now=bNow(); const mv=(H.movers||[]).filter(m=>m.kick>now && (BF.game==='all'||m.game_id===BF.game)); const ed=(H.edges||[]).filter(e=>e.kick>now && e.gap>0 && (BF.game==='all'||e.game_id===BF.game)); const fd=(H.fades||[]).filter(e=>e.kick>now && e.gap<0 && (BF.game==='all'||e.game_id===BF.game));
   const row=m=>`<div class="row"><span>${esc(m.label)}</span><span><span class="hot">🔥 ${esc(m.hot)}</span> · <span class="cold">🧊 ${esc(m.cold)}</span></span></div>`;
   const erow=e=>`<div class="row"><span>${esc(e.label)} <span style="color:var(--dim)">${esc(e.mu)}</span></span><span class="mv ${e.gap>=0?'hot':'cold'}">desk ${pct(e.desk,0)} vs mkt ${pct(e.market,0)}</span></div>`;
   return `<h2>What's hot, what's not</h2><div class="hotgrid"><div class="hotbox"><h3>DraftKings line moves since the opener</h3>${mv.length?mv.slice(0,10).map(row).join(''):'<div class="row"><span style="color:var(--dim)">No move of half a point or more yet. Lines refresh on Wednesday and before each kickoff window.</span></div>'}</div>
-   <div class="hotbox"><h3>Desk vs market: biggest edges and fades</h3>${ed.length?ed.slice(0,6).map(erow).join(''):'<div class="row"><span style="color:var(--dim)">No desk selection on a feed-priced market yet.</span></div>'}${fd.length&&fd[0].gap<0?`<h3 style="margin-top:8px">Where the desk is below the market</h3>${fd.map(erow).join('')}`:''}</div></div>`; }
+   <div class="hotbox"><h3>Desk vs market: biggest edges and fades</h3>${ed.length?ed.slice(0,6).map(erow).join(''):'<div class="row"><span style="color:var(--dim)">No desk selection on a feed-priced market yet.</span></div>'}${fd.length?`<h3 style="margin-top:8px">Where the desk is below the market</h3>${fd.map(erow).join('')}`:''}</div></div>`; }
 function pFind(q){ q=(q||'').trim().toLowerCase(); if(q.length<2) return []; const out=[];
   for(const g of P.games){ for(const side of ['home','away']){ const team=g[side];
     const qb=((g.qb||{})[side])||{}; if(qb.name && qb.name.toLowerCase().includes(q)) out.push({name:qb.name, team, side, g, pos:'QB', qb});
@@ -1105,22 +1115,22 @@ function pCard(o){ const g=o.g; const opp=o.side==='home'?g.away:g.home; const n
     ${desk.length?`<ul>${desk.map(x=>`<li><b style="color:#ffd37a">★ Desk:</b> ${esc(x.label)} ${pct(x.p,0)} @ ${x.odds.toFixed(2)} · ${esc(x.verdict)}</li>`).join('')}</ul>`:''}</div>`; }
 function dSearch(){ return `<h2>Player lookup</h2><div class="psearch"><input id="ps-q" type="search" placeholder="Type a player's name (this week's games)" value="${esc(DS.q||'')}" autocomplete="off"></div><div id="ps-out">${(DS.q&&DS.q.length>=2)?(pFind(DS.q).map(pCard).join('')||'<p class="empty">No player by that name in this week\'s games.</p>'):''}</div>`; }
 function bDesk(){ const D=DESK; let h = dSettings();
-  if(!D){ h += `<p class="empty">No research desk file for this week yet. The desk runs before each kickoff window (Thursday, Saturday evening, Sunday morning, Monday afternoon).</p>`; return h + dHot() + dSearch(); }
+  if(!D){ h += DESK_BAD ? `<div class="alertbar"><b>The research desk file for this week failed its checks, so its picks are not shown.</b> The next desk run fixes it.<ul>${(DESK_BAD.errors||[]).slice(0,6).map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div>` : `<p class="empty">No research desk file for this week yet. The desk runs before each kickoff window (Thursday, Saturday evening, Sunday morning, Monday afternoon).</p>`; return h + dHot() + dSearch(); }
   const now=bNow();
   h += dAlerts(D);
   const all=(D.selections||[]); const rows=dFilter(all, false);
   const up=rows.filter(x=>x.kick>now), done=rows.filter(x=>x.kick<=now);
   const hidden = all.filter(x=>x.kick>now && (BF.game==='all'||x.game_id===BF.game)).length - up.length;
   h += `<div class="deskhead"><h2>★ Research desk · ${up.length} selection${up.length===1?'':'s'} to play${hidden>0?` <small style="color:var(--dim);font-weight:500">(${hidden} hidden by your settings)</small>`:''}</h2>
-    <p>${esc(D.analyst||'Research desk')} read the week's news (practice reports, Friday designations, beat-writer notes, weather, line moves) and wrote every selection up with its inputs, its arithmetic and its risks. Ranked by ${{p:"the desk's own win chance",ev:'EV at the DraftKings price',conf:'evidence confidence',kick:'kickoff'}[DS.sort]||"the desk's own win chance"}; DraftKings prices ${DS.band[0].toFixed(2)} to ${DS.band[1].toFixed(2)}. Open a card for the full write-up. The desk's chance is a judgment, not a simulation: its record is graded on its own line in Results.</p>
+    <p>${esc(D.analyst||'Research desk')} read the week's news (practice reports, Friday designations, beat-writer notes, weather, line moves) and wrote every selection up with its inputs, its arithmetic and its risks. Ranked by ${{p:"the desk's own win chance",ev:'EV at the DraftKings price',conf:'evidence confidence',kick:'kickoff'}[DS.sort]||"the desk's own win chance"}; ${IGNORE?'picked on evidence, the DraftKings price shown but never the reason':'DraftKings prices '+DS.band[0].toFixed(2)+' to '+DS.band[1].toFixed(2)}. Open a card for the full write-up. The desk's chance is a judgment, not a simulation: its record is graded on its own line in Results.</p>
     ${D.summary?`<p>${esc(D.summary)}</p>`:''}<p class="st">Desk run ${esc(bStamp(D.generated))} (${esc(bAgo(D.generated))}) · site simulation ${esc(bStamp(((BOT||{}).stamps||{}).model))}</p></div>`;
-  const byId={}; all.forEach(x=>byId[x.id]=x); const upIds=new Set(up.map(x=>x.id)); const spec=D.spec||{}; const shown=new Set();
-  const bestRows=(D.best||[]).map(i=>byId[i]).filter(x=>x&&upIds.has(x.id));
-  if(bestRows.length){ h += `<h2>🏆 ${esc((spec.best||{}).label||'Best picks')} <small style="color:var(--dim);font-size:13px;font-weight:500">${bestRows.length} of ${(spec.best||{}).max||6} · the strongest evidence of winning${spec.derived?' · ranked by the spec\'s rule':' · chosen by the desk'}</small></h2>`;
+  const selById={}; all.forEach(x=>selById[x.id]=x); const upIds=new Set(up.map(x=>x.id)); const spec=D.spec||{}; const shown=new Set();
+  const bestRows=(D.best||[]).map(i=>selById[i]).filter(x=>x&&upIds.has(x.id));
+  if(bestRows.length){ h += `<h2>🏆 ${esc((spec.best||{}).label||'Best picks')} <small style="color:var(--dim);font-size:13px;font-weight:500">${bestRows.length} of ${(spec.best||{}).max||6} · the strongest evidence of winning${(spec.derived_best!=null?spec.derived_best:spec.derived)?' · ranked by the spec\'s rule':' · chosen by the desk'}</small></h2>`;
     h += bestRows.map((x,i)=>dCard(x,i+1).replace('class="bb desk','class="bb desk best')).join(''); bestRows.forEach(x=>shown.add(x.id)); }
-  for(const sp of (spec.sections||[])){ const rows=((D.sections||{})[sp.key]||[]).map(i=>byId[i]).filter(x=>x&&upIds.has(x.id));
+  for(const sp of (spec.sections||[])){ const rows=((D.sections||{})[sp.key]||[]).map(i=>selById[i]).filter(x=>x&&upIds.has(x.id));
     h += `<h2>${esc(sp.label)} <small style="color:var(--dim);font-size:13px;font-weight:500">${rows.length} of ${sp.max||6}${sp.note?' · '+esc(sp.note):''}</small></h2>`;
-    h += rows.length ? rows.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">Nothing in this section passes your settings for the games still to play.</p>`; rows.forEach(x=>shown.add(x.id)); }
+    h += rows.length ? rows.map((x,i)=>dCard(x,i+1)).join('') : `<p class="empty">${((D.sections||{})[sp.key]||[]).length?'Nothing in this section passes your settings for the games still to play.':'The desk made no selection in this section this run.'}</p>`; rows.forEach(x=>shown.add(x.id)); }
   const rest=up.filter(x=>!shown.has(x.id));
   if(rest.length){ h += `<h2>${(spec.sections||[]).length?'Other selections':'Selections'} <small style="color:var(--dim);font-size:13px;font-weight:500">${rest.length}</small></h2>` + rest.map((x,i)=>dCard(x,i+1)).join(''); }
   else if(!up.length) h += `<p class="empty">No desk selection passes your settings for the games still to play${BF.game!=='all'?' in this game':''}.</p>`;
@@ -1131,7 +1141,8 @@ function bDesk(){ const D=DESK; let h = dSettings();
   if(done.length) h += `<div class="bbsep">Already kicked off</div>` + done.map((x,i)=>dCard(x,up.length+i+1)).join('');
   h += dHot();
   h += dSearch();
-  const dec=(D.declined||[]); if(dec.length) h += `<h2>Looked at and declined</h2><div class="bt"><table><tr><th class="lbl">Candidate</th><th class="lbl">Why not</th></tr>${dec.map(x=>`<tr><td class="lbl"><b>${esc(x.label)}</b></td><td class="lbl" style="white-space:normal">${esc(x.why)}</td></tr>`).join('')}</table></div>`;
+  const exc=(D.excluded||[]); if(exc.length) h += `<details class="gnotes" style="margin:10px 0"><summary>Set aside by the spec (${exc.length})</summary><ul>${exc.map(x=>`<li><b>${esc(x.label||x.id)}</b>: ${esc(x.why)}</li>`).join('')}</ul></details>`;
+  const dec=(D.declined||[]); if(dec.length) h += `<h2>Looked at and declined</h2><table class="decl"><thead><tr><th>Candidate</th><th>Why not</th></tr></thead><tbody>${dec.map(x=>`<tr><td>${esc(x.label)}</td><td>${esc(x.why)}</td></tr>`).join('')}</tbody></table>`;
   const gn=Object.entries(D.games||{}).map(([gid,v])=>[byId[gid],v]).filter(([g])=>g).sort((a,c)=>(a[0].kickoff_utc||'').localeCompare(c[0].kickoff_utc||''));
   if(gn.length) h += `<h2>Game notes</h2>` + gn.map(([g,v])=>`<details class="gnotes"><summary>${esc(g.away)} @ ${esc(g.home)} · ${esc(bKick(g.kickoff_utc))}</summary>${v.weather?`<ul><li><b>Weather:</b> ${esc(v.weather)}</li></ul>`:''}${(v.injuries||[]).length?`<ul>${v.injuries.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.notes||[]).length?`<ul>${v.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.sources||[]).length?`<div class="small" style="color:var(--dim);margin:0 0 8px">Sources: ${dSrc(v.sources)}</div>`:''}</details>`).join('');
   return h; }
@@ -1159,11 +1170,11 @@ function bTd(){ const now=bNow(); const rows=((BOT||{}).tds||[]).filter(t=>t.kic
     body += `<tr><td>${esc(t.who)}${(t.flags||[]).length?' ⚠':''}</td><td>${esc(t.team)} ${esc(t.pos||'')}</td><td><b>${pct(t.p,0)}</b></td><td>${t.p_model!=null?pct(t.p_model,0):'–'}</td><td>${t.p_market!=null?pct(t.p_market,0):'–'}</td><td>${t.odds.toFixed(2)} <span style="color:var(--dim)">${dec2am(t.odds)}</span></td><td class="${t.price==='attractive'?'pos':(t.price==='poor'?'neg':'')}">${esc(t.price)}</td></tr>`; }
   return h + `<div class="bt"><table class="tdb"><tr><th>Player</th><th>Team</th><th>TD chance</th><th>Sim</th><th>Market</th><th>DraftKings</th><th>Price</th></tr>${body}</table></div>`; }
 function renderBest(){ const el=document.getElementById('best'); if(!el) return;
-  if(!BB){ el.innerHTML='<div class="panel"><p>Best bets appear once the odds feed has DraftKings prices for this week.</p></div>'; return; }
+  if(!BB){ if(DESK||DESK_BAD){ BF.grp='desk'; el.innerHTML='<div class="bbl">'+bDesk()+'</div>'; dWire(el); return; } el.innerHTML='<div class="panel"><p>Best bets appear once the odds feed has DraftKings prices for this week.</p></div>'; return; }
   const now = bNow();
   const up = BOARD.filter(b => b.kick && b.kick > now);
   const games = P.games.filter(g => g.kickoff_utc && g.kickoff_utc > now && (g.odds||{}).fetched).map(g=>({game_id:g.game_id, mu:`${g.away} @ ${g.home}`, kick:g.kickoff_utc, props:!!((g.odds||{}).props_fetched)})).sort((a,c)=>a.kick.localeCompare(c.kick));
-  if(!DESK && BF.grp==='desk') BF.grp = BOT ? 'bot' : 'winners';
+  if(!DESK && !DESK_BAD && BF.grp==='desk') BF.grp = BOT ? 'bot' : 'winners';
   if(!BOT && BF.grp==='bot') BF.grp='winners';
   if(!['bot','tdboard','desk'].includes(BF.grp) && !up.some(b=>b.group===BF.grp)) BF.grp = DESK ? 'desk' : (BOT ? 'bot' : 'winners');
   const kinds = [...new Set(up.filter(b=>b.group===BF.grp).map(b=>b.kind))];
@@ -1181,7 +1192,7 @@ function renderBest(){ const el=document.getElementById('best'); if(!el) return;
   const fresh = `<p class="note"><b>Data as of (ET):</b> DraftKings game lines ${bStamp(BB.odds_fetched)} · player props ${bStamp(BB.props_fetched_oldest)} · injury report ${bStamp(SS.injuries)} · usage and snap counts ${bStamp(SS.usage)} (play-by-play through ${esc(SS.data_through||'?')}) · weather forecast ${bStamp(SS.weather)} · simulation run ${bStamp(SS.model)}.`
     + (noProps ? ` Player props for ${noProps} game${noProps===1?' are':'s are'} not priced yet: they are pulled about 75 minutes before each kickoff window.` : '') + `</p>`;
   const stats = `<div class="bbhead"><span><b>${up.length}</b> DraftKings markets across <b>${games.length}</b> games</span><span><b>${attractive}</b> attractively priced</span><span>${BOT?esc(BOT.week_label||''):''}</span></div>`;
-  const bar = `<div class="bbbar"><div class="chips" id="bb-grp">${BGROUPS.filter(([k])=>k==='desk' ? !!DESK : (k!=='bot'&&k!=='tdboard' ? true : !!BOT)).map(([k,l])=>`<button type="button" data-g="${k}" class="${BF.grp===k?'on':''}">${k==='desk'?'★ ':''}${l} <small>${k==='desk'?(DESK.selections||[]).filter(x=>x.kick>now).length:(k==='bot'?Object.values((BOT||{}).cats||{}).reduce((a,c)=>a+(c.ids||[]).length,0):(k==='tdboard'?((BOT||{}).tds||[]).filter(t=>t.kick>now).length:up.filter(b=>b.group===k).length))}</small></button>`).join('')}</div>
+  const bar = `<div class="bbbar"><div class="chips" id="bb-grp">${BGROUPS.filter(([k])=>k==='desk' ? !!(DESK||DESK_BAD) : (k!=='bot'&&k!=='tdboard' ? true : !!BOT)).map(([k,l])=>`<button type="button" data-g="${k}" class="${BF.grp===k?'on':''}">${k==='desk'?'★ ':''}${l} <small>${k==='desk'?(DESK?dFilter(DESK.selections||[],false).filter(x=>x.kick>now).length:'!'):(k==='bot'?Object.values((BOT||{}).cats||{}).reduce((a,c)=>a+(c.ids||[]).length,0):(k==='tdboard'?((BOT||{}).tds||[]).filter(t=>t.kick>now).length:up.filter(b=>b.group===k).length))}</small></button>`).join('')}</div>
     <select id="bb-kind" aria-label="Market"><option value="all">Every market</option>${kinds.map(k=>`<option value="${k}" ${BF.kind===k?'selected':''}>${esc(BKIND[k]||k)}</option>`).join('')}</select>
     <select id="bb-game" aria-label="Game"><option value="all">Every game</option>${games.map(g=>`<option value="${g.game_id}" ${BF.game===g.game_id?'selected':''}>${esc(g.mu)} · ${esc(bKick(g.kick))}</option>`).join('')}</select>
     <select id="bb-sort" aria-label="Sort"><option value="p" ${BF.sort==='p'?'selected':''}>Sort: win chance</option><option value="conf" ${BF.sort==='conf'?'selected':''}>Sort: evidence</option><option value="ev" ${BF.sort==='ev'?'selected':''}>Sort: price (EV)</option></select></div>`;
@@ -1253,8 +1264,9 @@ def static_summary(p: dict) -> str:
 
 def render(payload: dict, nhl_href: str = "../index.html", root: str = "../") -> str:
     data = json.dumps(payload, separators=(",", ":")).replace("</", "<\\/")
-    return (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
+    html = (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
             .replace("__WEEK__", str(payload["week"])).replace("__BRAND__", brand_html(root, "nfl", nhl_href)))
+    return finish_page(html, root, "nfl", nhl_href)
 
 
 __all__ = ["render", "TEMPLATE", "static_summary"]

@@ -17,7 +17,7 @@ import shutil
 import io
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .config import OUT_DIR, SITE_DIR
@@ -27,7 +27,7 @@ from .report import render
 
 DAYSLOT = """<span class="lbl2">Week</span><select id="daysel" aria-label="week">{options}</select><span class="pub">published {published}</span>"""
 SCRIPT = """<script>window.NFL_BASE={base!r};(function(){{var s=document.getElementById('daysel'); if(s) s.onchange=function(){{ location.href=this.value; }};}})();</script>"""
-HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#070b12"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png"><meta name="apple-mobile-web-app-title" content="Gill Sports"><meta name="apple-mobile-web-app-capable" content="yes">"""
+HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#0F1529"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="{root}icon-192.png"><meta name="apple-mobile-web-app-title" content="Gill Sports"><meta name="apple-mobile-web-app-capable" content="yes">"""
 
 
 def _csv(p: dict) -> str:
@@ -87,6 +87,18 @@ def freeze_started(new: dict, old: dict | None, now: datetime | None = None) -> 
     return new
 
 
+def _ahead(g: dict, now: datetime | None = None) -> bool:
+    """A game still to play or in play (kickoff less than six hours ago); a game without a kickoff time counts until its result lands."""
+    now = now or datetime.now(timezone.utc)
+    k = g.get("kickoff_utc")
+    if not k:
+        return (g.get("actual") or {}).get("hs") is None
+    try:
+        return datetime.strptime(k, "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc) + timedelta(hours=6) > now
+    except ValueError:
+        return (g.get("actual") or {}).get("hs") is None
+
+
 def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep: int = 40) -> Path:
     site_dir.mkdir(parents=True, exist_ok=True)
     wdir = site_dir / "weeks"
@@ -122,11 +134,12 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep: int = 4
     if not names:
         raise SystemExit("nothing to publish: run `python -m nfl run` first")
     published = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    # the front page: the earliest week that still has a game to play, else the latest week
+    # the front page: the earliest week with a game still to play or in play, else the latest week. Decided by kickoff
+    # times, not results: a week is rebuilt only while it is the current week, so its last game's result may never land.
     current = None
     for n in sorted(names):
         p = json.loads((wdir / f"{n}.json").read_text())
-        if any(g.get("actual") is None or g["actual"].get("hs") is None for g in p["games"]):
+        if any(_ahead(g) for g in p["games"]):
             current = n
             break
     current = current or names[0]
@@ -147,8 +160,13 @@ def build_site(out_dir: Path = OUT_DIR, site_dir: Path = SITE_DIR, keep: int = 4
                                 + head_tags(root, f"Gill Sports · NFL week {p['week']}", "NFL week: moneyline, spread, totals, half totals, field goals, QB passing and anytime TD probabilities, every selection scanned"), 1)
             html = html.replace("<script id=\"payload\"", SCRIPT.format(base=base) + "\n<script id=\"payload\"", 1)
             target.write_text(html, encoding="utf-8")
-    (site_dir / "weeks.json").write_text(json.dumps({"weeks": [{"name": n, "season": int(n.split("-w")[0]), "week": int(n.split("-w")[1])} for n in names],
-                                                     "current": current, "published": published}, indent=1))
+    index = {"weeks": [{"name": n, "season": int(n.split("-w")[0]), "week": int(n.split("-w")[1])} for n in names], "current": current, "published": published}
+    # the phone app's feed for the current week (docs/app/index.html); the app falls back to the full payload without it
+    from .appfeed import write as write_app
+    entry = write_app(site_dir, json.loads((wdir / f"{current}.json").read_text()), current, published)
+    if entry:
+        index["app"] = entry
+    (site_dir / "weeks.json").write_text(json.dumps(index, indent=1))
     copy_assets(site_dir.parent)
     from .config import DATA_DIR
     for f in ("backtest_latest.json", "factors.json"):

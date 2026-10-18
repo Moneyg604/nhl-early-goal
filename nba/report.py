@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 
-from earlygoal.brand import BRAND_CSS, brand_html, head_tags
+from earlygoal.brand import BRAND_CSS, brand_html, finish_page, head_tags
 from nfl.report import BASE_CSS, NFL_CSS
 
 NBA_CSS = r"""
@@ -89,6 +89,7 @@ __STATIC__
 
 <script>
 const P = __PAYLOAD__;
+(function(){ const s=document.getElementById('static'); if(s) s.remove(); })();
 const M = P.meta || {}; const BB = P.best_bets || null; const BOT = P.bot || null; const DESK = (BOT && BOT.desk && BOT.desk.ok) ? BOT.desk : null; const DCFG = (BOT && BOT.desk_config) || {};
 const BASE = window.NBA_BASE || './';
 const byId = {}; P.games.forEach(g=>byId[g.game_id]=g);
@@ -190,7 +191,7 @@ function dCard(x, i){ const g=byId[x.game_id]; const now=bNow(); const started =
    <div class="three"><div><span class="k">DraftKings price</span><span class="v ${x.ev>=0.02?'pos':(x.ev>=-0.03?'mid':'neg')}">${x.odds.toFixed(2)}</span><span class="s">${dec2am(x.odds)} · ${esc(osrc)} · EV at the desk's chance ${evTxt(x.ev)}</span></div>
      <div><span class="k">Evidence</span><span class="v"><span class="cf ${x.evidence==='measured'?'high':(x.evidence==='partial'?'medium':'low')}">${esc(x.evidence)}</span> ${x.confidence}</span><span class="s">fair odds ${x.fair_odds.toFixed(2)}${bp}</span></div>
      <div><span class="k">Biggest risk</span><span class="v" style="font-size:12.5px;white-space:normal;font-family:var(--body);font-weight:500;color:#ffd37a">${esc((x.risks||[])[0]||'ordinary variance')}</span></div></div>
-   <div class="brow"><details class="books"><summary>Verdict, inputs, arithmetic, risks and sources</summary>${dBlock(x)}</details></div></article>`; }
+   <div class="brow"><details class="books"><summary title="Verdict, inputs, arithmetic, risks and sources">Full write-up</summary>${dBlock(x)}</details></div></article>`; }
 function dAlerts(D){ const now=bNow(); const rows=(D.alerts||[]).filter(a=>a.kick>now && (BF.game==='all'||a.game_id===BF.game)); if(!rows.length) return '';
   return `<div class="alertbar"><b>🚨 DraftKings moved against ${rows.length} desk pick${rows.length===1?'':'s'} since the desk priced them.</b> Re-check before betting.<ul>${rows.map(a=>`<li>${esc(a.label)} (${esc(a.mu)}): ${esc(a.why)}${a.fetched?' · feed '+esc(bStamp(a.fetched)):''}</li>`).join('')}</ul></div>`; }
 function dHot(){ const H=(BOT&&BOT.hot)||{}; const now=bNow(); const mv=(H.movers||[]).filter(m=>m.kick>now && (BF.game==='all'||m.game_id===BF.game)); const ed=(H.edges||[]).filter(e=>e.kick>now); const fd=(H.fades||[]).filter(e=>e.kick>now);
@@ -227,7 +228,7 @@ function bDesk(){ const D=DESK; let h=dSettings();
     h += w.length ? w.map((x,i)=>dCard(x,i+1).replace('class="bb desk','class="bb desk wild')).join('') : `<p class="empty">No wild card tonight${(D.wild_cards||[]).length?' passes your settings':''}.</p>`; }
   if(done.length) h += `<div class="bbsep">Already tipped off</div>` + done.map((x,i)=>dCard(x,up.length+i+1)).join('');
   h += dHot(); h += dSearch();
-  const dec=(D.declined||[]); if(dec.length) h += `<h2>Looked at and declined</h2><div class="bt"><table><tr><th class="lbl">Candidate</th><th class="lbl">Why not</th></tr>${dec.map(x=>`<tr><td class="lbl"><b>${esc(x.label)}</b></td><td class="lbl" style="white-space:normal">${esc(x.why)}</td></tr>`).join('')}</table></div>`;
+  const dec=(D.declined||[]); if(dec.length) h += `<h2>Looked at and declined</h2><table class="decl"><thead><tr><th>Candidate</th><th>Why not</th></tr></thead><tbody>${dec.map(x=>`<tr><td>${esc(x.label)}</td><td>${esc(x.why)}</td></tr>`).join('')}</tbody></table>`;
   const gn=Object.entries(D.games||{}).map(([gid,v])=>[byId[gid],v]).filter(([g])=>g).sort((a,c)=>(a[0].tip_utc||'').localeCompare(c[0].tip_utc||''));
   if(gn.length) h += `<h2>Game notes</h2>` + gn.map(([g,v])=>`<details class="gnotes"><summary>${esc(g.away)} @ ${esc(g.home)} · ${esc(bKick(g.tip_utc))}</summary>${(v.injuries||[]).length?`<ul>${v.injuries.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.notes||[]).length?`<ul>${v.notes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}${(v.sources||[]).length?`<div class="small" style="color:var(--dim);margin:0 0 8px">Sources: ${dSrc(v.sources)}</div>`:''}</details>`).join('');
   return h; }
@@ -299,7 +300,7 @@ function gCard(g){ const L=g.lines||{}; const m=g.model||{}; const r=g.research|
    <div class="inj"><b>Ratings:</b> ${g.home} ${r.home?`${r.home.ortg} / ${r.home.drtg}, pace ${r.home.pace}, ${r.home.record}`:'–'} · ${g.away} ${r.away?`${r.away.ortg} / ${r.away.drtg}, pace ${r.away.pace}, ${r.away.record}`:'–'}</div>
    ${inj?`<div class="inj">${inj}</div>`:''}</div>`; }
 function renderGames(){ const el=document.getElementById('games'); el.innerHTML = P.games.length ? P.games.map(gCard).join('') : '<p class="empty">No NBA games on this date.</p>';
-  document.getElementById('dayslot').innerHTML = `<span class="lbl2">Day</span> ${esc(P.date)} <span class="pub">published ${esc(bStamp(P.generated_utc))}</span>`; }
+  const ds=document.getElementById('dayslot'); if(ds) ds.innerHTML = `<span class="lbl2">Day</span> ${esc(P.date)} <span class="pub">published ${esc(bStamp(P.generated_utc))}</span>`; }
 async function refreshLive(){ try{ const d=new Date(P.date+'T12:00:00'); const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${P.date.replace(/-/g,'')}`); const j=await r.json();
   for(const ev of j.events||[]){ const c=(ev.competitions||[])[0]||{}; const home=(c.competitors||[]).find(x=>x.homeAway==='home')||{}; const away=(c.competitors||[]).find(x=>x.homeAway==='away')||{}; const st=(ev.status||{}).type||{};
     if(st.state!=='pre') LIVE[ev.id]={hs:+home.score, as:+away.score, status:st.shortDetail||st.name, final:!!st.completed}; }
@@ -318,7 +319,7 @@ function renderPlayers(){ const el=document.getElementById('players'); const row
   const qi=el.querySelector('#pl-q'); qi.oninput=()=>{ PS.q=qi.value; renderPlayers(); const n=el.querySelector('#pl-q'); n.focus(); n.setSelectionRange(n.value.length,n.value.length); }; }
 
 // ------------------------------------------------------------- results
-function renderResults(){ const t={}; const PK={desk:'Research desk', desk_wild:'Desk wild cards', bot:"Bot's picks", market:'DraftKings favourites'};
+function renderResults(){ const t={}; const PK={desk_best:'Desk best picks', desk:'Research desk', desk_wild:'Desk wild cards', bot:"Bot's picks", market:'DraftKings favourites'};
   for(const [k,lst] of Object.entries(P.picks||{})){ for(const x of lst){ const g=byId[x.game_id]; if(!g||!g.actual) continue; const leg={kind:x.market, side:x.side, line:x.market==='spread'?(x.side==='home'?x.line:-x.line):x.line, team:x.team, pid:x.id, who:x.player}; const r=legResult(leg,g); if(!r||r==='void') continue; t[k]=t[k]||{hit:0,miss:0,tie:0}; t[k][r]++; } }
   document.getElementById('today').innerHTML = `<h3>${esc(P.date)}: graded from the box scores</h3>${Object.keys(t).length?`<div class="tbl"><table><tr><th>Line</th><th>won</th><th>lost</th><th>push</th></tr>${Object.entries(t).map(([k,v])=>`<tr><td>${esc(PK[k]||k)}</td><td>${v.hit}</td><td>${v.miss}</td><td>${v.tie}</td></tr>`).join('')}</table></div>`:'<p>Nothing decided yet tonight. Results fill in from ESPN after each game.</p>'}`;
   fetch(BASE+'scorecard.json').then(r=>r.json()).then(sc=>{ const LB=(sc.leaderboard||[]).filter(r=>r.n); const S=sc.summary||{};
@@ -355,9 +356,10 @@ def static_summary(p: dict) -> str:
 
 def render(payload: dict, nhl_href: str = "../index.html", root: str = "../") -> str:
     data = json.dumps(payload, separators=(",", ":")).replace("</", "<\\/")
-    return (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + NBA_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
+    html = (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + NBA_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
             .replace("__DATE__", payload["date"]).replace("__BRAND__", brand_html(root, "nba", nhl_href))
             .replace("__HEAD__", head_tags(root, "Gill Sports · NBA", "NBA game lines, player props, the bot's picks and the research desk")))
+    return finish_page(html, root, "nba", nhl_href)
 
 
 __all__ = ["render", "TEMPLATE"]

@@ -36,5 +36,8 @@
   "Best picks are the selections with the highest evidence of actually winning, three to six of them, one per player, at most two from the same game."
  ],
  "alerts": {"telegram": true, "line_move_points": 1.0, "odds_drop": 0.08, "injury_flags": true},
- "updated_utc": "2026-10-17 20:00 UTC"
+ "schedule": [{"day": 4, "h": 11, "m": 33, "label": "Thursday night game"}, {"day": 6, "h": 17, "m": 38, "label": "Sunday slate"},
+              {"day": 0, "h": 8, "m": 41, "label": "Final pass on Sunday + Monday night"}, {"day": 1, "h": 14, "m": 37, "label": "Monday night"}],
+ "schedule_note": "When the scheduled desk runs fire in the owner's Claude chat (America/Toronto; day 0 = Sunday). Information for the app only: changing it here does not move the tasks.",
+ "updated_utc": "2026-10-17 20:44 UTC"
 }

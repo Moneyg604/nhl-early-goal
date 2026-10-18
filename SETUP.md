@@ -46,3 +46,22 @@ The dashboard chip "goalies" tells you where the starters came from. If it says 
 ## Costs
 
 GitHub Actions gives private repositories 2,000 free minutes a month; three runs a day at about 2 minutes each uses roughly 180. Public repositories are free without limit.
+
+## NFL, NBA and the research desk (after the steps above)
+
+The same repository runs every section; nothing else needs installing.
+
+* **Workflows.** `update-nfl.yml` (daily at about 9:20am Eastern, and about 75 minutes before each kickoff window via
+  the keeper), `update-nba.yml` (10:45am and 4:40pm Eastern), `live-scores.yml` (every 5 minutes in the evening),
+  `nfl-revalidate.yml` (monthly). Start the scheduler once: Actions → Keeper → Run workflow.
+* **Secrets** (Settings → Secrets and variables → Actions): `ODDS_API_KEY` for DraftKings prices (The Odds API free
+  plan), `TELEGRAM_BOT_TOKEN` (and `TELEGRAM_CHAT_ID`, or run Actions → Telegram setup once), optional `DISCORD_WEBHOOK_URL`.
+* **The research desk** runs as scheduled tasks in your Claude chat (Thursday 11:33am, Saturday 5:38pm, Sunday 8:41am,
+  Monday 2:37pm Eastern). Each run follows `RUNBOOK_NFL_RESEARCH.md`: it needs the repository attached in that chat
+  with permission to push to `main` and to run `gh workflow run` (it commits only `data/nfl/research/<week>.json`, then
+  starts `update-nfl.yml` with reason `research`).
+* **The phone app** is at `https://<your-username>.github.io/nhl-early-goal/app/`: open it in Safari → Share → Add to
+  Home Screen. It opens as its own app (Picks, Board, Logic, Record).
+* **Changing the desk's rules:** the app's Logic tab writes the message to send to Claude; the rules live in
+  `data/nfl/desk_config.json` (and `data/nba/desk_config.json`).
+

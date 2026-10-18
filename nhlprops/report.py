@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from earlygoal.brand import BRAND_CSS, brand_html
+from earlygoal.brand import BRAND_CSS, brand_html, finish_page
 from nfl.report import BASE_CSS, NFL_CSS
 
 PROPS_CSS = r"""
@@ -19,7 +19,7 @@ PROPS_CSS = r"""
 .sk td:first-child{white-space:normal;overflow:hidden;text-overflow:ellipsis}
 .sk td .nm{font-weight:600}.sk td .ln{color:var(--dim);font-size:10.5px;margin-left:4px}
 .sk td .l{color:var(--dim);font-size:10.5px;display:block}
-.sk tr.d td{color:var(--muted)}
+.sk tr.dm td{color:var(--muted)}
 .sk td.hi{color:var(--green);font-weight:700}.sk td.lo{color:var(--red)}
 .sk td .bk{display:block;font-size:10px;color:var(--ice)}
 .tt{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
@@ -146,13 +146,13 @@ let SELS = buildSelections();
 
 // ---------------------------------------------------------------- cards
 function cell(p, hi){ const c = p>=0.6?'hi':(p<=0.4?'lo':''); return `<td class="${c}">${pct(p,0)}</td>`; }
-function skRow(s, S){ if(!s.pmf) return `<tr class="d"><td><span class="nm">${esc(s.name)}</span><span class="ln">${esc(s.pos)} ${esc(s.line||'')}${s.pp?' · '+esc(s.pp):''}</span></td><td colspan="6" style="text-align:left;color:var(--dim)">no record in the play-by-play yet (new to the league or the data)</td></tr>`;
+function skRow(s, S){ if(!s.pmf) return `<tr class="dm"><td><span class="nm">${esc(s.name)}</span><span class="ln">${esc(s.pos)} ${esc(s.line||'')}${s.pp?' · '+esc(s.pp):''}</span></td><td colspan="6" style="text-align:left;color:var(--dim)">no record in the play-by-play yet (new to the league or the data)</td></tr>`;
   const m = k => { const ent=s.book && s.book[k]; const {line,book}=lineFor(k, ent, s.fair[k]); const po=pNoPush(s.pmf[k],line,'over'); const pu=1-po;
     const sd = po>=0.5?'over':'under'; const p = Math.max(po,pu); const odds = book && book.prices && book.prices[sd]>1 ? book.prices[sd] : null;
     const c = p>=0.62?'hi':''; return `<td class="${c}" title="${esc(LABEL[k])}: over ${pct(po)} / under ${pct(pu)} at ${line}${book?' ('+esc(book.book)+' line)':' (model fair line)'}"><span class="l">${sd[0]} ${line}${book?'':'*'}</span>${pct(p,0)}${odds?`<span class="bk">${dec(odds)} · EV ${(p*odds-1>=0?'+':'')+pct(p*odds-1,0)}</span>`:''}</td>`; };
   const goal = (()=>{ const ent=s.book && s.book.goal; const b=myBook(ent); const odds=b && b.prices && b.prices.yes>1 ? b.prices.yes : null; const p=s.p_goal; return `<td class="${p>=0.4?'hi':''}" title="anytime goal"><span class="l">yes</span>${pct(p,0)}${odds?`<span class="bk">${dec(odds)} · EV ${(p*odds-1>=0?'+':'')+pct(p*odds-1,0)}</span>`:''}</td>`; })();
   const inj = s.status ? `<span class="inj">${esc(s.status)}</span>` : '';
-  return `<tr class="${s.pos==='D'?'d':''}"><td><span class="nm">${esc(s.name)}</span><span class="ln">${esc(s.pos)} ${esc(s.line||'')}${s.pp?' · '+esc(s.pp):''}</span>${inj}<span class="l">${s.games} gp · L5 ${(s.last5||[]).map(x=>x.sog+'/'+x.pts).join(' ')}</span></td>${m('sog')}${m('pts')}${m('ast')}${goal}${m('blk')}</tr>`; }
+  return `<tr class="${s.pos==='D'?'dm':''}"><td><span class="nm">${esc(s.name)}</span><span class="ln">${esc(s.pos)} ${esc(s.line||'')}${s.pp?' · '+esc(s.pp):''}</span>${inj}<span class="l">${s.games} gp · L5 ${(s.last5||[]).map(x=>x.sog+'/'+x.pts).join(' ')}</span></td>${m('sog')}${m('pts')}${m('ast')}${goal}${m('blk')}</tr>`; }
 function sideBlock(g, side){ const S=g.sides[side]; const tt=S.book_team_total; const {line,book}=lineFor('team_total', tt, S.markets.fair_total); const po=pNoPush(S.markets.team_total,line,'over');
   const oddsO = book && book.prices && book.prices.over>1 ? book.prices.over : null, oddsU = book && book.prices && book.prices.under>1 ? book.prices.under : null;
   const pp05 = ou(S.markets.ppg,0.5).over, pp15 = ou(S.markets.ppg,1.5).over;
@@ -198,7 +198,7 @@ function renderScanner(){ const el=document.getElementById('scanner');
    <div class="scan">${rows.slice(0,400).map(x=>`<div class="srow" onclick="document.getElementById('g-${x.game.home}').scrollIntoView({behavior:'smooth'});showTab('tonight')"><span class="gr g${x.grade}">${x.grade}</span>
      <span class="sel"><b>${esc(x.text)}</b><span class="t">${esc(x.mu)}${x.pos?' · '+esc(x.pos):''}${x.book?'':' · fair line'}</span></span>
      <span class="num n-win"><span class="k">model</span><span class="t">${pct(x.p)}</span></span><span class="num n-fair"><span class="k">fair</span><span class="t">${x.fair?x.fair.toFixed(2):'-'}</span></span>
-     <span class="num n-book"><span class="k">${esc(x.book||'book')}</span><span class="t">${x.odds?dec(x.odds):'-'}</span></span><span class="num n-ev"><span class="k">EV</span><span class="t" style="color:${x.ev==null?'var(--dim)':(x.ev>=0?'var(--green)':'var(--red)')}">${x.ev==null?'-':(x.ev>=0?'+':'')+pct(x.ev)}</span></span>
+     <span class="num n-book"><span class="k" title="${esc(x.book||'book')}">${esc(({DraftKings:'DK',FanDuel:'FD',BetMGM:'MGM',Caesars:'CZR',BetRivers:'BR',ESPNBet:'ESPN'})[x.book]||x.book||'book')}</span><span class="t">${x.odds?dec(x.odds):'-'}</span></span><span class="num n-ev"><span class="k">EV</span><span class="t" style="color:${x.ev==null?'var(--dim)':(x.ev>=0?'var(--green)':'var(--red)')}">${x.ev==null?'-':(x.ev>=0?'+':'')+pct(x.ev)}</span></span>
      <span class="num n-bt"><span class="k">backtest</span><span class="t">${x.band?`${pct(x.band.pred,0)} predicted → ${pct(x.band.actual,0)} hit (n=${x.band.n.toLocaleString()})`:'-'}</span></span></div>`).join('')}</div>`;
   const on=(id,ev,fn)=>{ const e=document.getElementById(id); if(e) e[ev]=fn; };
   on('sc-sort','onchange',e=>{ SC.sort=e.target.value; saveSC(); renderScanner(); }); on('sc-q','oninput',e=>{ SC.q=e.target.value; saveSC(); renderScanner(); });
@@ -243,8 +243,9 @@ def static_summary(payload: dict) -> str:
         for side in ("away", "home"):
             S = g["sides"][side]
             top = [s for s in S["skaters"] if s.get("pmf")][:6]
+            who = ", ".join(_esc(s["name"]) + f" {s['mean']['sog']:.1f} shots / {s['mean']['pts']:.2f} points / {s['p_goal']*100:.0f}% goal" for s in top)
             rows.append(f"<tr><td>{_esc(g['away'])} @ {_esc(g['home'])}</td><td>{_esc(S['team'])}</td><td>{S['lam_goals']:.2f}</td><td>{S['markets']['lam_ppg']:.2f}</td>"
-                        f"<td>{', '.join(f'{_esc(s['name'])} {s['mean']['sog']:.1f} shots / {s['mean']['pts']:.2f} points / {s['p_goal']*100:.0f}% goal' for s in top)}</td></tr>")
+                        f"<td>{who}</td></tr>")
     return (f'<div id="static" class="static"><h1>Gill Sports: NHL props for {_esc(payload["date"])}</h1><p>{len(payload["games"])} games, data through {_esc(payload.get("data_through"))}, '
             f'generated {_esc(payload.get("generated_utc"))}. Open in a browser for every skater, DraftKings prices, the scanner and the validation.</p>'
             f'<table><thead><tr><th>Game</th><th>Team</th><th>Expected goals</th><th>Expected PP goals</th><th>Top skaters</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
@@ -253,8 +254,11 @@ def static_summary(payload: dict) -> str:
 def render(payload: dict, root: str = "../", nhl_href: str = "../", nfl_href: str = "../nfl/") -> str:
     data = json.dumps(payload).replace("</", "<\\/")
     brand = brand_html(root, "props", nhl_href, props_href="#", nfl_href=nfl_href)
-    return (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + PROPS_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
+    html = (TEMPLATE.replace("__CSS__", BASE_CSS + NFL_CSS + PROPS_CSS + BRAND_CSS).replace("__PAYLOAD__", data).replace("__STATIC__", static_summary(payload))
             .replace("__DATE__", payload["date"]).replace("__BRAND__", brand))
+    # the validation files live in docs/props/; archive day pages sit one folder deeper
+    html = html.replace('href="validation.json"', f'href="{root}props/validation.json"').replace('href="factors.json"', f'href="{root}props/factors.json"')
+    return finish_page(html, root, "props", nhl_href, props_href="#", nfl_href=nfl_href)
 
 
 def write(payload: dict, path: Path, **kw) -> Path:

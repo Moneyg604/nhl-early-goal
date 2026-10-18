@@ -11,8 +11,8 @@ from .config import SITE_DIR
 from .ingest import load_games
 
 MARKETS = {"ml": "Moneyline", "spread": "Spread", "total": "Total", "pts": "Points", "reb": "Rebounds", "ast": "Assists", "threes": "Threes", "pra": "PRA",
-           "desk": "Research desk", "desk_wild": "Desk wild cards", "bot": "Bot's picks", "market": "DraftKings favourites"}
-LEADERS = ("desk", "desk_wild", "bot", "market")
+           "desk": "Research desk", "desk_best": "Desk best picks", "desk_wild": "Desk wild cards", "bot": "Bot's picks", "market": "DraftKings favourites"}
+LEADERS = ("desk_best", "desk", "desk_wild", "bot", "market")
 
 
 def _name_key(n: str) -> str:

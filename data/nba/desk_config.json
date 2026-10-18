@@ -1,7 +1,13 @@
 {
  "v": 1,
  "note": "Settings the NBA research desk follows on every scheduled run, and the defaults the page's Desk settings panel starts from.",
+ "odds_rule": "band",
+ "odds_rule_note": "band = only DraftKings prices inside odds_band are eligible (the NBA desk's rule); ignore = evidence picks, the price is shown only",
  "odds_band": [1.35, 2.2],
+ "lines": "any",
+ "lines_note": "any = DraftKings' posted line, or a DraftKings alternate line when markets.alts is true; draftkings = posted lines only",
+ "best": {"label": "Best picks", "min": 3, "max": 6, "rule": "the selections with the strongest evidence of winning, one per player, at most two per game"},
+ "instructions": [],
  "wild_cards": {"enabled": true, "odds_band": [2.21, 4.5], "max": 2, "min_p": 0.3},
  "markets": {"ml": true, "spread": true, "total": true, "pts": true, "reb": true, "ast": true, "threes": true, "pra": true, "alts": true},
  "selection": {"min_grade": "C", "min_evidence": "unmeasured", "min_p": 0.52, "max_per_game": 3, "max_selections": 16, "one_player_per_market": true},
@@ -17,5 +23,5 @@
  },
  "odds": {"credits_per_night": 4, "markets": ["player_points", "player_rebounds", "player_assists", "player_threes", "player_points_rebounds_assists"], "games_per_night": 2},
  "alerts": {"telegram": true, "line_move_points": 1.0, "odds_drop": 0.08, "injury_flags": true},
- "updated_utc": "2026-10-17 19:30 UTC"
+ "updated_utc": "2026-10-17 20:44 UTC"
 }

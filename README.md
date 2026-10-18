@@ -1,6 +1,6 @@
 # Gill Sports
 
-NHL and NFL research desk (this repository started as Early Goal Desk, the NHL first-5-minute tool; the package is still called `earlygoal`).
+NHL, NFL and NBA research desk with a phone app (`docs/app/`). This repository started as Early Goal Desk, the NHL first-5-minute tool; the package is still called `earlygoal`. **New here? Read `START_HERE.md` first:** it maps every folder, what runs where, and what to edit.
 
 **Want it on your phone with no laptop in the loop?** Follow `SETUP.md`: a GitHub repository runs the engine three times a day and publishes the dashboard as an installable web app.
 
@@ -168,19 +168,26 @@ leads. Prop prices are pulled once per game (Sunday about 11:45 ET for Sunday an
 own run), ten books per request (one region's credits), markets in the order receiving yards, receptions,
 passing yards, passing TDs, rushing yards, anytime TD, half totals, as many as the month's credits allow.
 
-**Research desk (`nfl/desk.py`, `RUNBOOK_NFL_RESEARCH.md`).** The layer that reads what the simulation cannot: a
-scheduled Claude session (Thursday before the night game, Saturday evening, Sunday morning, Monday afternoon)
-researches every game on the web (official report and beat-writer notes on the starters, kickoff weather, the
-cornerback on the main receiver, routes and targets over the last four games, line movement, rest and travel),
-does the arithmetic for each candidate (volume × rate = mean, spread of outcomes, P(side), fair odds) and writes
-`data/nfl/research/<season>-wNN.json`: selections at DraftKings prices between 1.35 and 2.20, each with its desk
-probability, grade (A / B / C), evidence label (measured / partial / unmeasured), inputs, arithmetic, pros, risks,
-verdict and sources with fetch times, plus the candidates it declined and per-game notes. `tools/validate_desk.py`
-checks the file against the published payload before it is committed (ids on the board must match the board's
-market, side and line; prices in band; no grade A on unmeasured evidence); the site build merges it as the first
-tab in Best bets (desk chance beside the simulation's and the market's), flags board cards the desk also took,
-and grades the desk's record on its own line in Results and the scorecard (`picks.desk`). The Telegram message
-leads with the desk's selections. The simulation's numbers are never edited by the desk.
+**Research desk (`nfl/desk.py`, `RUNBOOK_NFL_RESEARCH.md`, the spec in `data/nfl/desk_config.json`).** The layer that
+reads what the simulation cannot: a scheduled Claude session in the owner's Claude chat (Thursday 11:33, Saturday
+17:38, Sunday 08:41, Monday 14:37, Eastern) researches every game on the web (official report and beat-writer notes on
+the starters, kickoff weather, the cornerback on the main receiver, routes and targets over the last four games, line
+movement, rest and travel), does the arithmetic for each candidate (volume × rate = mean, spread of outcomes, P(side),
+fair odds) and writes `data/nfl/research/<season>-wNN.json`. What it may pick is the owner's spec: evidence chooses and
+the DraftKings price is shown but never used to choose (`odds_rule: ignore`); DraftKings' posted lines only, no
+alternates; no passing touchdowns, half totals or kicker field goals; four sections (QB passing yards, receiving yards
+and receptions, rushing yards, moneyline / spreads / totals), 1 to 6 picks each; a Best picks list of 3 to 6 with the
+strongest evidence of winning, one per player, at most two per game; and the owner's plain-English `instructions`.
+Every pick carries its desk probability, grade (A / B / C), evidence label (measured / partial / unmeasured), inputs,
+arithmetic, pros, risks, verdict and sources with fetch times, plus the candidates it declined and per-game notes.
+`tools/validate_desk.py` (and `tools/assemble_desk.py`, which builds the file from per-game fragments) checks the file
+against the spec and the published payload before it is committed. The site build re-checks only the file's
+structure, so a committed desk keeps showing after kickoff and after a line move (shown as a line alert), and a pick a
+later spec no longer allows is set aside and listed, never shown or graded. The build merges the desk into the phone
+app, the NFL page (the first tab in Best bets) and the Telegram message, and grades it on its own lines in Results and
+the scorecard (`desk_best` for the Best picks, `desk` for every pick). The simulation's numbers are never edited by
+the desk. To change the desk's rules, use the app's Logic tab (it writes the message to send) or edit the spec
+(`RUNBOOK_NFL_RESEARCH.md` section 6).
 
 What the walk-forward test says is on the page (About tab) and in `data/nfl/backtest_latest.json`. In short: the
 model alone does not beat the closing moneyline, spread or total, so those follow the market; QB passing yards,
@@ -212,6 +219,23 @@ most 5 points. The page (Best bets, Tonight, Players, Results, About) and the re
 `RUNBOOK_NBA_RESEARCH.md`, `data/nba/research/<date>.json`) work exactly as the NFL ones; `update-nba.yml` runs
 at 10:45 and 16:40 ET. Early in the season last season's rates carry most of the weight; the model has no
 lineup-level logic yet (who inherits a sitting starter's minutes), which is the desk's job until it does.
+
+## Phone app (`docs/app/index.html`, published at `/app/`)
+
+One app: every page (the Desk, NFL, NBA, NHL, NHL props) shares one design and one navigation bar (Desk · NFL · NBA ·
+NHL · Props, at the bottom on a phone and on the left on a wide screen), set in one place: `earlygoal/brand.py`
+(`BRAND_CSS`, `retheme()`, `finish_page()`), which every page builder calls. Add it to the home screen from any page;
+the install opens the Desk (`docs/manifest.webmanifest`: start `./app/`, scope the whole site).
+
+The Desk is the main way to use the research desk on a phone. Picks: the Best picks
+as gold tickets with the desk's win chance, then the spec's sections, each pick opening to its inputs, arithmetic,
+case for, risks and sources; results and in-play progress land on the ticket once games start; a slip that combines
+picks and warns when two legs share a game. Board: every priced DraftKings market (your spec's markets by default),
+line moves since the opener and where the desk disagrees with the market. Logic: the spec in plain language, toggles
+for markets and research variables, and a box to add a rule in English that copies a ready message for Claude.
+Record: the desk's graded units, hit rate, ROI, a running line of cumulative units and the leaderboard. NFL and NBA
+switch at the top; NHL links to its own pages. The page is static: it reads `docs/nfl/app.json` (a trimmed copy of the
+current week written by `python -m nfl publish`; it falls back to the full week file), the scorecard and live scores.
 
 ## Optional connections (GitHub repository secrets)
 

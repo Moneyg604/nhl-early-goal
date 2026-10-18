@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from earlygoal.brand import head_tags
+
+HEAD = """<link rel="manifest" href="{root}manifest.webmanifest"><meta name="theme-color" content="#0F1529"><link rel="apple-touch-icon" href="{root}apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="Gill Sports"><meta name="apple-mobile-web-app-capable" content="yes">"""
 from earlygoal.site import slate_today
 
 from .config import DATA_DIR, OUT_DIR
@@ -46,12 +48,12 @@ def build_props_site(site_dir: Path, out_dir: Path = OUT_DIR, keep_days: int = 3
         payload = json.loads(p.read_text())
         html = render(payload, root="../../", nhl_href="../../", nfl_href="../../nfl/")
         html = html.replace('<div class="hmeta"><span id="dayslot"></span></div>', nav(d, "../"), 1)
-        html = html.replace("</head>", head_tags("../../", "Gill Sports · NHL props", "NHL props: shots on goal, points, assists, anytime goal, blocked shots, team totals and power-play goals") + "</head>", 1)
+        html = html.replace("</head>", HEAD.format(root="../../") + head_tags("../../", "Gill Sports · NHL props", "NHL props: shots on goal, points, assists, anytime goal, blocked shots, team totals and power-play goals") + "</head>", 1)
         (days_dir / f"{d}.html").write_text(html, encoding="utf-8")
     payload = json.loads((days_dir / f"{index_day}.json").read_text())
     html = render(payload, root="../", nhl_href="../", nfl_href="../nfl/")
     html = html.replace('<div class="hmeta"><span id="dayslot"></span></div>', nav(index_day, "./"), 1)
-    html = html.replace("</head>", head_tags("../", "Gill Sports · NHL props", "NHL props: shots on goal, points, assists, anytime goal, blocked shots, team totals and power-play goals") + "</head>", 1)
+    html = html.replace("</head>", HEAD.format(root="../") + head_tags("../", "Gill Sports · NHL props", "NHL props: shots on goal, points, assists, anytime goal, blocked shots, team totals and power-play goals") + "</head>", 1)
     (props_dir / "index.html").write_text(html, encoding="utf-8")
     (props_dir / "days.json").write_text(json.dumps({"days": days, "latest": index_day, "today": today, "published": published}, indent=1))
     for name in ("backtest_latest.json", "factors.json"):

@@ -5,6 +5,8 @@
 
 Overlay keys: "season", "date" (YYYY-MM-DD, no "week"), and otherwise the NFL schema; kinds are ml, spread, total,
 pts, reb, ast, threes, pra; selection ids match the board's ("pts|2026_10_20_BOS_DET|over|27.5|Jayson Tatum").
+Spread picks are graded in the NBA scorecard's convention (the home team's points); nfl.desk handles that from
+the payload's "sport".
 """
 from __future__ import annotations
 
@@ -38,14 +40,23 @@ def load_config() -> dict:
         return D.load_config()
 
 
-def validate(d: dict, payload: dict | None = None) -> list[str]:
+def validate(d: dict, payload: dict | None = None, strict: bool = True) -> list[str]:
     with _nba():
-        return D.validate(d, payload)
+        return D.validate(d, payload, strict=strict)
 
 
-def merge(payload: dict, overlay: dict | None = None):
+def notes(d: dict, payload: dict | None = None) -> list[str]:
     with _nba():
-        return D.merge(payload, overlay)
+        return D.notes(d, payload)
+
+
+def merge(payload: dict, overlay: dict | None = None, prev: dict | None = None):
+    with _nba():
+        return D.merge(payload, overlay, prev)
+
+
+def _sections(d: dict, sels: list, cfg: dict):
+    return D._sections(d, sels, cfg)
 
 
 def write_overlay(d: dict) -> Path:
@@ -56,4 +67,4 @@ def write_overlay(d: dict) -> Path:
     return f
 
 
-__all__ = ["overlay_path", "load_config", "validate", "merge", "write_overlay", "RESEARCH_DIR", "CONFIG_PATH"]
+__all__ = ["overlay_path", "load_config", "validate", "notes", "merge", "write_overlay", "RESEARCH_DIR", "CONFIG_PATH"]
