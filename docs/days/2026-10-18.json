@@ -1,6 +1,6 @@
 {
  "date": "2026-10-18",
- "generated_utc": "2026-10-18 17:14 UTC",
+ "generated_utc": "2026-10-18 21:22 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -944,13 +944,13 @@
  "pick_of_day": {
   "matchup": "CAR @ CGY",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.677,
-  "fair": 1.477,
+  "p": 0.6786,
+  "fair": 1.474,
   "tier": "B",
   "game_id": 2026020136,
   "runner_up": {
    "matchup": "CBJ @ MIN",
-   "p": 0.6688,
+   "p": 0.6694,
    "tier": "B"
   }
  },
@@ -959,14 +959,14 @@
    {
     "matchup": "CAR @ CGY",
     "pick": null,
-    "p": 0.677,
+    "p": 0.6786,
     "tier": "B",
     "game_id": 2026020136
    },
    {
     "matchup": "CBJ @ MIN",
     "pick": null,
-    "p": 0.6688,
+    "p": 0.6694,
     "tier": "B",
     "game_id": 2026020135
    }
@@ -975,14 +975,14 @@
    {
     "matchup": "CAR @ CGY",
     "pick": null,
-    "p": 0.4354,
+    "p": 0.4358,
     "tier": "B",
     "game_id": 2026020136
    },
    {
     "matchup": "CBJ @ MIN",
     "pick": null,
-    "p": 0.4264,
+    "p": 0.4251,
     "tier": "B",
     "game_id": 2026020135
    }
@@ -991,14 +991,14 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": null,
-    "p": 0.7794,
+    "p": 0.7829,
     "tier": "B",
     "game_id": 2026020135
    },
    {
     "matchup": "CAR @ CGY",
     "pick": null,
-    "p": 0.7527,
+    "p": 0.7524,
     "tier": "B",
     "game_id": 2026020136
    }
@@ -1007,7 +1007,7 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": "MIN",
-    "p": 0.8559,
+    "p": 0.859,
     "tier": "B",
     "game_id": 2026020135,
     "market": "home_over15"
@@ -1015,7 +1015,7 @@
    {
     "matchup": "CAR @ CGY",
     "pick": "CAR",
-    "p": 0.8062,
+    "p": 0.8057,
     "tier": "B",
     "game_id": 2026020136,
     "market": "away_over15"
@@ -1023,7 +1023,7 @@
    {
     "matchup": "CAR @ CGY",
     "pick": "CGY",
-    "p": 0.7758,
+    "p": 0.7765,
     "tier": "B",
     "game_id": 2026020136,
     "market": "home_over15"
@@ -1033,14 +1033,14 @@
    {
     "matchup": "CAR @ CGY",
     "pick": null,
-    "p": 0.7504,
+    "p": 0.7525,
     "tier": "B",
     "game_id": 2026020136
    },
    {
     "matchup": "CBJ @ MIN",
     "pick": null,
-    "p": 0.7335,
+    "p": 0.7348,
     "tier": "B",
     "game_id": 2026020135
    }
@@ -1049,14 +1049,14 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": "MIN",
-    "p": 0.7063,
+    "p": 0.7061,
     "tier": "B",
     "game_id": 2026020135
    },
    {
     "matchup": "CAR @ CGY",
     "pick": "CAR",
-    "p": 0.6944,
+    "p": 0.6943,
     "tier": "B",
     "game_id": 2026020136
    }
@@ -1065,14 +1065,14 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": "MIN",
-    "p": 0.3788,
+    "p": 0.3775,
     "tier": "B",
     "game_id": 2026020135
    },
    {
     "matchup": "CAR @ CGY",
     "pick": "CAR",
-    "p": 0.3582,
+    "p": 0.3562,
     "tier": "B",
     "game_id": 2026020136
    }
@@ -1081,14 +1081,14 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": "MIN",
-    "p": 0.3788,
+    "p": 0.3775,
     "tier": "B",
     "game_id": 2026020135
    },
    {
     "matchup": "CAR @ CGY",
     "pick": "CAR",
-    "p": 0.3582,
+    "p": 0.3562,
     "tier": "B",
     "game_id": 2026020136
    }
@@ -1097,14 +1097,14 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": "MIN",
-    "p": 0.6147,
+    "p": 0.6144,
     "tier": "B",
     "game_id": 2026020135
    },
    {
     "matchup": "CAR @ CGY",
     "pick": "CAR",
-    "p": 0.532,
+    "p": 0.531,
     "tier": "B",
     "game_id": 2026020136
    }
@@ -1113,14 +1113,14 @@
    {
     "matchup": "CBJ @ MIN",
     "pick": "MIN",
-    "p": 0.4048,
+    "p": 0.4021,
     "tier": "B",
     "game_id": 2026020135
    },
    {
     "matchup": "CAR @ CGY",
     "pick": "CAR",
-    "p": 0.3256,
+    "p": 0.3264,
     "tier": "B",
     "game_id": 2026020136
    }
@@ -1137,93 +1137,84 @@
    "tier": "B",
    "tier_reasons": [
     "MIN profile partial: only 8 games this season; leaning on 164 games from last season",
-    "CBJ goalie unconfirmed",
+    "CBJ goalie expected",
     "CBJ profile partial: only 6 games this season; leaning on 164 games from last season"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6688,
-     "fair": 1.495
+     "p": 0.6694,
+     "fair": 1.494
     },
     "o05_first5": {
-     "p": 0.3312,
-     "fair": 3.019
+     "p": 0.3306,
+     "fair": 3.025
     },
     "u05_first10": {
-     "p": 0.4264,
-     "fair": 2.345
+     "p": 0.4251,
+     "fair": 2.352
     },
     "o05_first10": {
-     "p": 0.5736,
-     "fair": 1.743
+     "p": 0.5749,
+     "fair": 1.74
     },
     "p1_minus05": {
      "pick": "MIN",
-     "p": 0.3788,
-     "fair": 2.64
+     "p": 0.3775,
+     "fair": 2.649
     },
     "p1_plus05": {
      "pick": "MIN",
-     "p": 0.7063,
+     "p": 0.7061,
      "fair": 1.416
     },
     "p1_ml": {
      "pick": "MIN",
-     "p": 0.3788,
-     "fair": 2.64,
-     "home": 0.3788,
-     "tie": 0.3275,
-     "away": 0.2937
+     "p": 0.3775,
+     "fair": 2.649,
+     "home": 0.3775,
+     "tie": 0.3286,
+     "away": 0.2939
     },
     "fg_ml": {
      "pick": "MIN",
-     "p": 0.6147,
-     "fair": 1.627,
-     "book_name": "LowVig.ag",
-     "book": 1.55,
-     "edge": -0.0473,
-     "home": 0.6147,
-     "away": 0.3854,
-     "home_reg": 0.5257,
-     "away_reg": 0.3092,
-     "reg_tie": 0.1651
+     "p": 0.6144,
+     "fair": 1.628,
+     "home": 0.6144,
+     "away": 0.3856,
+     "home_reg": 0.5247,
+     "away_reg": 0.3077,
+     "reg_tie": 0.1676
     },
     "fg_spread": {
      "pick": "MIN",
      "line": -1.5,
-     "p": 0.4048,
-     "fair": 2.47,
-     "book_name": "LowVig.ag",
-     "book": 2.37,
-     "edge": -0.0405,
+     "p": 0.4021,
+     "fair": 2.487,
      "plus_pick": "MIN",
-     "plus_p": 0.7834
+     "plus_p": 0.7852
     },
     "fg_total": {
-     "mean": 6.276,
-     "over55": 0.5759,
-     "over65": 0.4589,
-     "book_line": 6.5,
-     "book_over": 2.02,
-     "book_under": 1.85
+     "mean": 6.284,
+     "over55": 0.5757,
+     "over65": 0.4598
     },
     "fg_over45": {
-     "p": 0.7794,
-     "fair": 1.283
+     "p": 0.7829,
+     "fair": 1.277
     },
     "home_over15": {
      "pick": "MIN",
-     "p": 0.8559,
-     "fair": 1.168
+     "p": 0.859,
+     "fair": 1.164
     },
     "away_over15": {
      "pick": "CBJ",
-     "p": 0.7476,
-     "fair": 1.338
+     "p": 0.7524,
+     "fair": 1.329
     },
     "p1_under25": {
-     "p": 0.7335,
-     "fair": 1.363
+     "p": 0.7348,
+     "fair": 1.361
     }
    },
    "analytic": {
@@ -1249,32 +1240,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0633,
-    0.0703,
-    0.0652,
-    0.0695,
-    0.063,
-    0.0575,
-    0.0537,
-    0.0472,
-    0.0436,
-    0.0404
+    0.0618,
+    0.07,
+    0.0655,
+    0.0699,
+    0.0634,
+    0.0579,
+    0.0529,
+    0.0482,
+    0.0447,
+    0.0407
    ],
    "p1": {
-    "home": 0.3788,
-    "tie": 0.3275,
-    "away": 0.2937,
+    "home": 0.3775,
+    "tie": 0.3286,
+    "away": 0.2939,
     "total_dist": [
-     0.1684,
-     0.3023,
-     0.2628,
-     0.2665
+     0.1672,
+     0.3004,
+     0.2671,
+     0.2652
     ],
-    "mean_total": 1.784
+    "mean_total": 1.785
    },
    "projected": {
     "home": 3.5,
-    "away": 2.77,
+    "away": 2.78,
     "median": [
      3,
      3
@@ -1299,9 +1290,9 @@
     "away": {
      "name": "Cam Talbot",
      "id": 8475660,
-     "status": "unconfirmed",
+     "status": "expected",
      "source": "dailyfaceoff",
-     "note": "Unconfirmed on DailyFaceoff",
+     "note": "Likely via Heather Rule 2026-10-18 21:16 UTC",
      "sv_raw": 0.8887,
      "sv_shrunk": 0.8952,
      "sv_last5": 0.8049,
@@ -1447,9 +1438,9 @@
      "faces_goalie": {
       "name": "Cam Talbot",
       "id": 8475660,
-      "status": "unconfirmed",
+      "status": "expected",
       "source": "dailyfaceoff",
-      "note": "Unconfirmed on DailyFaceoff",
+      "note": "Likely via Heather Rule 2026-10-18 21:16 UTC",
       "sv_raw": 0.8887,
       "sv_shrunk": 0.8952,
       "sv_last5": 0.8049,
@@ -1466,7 +1457,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter unconfirmed (789 shots of data); re-check before the puck drops"
+       "note": "starter expected (789 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -2356,88 +2347,79 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.677,
-     "fair": 1.477
+     "p": 0.6786,
+     "fair": 1.474
     },
     "o05_first5": {
-     "p": 0.323,
-     "fair": 3.096
+     "p": 0.3214,
+     "fair": 3.112
     },
     "u05_first10": {
-     "p": 0.4354,
-     "fair": 2.297
+     "p": 0.4358,
+     "fair": 2.295
     },
     "o05_first10": {
-     "p": 0.5646,
-     "fair": 1.771
+     "p": 0.5642,
+     "fair": 1.772
     },
     "p1_minus05": {
      "pick": "CAR",
-     "p": 0.3582,
-     "fair": 2.792
+     "p": 0.3562,
+     "fair": 2.808
     },
     "p1_plus05": {
      "pick": "CAR",
-     "p": 0.6944,
+     "p": 0.6943,
      "fair": 1.44
     },
     "p1_ml": {
      "pick": "CAR",
-     "p": 0.3582,
-     "fair": 2.792,
-     "home": 0.3056,
-     "tie": 0.3362,
-     "away": 0.3582
+     "p": 0.3562,
+     "fair": 2.808,
+     "home": 0.3057,
+     "tie": 0.3381,
+     "away": 0.3562
     },
     "fg_ml": {
      "pick": "CAR",
-     "p": 0.532,
-     "fair": 1.88,
-     "book_name": "BetUS",
-     "book": 1.48,
-     "edge": -0.2126,
-     "home": 0.468,
-     "away": 0.532,
-     "home_reg": 0.3832,
-     "away_reg": 0.4402,
-     "reg_tie": 0.1766
+     "p": 0.531,
+     "fair": 1.883,
+     "home": 0.469,
+     "away": 0.531,
+     "home_reg": 0.3827,
+     "away_reg": 0.4403,
+     "reg_tie": 0.177
     },
     "fg_spread": {
      "pick": "CAR",
      "line": -1.5,
-     "p": 0.3256,
-     "fair": 3.071,
-     "book_name": "BetUS",
-     "book": 2.2,
-     "edge": -0.2836,
+     "p": 0.3264,
+     "fair": 3.064,
      "plus_pick": "CAR",
-     "plus_p": 0.7243
+     "plus_p": 0.7257
     },
     "fg_total": {
-     "mean": 6.032,
-     "over55": 0.534,
-     "over65": 0.419,
-     "book_line": 6.0,
-     "book_over": 1.85,
-     "book_under": 2.02
+     "mean": 6.033,
+     "over55": 0.5328,
+     "over65": 0.4174
     },
     "fg_over45": {
-     "p": 0.7527,
+     "p": 0.7524,
      "fair": 1.329
     },
     "home_over15": {
      "pick": "CGY",
-     "p": 0.7758,
-     "fair": 1.289
+     "p": 0.7765,
+     "fair": 1.288
     },
     "away_over15": {
      "pick": "CAR",
-     "p": 0.8062,
-     "fair": 1.24
+     "p": 0.8057,
+     "fair": 1.241
     },
     "p1_under25": {
-     "p": 0.7504,
-     "fair": 1.333
+     "p": 0.7525,
+     "fair": 1.329
     }
    },
    "analytic": {
@@ -2463,28 +2445,28 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0603,
-    0.0682,
-    0.0633,
-    0.0691,
-    0.062,
-    0.0566,
-    0.0529,
-    0.0474,
-    0.0445,
-    0.0402
+    0.0609,
+    0.0662,
+    0.0639,
+    0.068,
+    0.0624,
+    0.0561,
+    0.0524,
+    0.0489,
+    0.0448,
+    0.0406
    ],
    "p1": {
-    "home": 0.3056,
-    "tie": 0.3362,
-    "away": 0.3582,
+    "home": 0.3057,
+    "tie": 0.3381,
+    "away": 0.3562,
     "total_dist": [
-     0.1779,
-     0.3093,
-     0.2632,
-     0.2496
+     0.1788,
+     0.3078,
+     0.2659,
+     0.2475
     ],
-    "mean_total": 1.723
+    "mean_total": 1.719
    },
    "projected": {
     "home": 2.92,
@@ -4123,69 +4105,17 @@
   }
  },
  "changes": {
-  "since": "2026-10-18 00:43 UTC",
+  "since": "2026-10-18 17:14 UTC",
   "items": [
    {
     "game_id": 2026020135,
     "game": "CBJ @ MIN",
-    "kind": "goalie",
-    "text": "CBJ goalie now Cam Talbot (unconfirmed), was Jet Greaves (unconfirmed)"
-   },
-   {
-    "game_id": 2026020135,
-    "game": "CBJ @ MIN",
-    "kind": "move",
-    "text": "FG moneyline MIN 58.5% to 61.5%",
-    "delta": 0.0298,
-    "market": "fg_ml"
-   },
-   {
-    "game_id": 2026020135,
-    "game": "CBJ @ MIN",
-    "kind": "move",
-    "text": "over 4.5 76.5% to 77.9%",
-    "delta": 0.0143,
-    "market": "fg_over45"
-   },
-   {
-    "game_id": 2026020135,
-    "game": "CBJ @ MIN",
-    "kind": "move",
-    "text": "home over 1.5 84.0% to 85.6%",
-    "delta": 0.0157,
-    "market": "home_over15"
-   },
-   {
-    "game_id": 2026020135,
-    "game": "CBJ @ MIN",
-    "kind": "move",
-    "text": "1P under 2.5 74.5% to 73.4%",
-    "delta": -0.0118,
-    "market": "p1_under25"
-   },
-   {
-    "game_id": 2026020136,
-    "game": "CAR @ CGY",
-    "kind": "goalie",
-    "text": "CGY goalie now Devin Cooley (confirmed), was Dustin Wolf (unconfirmed)"
-   },
-   {
-    "game_id": 2026020136,
-    "game": "CAR @ CGY",
-    "kind": "goalie",
-    "text": "CAR goalie now Brandon Bussi (confirmed), was Pyotr Kochetkov (unconfirmed)"
-   },
-   {
-    "game_id": 2026020136,
-    "game": "CAR @ CGY",
-    "kind": "move",
-    "text": "FG moneyline CAR 54.3% to 53.2%",
-    "delta": -0.0114,
-    "market": "fg_ml"
+    "kind": "status",
+    "text": "CBJ Cam Talbot now expected, was unconfirmed"
    }
   ],
   "first_build": false,
-  "data_through_before": "2026-10-16",
+  "data_through_before": "2026-10-17",
   "data_through_after": "2026-10-17"
  }
 }
