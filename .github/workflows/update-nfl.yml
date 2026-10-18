@@ -87,7 +87,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID || vars.TELEGRAM_CHAT_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python tools/notify_nfl.py --reason "${{ github.event.inputs.reason || 'daily' }}" || echo "notify skipped"
+        run: |
+          python tools/notify_nfl.py --reason "${{ github.event.inputs.reason || 'daily' }}" 2>&1 | tee data/nfl/notify_status.txt || echo "notify skipped" | tee -a data/nfl/notify_status.txt
+          echo "run $(date -u +'%Y-%m-%d %H:%M UTC') reason=${{ github.event.inputs.reason || (github.event.schedule != '' && 'schedule') || 'daily' }}" >> data/nfl/notify_status.txt
+          git add data/nfl/notify_status.txt && git -c user.name=gill-sports-bot -c user.email=actions@users.noreply.github.com commit -q -m "nfl notify status" || true
+          for i in 1 2 3; do git pull --rebase origin main && git push && break; git rebase --abort 2>/dev/null || true; sleep 5; done || true
 
       - name: Keep the scheduler alive
         if: always()
