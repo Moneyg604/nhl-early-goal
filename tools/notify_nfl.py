@@ -184,12 +184,27 @@ def bot_lines(p: dict, B, T, game_ids: set | None = None) -> list[str]:
 
     out: list[str] = []
     # the research desk first, in the spec's order (shown even before the odds feed has a board)
-    out.extend(desk_lines(bot.get("desk") or {}, B, T, live, windowed=game_ids is not None))
+    desk = bot.get("desk") or {}
+    out.extend(desk_lines(desk, B, T, live, windowed=game_ids is not None))
+    # The desk is the brain (owner's decision, Oct 18 2026): when it has picks for the games still to play, the
+    # message carries the desk alone. The site's model (the bot's lists, its 68%+ props, its top six) is shown only
+    # when the desk has nothing yet, clearly labelled as the model, so the picks never look like two different top sixes.
+    if desk.get("ok") and any(live(x) for x in (desk.get("selections") or [])):
+        hot = bot.get("hot") or {}
+        movers = [m for m in hot.get("movers") or [] if (not m.get("kick") or m["kick"] > now) and (game_ids is None or m.get("game_id") in game_ids)][:6]
+        if movers:
+            out.append("")
+            out.append("🔥 " + B("What's hot / what's not") + T("  DraftKings line moves since the opener"))
+            for m in movers:
+                out.append("• " + T(f"{m['label']} · hot {m['hot']}, cold {m['cold']}"))
+        return out
     if not bb:
         return out
     if not bot:
         out.append("🤖 " + B("Bot's picks") + T(": not built yet for this week (next site run)"))
         return out
+    out.append("")
+    out.append(T("The desk has no picks for these games yet. Until it runs, the site's model is shown below; it is not the desk and does not follow the desk's spec."))
     hot = bot.get("hot") or {}
     movers = [m for m in hot.get("movers") or [] if (not m.get("kick") or m["kick"] > now) and (game_ids is None or m.get("game_id") in game_ids)][:6]
     if movers:
@@ -280,7 +295,7 @@ def build(p: dict, reason: str, html: bool, window: list[dict] | None = None) ->
         if wx:
             out.append("🌬️ " + T("Windy: " + ", ".join(wx)))
     out.append("")
-    out.append("🔗 " + (f'<a href="{SITE}">Open Gill Sports · NFL</a>' if html else SITE))
+    out.append("🔗 " + (f'<a href="{site_url()}app/">Open the Gill Sports desk</a>' if html else site_url() + "app/"))
     return "\n".join(out)
 
 

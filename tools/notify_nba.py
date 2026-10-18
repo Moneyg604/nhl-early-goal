@@ -73,9 +73,15 @@ def build(p: dict, reason: str, html: bool) -> str:
     # the research desk in the spec's order (Best picks, then the rest), the same block as the NFL message
     from notify_nfl import desk_lines
     out.append("")
-    out.extend(desk_lines(bot.get("desk") or {}, B, T, live))
+    desk = bot.get("desk") or {}
+    out.extend(desk_lines(desk, B, T, live))
+    if desk.get("ok") and any(live(x) for x in (desk.get("selections") or [])):
+        out.append("")
+        out.append("🔗 " + (f'<a href="{SITE}">Open Gill Sports · NBA</a>' if html else SITE))
+        return "\n".join(out)                      # the desk is the brain: the model's lists are shown only when the desk has not run
     cats = bot.get("cats") or {}
     out.append("")
+    out.append(T("The desk has no picks for tonight yet. Until it runs, the site's model is shown below; it is not the desk and does not follow the desk's spec."))
     out.append("🤖 " + B("Bot's picks") + T("  win chance @ DraftKings price · EV"))
     any_cat = False
     for c in (bot.get("rules") or {}).get("categories") or []:
