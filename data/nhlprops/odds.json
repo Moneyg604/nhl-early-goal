@@ -1,17 +1,15 @@
 {
  "date": "2026-10-18",
- "credits_remaining": 250,
- "updated_utc": "2026-10-18 21:22 UTC",
+ "credits_remaining": 248,
+ "updated_utc": "2026-10-19 00:25 UTC",
  "games": {
   "CBJ@MIN": {
    "home": "MIN",
    "away": "CBJ",
-   "commence": "2026-10-18T22:10:00Z",
-   "fetched_utc": "2026-10-18 21:22 UTC",
+   "commence": "2026-10-18T22:08:50Z",
+   "fetched_utc": "2026-10-19 00:25 UTC",
    "requested": [
-    "player_shots_on_goal",
-    "player_points",
-    "player_goal_scorer_anytime"
+    "team_totals"
    ],
    "markets": {
     "sog": {
@@ -2873,18 +2871,70 @@
        }
       }
      }
+    },
+    "team_total": {
+     "CBJ": {
+      "name": "CBJ",
+      "line": 1.5,
+      "n": 2,
+      "over": 4.2,
+      "book_over": "BetMGM",
+      "under": 1.33,
+      "book_under": "FanDuel",
+      "consensus": 0.2612,
+      "books": {
+       "FanDuel": {
+        "line": 1.5,
+        "prices": {
+         "over": 3.1,
+         "under": 1.33
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 4.2,
+         "under": 1.2
+        }
+       }
+      }
+     },
+     "MIN": {
+      "name": "MIN",
+      "line": 2.5,
+      "n": 2,
+      "over": 1.48,
+      "book_over": "FanDuel",
+      "under": 2.75,
+      "book_under": "BetMGM",
+      "consensus": 0.6477,
+      "books": {
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.48,
+         "under": 2.55
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.4,
+         "under": 2.75
+        }
+       }
+      }
+     }
     }
    }
   },
   "CAR@CGY": {
    "home": "CGY",
    "away": "CAR",
-   "commence": "2026-10-19T00:10:00Z",
-   "fetched_utc": "2026-10-18 21:22 UTC",
+   "commence": "2026-10-19T00:09:12Z",
+   "fetched_utc": "2026-10-19 00:25 UTC",
    "requested": [
-    "player_shots_on_goal",
-    "player_points",
-    "player_goal_scorer_anytime"
+    "team_totals"
    ],
    "markets": {
     "sog": {
@@ -5824,9 +5874,63 @@
        }
       }
      }
+    },
+    "team_total": {
+     "CGY": {
+      "name": "CGY",
+      "line": 2.5,
+      "n": 2,
+      "over": 2.3,
+      "book_over": "BetMGM",
+      "under": 1.69,
+      "book_under": "FanDuel",
+      "consensus": 0.4235,
+      "books": {
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.1,
+         "under": 1.69
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.3,
+         "under": 1.54
+        }
+       }
+      }
+     },
+     "CAR": {
+      "name": "CAR",
+      "line": 3.5,
+      "n": 1,
+      "over": 2.15,
+      "book_over": "FanDuel",
+      "under": 1.67,
+      "book_under": "FanDuel",
+      "consensus": 0.4372,
+      "books": {
+       "FanDuel": {
+        "line": 3.5,
+        "prices": {
+         "over": 2.15,
+         "under": 1.67
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.57,
+         "under": 2.25
+        }
+       }
+      }
+     }
     }
    }
   }
  },
- "spent": 6
+ "spent": 8
 }
