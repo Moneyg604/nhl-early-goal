@@ -2,13 +2,13 @@
  "v": 1,
  "season": 2026,
  "week": 6,
- "generated_utc": "2026-10-18 13:43 UTC",
+ "generated_utc": "2026-10-19 18:50 UTC",
  "analyst": "Claude research desk",
  "odds_band": [
   1.35,
   2.2
  ],
- "summary": "Sunday-morning final pass on the twelve Sunday games still to kick off plus Monday night, after Saturday's roster moves and the morning's feed: Lamar Jackson, Baker Mayfield and Jalen Hurts out (Huntley, Daniels, McKee start), Caleb Williams and A.J. Brown expected to play, Tyler Warren a game-time call. DraftKings moved several prop lines overnight without news, so most of yesterday's picks were re-keyed to today's feed lines; four supported props (Cook, Allen, Likely, Metcalf) were set aside only because their sections were full, and Houston at Jacksonville kicked off before this pass and keeps its published picks.",
+ "summary": "Monday-afternoon pass on Washington at San Francisco, the only game still to kick off: Mike Evans is a game-time decision with split beat reads, Stefon Diggs stays questionable with no expectation reported, and DraftKings dropped the total to 51.5. The desk keeps Purdy under 248.5 and re-keys Sunday's total to under 51.5 as a thin lean; Daniels over 39.5 rushing yards and McCaffrey under 4.5 receptions are supported but set aside because the Rushing and Receiving sections already hold their six published Sunday picks, and every Sunday game keeps its published picks.",
  "games": {
   "2026_06_HOU_JAX": {
    "notes": [
@@ -849,57 +849,120 @@
   },
   "2026_06_WAS_SF": {
    "notes": [
-    "Availability (official Saturday designations, confirmed from Sat Oct 17 reports): WAS Out: RB Jacory Croskey-Merritt (groin), QB2 Marcus Mariota (knee), DE Charles Omenihu (groin/ankle), OLB Javontae Jean-Baptiste (pectoral). WAS Questionable (confirm when inactives post Monday about 3:45 pm PT / 22:45Z): WR Stefon Diggs (hamstring, DNP Thu, LP Fri/Sat), DT Javon Kinlaw (ankle/knee), S Percy Butler and S Tyler Owens (hamstring), S Nick Cross and G Lucas Patrick (illness, full Sat), RB Jeremy McNichols (quad, full all week, needs IR activation), CB Trey Amos and LB Jordan Magee (practice-window, need activation). No designation, expected to play: WR Terry McLaurin (hamstring, LP Thu/Sat, rest Fri), RB Austin Ekeler (chest, LP all week), RB Rachaad White (shoulder, LP Fri/Sat), WR Treylon Burks, S Quan Martin. QB Jayden Daniels is not on the report and starts.",
-    "Availability SF (designations Sat Oct 17): Out: DE Nick Bosa (knee/calf), WR Deebo Samuel Sr. (hamstring), S Marques Sigle (ankle), LB Garret Wallow (hamstring); LB Dre Greenlaw suspended. Questionable (confirm Monday): WR Mike Evans (ribs/calf, did not practice all week, no source says he is expected to play; treat as doubtful for projections), WR Christian Kirk (calf, first full practice week, IR activation possible but not confirmed by Shanahan), DE Mykel Williams (knee), DT Gracen Halton (quad, back Sat), S Siran Neal (neck) and CB Upton Stout (shoulder, both practised all week in non-contact jerseys). FB Kyle Juszczyk returns Monday; OT Colton McKivitz and DE Romello Height have no designation. RB Kaelon Black missed practice for a personal matter (no designation; his absence would add carries to McCaffrey). QB Brock Purdy, McCaffrey, Kittle and Trent Williams are healthy and start.",
-    "Line movement: DraftKings opened SF -7.5 / total 50.5 (Oct 12) and sits at SF -7.5 (1.91 both sides) / 52.5 (over 1.98, under 1.85) in the 12:15Z feed; moneyline SF 1.21 / WAS 4.60 (opened 1.24 / 4.30). The spread is unchanged; the total rose two points with no injury news that supports more scoring (SF lost Deebo and probably Evans, WAS lost its lead back), so the move reads as market money on the over (WAS has allowed 27+ in four straight, WAS 4-1 to the over). The desk's under is bet into that move, which is the named risk.",
-    "Form and usage: Purdy this season 145 dropbacks for 1,196 yards (29.0 per game, 8.25 per dropback), games of 205, 287, 297, 218, 189 (2 of 5 over 248.5); Evans had 11 targets last week and Deebo is out, so the target tree is Kittle (5.6 targets per game), McCaffrey, Cooks, Cowing and possibly Kirk. Daniels this season 84 dropbacks for 459 yards (5.46 per dropback) in games of 164 (36 db), 96 (17 db) and 199 (31 db); WAS backfield without Croskey-Merritt is White (7 to 8 carries a game so far), Ekeler and McNichols if activated; the split is unmeasured. Routes run and air yards: unmeasured (no source fetched).",
-    "Matchup: SF offense ranks 1st in success rate, third-down rate, red-zone TD rate, pass EPA and sack rate allowed; WAS defense ranks 27th in success rate, 32nd in red-zone TD rate, 25th in pass EPA and 27th in sack rate. SF defense ranks 1st in explosive-play rate allowed and 5th in rush EPA allowed, 16th in pass EPA; without Bosa its pass rush drops. WAS offense ranks 26th in success rate and 29th on third down.",
-    "Game script and tendencies: SF is the slowest offense in the brief (32.4 s per play, PROE -0.04) and WAS passes under expectation (PROE -0.087, 29.6 s per play); both lean run, which holds the drive count near 10 to 11 a side. A 7.5-point favourite that leads keeps Purdy's volume near his 29 dropbacks a game; a WAS deficit adds Daniels dropbacks but against the league's stingiest explosive-play defense.",
-    "Situational: both teams on 8 days' rest; WAS travels west for a 5:15 pm PT kickoff and has a Week 7 bye (no reason to hold hamstring receivers back, but Diggs is the one to confirm); SF home, grass, sea level. Points-per-drive arithmetic: SF 2.573 x 2.518 / 2.3 = 2.82 per drive, WAS 2.051 x 2.02 / 2.3 = 1.80 per drive, times 10.2 to 11 drives each = 47.1 to 50.8 points; this-season points per game average 51.1 across both teams' games. Desk total about 49.8, margin bracketed between the EPA model (SF by 3.4) and the drive arithmetic (SF by 10), so no spread or moneyline selection.",
-    "Research limits this run: the 49ers.com and commanders.com injury pages were blocked (provenance), and the web-call budget ran out before a fresh hourly wind forecast was fetched (Open-Meteo API returned 403 through the proxy); the weather line uses the brief's Open-Meteo kickoff forecast plus Saturday's NWS note. The Monday-night desk run should re-check Evans, Diggs and Kirk and refresh the wind."
+    "Monday-afternoon pass (fetched 18:40-18:55Z, about 5.5 hours before the 00:15Z kickoff; inactives post at 22:45Z, after this run). Availability SF: Mike Evans (ribs/Achilles, Questionable) did not practice all week and is a game-time decision per Cam Inman (Mercury News, via RotoWire 12:28Z); same-day reads split: Lombardi (SF Standard) 'on track to play', Maiocco (NBC Bay Area) 'I think Juszczyk and Evans will play', Krueger (KNBR) 'very surprised if he plays' (Heavy, 17:36Z). No source says he is expected to play, so he is not a candidate and the projections carry him at about even odds. Christian Kirk (calf) Questionable, activation unconfirmed. Kaelon Black (personal matter Saturday) is expected to play per Nick Wagoner (ESPN, Oct 17; Heavy Oct 18). Out: Nick Bosa, Deebo Samuel Sr., Marques Sigle, Garret Wallow; Dre Greenlaw suspended. Purdy, McCaffrey, Kittle, Trent Williams start.",
+    "Availability WAS: Stefon Diggs (hamstring) remains Questionable after limited Friday/Saturday practices; CBS (16:27Z today) gives no expectation either way, so he is not a candidate on either side. Out: RB Jacory Croskey-Merritt (groin), QB2 Marcus Mariota, DE Charles Omenihu, OLB Javontae Jean-Baptiste. Rachaad White (shoulder) and Austin Ekeler (chest) were limited and are expected to share the backfield; Jeremy McNichols may be activated. Terry McLaurin (hamstring, no designation) plays after a veteran-rest Friday; Jayden Daniels starts (not on the report).",
+    "DraftKings today: SF -7.5 (-108) / WAS +7.5 (-112), total 51.5 (over -115 / under -105), moneyline SF -395 / WAS +310 (VegasInsider DraftKings column and DraftKings Network, both 17:50-18:50Z). The total came down a point from Sunday's 52.5 without injury news (Evans trending toward playing, if anything, points the other way); the spread is unchanged since the Oct 12 opener of -7.5 / 50.5. Circa went -8 to -7.5 with sharp money on WAS while about 80% of tickets sit on SF (VSiN, Yahoo). DraftKings props read today: Daniels over 39.5 rushing yards -110 and Evans over 63.5 receiving yards -112 (DraftKings Network, 17:50Z). The feed's Sunday-morning DraftKings prop lines (Purdy 248.5, McCaffrey 4.5 receptions) match the unnamed boards shown this morning (SportsBettingDime 13:05Z), so they are used as the feed's lines.",
+    "Weather: NWS hourly for the stadium (via Commanders On SI, Oct 18 23:31Z): 64F at kickoff, WNW wind 11 mph easing to 5 mph by 8 pm PT, gusts to 21 mph between 5 and 7 pm PT, 0% rain; Covers (Oct 19 11:19Z): 68F, wind 12 gusting 20, 1% rain. Below the 15 mph threshold: no cut to passing volume, a small discount on deep throws in the first half.",
+    "Usage and form: Purdy 145 dropbacks for 1,196 yards in five games (29.0 per game, 8.25 per dropback; 34, 22, 27, 29, 33 dropbacks; 205, 287, 297, 218, 189 yards; 28.4 attempts per game, 69.0% completions). McCaffrey targets 8, 4, 5, 5, 3 (25) for 19 receptions (76%) and 137 yards; carries 10, 10, 15, 15, 11 (61 for 286, 4.7). Kittle targets 5, 4, 7, 6, 6 for 21 catches, 268 yards, 2.4 yards per route run; 24 yards last week after 80, 82, 70. Evans 24 of 34 for 326 (11 targets last week). Daniels: carries 5, 7, 8 (9 by the DraftKings Network count) for 31, 69, 103 rushing yards (203 on about 21 carries, 9.7 per carry), 459 passing yards on 84 dropbacks (5.46 per dropback). McLaurin targets 4, 9, 9, 5 for 203 yards; Okonkwo 8 of 13 targets for 81 yards in three games; Antonio Williams targets 4, 3, 4, 8, 3 at 60-69% snaps; White carries 7, 7, 8, 7 with 10 catches on 10 targets for 53 yards. Routes run and air yards: unmeasured (no source fetched).",
+    "Matchup: SF offense ranks 1st in success rate, third-down rate, red-zone TD rate, pass EPA and sack rate allowed; WAS defense 27th in success rate, 32nd in red-zone TD rate, 25th in pass EPA, 27th in sack rate, last in points allowed (29.8 per game), 4th-most receiving yards to tight ends (74-82 per game), 14 passing TDs allowed. SF defense 1st in explosive-play rate allowed, 5th in rush EPA allowed (-0.146 per play, 97.6 rush yards per game allowed), 16th in pass EPA, 51% pressure rate last week but without Bosa again. Cornerbacks: no shadow assignment reported (unmeasured).",
+    "Tendencies and game script: SF 32.4 s per play (slowest in the brief), neutral pass 54.7%, PROE -4%; WAS 29.6 s per play, neutral pass 53.6%, PROE -8.7%. About 10.2 to 11 drives a side. A 7.5-point favourite that leads keeps Purdy near 30 dropbacks; a trailing WAS adds Daniels dropbacks and scrambles against a defense that allows few explosive plays.",
+    "Situational: both teams on 8 days' rest; WAS travels west for a 5:15 pm PT kickoff with a Week 7 bye after it; SF home, grass, sea level, no coordinator changes found. Desk points-per-drive total about 50.3 (SF 2.82 and WAS 1.80 per drive over 10.2-11 drives = 47-51, this-season points per game 51.1, plus about 0.75 for Evans at even odds); P(under 51.5) = 0.53 at DraftKings' new number, a thin lean the desk keeps in the game section (grade C).",
+    "Research limits: the DraftKings Sportsbook event page requires a login and 49ers.com/commanders.com remained unfetched; DraftKings prop lines for McCaffrey rushing yards (58.5, 61.5 and 62.5 on three pages), Kittle receiving yards (62.5 to 64.5) and Daniels passing yards (204.5 feed, 206.5 to 210.5 on unnamed boards) could not be pinned to DraftKings today and are declined. Two supported props, Daniels over 39.5 rushing yards (desk 0.58) and McCaffrey under 4.5 receptions (desk 0.56), are set aside only because the Rushing and Receiving sections already hold their six published Sunday picks each; they are listed in declined with their arithmetic. Run by the main session, not a subagent (one game)."
    ],
-   "weather": "Levi's Stadium, outdoors, grass, kickoff 5:15 pm PT Monday Oct 19: brief's Open-Meteo forecast at kickoff 58F, wind 10 mph gusting 15, precipitation chance 1.5%, 0 mm; Saturday's NWS outlook had a mostly sunny high of 66F and a mostly cloudy evening with rain only after 11 pm PT (after the game). No weather effect expected; hourly wind not refreshed this run.",
+   "weather": "Levi's Stadium, outdoors, grass, kickoff 5:15 pm PT Monday Oct 19: NWS hourly (via SI, Oct 18 23:31Z) 64F, WNW wind 11 mph easing to 5 mph by 8 pm, gusts to 21 mph 5-7 pm, 0% rain; Covers (Oct 19 11:19Z) 68F, wind 12 gusting 20, 1% rain. No volume effect (under 15 mph sustained); minor discount on deep throws early.",
    "injuries": [
-    "Nick Bosa DE SF Out (knee/calf), designated Sat Oct 17 (NBC Sports Bay Area)",
-    "Deebo Samuel Sr. WR SF Out (hamstring), multi-week per Shanahan",
-    "Marques Sigle S SF Out (ankle); Garret Wallow LB SF Out (hamstring); Dre Greenlaw LB SF suspended",
-    "Mike Evans WR SF Questionable (ribs/calf): did not practice all week, seen in warmups without a jersey Saturday; no report says he is expected to play; confirm Monday 22:45Z",
-    "Christian Kirk WR SF Questionable (calf): full practice week, IR activation possible, Shanahan would not confirm; confirm Monday",
-    "Mykel Williams DE SF Questionable (knee, played Week 5); Gracen Halton DT SF Questionable (quad, back at Saturday practice); Siran Neal S and Upton Stout CB SF Questionable (neck / shoulder, practised all week non-contact)",
-    "Kyle Juszczyk FB SF no designation, returns Monday; Romello Height DE and Colton McKivitz OT SF no designation; Kaelon Black RB SF missed practice (personal), no designation",
-    "Jacory Croskey-Merritt RB WAS Out (groin), DNP all week (SI, Sat Oct 17)",
-    "Marcus Mariota QB WAS Out (knee); Charles Omenihu DE WAS Out (groin/ankle); Javontae Jean-Baptiste OLB WAS Out (pectoral)",
-    "Stefon Diggs WR WAS Questionable (hamstring): DNP Thu, limited Fri and Sat; confirm Monday 22:45Z",
-    "Terry McLaurin WR WAS no designation (hamstring, limited Thu/Sat, rested Fri): expected to play",
-    "Austin Ekeler RB WAS no designation (chest, limited all week); Rachaad White RB WAS no designation (shoulder, limited Fri/Sat); Jeremy McNichols RB WAS Questionable (quad, full all week, needs IR activation)",
-    "Javon Kinlaw DT WAS Questionable (ankle/knee, limited Sat); Percy Butler S and Tyler Owens S WAS Questionable (hamstring, limited); Nick Cross S and Lucas Patrick G WAS Questionable (illness, full Sat); Trey Amos CB and Jordan Magee LB WAS Questionable (need activation from practice window)",
-    "Jayden Daniels QB WAS not on the final report; starts"
+    "Mike Evans WR SF Questionable (ribs/Achilles): did not practice all week, game-time decision per Cam Inman (Mercury News) 2026-10-19; beat reads split (Lombardi/Maiocco lean play, Krueger lean sit); inactives 22:45Z",
+    "Christian Kirk WR SF Questionable (calf): practice window opened, activation not confirmed",
+    "Nick Bosa DE SF Out (knee/calf); Deebo Samuel Sr. WR SF Out (hamstring); Marques Sigle S SF Out (ankle); Garret Wallow LB SF Out (hamstring); Dre Greenlaw LB SF suspended",
+    "Mykel Williams DE, Gracen Halton DT, Siran Neal S, Upton Stout CB SF Questionable (practised)",
+    "Kaelon Black RB SF no designation: excused Saturday (personal), expected to play per ESPN's Wagoner",
+    "Kyle Juszczyk FB SF no designation (knee, full practice), expected to play",
+    "Stefon Diggs WR WAS Questionable (hamstring): DNP Thu, limited Fri/Sat; no same-day expectation reported (CBS 2026-10-19 16:27Z)",
+    "Jacory Croskey-Merritt RB WAS Out (groin); Marcus Mariota QB WAS Out (knee); Charles Omenihu DE WAS Out (groin/ankle); Javontae Jean-Baptiste OLB WAS Out (pectoral)",
+    "Rachaad White RB WAS (shoulder) and Austin Ekeler RB WAS (chest): limited, expected to share the backfield; Jeremy McNichols RB WAS possible activation",
+    "Terry McLaurin WR WAS no designation (hamstring, veteran rest Friday), plays",
+    "Javon Kinlaw DT, Jordan Magee LB, Trey Amos CB, Nick Cross S, Lucas Patrick G, Percy Butler S, Tyler Owens S WAS Questionable"
    ],
    "sources": [
     {
-     "name": "NBC Sports Bay Area: Nick Bosa out, Mike Evans questionable for 49ers-Commanders (Sat Oct 17, 3:20 pm PT)",
-     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/nick-bosa-mike-evans-injury-status-designation-commanders/1971834/",
-     "fetched": "2026-10-18T13:33Z"
+     "name": "Heavy: Is Mike Evans playing tonight vs. Commanders (updated 2026-10-19 17:36Z; Inman, Lombardi, Maiocco, Krueger reads)",
+     "url": "https://heavy.com/sports/nfl/san-francisco-49ers/mike-evans-playing-tonight-commanders-49ers/",
+     "fetched": "2026-10-19T18:41Z"
     },
     {
-     "name": "SI / Commanders On SI: Commanders' final injury report, four out, nine questionable vs 49ers (Sat Oct 17)",
-     "url": "https://www.si.com/nfl/commanders/onsi/commanders-49ers-week-6-final-injury-report",
-     "fetched": "2026-10-18T13:33Z"
+     "name": "RotoWire: Mike Evans shaping up as game-time call Monday (2026-10-19 12:28Z)",
+     "url": "https://www.rotowire.com/football/headlines/mike-evans-injury-shaping-up-as-game-time-call-monday-643302",
+     "fetched": "2026-10-19T18:41Z"
     },
     {
-     "name": "ESPN: 49ers rule out DE Nick Bosa for Monday night (search result, not opened)",
-     "url": "https://www.espn.com/nfl/story/_/id/50205015/san-francisco-49ers-rule-de-nick-bosa-monday-night",
-     "fetched": "2026-10-18T13:31Z"
+     "name": "CBS Sports: Is Stefon Diggs playing on Monday Night Football (2026-10-19 16:27Z)",
+     "url": "https://www.cbssports.com/nfl/news/is-stefon-diggs-playing-tonight-injury-update-commanders-vs-49ers/",
+     "fetched": "2026-10-19T18:41Z"
     },
     {
-     "name": "Hogs Haven: Commanders vs 49ers Saturday injury report (search result, not opened)",
-     "url": "https://www.hogshaven.com/washington-commanders-injuries/449648/commanders-vs-49ers-saturday-injury-report-bill-croskey-merritt-stefon-diggs-terry-mclaurin",
-     "fetched": "2026-10-18T13:31Z"
+     "name": "Heavy: 49ers running back (Kaelon Black) status update, final injury reports (2026-10-18)",
+     "url": "https://heavy.com/sports/nfl/san-francisco-49ers/running-back-commanders-status-update-49ers/",
+     "fetched": "2026-10-19T18:41Z"
     },
     {
-     "name": "Desk brief: DraftKings odds and props feed, Open-Meteo kickoff weather (12:15Z)",
-     "url": "file:///home/claude/desk-briefs/2026_06_WAS_SF.json",
-     "fetched": "2026-10-18T13:25Z"
+     "name": "DraftKings Network: Commanders at 49ers player prop bets for MNF (2026-10-19 17:50Z; DraftKings lines)",
+     "url": "https://dknetwork.draftkings.com/2026/10/19/commanders-at-49ers-nfl-player-prop-bets-for-monday-night-football/",
+     "fetched": "2026-10-19T18:44Z"
+    },
+    {
+     "name": "VegasInsider: Commanders vs 49ers odds by sportsbook (DraftKings column: -7.5 -108/-112, 51.5 -115/-105, -395/+310)",
+     "url": "https://www.vegasinsider.com/nfl/matchups/49ers-vs-commanders/",
+     "fetched": "2026-10-19T18:47Z"
+    },
+    {
+     "name": "VSiN: Commanders vs 49ers predictions (DraftKings lines Sunday, Circa movement, sharp money)",
+     "url": "https://vsin.com/nfl/commanders-vs-49ers-predictions-week-6-monday-night-football-odds-picks-and-player-props/",
+     "fetched": "2026-10-19T18:44Z"
+    },
+    {
+     "name": "Yahoo Sports: Commanders at 49ers MNF betting odds, props (2026-10-19 12:45Z; usage notes)",
+     "url": "https://sports.yahoo.com/nfl/betting/article/commanders-at-49ers-monday-night-football-betting-odds-picks-and-predictions-best-bets-player-props-124551608.html",
+     "fetched": "2026-10-19T18:44Z"
+    },
+    {
+     "name": "SportsBettingDime: Commanders vs 49ers player props (odds as of Oct 19, 13:05Z, book unnamed; McCaffrey and White usage)",
+     "url": "https://www.sportsbettingdime.com/news/nfl/commanders-vs-49ers-player-props-picks-best-bets-monday-night-football-oct-18/",
+     "fetched": "2026-10-19T18:49Z"
+    },
+    {
+     "name": "Commanders On SI: Commanders vs 49ers weather forecast (NWS hourly, 2026-10-18 23:31Z)",
+     "url": "https://www.si.com/nfl/commanders/onsi/commanders-49ers-weather-forecast-week-6",
+     "fetched": "2026-10-19T18:49Z"
+    },
+    {
+     "name": "Covers: Commanders vs 49ers prediction (2026-10-19 11:19Z; weather, total movement)",
+     "url": "https://www.covers.com/nfl/commanders-vs-49ers-prediction-picks-oct-19-2026",
+     "fetched": "2026-10-19T18:49Z"
+    },
+    {
+     "name": "Lineups: Commanders-49ers best Week 6 player props (Kittle, White, Purdy usage; 2026-10-18)",
+     "url": "https://www.lineups.com/articles/commanders-49ers-best-nfl-week-6-player-props/",
+     "fetched": "2026-10-19T18:52Z"
+    },
+    {
+     "name": "Bettors Insider: MNF player props (Kittle targets vs WAS, McCaffrey carries; 2026-10-18)",
+     "url": "https://bettorsinsider.com/nfl/2026/10/18/3-skill-position-props-to-back-for-commanders-vs-49ers-on-mnf/",
+     "fetched": "2026-10-19T18:55Z"
+    },
+    {
+     "name": "CBS Sports: 49ers vs Commanders betting preview (2026-10-19 13:36Z; red-zone and TE figures)",
+     "url": "https://www.cbssports.com/betting/news/49ers-vs-commanders-odds-prediction-betting-preview-start-time-monday-night-football-picks-best-bets/",
+     "fetched": "2026-10-19T18:55Z"
+    },
+    {
+     "name": "KNBR / The Sports Leader: Week 6 MNF preview (2026-10-19 15:25Z; injury notes both teams)",
+     "url": "https://www.thesportsleader.com/2026/10/19/week-6-mnf-commanders-49ers-preview-prop-picks-prediction/",
+     "fetched": "2026-10-19T18:55Z"
+    },
+    {
+     "name": "RotoWire: Christian McCaffrey player page (Oct 4 and Oct 11 game notes, season totals)",
+     "url": "https://www.rotowire.com/football/player/c-mccaffrey-11690",
+     "fetched": "2026-10-19T19:00Z"
+    },
+    {
+     "name": "gambling.com: Chig Okonkwo 2026 totals (8 of 13 targets, 81 yards)",
+     "url": "https://www.gambling.com/betbuilderai/nfl/team/washington-commanders/chig-okonkwo",
+     "fetched": "2026-10-19T19:00Z"
+    },
+    {
+     "name": "Published payload: docs/nfl/weeks/2026-w06.json (DraftKings odds feed 2026-10-18T12:15Z, official report rows, usage, research ranks, simulation)",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nfl/weeks/2026-w06.json",
+     "fetched": "2026-10-19T18:38Z"
     }
    ]
   }
@@ -1739,67 +1802,6 @@
    ]
   },
   {
-   "id": "desk|total|2026_06_WAS_SF|under|52.5|",
-   "game_id": "2026_06_WAS_SF",
-   "kind": "total",
-   "side": "under",
-   "line": 52.5,
-   "who": null,
-   "team": null,
-   "label": "Under 52.5",
-   "odds": 1.85,
-   "odds_source": "feed",
-   "p": 0.57,
-   "grade": "B",
-   "evidence": "partial",
-   "confidence": 55,
-   "inputs": [
-    "SF offense 2.573 points per drive (blended sample, 150 drives); WAS defense allows 2.518 per drive; league average taken as 2.3",
-    "WAS offense 2.051 points per drive; SF defense allows 2.020 per drive",
-    "Pace: SF 177 s per drive and 32.4 s per play (slowest offense in the brief), WAS 167 s per drive; both run-leaning (PROE -0.04 and -0.087), about 10.2 to 11 drives a side",
-    "SF without WR Deebo Samuel (Out) and probably WR Mike Evans (Questionable, no practice all week, 11 targets last week); WAS without RB1 Croskey-Merritt (Out), WR Diggs Questionable; SF without DE Bosa (Out)",
-    "This season both teams' games average 51.1 total points (SF 49.4, WAS 52.8); EPA-based model total 48.0; market-anchored simulation 52.6",
-    "DraftKings total opened 50.5 and sits at 52.5 (under 1.85) with no injury news supporting more points",
-    "Weather benign: 58F, wind 10 mph gusting 15, no rain"
-   ],
-   "arithmetic": [
-    "SF: 2.573 x 2.518 / 2.3 = 2.82 points per drive; WAS: 2.051 x 2.02 / 2.3 = 1.80 points per drive",
-    "Drives 10.2 to 11.0 a side: total 47.1 to 50.8; this-season points-per-game average 51.1; desk mean 49.8 (drive arithmetic weighted two to one against points per game, no further cut for the missing receivers)",
-    "SD 13.5: P(under 52.5) = Phi((52.5 - 49.8) / 13.5) = Phi(0.20) = 0.58, reported 0.57",
-    "Market: no-vig under 0.517 (1.85 vs 1.98); simulation under 0.511; desk 0.57, 5 points above the market (below the 8-point re-check trigger); the reason is the receiver losses and both teams' slow run-leaning tempo",
-    "Break-even at 1.85 = 0.541; EV = 0.57 x 1.85 - 1 = +0.05"
-   ],
-   "pros": [
-    "SF's top two outside receivers are out or did not practice; SF's offense was already the slowest in the brief and WAS passes under expectation",
-    "SF defense allows the league's fewest explosive plays and ranks 5th against the run; WAS offense ranks 26th in success rate and 29th on third down",
-    "Drive arithmetic and the EPA model both sit at 47 to 51, below the number"
-   ],
-   "risks": [
-    "The total moved from 50.5 to 52.5 without supporting news: market money is on the over, and WAS has allowed 27+ points in four straight games",
-    "WAS defense ranks 32nd in red-zone TD rate and SF 1st: SF drives that reach the 20 finish with touchdowns",
-    "SF without Bosa gives Daniels more time; a shootout like SF's 36-30 and 32-29 games this season clears 52.5",
-    "Drive count is an estimate (partial evidence); if Evans plays, add about 1.5 points to SF"
-   ],
-   "verdict": "Under 52.5 at 1.85: the desk's points-per-drive total is about 50 with two of SF's three top receivers missing and two run-leaning offenses; bet it knowing the market has pushed the number up two points on the over.",
-   "sources": [
-    {
-     "name": "NBC Sports Bay Area: Nick Bosa out, Mike Evans questionable for 49ers-Commanders (Sat Oct 17)",
-     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/nick-bosa-mike-evans-injury-status-designation-commanders/1971834/",
-     "fetched": "2026-10-18T13:33Z"
-    },
-    {
-     "name": "SI / Commanders On SI: Commanders' final injury report (Sat Oct 17)",
-     "url": "https://www.si.com/nfl/commanders/onsi/commanders-49ers-week-6-final-injury-report",
-     "fetched": "2026-10-18T13:33Z"
-    },
-    {
-     "name": "Desk brief: DraftKings odds feed, team drive rates and Open-Meteo weather (12:15Z)",
-     "url": "file:///home/claude/desk-briefs/2026_06_WAS_SF.json",
-     "fetched": "2026-10-18T13:25Z"
-    }
-   ]
-  },
-  {
    "id": "desk|rush_yds|2026_06_NO_NYG|over|49.5|Cam Skattebo",
    "game_id": "2026_06_NO_NYG",
    "kind": "rush_yds",
@@ -2081,60 +2083,6 @@
    ]
   },
   {
-   "id": "desk|qb_yds|2026_06_WAS_SF|under|248.5|Brock Purdy",
-   "game_id": "2026_06_WAS_SF",
-   "kind": "qb_yds",
-   "side": "under",
-   "line": 248.5,
-   "who": "Brock Purdy",
-   "team": "SF",
-   "label": "Brock Purdy under 248.5 passing yards",
-   "odds": 1.89,
-   "odds_source": "feed",
-   "p": 0.56,
-   "grade": "B",
-   "evidence": "measured",
-   "confidence": 55,
-   "inputs": [
-    "Purdy this season: 145 dropbacks, 1,196 yards in 5 games (29.0 dropbacks and 239 yards per game, 8.25 yards per dropback); games of 205, 287, 297, 218, 189; 2 of 5 over 248.5",
-    "Prior (profile): 8.0 yards per dropback, multiplier 1.051; WAS defense allows 6.65 yards per dropback (multiplier 0.999, league average)",
-    "WR Deebo Samuel Out; WR Mike Evans Questionable with no practice all week (11 targets last week, 24.9% target share); Kirk's activation unconfirmed",
-    "Script: SF -7.5 favourite, slowest offense in the brief (32.4 s per play, PROE -0.04); dropbacks the last two games 29 and 33",
-    "Simulation mean 260.7 on 35.6 dropbacks: the disagreement with the desk is volume, not efficiency",
-    "Weather: no effect (wind 10 mph)"
-   ],
-   "arithmetic": [
-    "Efficiency: two-thirds this season (8.25 / 6.65 = 1.24) plus one-third prior (1.051) = 1.177 x 6.65 x 0.999 = 7.82 yards per dropback (no cut taken for the missing receivers)",
-    "Volume: 30 dropbacks (this-season 29.0, favourite's script, slow pace) x 7.82 = 235 yards",
-    "SD 70: P(under 248.5) = Phi((248.5 - 235) / 70) = Phi(0.19) = 0.58, reported 0.56 (shaded for the Evans/Kirk unknowns)",
-    "Market: no-vig 0.50 (1.89 both sides); simulation under 0.466; desk 0.56, 6 points above the market and 9 above the simulation (the simulation uses 35.6 dropbacks against 29 this season)",
-    "Break-even at 1.89 = 0.529; EV = 0.56 x 1.89 - 1 = +0.06"
-   ],
-   "pros": [
-    "Purdy averages 29 dropbacks a game this season and SF, 5-0 and a 7.5-point favourite, has not needed volume",
-    "Deebo is out and Evans has not practised; the remaining targets (Kittle, McCaffrey, Cooks, Cowing) run shorter routes",
-    "Three of five games this season landed under 220"
-   ],
-   "risks": [
-    "WAS pass defense ranks 25th in EPA and 27th in sack rate: two games of 287 and 297 this season show the ceiling in a soft matchup",
-    "If WAS keeps it close (SF won by 3 last week), dropbacks climb toward the simulation's 35 and the mean passes the line",
-    "Mike Evans active (confirm at 22:45Z Monday) adds his 25% target share back; Kirk's activation also raises the ceiling"
-   ],
-   "verdict": "Purdy under 248.5 at 1.89: 30 dropbacks at 7.8 yards gives about 235 with his two best outside receivers out or unpracticed; the bet fails if the game stays close and the volume rises.",
-   "sources": [
-    {
-     "name": "NBC Sports Bay Area: Nick Bosa out, Mike Evans questionable for 49ers-Commanders (Sat Oct 17)",
-     "url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/nick-bosa-mike-evans-injury-status-designation-commanders/1971834/",
-     "fetched": "2026-10-18T13:33Z"
-    },
-    {
-     "name": "Desk brief: DraftKings props feed, Purdy game log and WAS defensive rates (12:15Z)",
-     "url": "file:///home/claude/desk-briefs/2026_06_WAS_SF.json",
-     "fetched": "2026-10-18T13:25Z"
-    }
-   ]
-  },
-  {
    "id": "rush_yds|2026_06_LAC_KC|over|90.5|Kenneth Walker III",
    "game_id": "2026_06_LAC_KC",
    "kind": "rush_yds",
@@ -2256,6 +2204,76 @@
    ]
   },
   {
+   "id": "desk|qb_yds|2026_06_WAS_SF|under|248.5|Brock Purdy",
+   "game_id": "2026_06_WAS_SF",
+   "kind": "qb_yds",
+   "side": "under",
+   "line": 248.5,
+   "who": "Brock Purdy",
+   "team": "SF",
+   "label": "Brock Purdy under 248.5 passing yards",
+   "odds": 1.89,
+   "odds_source": "feed",
+   "p": 0.55,
+   "grade": "B",
+   "evidence": "measured",
+   "confidence": 55,
+   "inputs": [
+    "Purdy this season: 145 dropbacks, 1,196 yards in 5 games (29.0 dropbacks and 239 yards per game, 8.25 yards per dropback; 28.4 attempts per game); games of 205, 287, 297, 218, 189; 2 of 5 over 248.5",
+    "Prior (profile): 8.0 yards per dropback, multiplier 1.051; WAS defense allows 6.65 yards per dropback (multiplier 0.999, league average) but the 6th-most passing yards per game (266) on volume",
+    "WR Deebo Samuel Out; WR Mike Evans (11 targets, 113 yards last week) a game-time decision with split beat reads (Monday 17:36Z); Kirk's activation unconfirmed",
+    "Script: SF -7.5 favourite, slowest offense in the brief (32.4 s per play, PROE -4%); dropbacks the last two games 29 and 33",
+    "Simulation mean 260.7 on 35.6 dropbacks: the disagreement with the desk is volume, not efficiency",
+    "Weather: wind 11-12 mph gusting to 21 in the first half, 0% rain: no volume effect, a small discount on deep throws early",
+    "DraftKings feed line 248.5 (1.89 both sides, Sunday 12:15Z); an unnamed board this morning (13:05Z) showed the same 248.5 at -115 both ways"
+   ],
+   "arithmetic": [
+    "Efficiency: two-thirds this season (8.25 / 6.65 = 1.24) plus one-third prior (1.051) = 1.177 x 6.65 x 0.999 = 7.82 yards per dropback (no cut taken for the missing receivers; Evans at even odds adds nothing measurable)",
+    "Volume: 30 dropbacks (this-season 29.0, favourite's script, slow pace) x 7.82 = 235 yards",
+    "SD 70: P(under 248.5) = Phi((248.5 - 235) / 70) = Phi(0.19) = 0.58, reported 0.55 (shaded for Evans possibly playing and Kirk's activation)",
+    "Market: no-vig 0.50 (1.89 both sides); simulation under 0.466; desk 0.55, 5 points above the market and 8 above the simulation (the simulation uses 35.6 dropbacks against 29 this season)",
+    "Break-even at 1.89 = 0.529; EV = 0.55 x 1.89 - 1 = +0.04"
+   ],
+   "pros": [
+    "Purdy averages 29 dropbacks a game this season and SF, 5-0 and a 7.5-point favourite, has not needed volume",
+    "Deebo is out and Evans has not practised in two weeks; the remaining targets (Kittle, McCaffrey, Cooks, Cowing) run shorter routes",
+    "Three of five games this season landed under 220; first-half gusts to 21 mph trim the deep ball"
+   ],
+   "risks": [
+    "WAS pass defense ranks 25th in EPA and 27th in sack rate and allows 266 passing yards a game: the 287 and 297 games show the ceiling in a soft matchup",
+    "If WAS keeps it close (SF won by 3 last week), dropbacks climb toward the simulation's 35 and the mean passes the line",
+    "Evans active (inactives at 22:45Z) puts his 25% target share back on the field; the beat reads lean toward him playing"
+   ],
+   "verdict": "Purdy under 248.5 at 1.89: 30 dropbacks at 7.8 yards gives about 235; the desk trims to 0.55 because Evans is now leaning toward playing, and the bet fails if the game stays close and the volume rises.",
+   "sources": [
+    {
+     "name": "Heavy: Is Mike Evans playing tonight vs. Commanders (game-time decision, split reads; 2026-10-19 17:36Z)",
+     "url": "https://heavy.com/sports/nfl/san-francisco-49ers/mike-evans-playing-tonight-commanders-49ers/",
+     "fetched": "2026-10-19T18:41Z"
+    },
+    {
+     "name": "DraftKings Network: Commanders at 49ers player prop bets (Purdy 28.4 attempts per game, 1,196 yards; 2026-10-19 17:50Z)",
+     "url": "https://dknetwork.draftkings.com/2026/10/19/commanders-at-49ers-nfl-player-prop-bets-for-monday-night-football/",
+     "fetched": "2026-10-19T18:44Z"
+    },
+    {
+     "name": "SportsBettingDime: player props as of Oct 19 (Purdy 248.5 on an unnamed board, 13:05Z)",
+     "url": "https://www.sportsbettingdime.com/news/nfl/commanders-vs-49ers-player-props-picks-best-bets-monday-night-football-oct-18/",
+     "fetched": "2026-10-19T18:49Z"
+    },
+    {
+     "name": "Commanders On SI: weather forecast (NWS hourly, wind 11 mph gusting 21)",
+     "url": "https://www.si.com/nfl/commanders/onsi/commanders-49ers-weather-forecast-week-6",
+     "fetched": "2026-10-19T18:49Z"
+    },
+    {
+     "name": "Published payload: docs/nfl/weeks/2026-w06.json (DraftKings feed 2026-10-18T12:15Z: Purdy 248.5 at 1.89; game log; WAS defensive rates)",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nfl/weeks/2026-w06.json",
+     "fetched": "2026-10-19T18:38Z"
+    }
+   ]
+  },
+  {
    "id": "total|2026_06_BAL_CLE|under|39.5|",
    "game_id": "2026_06_BAL_CLE",
    "kind": "total",
@@ -2318,6 +2336,77 @@
      "name": "Open-Meteo forecast for Huntington Bank Field, kickoff + 3 h (via the desk payload)",
      "url": "https://open-meteo.com/",
      "fetched": "2026-10-18T12:15Z"
+    }
+   ]
+  },
+  {
+   "id": "desk|total|2026_06_WAS_SF|under|51.5|",
+   "game_id": "2026_06_WAS_SF",
+   "kind": "total",
+   "side": "under",
+   "line": 51.5,
+   "who": null,
+   "team": null,
+   "label": "Under 51.5",
+   "odds": 1.95,
+   "odds_source": "draftkings",
+   "p": 0.53,
+   "grade": "C",
+   "evidence": "partial",
+   "confidence": 50,
+   "inputs": [
+    "SF offense 2.573 points per drive (blended sample, 150 drives); WAS defense allows 2.518 per drive; league average taken as 2.3",
+    "WAS offense 2.051 points per drive; SF defense allows 2.020 per drive",
+    "Pace: SF 177 s per drive and 32.4 s per play (slowest offense in the brief), WAS 167 s per drive; both run-leaning (PROE -4% and -8.7%), about 10.2 to 11 drives a side",
+    "SF without WR Deebo Samuel (Out), DE Nick Bosa (Out); WR Mike Evans a game-time decision with the beat reads leaning toward playing (Heavy 17:36Z); WAS without RB1 Croskey-Merritt (Out), WR Diggs Questionable with no expectation reported",
+    "This season both teams' games average 51.1 total points (SF 49.4, WAS 52.8); EPA-based model total 48.0; market-anchored simulation 51.6",
+    "DraftKings total: opened 50.5 (Oct 12), 52.5 on Sunday, 51.5 today (over -115 / under -105) with no injury news behind the one-point drop (VegasInsider DraftKings column and DraftKings Network, 17:50-18:47Z)",
+    "Weather: 64F, wind 11-12 mph gusting to 21 in the first half, 0% rain: no volume effect, a small discount on deep throws early"
+   ],
+   "arithmetic": [
+    "SF: 2.573 x 2.518 / 2.3 = 2.82 points per drive; WAS: 2.051 x 2.02 / 2.3 = 1.80 points per drive",
+    "Drives 10.2 to 11.0 a side: total 47.1 to 50.8; this-season points-per-game average 51.1; desk mean 49.8 (drive arithmetic weighted two to one against points per game) plus 0.5 for Evans at even odds = 50.3",
+    "SD 13.5: P(under 51.5) = Phi((51.5 - 50.3) / 13.5) = Phi(0.09) = 0.535, reported 0.53",
+    "Market: no-vig under 0.489 (-105 vs -115); simulation under about 0.50 at its 51.6 mean; desk 0.53, 4 points above the market; the reason is the receiver losses and two run-leaning offenses, and the market has moved a point toward the desk since Sunday, which is why the edge is now thin",
+    "Break-even at 1.95 = 0.513; EV = 0.53 x 1.95 - 1 = +0.03"
+   ],
+   "pros": [
+    "SF's top outside receiver is out and its WR1 has not practised in two weeks; SF's offense was already the slowest in the brief and WAS passes under expectation",
+    "SF defense allows the league's fewest explosive plays and ranks 5th against the run; WAS offense ranks 26th in success rate and 29th on third down",
+    "Drive arithmetic and the EPA model both sit at 47 to 51, below the number"
+   ],
+   "risks": [
+    "The edge is one to two points of total: a single extra touchdown drive decides it; WAS has allowed 27+ points in four straight games and its defense is last in points allowed",
+    "WAS defense ranks 32nd in red-zone TD rate and SF 1st: SF drives that reach the 20 finish with touchdowns",
+    "SF without Bosa gives Daniels time; a shootout like SF's 36-30 and 32-29 games this season clears 51.5 easily",
+    "Drive count is an estimate (partial evidence); if Evans plays, add about a point to SF"
+   ],
+   "verdict": "Under 51.5 at 1.95: the desk's points-per-drive total is about 50 with two run-leaning offenses and SF's receivers thinned, but DraftKings has already taken a point off since Sunday, so this is a thin lean rather than a strong bet.",
+   "sources": [
+    {
+     "name": "VegasInsider: Commanders vs 49ers odds by sportsbook (DraftKings column: total 51.5 over -115 / under -105)",
+     "url": "https://www.vegasinsider.com/nfl/matchups/49ers-vs-commanders/",
+     "fetched": "2026-10-19T18:47Z"
+    },
+    {
+     "name": "DraftKings Network: Commanders at 49ers player prop bets (DraftKings game total 51.5; 2026-10-19 17:50Z)",
+     "url": "https://dknetwork.draftkings.com/2026/10/19/commanders-at-49ers-nfl-player-prop-bets-for-monday-night-football/",
+     "fetched": "2026-10-19T18:44Z"
+    },
+    {
+     "name": "Heavy: Is Mike Evans playing tonight vs. Commanders (game-time decision; 2026-10-19 17:36Z)",
+     "url": "https://heavy.com/sports/nfl/san-francisco-49ers/mike-evans-playing-tonight-commanders-49ers/",
+     "fetched": "2026-10-19T18:41Z"
+    },
+    {
+     "name": "Commanders On SI: weather forecast (NWS hourly, 2026-10-18 23:31Z)",
+     "url": "https://www.si.com/nfl/commanders/onsi/commanders-49ers-weather-forecast-week-6",
+     "fetched": "2026-10-19T18:49Z"
+    },
+    {
+     "name": "Published payload: docs/nfl/weeks/2026-w06.json (team drive rates, pace, PROE, simulation total)",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nfl/weeks/2026-w06.json",
+     "fetched": "2026-10-19T18:38Z"
     }
    ]
   },
@@ -3722,21 +3811,45 @@
    "game_id": "2026_06_TEN_IND"
   },
   {
+   "id": "desk|total|2026_06_WAS_SF|under|52.5|",
+   "label": "Under 52.5 (Sunday's pick, re-keyed)",
+   "why": "DraftKings now posts 51.5 (under -105), so the published 52.5 line no longer exists; replaced by Under 51.5 at the desk's mean of 50.3 (0.5 points added for Evans trending toward playing).",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "desk|rush_yds|2026_06_WAS_SF|over|39.5|Jayden Daniels",
+   "label": "Jayden Daniels over 39.5 rushing yards (DraftKings -110, set aside: section full)",
+   "why": "Supported (carries 5, 7, 8-9 for 31, 69, 103 yards; 7.5 carries x 6.9 blended yards per carry after SF's run defense = 52 mean, P(over 39.5) 0.68 shaded to 0.58, measured, grade B) but the Rushing yards section holds its six published Sunday picks and the spec allows no more; set aside for that reason only.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "recs|2026_06_WAS_SF|under|4.5|Christian McCaffrey",
+   "label": "Christian McCaffrey under 4.5 receptions (set aside: section full)",
+   "why": "Supported (targets 8, 4, 5, 5, 3 this season, 19 of 25 caught; 5.5 targets x 0.76 = 4.2 mean, P(4 or fewer) 0.56, measured, grade B at the feed's 1.92) but the Receiving yards and receptions section holds its six published Sunday picks and the spec allows no more; set aside for that reason only.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "total|2026_06_WAS_SF|over|52.5|",
+   "label": "Over 52.5 / over 51.5",
+   "why": "Desk mean 50.3 is below both numbers.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
    "id": "spread|2026_06_WAS_SF|away|7.5|WAS",
    "label": "WAS +7.5 (site's category pick)",
-   "why": "Desk margin is bracketed: EPA model SF by 3.4, drive arithmetic SF by about 10, this-season points SF by about 8; P(WAS cover) 0.43 to 0.51 at 1.91, no edge either side of the hook.",
+   "why": "Desk margin bracketed: EPA model SF by 3.4, drive arithmetic SF by about 10, this-season points SF by about 8; P(WAS cover) 0.43 to 0.51 at 1.89 (DraftKings -112), no edge; the Circa move to -7.5 with sharp money on WAS is a note, not a reason.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "spread|2026_06_WAS_SF|home|-7.5|SF",
    "label": "SF -7.5",
-   "why": "Same bracket: P(SF cover) 0.49 to 0.57 at 1.91 with Evans unresolved and Bosa out; inside the noise.",
+   "why": "Same bracket: P(SF cover) 0.49 to 0.57 at 1.93 (DraftKings -108) with Evans unresolved and Bosa out; inside the noise.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "ml|2026_06_WAS_SF|home||SF",
    "label": "SF moneyline",
-   "why": "Desk P(win) about 0.70 to 0.77 at a margin of 7 to 10 against a no-vig market of 0.79 at 1.21; no edge.",
+   "why": "Desk P(win) about 0.70 to 0.77 at a margin of 7 to 10 against a no-vig market of 0.78 at -395; no edge.",
    "game_id": "2026_06_WAS_SF"
   },
   {
@@ -3746,15 +3859,9 @@
    "game_id": "2026_06_WAS_SF"
   },
   {
-   "id": "total|2026_06_WAS_SF|over|52.5|",
-   "label": "Over 52.5",
-   "why": "Desk mean 49.8 is below the line; the under is the selection.",
-   "game_id": "2026_06_WAS_SF"
-  },
-  {
    "id": "qb_yds|2026_06_WAS_SF|under|204.5|Jayden Daniels",
-   "label": "Jayden Daniels under 204.5 pass yds",
-   "why": "35 dropbacks x 5.7 blended yards per dropback (5.46 this season, SF allows 6.02) = 200; P(under) = Phi(4.5/70) = 0.53 against a 0.532 break-even at 1.88: inside the noise, and McLaurin plays.",
+   "label": "Jayden Daniels passing yards (either side)",
+   "why": "DraftKings' line today could not be confirmed (feed 204.5 on Sunday; 206.5 and 210.5 on unnamed boards today); 35 dropbacks x 5.7 blended yards per dropback = 200, a coin flip at any of those numbers.",
    "game_id": "2026_06_WAS_SF"
   },
   {
@@ -3764,93 +3871,129 @@
    "game_id": "2026_06_WAS_SF"
   },
   {
-   "id": "rec_yds|2026_06_WAS_SF|over|44.5|Terry McLaurin",
-   "label": "Terry McLaurin over 44.5 rec yds",
-   "why": "Plays (no designation) but mean 51.6 with SD 0.6 x mean is right-skewed: lognormal median 44.2 sits on the line, P(over) about 0.50 to 0.57 with a hamstring that cost him Friday's practice; no edge.",
+   "id": "rec_yds|2026_06_WAS_SF|over|70.5|Mike Evans",
+   "label": "Mike Evans receiving yards and receptions (DraftKings 63.5 today)",
+   "why": "Questionable, no practice in two weeks, game-time decision with split beat reads and no report saying he is expected to play; not a candidate either side.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rec_yds|2026_06_WAS_SF|under|40.5|Stefon Diggs",
-   "label": "Stefon Diggs under 40.5 rec yds",
-   "why": "Questionable (hamstring, limited Fri/Sat) with no same-day source saying he plays; not a candidate either side.",
-   "game_id": "2026_06_WAS_SF"
-  },
-  {
-   "id": "rec_yds|2026_06_WAS_SF|over|70.5|Mike Evans",
-   "label": "Mike Evans over 70.5 rec yds",
-   "why": "Questionable, did not practice all week, no report says he is expected to play; not a candidate (also recs over 5.5).",
+   "label": "Stefon Diggs receiving yards and receptions",
+   "why": "Questionable (hamstring, limited Fri/Sat) with no same-day source saying he plays (CBS 16:27Z); not a candidate either side.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rec_yds|2026_06_WAS_SF|under|64.5|George Kittle",
-   "label": "George Kittle rec yds (either side of 64.5)",
-   "why": "Sim mean 56.7 at a 21.5% yards share; with Deebo out and Evans likely out his share rises to about 27%, mean about 65 on the line; this-season yards per target unmeasured; coin flip.",
+   "label": "George Kittle receiving yards (either side)",
+   "why": "6.5 to 7.5 targets (5.6 a game plus the vacated Deebo/Evans targets) x 9.6 yards per target (268 on 28) = 65 to 72 mean, but the right-skewed median sits at 56 to 62 against a line that reads 62.5 to 64.5 across pages and could not be pinned to DraftKings today; coin flip.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "recs|2026_06_WAS_SF|under|5.5|George Kittle",
    "label": "George Kittle under 5.5 receptions",
-   "why": "Mean 4.4 rising to about 5.2 with the receivers out; P(under) about 0.55 against a 0.546 break-even at 1.83; no edge.",
+   "why": "6.5 to 7 targets x 75% catch rate = 4.9 to 5.25 mean; P(5 or fewer) 0.55 to 0.60 against a 0.546 break-even at 1.83; a second SF selection on the same target tree as the McCaffrey pick, and the weaker of the two.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "recs|2026_06_WAS_SF|over|2.5|Chig Okonkwo",
-   "label": "Chig Okonkwo over 2.5 receptions",
-   "why": "Poisson mean 3.1 gives P(3+) = 0.60 against a 0.602 break-even at 1.66 and a 0.579 no-vig market; catch rate this season unmeasured; EV zero.",
+   "label": "Chig Okonkwo over 2.5 receptions (site's category pick)",
+   "why": "8 of 13 targets (62%) in three games; 4.5 targets x 0.62 = 2.8 mean, P(3 or more) = 0.53 (Poisson): below the three selections taken and inside the noise at 1.66.",
    "game_id": "2026_06_WAS_SF"
   },
   {
-   "id": "recs|2026_06_WAS_SF|over|3.5|Terry McLaurin",
-   "label": "Terry McLaurin over 3.5 receptions",
-   "why": "Mean 4.1 receptions, P(4+) about 0.55 to 0.58 against a 0.559 break-even at 1.79; hamstring limited him Thu and Sat; no edge.",
+   "id": "rec_yds|2026_06_WAS_SF|over|24.5|Chig Okonkwo",
+   "label": "Chig Okonkwo over 24.5 rec yds (site's category pick)",
+   "why": "81 yards on 13 targets (6.2 per target) x 4.5 targets = 28 mean with a median near 24; coin flip.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "rec_yds|2026_06_WAS_SF|over|44.5|Terry McLaurin",
+   "label": "Terry McLaurin receiving yards and receptions",
+   "why": "Plays, but 6.75 targets x 7.5 yards per target (203 on 27) = 50.6 mean with a skewed median of 43 on the line; hamstring cost him Friday's practice; receptions mean 4.1 against 3.5 is 0.55 to 0.58 at 1.79: no edge either market.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "recs|2026_06_WAS_SF|over|2.5|Antonio Williams",
+   "label": "Antonio Williams over 2.5 receptions",
+   "why": "Targets 4, 3, 4, 8, 3 at 60-69% snaps and more if Diggs sits, but his catch rate this season is unmeasured (no game log fetched): unmeasured evidence.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "rec_yds|2026_06_WAS_SF|under|21.5|Antonio Williams",
+   "label": "Antonio Williams under 21.5 rec yds",
+   "why": "Same unmeasured yards-per-target; declined.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rush_yds|2026_06_WAS_SF|over|47.5|Rachaad White",
-   "label": "Rachaad White rush yds (either side of 47.5)",
-   "why": "Croskey-Merritt is out and the White/Ekeler/McNichols split is unmeasured (White 7 to 8 carries a game so far); the line already prices the vacated carries; unmeasured evidence.",
+   "label": "Rachaad White rushing yards (either side of 47.5)",
+   "why": "Carries 7, 7, 8, 7 at 29.5 yards a game; Croskey-Merritt out adds an unmeasured number of carries shared with Ekeler and possibly McNichols; the 47.5 line already prices the vacated work; unmeasured split.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "recs|2026_06_WAS_SF|under|2.5|Rachaad White",
+   "label": "Rachaad White receptions and receiving yards",
+   "why": "10 catches on 10 targets in four games (2.5 a game) and a rising snap count: mean about 2.8 to 3.0, P(2 or fewer) 0.47; no edge on 12.5 yards either (13 a game).",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rush_yds|2026_06_WAS_SF|under|19.5|Austin Ekeler",
    "label": "Austin Ekeler under 19.5 rush yds",
-   "why": "Simulation's 0.72 does not know Croskey-Merritt is out; Ekeler's carries rise by an unmeasured amount; declined.",
+   "why": "Simulation's 0.72 does not know Croskey-Merritt is out; carries 6, 8, 4, 3 and an unmeasured share tonight; declined.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rush_yds|2026_06_WAS_SF|under|61.5|Christian McCaffrey",
-   "label": "Christian McCaffrey rush yds (either side of 61.5)",
-   "why": "13.7 carries the last three games x 4.3 = 59, but a favourite's script and Kaelon Black's possible absence (personal matter) add carries; mean 59 to 64 brackets the line.",
+   "label": "Christian McCaffrey rushing yards (either side)",
+   "why": "DraftKings' line could not be confirmed today (58.5 on an Oct 18 page naming DraftKings, 61.5 in Sunday's feed, 62.5 on an unnamed board this morning); 13 carries x 4.7 = 61 brackets all three anyway.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rec_yds|2026_06_WAS_SF|under|39.5|Christian McCaffrey",
-   "label": "Christian McCaffrey rec yds under 39.5 and recs under 4.5",
-   "why": "With Deebo and Evans out his targets rise above the simulation's 4.6; mean about 38 to 42 yards and 4.5 receptions, no edge.",
+   "label": "Christian McCaffrey under 39.5 rec yds",
+   "why": "5.5 targets x 7.2 yards per reception x 0.76 = 30 mean favours the under, but one player per market is already taken by the receptions pick and the yards market is the more skewed of the two; left off.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rush_yds|2026_06_WAS_SF|under|38.5|Jayden Daniels",
-   "label": "Jayden Daniels under 38.5 rush yds",
-   "why": "Carries 5, 7, 8 this season at 6.7 a carry give 33 to 54; this-season rushing yards per game unmeasured; SD 0.5 x mean; coin flip.",
+   "label": "Jayden Daniels under 38.5 rush yds (site's category pick)",
+   "why": "The desk's mean is 52 and the over at DraftKings' 39.5 is the selection; the 38.5 line is Sunday's feed, no longer posted.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rush_yds|2026_06_WAS_SF|under|24.5|Kaelon Black",
-   "label": "Kaelon Black under 24.5 rush yds",
-   "why": "Missed practice for a personal matter; availability unknown and 6 carries a game is too thin.",
+   "label": "Kaelon Black under 24.5 rush yds (site's category pick)",
+   "why": "Expected to play after Saturday's excused absence, but 6 carries a game (14, 7, 4, 6, 6) at 3.8 a carry is a thin, high-variance market; left off.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "rush_yds|2026_06_WAS_SF|under|19.5|Brock Purdy",
    "label": "Brock Purdy under 19.5 rush yds",
-   "why": "Carries 5, 3, 1, 8, 3 this season; mean 18 with SD 9, P(under) about 0.56 at 1.86 (break-even 0.538); thin evidence, left off to keep the game at two stronger selections.",
+   "why": "Carries 5, 3, 1, 8, 3 this season; mean 18 with SD 9, P(under) about 0.56; thin, and the game is at its three-selection cap.",
    "game_id": "2026_06_WAS_SF"
   },
   {
    "id": "qb_td|2026_06_WAS_SF|under|1.5|Jayden Daniels",
-   "label": "Jayden Daniels under 1.5 pass TDs",
+   "label": "Jayden Daniels under 1.5 pass TDs (site's combine leg)",
    "why": "Passing-touchdown markets are off in the owner's spec.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "qb_td|2026_06_WAS_SF|over|2.5|Brock Purdy",
+   "label": "Brock Purdy over 2.5 pass TDs",
+   "why": "Passing-touchdown markets are off in the owner's spec.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "h1|2026_06_WAS_SF|over|25.5|",
+   "label": "1H over 25.5 and 2H under 26.5 (site's category picks)",
+   "why": "Half totals are off in the owner's spec.",
+   "game_id": "2026_06_WAS_SF"
+  },
+  {
+   "id": "fg|2026_06_WAS_SF|over|0.5|Drew Stevens",
+   "label": "Kicker field goals (Stevens, Pineiro)",
+   "why": "Kicker markets are off in the owner's spec.",
    "game_id": "2026_06_WAS_SF"
   }
  ],
@@ -3880,17 +4023,17 @@
   "game": [
    "total|2026_06_HOU_JAX|under|42.5|",
    "total|2026_06_CHI_ATL|under|52.5|",
-   "desk|total|2026_06_WAS_SF|under|52.5|",
    "total|2026_06_BAL_CLE|under|39.5|",
-   "desk|total|2026_06_PIT_TB|under|38.5|"
+   "desk|total|2026_06_PIT_TB|under|38.5|",
+   "desk|total|2026_06_WAS_SF|under|51.5|"
   ]
  },
  "best": [
   "rec_yds|2026_06_DAL_GB|under|52.5|Tucker Kraft",
   "rush_yds|2026_06_TEN_IND|under|90.5|Jonathan Taylor",
   "desk|rush_yds|2026_06_CHI_ATL|over|93.5|Bijan Robinson",
-  "desk|qb_yds|2026_06_WAS_SF|under|248.5|Brock Purdy",
   "recs|2026_06_LAC_KC|under|1.5|Emmett Johnson",
-  "desk|qb_yds|2026_06_CAR_PHI|over|234.5|Bryce Young"
+  "desk|qb_yds|2026_06_CAR_PHI|over|234.5|Bryce Young",
+  "desk|qb_yds|2026_06_WAS_SF|under|248.5|Brock Purdy"
  ]
 }
