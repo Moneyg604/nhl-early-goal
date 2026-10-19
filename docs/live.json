@@ -1,15 +1,15 @@
 {
  "date": "2026-10-18",
- "updated_utc": "2026-10-19 00:25 UTC",
- "updated_et": "8:25 PM ET",
+ "updated_utc": "2026-10-19 00:30 UTC",
+ "updated_et": "8:30 PM ET",
  "games": {
   "2026020135": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:10",
-   "elapsed_min": 58.83,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "MIN",
    "away": "CBJ",
    "home_score": 2,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -42,8 +42,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:15",
-   "elapsed_min": 10.75,
+   "time_remaining": "06:34",
+   "elapsed_min": 13.43,
    "home": "CGY",
    "away": "CAR",
    "home_score": 0,
