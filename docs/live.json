@@ -1,33 +1,39 @@
 {
  "date": "2026-10-19",
- "updated_utc": "2026-10-19 23:10 UTC",
- "updated_et": "7:10 PM ET",
+ "updated_utc": "2026-10-19 23:15 UTC",
+ "updated_et": "7:15 PM ET",
  "games": {
   "2026020137": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "18:42",
-   "elapsed_min": 1.3,
+   "time_remaining": "16:10",
+   "elapsed_min": 3.83,
    "home": "NYR",
    "away": "ANA",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 1.3,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 1.3,
+     "team": "NYR"
+    }
+   ]
   },
   "2026020138": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:32",
-   "elapsed_min": 0.47,
+   "time_remaining": "15:17",
+   "elapsed_min": 4.72,
    "home": "PHI",
    "away": "COL",
    "home_score": 0,
