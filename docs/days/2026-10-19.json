@@ -1,11 +1,11 @@
 {
  "date": "2026-10-19",
- "generated_utc": "2026-10-19 00:25 UTC",
+ "generated_utc": "2026-10-19 14:05 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
   "model_version": "0.5.0",
-  "data_through": "2026-10-17",
+  "data_through": "2026-10-18",
   "validation": {
    "n": 1312,
    "first5": {
@@ -775,167 +775,167 @@
   "scorecard": {
    "markets": {
     "u05_first5": {
-     "n": 45,
-     "hit_rate": 0.7111,
+     "n": 47,
+     "hit_rate": 0.7234,
      "mean_pred": 0.6755,
-     "brier": 0.2059
+     "brier": 0.2016
     },
     "u05_first10": {
-     "n": 45,
-     "hit_rate": 0.4222,
+     "n": 47,
+     "hit_rate": 0.4468,
      "mean_pred": 0.4338,
-     "brier": 0.2425
+     "brier": 0.2458
     },
     "p1_minus05": {
-     "n": 45,
-     "hit_rate": 0.3778,
-     "mean_pred": 0.3615,
-     "brier": 0.2398
+     "n": 47,
+     "hit_rate": 0.3617,
+     "mean_pred": 0.3617,
+     "brier": 0.2354
     },
     "p1_plus05": {
-     "n": 45,
-     "hit_rate": 0.6667,
-     "mean_pred": 0.6961,
-     "brier": 0.2234
+     "n": 47,
+     "hit_rate": 0.6809,
+     "mean_pred": 0.6963,
+     "brier": 0.2177
     },
     "p1_ml": {
-     "n": 45,
-     "hit_rate": 0.3778,
-     "mean_pred": 0.3615,
-     "brier": 0.2398
+     "n": 47,
+     "hit_rate": 0.3617,
+     "mean_pred": 0.3617,
+     "brier": 0.2354
     },
     "fg_ml": {
-     "n": 45,
-     "hit_rate": 0.6444,
-     "mean_pred": 0.5584,
-     "brier": 0.2313
+     "n": 47,
+     "hit_rate": 0.6383,
+     "mean_pred": 0.559,
+     "brier": 0.2306
     },
     "fg_spread": {
-     "n": 45,
-     "hit_rate": 0.3333,
-     "mean_pred": 0.351,
-     "brier": 0.2202
+     "n": 47,
+     "hit_rate": 0.3191,
+     "mean_pred": 0.3516,
+     "brier": 0.2166
     },
     "fg_over55": {
-     "n": 45,
-     "hit_rate": 0.6444,
+     "n": 47,
+     "hit_rate": 0.617,
      "mean_pred": 0.552,
-     "brier": 0.2259
+     "brier": 0.2293
     },
     "fg_over45": {
-     "n": 29,
-     "hit_rate": 0.8276,
+     "n": 31,
+     "hit_rate": 0.8065,
      "mean_pred": 0.7653,
-     "brier": 0.1389
+     "brier": 0.1516
     },
     "home_over15": {
-     "n": 29,
-     "hit_rate": 0.8621,
-     "mean_pred": 0.8192,
-     "brier": 0.1173
+     "n": 31,
+     "hit_rate": 0.871,
+     "mean_pred": 0.8189,
+     "brier": 0.112
     },
     "away_over15": {
-     "n": 29,
-     "hit_rate": 0.8276,
-     "mean_pred": 0.7756,
-     "brier": 0.1429
+     "n": 31,
+     "hit_rate": 0.8065,
+     "mean_pred": 0.7757,
+     "brier": 0.153
     },
     "p1_under25": {
-     "n": 29,
-     "hit_rate": 0.6552,
-     "mean_pred": 0.7445,
-     "brier": 0.2271
+     "n": 31,
+     "hit_rate": 0.6774,
+     "mean_pred": 0.7444,
+     "brier": 0.2167
     }
    },
    "top3": {
     "u05_first5": {
-     "n": 13,
-     "hit_rate": 0.7692,
-     "mean_pred": 0.6828
+     "n": 15,
+     "hit_rate": 0.8,
+     "mean_pred": 0.6818
     },
     "u05_first10": {
-     "n": 13,
-     "hit_rate": 0.6154,
-     "mean_pred": 0.4429
+     "n": 15,
+     "hit_rate": 0.6667,
+     "mean_pred": 0.4416
     },
     "p1_plus05": {
-     "n": 13,
-     "hit_rate": 0.7692,
-     "mean_pred": 0.7122
+     "n": 15,
+     "hit_rate": 0.8,
+     "mean_pred": 0.7107
     },
     "p1_minus05": {
-     "n": 13,
-     "hit_rate": 0.3077,
-     "mean_pred": 0.3822
+     "n": 15,
+     "hit_rate": 0.2667,
+     "mean_pred": 0.3801
     },
     "p1_ml": {
-     "n": 13,
-     "hit_rate": 0.3077,
-     "mean_pred": 0.3822
+     "n": 15,
+     "hit_rate": 0.2667,
+     "mean_pred": 0.3801
     },
     "fg_ml": {
-     "n": 13,
-     "hit_rate": 0.6923,
-     "mean_pred": 0.5945
+     "n": 15,
+     "hit_rate": 0.6667,
+     "mean_pred": 0.5916
     },
     "fg_spread": {
-     "n": 13,
-     "hit_rate": 0.4615,
-     "mean_pred": 0.3847
+     "n": 15,
+     "hit_rate": 0.4,
+     "mean_pred": 0.3819
     },
     "fg_over45": {
-     "n": 10,
-     "hit_rate": 1.0,
-     "mean_pred": 0.7872
+     "n": 12,
+     "hit_rate": 0.9167,
+     "mean_pred": 0.7836
     },
     "p1_under25": {
-     "n": 10,
-     "hit_rate": 0.7,
-     "mean_pred": 0.7529
+     "n": 12,
+     "hit_rate": 0.75,
+     "mean_pred": 0.7511
     },
     "team_over15": {
-     "n": 12,
+     "n": 15,
      "hit_rate": 1.0,
-     "mean_pred": 0.837
+     "mean_pred": 0.832
     }
    },
    "pick_of_day": {
-    "n": 5,
+    "n": 6,
     "hit_rate": 1.0,
-    "mean_pred": 0.6852
+    "mean_pred": 0.6847
    },
-   "days_scored": 5,
-   "games_scored": 45
+   "days_scored": 6,
+   "games_scored": 47
   },
-  "current_season_games": 134,
+  "current_season_games": 136,
   "prior_season_games": 2624,
-  "slate_offset_days": 1,
-  "built_for": "2026-10-18",
+  "slate_offset_days": 0,
+  "built_for": "2026-10-19",
   "goalie_source": "dailyfaceoff + usage heuristic for the rest",
   "dfo_teams": 8
  },
  "league": {
-  "games_in_profile": 2758,
-  "current_season_games": 134,
+  "games_in_profile": 2760,
+  "current_season_games": 136,
   "prior_season_games": 2624,
-  "p_no_goal_5_observed": 0.6748,
-  "p_no_goal_10_observed": 0.4286,
-  "goals_per_team_game_first10": 0.419,
+  "p_no_goal_5_observed": 0.6755,
+  "p_no_goal_10_observed": 0.4297,
+  "goals_per_team_game_first10": 0.418,
   "p1_goals_per_team_game": 0.876,
-  "home_mult": 1.0751,
-  "league_sv": 0.8969,
+  "home_mult": 1.0757,
+  "league_sv": 0.897,
   "context_effects": {
-   "b2b_off": 0.9295,
-   "b2b_def": 1.0398,
-   "long_travel_def": 0.9961,
-   "tz_shift_def": 1.0216,
-   "three_in_four_def": 1.0088,
-   "mutual_fatigue_early": 0.9464
+   "b2b_off": 0.9286,
+   "b2b_def": 1.0394,
+   "long_travel_def": 0.996,
+   "tz_shift_def": 1.0218,
+   "three_in_four_def": 1.0092,
+   "mutual_fatigue_early": 0.947
   },
   "context_samples": {
-   "b2b_off": 862,
-   "b2b_def": 862,
-   "long_travel_def": 1017,
+   "b2b_off": 864,
+   "b2b_def": 864,
+   "long_travel_def": 1018,
    "tz_shift_def": 495,
    "three_in_four_def": 1060,
    "mutual_fatigue_early": 243
@@ -944,13 +944,13 @@
  "pick_of_day": {
   "matchup": "COL @ PHI",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6808,
-  "fair": 1.469,
+  "p": 0.6815,
+  "fair": 1.467,
   "tier": "B",
   "game_id": 2026020138,
   "runner_up": {
    "matchup": "ANA @ NYR",
-   "p": 0.6709,
+   "p": 0.6696,
    "tier": "B"
   }
  },
@@ -959,21 +959,21 @@
    {
     "matchup": "COL @ PHI",
     "pick": null,
-    "p": 0.6808,
+    "p": 0.6815,
     "tier": "B",
     "game_id": 2026020138
    },
    {
     "matchup": "ANA @ NYR",
     "pick": null,
-    "p": 0.6709,
+    "p": 0.6696,
     "tier": "B",
     "game_id": 2026020137
    },
    {
     "matchup": "PIT @ UTA",
     "pick": null,
-    "p": 0.6696,
+    "p": 0.6688,
     "tier": "B",
     "game_id": 2026020140
    }
@@ -982,21 +982,21 @@
    {
     "matchup": "COL @ PHI",
     "pick": null,
-    "p": 0.4413,
+    "p": 0.4395,
     "tier": "B",
     "game_id": 2026020138
    },
    {
     "matchup": "ANA @ NYR",
     "pick": null,
-    "p": 0.429,
+    "p": 0.4295,
     "tier": "B",
     "game_id": 2026020137
    },
    {
     "matchup": "PIT @ UTA",
     "pick": null,
-    "p": 0.4256,
+    "p": 0.422,
     "tier": "B",
     "game_id": 2026020140
    }
@@ -1005,21 +1005,21 @@
    {
     "matchup": "SJS @ TOR",
     "pick": null,
-    "p": 0.7902,
+    "p": 0.8011,
     "tier": "B",
     "game_id": 2026020139
    },
    {
     "matchup": "PIT @ UTA",
     "pick": null,
-    "p": 0.784,
+    "p": 0.7946,
     "tier": "B",
     "game_id": 2026020140
    },
    {
     "matchup": "ANA @ NYR",
     "pick": null,
-    "p": 0.78,
+    "p": 0.7797,
     "tier": "B",
     "game_id": 2026020137
    }
@@ -1028,25 +1028,25 @@
    {
     "matchup": "SJS @ TOR",
     "pick": "TOR",
-    "p": 0.8361,
+    "p": 0.8513,
     "tier": "B",
     "game_id": 2026020139,
     "market": "home_over15"
    },
    {
-    "matchup": "ANA @ NYR",
-    "pick": "NYR",
-    "p": 0.8329,
+    "matchup": "PIT @ UTA",
+    "pick": "UTA",
+    "p": 0.8411,
     "tier": "B",
-    "game_id": 2026020137,
+    "game_id": 2026020140,
     "market": "home_over15"
    },
    {
-    "matchup": "PIT @ UTA",
-    "pick": "UTA",
-    "p": 0.8312,
+    "matchup": "ANA @ NYR",
+    "pick": "NYR",
+    "p": 0.8337,
     "tier": "B",
-    "game_id": 2026020140,
+    "game_id": 2026020137,
     "market": "home_over15"
    }
   ],
@@ -1054,83 +1054,122 @@
    {
     "matchup": "COL @ PHI",
     "pick": null,
-    "p": 0.7503,
+    "p": 0.7474,
     "tier": "B",
     "game_id": 2026020138
    },
    {
     "matchup": "ANA @ NYR",
     "pick": null,
-    "p": 0.7365,
+    "p": 0.7347,
     "tier": "B",
     "game_id": 2026020137
    },
    {
     "matchup": "PIT @ UTA",
     "pick": null,
-    "p": 0.7316,
+    "p": 0.7254,
     "tier": "B",
     "game_id": 2026020140
    }
   ],
   "p1_plus05": [
    {
-    "matchup": "ANA @ NYR",
-    "pick": "NYR",
-    "p": 0.6939,
+    "matchup": "SJS @ TOR",
+    "pick": "TOR",
+    "p": 0.6976,
     "tier": "B",
-    "game_id": 2026020137
+    "game_id": 2026020139
    },
    {
     "matchup": "COL @ PHI",
     "pick": "COL",
-    "p": 0.693,
+    "p": 0.6935,
     "tier": "B",
     "game_id": 2026020138
    },
    {
-    "matchup": "SJS @ TOR",
-    "pick": "TOR",
-    "p": 0.6876,
+    "matchup": "PIT @ UTA",
+    "pick": "UTA",
+    "p": 0.6918,
     "tier": "B",
-    "game_id": 2026020139
+    "game_id": 2026020140
    }
   ],
   "p1_minus05": [
    {
-    "matchup": "ANA @ NYR",
-    "pick": "NYR",
-    "p": 0.3627,
-    "tier": "B",
-    "game_id": 2026020137
-   },
-   {
     "matchup": "SJS @ TOR",
     "pick": "TOR",
-    "p": 0.3619,
+    "p": 0.3723,
     "tier": "B",
     "game_id": 2026020139
    },
    {
     "matchup": "PIT @ UTA",
     "pick": "UTA",
-    "p": 0.3549,
+    "p": 0.3654,
     "tier": "B",
     "game_id": 2026020140
+   },
+   {
+    "matchup": "ANA @ NYR",
+    "pick": "NYR",
+    "p": 0.3586,
+    "tier": "B",
+    "game_id": 2026020137
    }
   ],
   "p1_ml": [
    {
+    "matchup": "SJS @ TOR",
+    "pick": "TOR",
+    "p": 0.3723,
+    "tier": "B",
+    "game_id": 2026020139
+   },
+   {
+    "matchup": "PIT @ UTA",
+    "pick": "UTA",
+    "p": 0.3654,
+    "tier": "B",
+    "game_id": 2026020140
+   },
+   {
     "matchup": "ANA @ NYR",
     "pick": "NYR",
-    "p": 0.3627,
+    "p": 0.3586,
     "tier": "B",
     "game_id": 2026020137
-   },
+   }
+  ],
+  "fg_ml": [
    {
     "matchup": "SJS @ TOR",
     "pick": "TOR",
-    "p": 0.3619,
+    "p": 0.5761,
+    "tier": "B",
+    "game_id": 2026020139
+   },
+   {
+    "matchup": "PIT @ UTA",
+    "pick": "UTA",
+    "p": 0.5597,
+    "tier": "B",
+    "game_id": 2026020140
+   },
+   {
+    "matchup": "ANA @ NYR",
+    "pick": "NYR",
+    "p": 0.5572,
+    "tier": "B",
+    "game_id": 2026020137
+   }
+  ],
+  "fg_spread": [
+   {
+    "matchup": "SJS @ TOR",
+    "pick": "TOR",
+    "p": 0.3705,
     "tier": "B",
     "game_id": 2026020139
    },
@@ -1140,52 +1179,13 @@
     "p": 0.3549,
     "tier": "B",
     "game_id": 2026020140
-   }
-  ],
-  "fg_ml": [
+   },
    {
     "matchup": "ANA @ NYR",
     "pick": "NYR",
-    "p": 0.555,
+    "p": 0.3484,
     "tier": "B",
     "game_id": 2026020137
-   },
-   {
-    "matchup": "SJS @ TOR",
-    "pick": "TOR",
-    "p": 0.552,
-    "tier": "B",
-    "game_id": 2026020139
-   },
-   {
-    "matchup": "COL @ PHI",
-    "pick": "COL",
-    "p": 0.5516,
-    "tier": "B",
-    "game_id": 2026020138
-   }
-  ],
-  "fg_spread": [
-   {
-    "matchup": "ANA @ NYR",
-    "pick": "NYR",
-    "p": 0.3496,
-    "tier": "B",
-    "game_id": 2026020137
-   },
-   {
-    "matchup": "SJS @ TOR",
-    "pick": "TOR",
-    "p": 0.3458,
-    "tier": "B",
-    "game_id": 2026020139
-   },
-   {
-    "matchup": "PIT @ UTA",
-    "pick": "UTA",
-    "p": 0.3453,
-    "tier": "B",
-    "game_id": 2026020140
    }
   ]
  },
@@ -1206,96 +1206,105 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6709,
-     "fair": 1.491
+     "p": 0.6696,
+     "fair": 1.493
     },
     "o05_first5": {
-     "p": 0.3291,
-     "fair": 3.038
+     "p": 0.3304,
+     "fair": 3.027
     },
     "u05_first10": {
-     "p": 0.429,
-     "fair": 2.331
+     "p": 0.4295,
+     "fair": 2.328
     },
     "o05_first10": {
-     "p": 0.571,
-     "fair": 1.751
+     "p": 0.5705,
+     "fair": 1.753
     },
     "p1_minus05": {
      "pick": "NYR",
-     "p": 0.3627,
-     "fair": 2.757
+     "p": 0.3586,
+     "fair": 2.789
     },
     "p1_plus05": {
      "pick": "NYR",
-     "p": 0.6939,
-     "fair": 1.441
+     "p": 0.6905,
+     "fair": 1.448
     },
     "p1_ml": {
      "pick": "NYR",
-     "p": 0.3627,
-     "fair": 2.757,
-     "home": 0.3627,
-     "tie": 0.3312,
-     "away": 0.3061
+     "p": 0.3586,
+     "fair": 2.789,
+     "home": 0.3586,
+     "tie": 0.332,
+     "away": 0.3095
     },
     "fg_ml": {
      "pick": "NYR",
-     "p": 0.555,
-     "fair": 1.802,
-     "home": 0.555,
-     "away": 0.445,
-     "home_reg": 0.4664,
-     "away_reg": 0.3624,
-     "reg_tie": 0.1711
+     "p": 0.5572,
+     "fair": 1.795,
+     "book_name": "FanDuel",
+     "book": 1.73,
+     "edge": -0.036,
+     "home": 0.5572,
+     "away": 0.4428,
+     "home_reg": 0.4676,
+     "away_reg": 0.3596,
+     "reg_tie": 0.1727
     },
     "fg_spread": {
      "pick": "NYR",
      "line": -1.5,
-     "p": 0.3496,
-     "fair": 2.86,
+     "p": 0.3484,
+     "fair": 2.87,
+     "book_name": "FanDuel",
+     "book": 2.8,
+     "edge": -0.0245,
      "plus_pick": "NYR",
-     "plus_p": 0.7403
+     "plus_p": 0.7423
     },
     "fg_total": {
-     "mean": 6.245,
-     "over55": 0.5708,
-     "over65": 0.452
+     "mean": 6.253,
+     "over55": 0.5714,
+     "over65": 0.4545,
+     "book_line": 6.5,
+     "book_over": 2.04,
+     "book_under": 1.83
     },
     "fg_over45": {
-     "p": 0.78,
-     "fair": 1.282
+     "p": 0.7797,
+     "fair": 1.283
     },
     "home_over15": {
      "pick": "NYR",
-     "p": 0.8329,
-     "fair": 1.201
+     "p": 0.8337,
+     "fair": 1.2
     },
     "away_over15": {
      "pick": "ANA",
-     "p": 0.7786,
-     "fair": 1.284
+     "p": 0.78,
+     "fair": 1.282
     },
     "p1_under25": {
-     "p": 0.7365,
-     "fair": 1.358
+     "p": 0.7347,
+     "fair": 1.361
     }
    },
    "analytic": {
-    "u05_first5": 0.6717,
-    "u05_first10": 0.4284
+    "u05_first5": 0.6722,
+    "u05_first10": 0.4291
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6717,
-     "lo": 0.6333,
-     "hi": 0.7102,
+     "p": 0.6722,
+     "lo": 0.6338,
+     "hi": 0.7106,
      "se_log_hazard": 0.0875
     },
     "first10": {
-     "p": 0.4284,
-     "lo": 0.3762,
-     "hi": 0.4807,
+     "p": 0.4291,
+     "lo": 0.3769,
+     "hi": 0.4813,
      "se_log_hazard": 0.0875
     }
    },
@@ -1304,31 +1313,31 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0633,
-    0.0699,
-    0.0648,
-    0.0674,
-    0.0637,
-    0.0569,
-    0.0527,
-    0.0484,
-    0.0439,
-    0.0399
+    0.0632,
+    0.0701,
+    0.0654,
+    0.0694,
+    0.0623,
+    0.0571,
+    0.0528,
+    0.0471,
+    0.0435,
+    0.0395
    ],
    "p1": {
-    "home": 0.3627,
-    "tie": 0.3312,
-    "away": 0.3061,
+    "home": 0.3586,
+    "tie": 0.332,
+    "away": 0.3095,
     "total_dist": [
-     0.1684,
-     0.2998,
-     0.2683,
-     0.2635
+     0.1693,
+     0.2991,
+     0.2662,
+     0.2653
     ],
-    "mean_total": 1.779
+    "mean_total": 1.783
    },
    "projected": {
-    "home": 3.29,
+    "home": 3.3,
     "away": 2.95,
     "median": [
      3,
@@ -1343,7 +1352,7 @@
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
      "sv_raw": 0.9376,
-     "sv_shrunk": 0.8991,
+     "sv_shrunk": 0.8992,
      "sv_last5": 0.9352,
      "e10_sv_raw": 1.0,
      "starts_cur": 5,
@@ -1358,7 +1367,7 @@
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
      "sv_raw": 0.8919,
-     "sv_shrunk": 0.8953,
+     "sv_shrunk": 0.8954,
      "sv_last5": 0.8729,
      "e10_sv_raw": 0.8938,
      "starts_cur": 6,
@@ -1501,20 +1510,20 @@
       "prev_date": "2026-10-17"
      },
      "mults": {
-      "home_ice": 1.0368,
-      "off_shot_early": 0.9546,
-      "off_shot_full": 0.9601,
-      "opp_def_shot_early": 1.0344,
+      "home_ice": 1.0371,
+      "off_shot_early": 0.9544,
+      "off_shot_full": 0.96,
+      "opp_def_shot_early": 1.0342,
       "opp_def_shot_full": 1.0275,
-      "finish": 1.0173,
-      "opp_goalie": 1.0191,
-      "opp_goalie_sv_shrunk": 0.8953,
-      "context_total": 1.0176,
+      "finish": 1.0177,
+      "opp_goalie": 1.0192,
+      "opp_goalie_sv_shrunk": 0.8954,
+      "context_total": 1.0177,
       "early_context_total": 1.0
      },
      "context_detail": {
-      "opponent travelled 3916 km": 0.9961,
-      "opponent crossed 3 time zones": 1.0216
+      "opponent travelled 3916 km": 0.996,
+      "opponent crossed 3 time zones": 1.0218
      },
      "early_context_detail": {},
      "faces_goalie": {
@@ -1524,7 +1533,7 @@
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
       "sv_raw": 0.8919,
-      "sv_shrunk": 0.8953,
+      "sv_shrunk": 0.8954,
       "sv_last5": 0.8729,
       "e10_sv_raw": 0.8938,
       "starts_cur": 6,
@@ -1547,16 +1556,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03367,
-      0.04042,
-      0.04042,
-      0.04718,
-      0.04718,
-      0.04721,
-      0.04721,
-      0.04721,
-      0.04721,
-      0.04721
+      0.03362,
+      0.04036,
+      0.04036,
+      0.04711,
+      0.04711,
+      0.04714,
+      0.04714,
+      0.04714,
+      0.04714,
+      0.04714
      ]
     },
     "away": {
@@ -1665,14 +1674,14 @@
       "prev_date": "2026-10-16"
      },
      "mults": {
-      "home_ice": 0.9645,
-      "off_shot_early": 1.028,
-      "off_shot_full": 1.0275,
-      "opp_def_shot_early": 1.0172,
+      "home_ice": 0.9642,
+      "off_shot_early": 1.0279,
+      "off_shot_full": 1.0274,
+      "opp_def_shot_early": 1.0171,
       "opp_def_shot_full": 1.0152,
-      "finish": 0.9697,
+      "finish": 0.97,
       "opp_goalie": 0.9823,
-      "opp_goalie_sv_shrunk": 0.8991,
+      "opp_goalie_sv_shrunk": 0.8992,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
@@ -1685,7 +1694,7 @@
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
       "sv_raw": 0.9376,
-      "sv_shrunk": 0.8991,
+      "sv_shrunk": 0.8992,
       "sv_last5": 0.9352,
       "e10_sv_raw": 1.0,
       "starts_cur": 5,
@@ -1708,49 +1717,49 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03048,
-      0.03659,
-      0.03659,
-      0.0427,
-      0.0427,
-      0.04273,
-      0.04273,
-      0.04273,
-      0.04273,
-      0.04273
+      0.03041,
+      0.03651,
+      0.03651,
+      0.04261,
+      0.04261,
+      0.04264,
+      0.04264,
+      0.04264,
+      0.04264,
+      0.04264
      ]
     }
    },
    "league": {
-    "games_in_profile": 2758,
-    "home_mult": 1.0751,
-    "league_sv": 0.8969,
-    "p_no_goal_5_league_observed": 0.6748,
-    "p_no_goal_10_league_observed": 0.4286,
+    "games_in_profile": 2760,
+    "home_mult": 1.0757,
+    "league_sv": 0.897,
+    "p_no_goal_5_league_observed": 0.6755,
+    "p_no_goal_10_league_observed": 0.4297,
     "base_rates_first_10": {
-     "0-1": 0.03173,
-     "1-2": 0.03809,
-     "2-3": 0.03809,
-     "3-4": 0.04445,
-     "4-5": 0.04445,
-     "5-6": 0.04448,
-     "6-7": 0.04448,
-     "7-8": 0.04448,
-     "8-9": 0.04448,
-     "9-10": 0.04448
+     "0-1": 0.03166,
+     "1-2": 0.03801,
+     "2-3": 0.03801,
+     "3-4": 0.04436,
+     "4-5": 0.04436,
+     "5-6": 0.04439,
+     "6-7": 0.04439,
+     "7-8": 0.04439,
+     "8-9": 0.04439,
+     "9-10": 0.04439
     },
     "context_effects": {
-     "b2b_off": 0.9295,
-     "b2b_def": 1.0398,
-     "long_travel_def": 0.9961,
-     "tz_shift_def": 1.0216,
-     "three_in_four_def": 1.0088,
-     "mutual_fatigue_early": 0.9464
+     "b2b_off": 0.9286,
+     "b2b_def": 1.0394,
+     "long_travel_def": 0.996,
+     "tz_shift_def": 1.0218,
+     "three_in_four_def": 1.0092,
+     "mutual_fatigue_early": 0.947
     },
     "context_samples": {
-     "b2b_off": 862,
-     "b2b_def": 862,
-     "long_travel_def": 1017,
+     "b2b_off": 864,
+     "b2b_def": 864,
+     "long_travel_def": 1018,
      "tz_shift_def": 495,
      "three_in_four_def": 1060,
      "mutual_fatigue_early": 243
@@ -2125,7 +2134,7 @@
       "prev_date": "2026-10-16"
      },
      "mutual_fatigue": false,
-     "mutual_fatigue_mult": 0.9464,
+     "mutual_fatigue_mult": 0.947,
      "league_rates": {
       "neither": {
        "games": 1637,
@@ -2138,9 +2147,9 @@
        "no_goal_10": 0.4568
       },
       "one": {
-       "games": 878,
-       "no_goal_5": 0.6503,
-       "no_goal_10": 0.4146
+       "games": 880,
+       "no_goal_5": 0.6511,
+       "no_goal_10": 0.4159
       }
      }
     },
@@ -2154,9 +2163,9 @@
     ],
     "lineups": {
      "home": {
-      "updated_at": "2026-10-17T15:35:26.546Z",
-      "source_name": "Peter Baugh",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "updated_at": "2026-10-19T00:13:11.787Z",
+      "source_name": "Last Game (2026-10-17)",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Gabriel Perreault",
@@ -2233,6 +2242,14 @@
         "game_time_decision": false,
         "news": "Korpisalo (lower-body) is expected to be out for four more weeks.",
         "news_at": "2026-10-10T12:43:13.364-04:00"
+       },
+       {
+        "name": "Adam Sykora",
+        "pos": "IR4",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "Sykora (lower body) will miss 4-5 months.",
+        "news_at": "2026-09-23T11:01:42.821-04:00"
        }
       ],
       "top_unit": [
@@ -2276,7 +2293,7 @@
      "away": {
       "updated_at": "2026-10-17T18:28:28.552Z",
       "source_name": "Zach Cavanagh",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Alex Killorn",
@@ -2351,8 +2368,8 @@
         "pos": "IR1",
         "status": "ir",
         "game_time_decision": false,
-        "news": "Terry (hip) has been placed to LTIR.",
-        "news_at": "2026-09-30T11:48:52.623-04:00"
+        "news": "Terry (hip) is travelling on the Ducks' four-game road trip.",
+        "news_at": "2026-10-18T14:59:35.107-04:00"
        },
        {
         "name": "Ian Moore",
@@ -2438,96 +2455,105 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6808,
-     "fair": 1.469
+     "p": 0.6815,
+     "fair": 1.467
     },
     "o05_first5": {
-     "p": 0.3192,
-     "fair": 3.133
+     "p": 0.3185,
+     "fair": 3.14
     },
     "u05_first10": {
-     "p": 0.4413,
-     "fair": 2.266
+     "p": 0.4395,
+     "fair": 2.275
     },
     "o05_first10": {
-     "p": 0.5587,
-     "fair": 1.79
+     "p": 0.5605,
+     "fair": 1.784
     },
     "p1_minus05": {
      "pick": "COL",
-     "p": 0.3545,
-     "fair": 2.821
+     "p": 0.3582,
+     "fair": 2.792
     },
     "p1_plus05": {
      "pick": "COL",
-     "p": 0.693,
-     "fair": 1.443
+     "p": 0.6935,
+     "fair": 1.442
     },
     "p1_ml": {
      "pick": "COL",
-     "p": 0.3545,
-     "fair": 2.821,
-     "home": 0.307,
-     "tie": 0.3385,
-     "away": 0.3545
+     "p": 0.3582,
+     "fair": 2.792,
+     "home": 0.3065,
+     "tie": 0.3353,
+     "away": 0.3582
     },
     "fg_ml": {
      "pick": "COL",
-     "p": 0.5516,
-     "fair": 1.813,
-     "home": 0.4484,
-     "away": 0.5516,
-     "home_reg": 0.3632,
-     "away_reg": 0.4599,
+     "p": 0.5497,
+     "fair": 1.819,
+     "book_name": "FanDuel",
+     "book": 1.43,
+     "edge": -0.2139,
+     "home": 0.4503,
+     "away": 0.5497,
+     "home_reg": 0.3646,
+     "away_reg": 0.4585,
      "reg_tie": 0.1769
     },
     "fg_spread": {
      "pick": "COL",
      "line": -1.5,
-     "p": 0.3425,
-     "fair": 2.92,
+     "p": 0.3453,
+     "fair": 2.896,
+     "book_name": "DraftKings",
+     "book": 2.1,
+     "edge": -0.2748,
      "plus_pick": "COL",
-     "plus_p": 0.7446
+     "plus_p": 0.7399
     },
     "fg_total": {
-     "mean": 6.077,
-     "over55": 0.5419,
-     "over65": 0.4262
+     "mean": 6.093,
+     "over55": 0.5459,
+     "over65": 0.4303,
+     "book_line": 6.0,
+     "book_over": 1.88,
+     "book_under": 1.98
     },
     "fg_over45": {
-     "p": 0.7583,
-     "fair": 1.319
+     "p": 0.76,
+     "fair": 1.316
     },
     "home_over15": {
      "pick": "PHI",
-     "p": 0.7681,
-     "fair": 1.302
+     "p": 0.7695,
+     "fair": 1.3
     },
     "away_over15": {
      "pick": "COL",
-     "p": 0.8206,
-     "fair": 1.219
+     "p": 0.8184,
+     "fair": 1.222
     },
     "p1_under25": {
-     "p": 0.7503,
-     "fair": 1.333
+     "p": 0.7474,
+     "fair": 1.338
     }
    },
    "analytic": {
-    "u05_first5": 0.6791,
-    "u05_first10": 0.4385
+    "u05_first5": 0.6796,
+    "u05_first10": 0.4392
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6791,
-     "lo": 0.6403,
-     "hi": 0.7179,
+     "p": 0.6796,
+     "lo": 0.6408,
+     "hi": 0.7183,
      "se_log_hazard": 0.0898
     },
     "first10": {
-     "p": 0.4385,
-     "lo": 0.3852,
-     "hi": 0.4919,
+     "p": 0.4392,
+     "lo": 0.3858,
+     "hi": 0.4925,
      "se_log_hazard": 0.0898
     }
    },
@@ -2536,32 +2562,32 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0593,
-    0.0689,
-    0.0625,
-    0.0672,
-    0.0613,
-    0.0574,
-    0.0528,
-    0.047,
-    0.0433,
-    0.039
+    0.0616,
+    0.0673,
+    0.0617,
+    0.0669,
+    0.061,
+    0.0573,
+    0.0514,
+    0.048,
+    0.0439,
+    0.0413
    ],
    "p1": {
-    "home": 0.307,
-    "tie": 0.3385,
-    "away": 0.3545,
+    "home": 0.3065,
+    "tie": 0.3353,
+    "away": 0.3582,
     "total_dist": [
-     0.1791,
-     0.3059,
-     0.2653,
-     0.2497
+     0.1767,
+     0.3068,
+     0.2639,
+     0.2526
     ],
-    "mean_total": 1.725
+    "mean_total": 1.732
    },
    "projected": {
-    "home": 2.88,
-    "away": 3.2,
+    "home": 2.89,
+    "away": 3.21,
     "median": [
      3,
      3
@@ -2590,7 +2616,7 @@
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
      "sv_raw": 0.9055,
-     "sv_shrunk": 0.8991,
+     "sv_shrunk": 0.8992,
      "sv_last5": 0.8952,
      "e10_sv_raw": 0.9095,
      "starts_cur": 6,
@@ -2733,20 +2759,20 @@
       "prev_date": "2026-10-17"
      },
      "mults": {
-      "home_ice": 1.0368,
-      "off_shot_early": 0.9471,
-      "off_shot_full": 0.9491,
-      "opp_def_shot_early": 0.9731,
-      "opp_def_shot_full": 0.9641,
-      "finish": 0.9863,
-      "opp_goalie": 0.9821,
-      "opp_goalie_sv_shrunk": 0.8991,
-      "context_total": 1.0176,
+      "home_ice": 1.0371,
+      "off_shot_early": 0.947,
+      "off_shot_full": 0.949,
+      "opp_def_shot_early": 0.9729,
+      "opp_def_shot_full": 0.964,
+      "finish": 0.9866,
+      "opp_goalie": 0.9823,
+      "opp_goalie_sv_shrunk": 0.8992,
+      "context_total": 1.0177,
       "early_context_total": 1.0
      },
      "context_detail": {
-      "opponent travelled 2536 km": 0.9961,
-      "opponent crossed 2 time zones": 1.0216
+      "opponent travelled 2536 km": 0.996,
+      "opponent crossed 2 time zones": 1.0218
      },
      "early_context_detail": {},
      "faces_goalie": {
@@ -2756,7 +2782,7 @@
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
       "sv_raw": 0.9055,
-      "sv_shrunk": 0.8991,
+      "sv_shrunk": 0.8992,
       "sv_last5": 0.8952,
       "e10_sv_raw": 0.9095,
       "starts_cur": 6,
@@ -2779,16 +2805,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.02937,
-      0.03525,
-      0.03525,
-      0.04114,
-      0.04114,
-      0.04117,
-      0.04117,
-      0.04117,
-      0.04117,
-      0.04117
+      0.02932,
+      0.0352,
+      0.0352,
+      0.04108,
+      0.04108,
+      0.04111,
+      0.04111,
+      0.04111,
+      0.04111,
+      0.04111
      ]
     },
     "away": {
@@ -2906,13 +2932,13 @@
       "prev_date": "2026-10-16"
      },
      "mults": {
-      "home_ice": 0.9645,
-      "off_shot_early": 1.0981,
-      "off_shot_full": 1.0885,
-      "opp_def_shot_early": 0.9741,
-      "opp_def_shot_full": 0.9794,
-      "finish": 1.0206,
-      "opp_goalie": 0.9885,
+      "home_ice": 0.9642,
+      "off_shot_early": 1.0979,
+      "off_shot_full": 1.0884,
+      "opp_def_shot_early": 0.974,
+      "opp_def_shot_full": 0.9793,
+      "finish": 1.021,
+      "opp_goalie": 0.9886,
       "opp_goalie_sv_shrunk": 0.8985,
       "context_total": 1.0,
       "early_context_total": 1.0
@@ -2949,49 +2975,49 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03302,
-      0.03964,
-      0.03964,
-      0.04626,
-      0.04626,
-      0.0463,
-      0.0463,
-      0.0463,
-      0.0463,
-      0.0463
+      0.03295,
+      0.03956,
+      0.03956,
+      0.04617,
+      0.04617,
+      0.0462,
+      0.0462,
+      0.0462,
+      0.0462,
+      0.0462
      ]
     }
    },
    "league": {
-    "games_in_profile": 2758,
-    "home_mult": 1.0751,
-    "league_sv": 0.8969,
-    "p_no_goal_5_league_observed": 0.6748,
-    "p_no_goal_10_league_observed": 0.4286,
+    "games_in_profile": 2760,
+    "home_mult": 1.0757,
+    "league_sv": 0.897,
+    "p_no_goal_5_league_observed": 0.6755,
+    "p_no_goal_10_league_observed": 0.4297,
     "base_rates_first_10": {
-     "0-1": 0.03173,
-     "1-2": 0.03809,
-     "2-3": 0.03809,
-     "3-4": 0.04445,
-     "4-5": 0.04445,
-     "5-6": 0.04448,
-     "6-7": 0.04448,
-     "7-8": 0.04448,
-     "8-9": 0.04448,
-     "9-10": 0.04448
+     "0-1": 0.03166,
+     "1-2": 0.03801,
+     "2-3": 0.03801,
+     "3-4": 0.04436,
+     "4-5": 0.04436,
+     "5-6": 0.04439,
+     "6-7": 0.04439,
+     "7-8": 0.04439,
+     "8-9": 0.04439,
+     "9-10": 0.04439
     },
     "context_effects": {
-     "b2b_off": 0.9295,
-     "b2b_def": 1.0398,
-     "long_travel_def": 0.9961,
-     "tz_shift_def": 1.0216,
-     "three_in_four_def": 1.0088,
-     "mutual_fatigue_early": 0.9464
+     "b2b_off": 0.9286,
+     "b2b_def": 1.0394,
+     "long_travel_def": 0.996,
+     "tz_shift_def": 1.0218,
+     "three_in_four_def": 1.0092,
+     "mutual_fatigue_early": 0.947
     },
     "context_samples": {
-     "b2b_off": 862,
-     "b2b_def": 862,
-     "long_travel_def": 1017,
+     "b2b_off": 864,
+     "b2b_def": 864,
+     "long_travel_def": 1018,
      "tz_shift_def": 495,
      "three_in_four_def": 1060,
      "mutual_fatigue_early": 243
@@ -3366,7 +3392,7 @@
       "prev_date": "2026-10-16"
      },
      "mutual_fatigue": false,
-     "mutual_fatigue_mult": 0.9464,
+     "mutual_fatigue_mult": 0.947,
      "league_rates": {
       "neither": {
        "games": 1637,
@@ -3379,9 +3405,9 @@
        "no_goal_10": 0.4568
       },
       "one": {
-       "games": 878,
-       "no_goal_5": 0.6503,
-       "no_goal_10": 0.4146
+       "games": 880,
+       "no_goal_5": 0.6511,
+       "no_goal_10": 0.4159
       }
      }
     },
@@ -3395,9 +3421,9 @@
     ],
     "lineups": {
      "home": {
-      "updated_at": "2026-10-17T22:46:57.122Z",
-      "source_name": "Siobhan Nolan",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "updated_at": "2026-10-19T00:20:24.747Z",
+      "source_name": "Last Game (2026-10-17)",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Trevor Zegras",
@@ -3405,14 +3431,14 @@
         "Tyson Foerster"
        ],
        "f2": [
-        "Denver Barkey",
+        "Porter Martone",
         "Noah Cates",
-        "Michael Bunting"
+        "Matvei Michkov"
        ],
        "f3": [
-        "Porter Martone",
+        "Denver Barkey",
         "Sean Couturier",
-        "Matvei Michkov"
+        "Michael Bunting"
        ],
        "f4": [
         "Garrett Wilson",
@@ -3444,13 +3470,37 @@
        ],
        "pp2": [
         "Michael Bunting",
-        "Noah Cates",
+        "Christian Dvorak",
         "Porter Martone",
         "Oliver Bonk",
         "Jamie Drysdale"
        ]
       },
       "injuries": [
+       {
+        "name": "Tyson Foerster",
+        "pos": "RW",
+        "status": "game-time decision",
+        "game_time_decision": true,
+        "news": "Foerster (hand) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:33.314-04:00"
+       },
+       {
+        "name": "Sean Couturier",
+        "pos": "C",
+        "status": "game-time decision",
+        "game_time_decision": true,
+        "news": "Couturier (undisclosed) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:46.155-04:00"
+       },
+       {
+        "name": "Tyson Foerster",
+        "pos": "SK1",
+        "status": "game-time decision",
+        "game_time_decision": true,
+        "news": "Foerster (hand) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:33.314-04:00"
+       },
        {
         "name": "Nikita Grebenkin",
         "pos": "IR1",
@@ -3478,18 +3528,50 @@
        {
         "name": "Cam York",
         "pos": "IR4",
-        "status": "dtd",
+        "status": "ir",
         "game_time_decision": false,
-        "news": "York (upper-body) is day-to-day and will not play this weekend.",
-        "news_at": "2026-10-10T12:29:55.378-04:00"
+        "news": "The Flyers have placed Cam York (upper-body) on IR.",
+        "news_at": "2026-10-18T15:44:08.057-04:00"
        },
        {
         "name": "Owen Tippett",
         "pos": "IR5",
         "status": "dtd",
         "game_time_decision": false,
-        "news": "Tippett (upper-body) is out vs. Ottawa on Saturday.",
-        "news_at": "2026-10-17T18:38:40.145-04:00"
+        "news": "Tippett (upper-body) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:34:00.123-04:00"
+       },
+       {
+        "name": "Sean Couturier",
+        "pos": "IR6",
+        "status": "dtd",
+        "game_time_decision": false,
+        "news": "Couturier (undisclosed) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:46.155-04:00"
+       },
+       {
+        "name": "Tyson Foerster",
+        "pos": "IR7",
+        "status": "dtd",
+        "game_time_decision": false,
+        "news": "Foerster (hand) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:33.314-04:00"
+       },
+       {
+        "name": "Sean Couturier",
+        "pos": "SK1",
+        "status": "game-time decision",
+        "game_time_decision": true,
+        "news": "Couturier (undisclosed) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:46.155-04:00"
+       },
+       {
+        "name": "Tyson Foerster",
+        "pos": "SK2",
+        "status": "game-time decision",
+        "game_time_decision": true,
+        "news": "Foerster (hand) will be a game-time decision on Monday.",
+        "news_at": "2026-10-18T13:33:33.314-04:00"
        }
       ],
       "top_unit": [
@@ -3533,7 +3615,7 @@
      "away": {
       "updated_at": "2026-10-17T18:10:41.946Z",
       "source_name": "Bailey Curtis",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Artturi Lehkonen",
@@ -3671,130 +3753,139 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6642,
-     "fair": 1.506
+     "p": 0.6587,
+     "fair": 1.518
     },
     "o05_first5": {
-     "p": 0.3358,
-     "fair": 2.978
+     "p": 0.3413,
+     "fair": 2.93
     },
     "u05_first10": {
-     "p": 0.4185,
-     "fair": 2.39
+     "p": 0.412,
+     "fair": 2.427
     },
     "o05_first10": {
-     "p": 0.5815,
-     "fair": 1.72
+     "p": 0.588,
+     "fair": 1.701
     },
     "p1_minus05": {
      "pick": "TOR",
-     "p": 0.3619,
-     "fair": 2.763
+     "p": 0.3723,
+     "fair": 2.686
     },
     "p1_plus05": {
      "pick": "TOR",
-     "p": 0.6876,
-     "fair": 1.454
+     "p": 0.6976,
+     "fair": 1.433
     },
     "p1_ml": {
      "pick": "TOR",
-     "p": 0.3619,
-     "fair": 2.763,
-     "home": 0.3619,
-     "tie": 0.3257,
-     "away": 0.3124
+     "p": 0.3723,
+     "fair": 2.686,
+     "home": 0.3723,
+     "tie": 0.3253,
+     "away": 0.3024
     },
     "fg_ml": {
      "pick": "TOR",
-     "p": 0.552,
-     "fair": 1.812,
-     "home": 0.552,
-     "away": 0.448,
-     "home_reg": 0.4628,
-     "away_reg": 0.3672,
-     "reg_tie": 0.17
+     "p": 0.5761,
+     "fair": 1.736,
+     "book_name": "BetOnline.ag",
+     "book": 1.72,
+     "edge": -0.0091,
+     "home": 0.5761,
+     "away": 0.4239,
+     "home_reg": 0.4892,
+     "away_reg": 0.3449,
+     "reg_tie": 0.1659
     },
     "fg_spread": {
      "pick": "TOR",
      "line": -1.5,
-     "p": 0.3458,
-     "fair": 2.892,
+     "p": 0.3705,
+     "fair": 2.699,
+     "book_name": "BetRivers",
+     "book": 2.75,
+     "edge": 0.0188,
      "plus_pick": "TOR",
-     "plus_p": 0.7384
+     "plus_p": 0.7535
     },
     "fg_total": {
-     "mean": 6.338,
-     "over55": 0.5847,
-     "over65": 0.4686
+     "mean": 6.448,
+     "over55": 0.6011,
+     "over65": 0.4861,
+     "book_line": 6.5,
+     "book_over": 1.77,
+     "book_under": 2.13
     },
     "fg_over45": {
-     "p": 0.7902,
-     "fair": 1.266
+     "p": 0.8011,
+     "fair": 1.248
     },
     "home_over15": {
      "pick": "TOR",
-     "p": 0.8361,
-     "fair": 1.196
+     "p": 0.8513,
+     "fair": 1.175
     },
     "away_over15": {
      "pick": "SJS",
-     "p": 0.7895,
-     "fair": 1.267
+     "p": 0.7841,
+     "fair": 1.275
     },
     "p1_under25": {
-     "p": 0.7268,
-     "fair": 1.376
+     "p": 0.7158,
+     "fair": 1.397
     }
    },
    "analytic": {
-    "u05_first5": 0.665,
-    "u05_first10": 0.4193
+    "u05_first5": 0.6594,
+    "u05_first10": 0.4118
    },
    "uncertainty": {
     "first5": {
-     "p": 0.665,
-     "lo": 0.6283,
-     "hi": 0.7016,
-     "se_log_hazard": 0.082
+     "p": 0.6594,
+     "lo": 0.6225,
+     "hi": 0.6962,
+     "se_log_hazard": 0.0815
     },
     "first10": {
-     "p": 0.4193,
-     "lo": 0.3701,
-     "hi": 0.4685,
-     "se_log_hazard": 0.082
+     "p": 0.4118,
+     "lo": 0.3628,
+     "hi": 0.4609,
+     "se_log_hazard": 0.0815
     }
    },
    "mc_se": {
-    "first5": 0.00149,
+    "first5": 0.0015,
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0629,
-    0.0718,
-    0.0677,
-    0.0705,
-    0.0629,
-    0.0588,
-    0.0544,
-    0.048,
-    0.0447,
-    0.0397
+    0.0642,
+    0.0737,
+    0.0671,
+    0.0717,
+    0.0646,
+    0.0606,
+    0.0528,
+    0.0493,
+    0.0442,
+    0.0398
    ],
    "p1": {
-    "home": 0.3619,
-    "tie": 0.3257,
-    "away": 0.3124,
+    "home": 0.3723,
+    "tie": 0.3253,
+    "away": 0.3024,
     "total_dist": [
-     0.161,
-     0.297,
-     0.2688,
-     0.2732
+     0.1579,
+     0.2887,
+     0.2693,
+     0.2842
     ],
-    "mean_total": 1.816
+    "mean_total": 1.853
    },
    "projected": {
-    "home": 3.33,
-    "away": 3.0,
+    "home": 3.46,
+    "away": 2.99,
     "median": [
      3,
      3
@@ -3808,7 +3899,7 @@
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
      "sv_raw": 0.9018,
-     "sv_shrunk": 0.8978,
+     "sv_shrunk": 0.8979,
      "sv_last5": 0.8734,
      "e10_sv_raw": 0.8905,
      "starts_cur": 3,
@@ -3817,19 +3908,19 @@
      "gsax_per_60": 0.05
     },
     "away": {
-     "name": "Alex Nedeljkovic",
-     "id": 8477968,
+     "name": "Yaroslav Askarov",
+     "id": 8482137,
      "status": "unconfirmed",
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
-     "sv_raw": 0.8985,
-     "sv_shrunk": 0.8973,
-     "sv_last5": 0.9146,
-     "e10_sv_raw": 0.9178,
-     "starts_cur": 3,
-     "shots_weighted": 914,
-     "xg_ratio": 0.99,
-     "gsax_per_60": 0.07
+     "sv_raw": 0.8801,
+     "sv_shrunk": 0.8929,
+     "sv_last5": 0.8473,
+     "e10_sv_raw": 0.9075,
+     "starts_cur": 5,
+     "shots_weighted": 948,
+     "xg_ratio": 1.043,
+     "gsax_per_60": -0.3
     }
    },
    "sides": {
@@ -3957,33 +4048,33 @@
       "prev_date": "2026-10-17"
      },
      "mults": {
-      "home_ice": 1.0368,
-      "off_shot_early": 0.9749,
+      "home_ice": 1.0371,
+      "off_shot_early": 0.9747,
       "off_shot_full": 0.9827,
-      "opp_def_shot_early": 1.0494,
-      "opp_def_shot_full": 1.0425,
-      "finish": 1.0244,
-      "opp_goalie": 1.0002,
-      "opp_goalie_sv_shrunk": 0.8973,
+      "opp_def_shot_early": 1.0492,
+      "opp_def_shot_full": 1.0424,
+      "finish": 1.0248,
+      "opp_goalie": 1.0432,
+      "opp_goalie_sv_shrunk": 0.8929,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
      "context_detail": {},
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Alex Nedeljkovic",
-      "id": 8477968,
+      "name": "Yaroslav Askarov",
+      "id": 8482137,
       "status": "unconfirmed",
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
-      "sv_raw": 0.8985,
-      "sv_shrunk": 0.8973,
-      "sv_last5": 0.9146,
-      "e10_sv_raw": 0.9178,
-      "starts_cur": 3,
-      "shots_weighted": 914,
-      "xg_ratio": 0.99,
-      "gsax_per_60": 0.07
+      "sv_raw": 0.8801,
+      "sv_shrunk": 0.8929,
+      "sv_last5": 0.8473,
+      "e10_sv_raw": 0.9075,
+      "starts_cur": 5,
+      "shots_weighted": 948,
+      "xg_ratio": 1.043,
+      "gsax_per_60": -0.3
      },
      "labels": {
       "team_profile": {
@@ -3992,7 +4083,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter unconfirmed (914 shots of data); re-check before the puck drops"
+       "note": "starter unconfirmed (948 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -4000,16 +4091,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03448,
-      0.04139,
-      0.04139,
-      0.04831,
-      0.04831,
-      0.04834,
-      0.04834,
-      0.04834,
-      0.04834,
-      0.04834
+      0.0359,
+      0.0431,
+      0.0431,
+      0.0503,
+      0.0503,
+      0.05034,
+      0.05034,
+      0.05034,
+      0.05034,
+      0.05034
      ]
     },
     "away": {
@@ -4127,14 +4218,14 @@
       "prev_date": "2026-10-17"
      },
      "mults": {
-      "home_ice": 0.9645,
-      "off_shot_early": 0.9735,
-      "off_shot_full": 0.9686,
-      "opp_def_shot_early": 1.0732,
-      "opp_def_shot_full": 1.0668,
-      "finish": 0.9842,
-      "opp_goalie": 0.9948,
-      "opp_goalie_sv_shrunk": 0.8978,
+      "home_ice": 0.9642,
+      "off_shot_early": 0.9733,
+      "off_shot_full": 0.9685,
+      "opp_def_shot_early": 1.073,
+      "opp_def_shot_full": 1.0667,
+      "finish": 0.9845,
+      "opp_goalie": 0.9949,
+      "opp_goalie_sv_shrunk": 0.8979,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
@@ -4147,7 +4238,7 @@
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
       "sv_raw": 0.9018,
-      "sv_shrunk": 0.8978,
+      "sv_shrunk": 0.8979,
       "sv_last5": 0.8734,
       "e10_sv_raw": 0.8905,
       "starts_cur": 3,
@@ -4170,49 +4261,49 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.0313,
-      0.03758,
-      0.03758,
-      0.04385,
-      0.04385,
-      0.04388,
-      0.04388,
-      0.04388,
-      0.04388,
-      0.04388
+      0.03123,
+      0.03749,
+      0.03749,
+      0.04376,
+      0.04376,
+      0.04379,
+      0.04379,
+      0.04379,
+      0.04379,
+      0.04379
      ]
     }
    },
    "league": {
-    "games_in_profile": 2758,
-    "home_mult": 1.0751,
-    "league_sv": 0.8969,
-    "p_no_goal_5_league_observed": 0.6748,
-    "p_no_goal_10_league_observed": 0.4286,
+    "games_in_profile": 2760,
+    "home_mult": 1.0757,
+    "league_sv": 0.897,
+    "p_no_goal_5_league_observed": 0.6755,
+    "p_no_goal_10_league_observed": 0.4297,
     "base_rates_first_10": {
-     "0-1": 0.03173,
-     "1-2": 0.03809,
-     "2-3": 0.03809,
-     "3-4": 0.04445,
-     "4-5": 0.04445,
-     "5-6": 0.04448,
-     "6-7": 0.04448,
-     "7-8": 0.04448,
-     "8-9": 0.04448,
-     "9-10": 0.04448
+     "0-1": 0.03166,
+     "1-2": 0.03801,
+     "2-3": 0.03801,
+     "3-4": 0.04436,
+     "4-5": 0.04436,
+     "5-6": 0.04439,
+     "6-7": 0.04439,
+     "7-8": 0.04439,
+     "8-9": 0.04439,
+     "9-10": 0.04439
     },
     "context_effects": {
-     "b2b_off": 0.9295,
-     "b2b_def": 1.0398,
-     "long_travel_def": 0.9961,
-     "tz_shift_def": 1.0216,
-     "three_in_four_def": 1.0088,
-     "mutual_fatigue_early": 0.9464
+     "b2b_off": 0.9286,
+     "b2b_def": 1.0394,
+     "long_travel_def": 0.996,
+     "tz_shift_def": 1.0218,
+     "three_in_four_def": 1.0092,
+     "mutual_fatigue_early": 0.947
     },
     "context_samples": {
-     "b2b_off": 862,
-     "b2b_def": 862,
-     "long_travel_def": 1017,
+     "b2b_off": 864,
+     "b2b_def": 864,
+     "long_travel_def": 1018,
      "tz_shift_def": 495,
      "three_in_four_def": 1060,
      "mutual_fatigue_early": 243
@@ -4550,18 +4641,18 @@
       ]
      },
      "away": {
-      "starts_on_record": 72,
-      "last_start": "2026-10-17",
-      "days_since_last_start": 2,
+      "starts_on_record": 64,
+      "last_start": "2026-10-13",
+      "days_since_last_start": 6,
       "started_last_night": false,
-      "shots_faced_last_start": 26,
-      "goals_against_last_start": 3,
-      "consecutive_team_starts": 2,
-      "starts_last_7_days": 2,
+      "shots_faced_last_start": 25,
+      "goals_against_last_start": 5,
+      "consecutive_team_starts": 0,
+      "starts_last_7_days": 1,
       "shots_faced_last_3": [
        26,
-       30,
-       26
+       20,
+       25
       ]
      }
     },
@@ -4587,7 +4678,7 @@
       "prev_date": "2026-10-17"
      },
      "mutual_fatigue": false,
-     "mutual_fatigue_mult": 0.9464,
+     "mutual_fatigue_mult": 0.947,
      "league_rates": {
       "neither": {
        "games": 1637,
@@ -4600,9 +4691,9 @@
        "no_goal_10": 0.4568
       },
       "one": {
-       "games": 878,
-       "no_goal_5": 0.6503,
-       "no_goal_10": 0.4146
+       "games": 880,
+       "no_goal_5": 0.6511,
+       "no_goal_10": 0.4159
       }
      }
     },
@@ -4618,7 +4709,7 @@
      "home": {
       "updated_at": "2026-10-17T22:47:46.195Z",
       "source_name": "David Alter",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "William Nylander",
@@ -4754,7 +4845,7 @@
      "away": {
       "updated_at": "2026-10-17T22:48:58.671Z",
       "source_name": "Sheng Peng",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Igor Chernyshov",
@@ -4789,8 +4880,8 @@
         "Dmitry Orlov"
        ],
        "g": [
-        "Alex Nedeljkovic",
-        "Yaroslav Askarov"
+        "Yaroslav Askarov",
+        "Alex Nedeljkovic"
        ],
        "pp1": [
         "Ivar Stenberg",
@@ -4867,97 +4958,106 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6696,
-     "fair": 1.493
+     "p": 0.6688,
+     "fair": 1.495
     },
     "o05_first5": {
-     "p": 0.3304,
-     "fair": 3.027
+     "p": 0.3312,
+     "fair": 3.019
     },
     "u05_first10": {
-     "p": 0.4256,
-     "fair": 2.349
+     "p": 0.422,
+     "fair": 2.369
     },
     "o05_first10": {
-     "p": 0.5744,
-     "fair": 1.741
+     "p": 0.5779,
+     "fair": 1.73
     },
     "p1_minus05": {
      "pick": "UTA",
-     "p": 0.3549,
-     "fair": 2.817
+     "p": 0.3654,
+     "fair": 2.737
     },
     "p1_plus05": {
      "pick": "UTA",
-     "p": 0.6854,
-     "fair": 1.459
+     "p": 0.6918,
+     "fair": 1.446
     },
     "p1_ml": {
      "pick": "UTA",
-     "p": 0.3549,
-     "fair": 2.817,
-     "home": 0.3549,
-     "tie": 0.3305,
-     "away": 0.3146
+     "p": 0.3654,
+     "fair": 2.737,
+     "home": 0.3654,
+     "tie": 0.3264,
+     "away": 0.3082
     },
     "fg_ml": {
      "pick": "UTA",
-     "p": 0.5481,
-     "fair": 1.824,
-     "home": 0.5481,
-     "away": 0.4519,
-     "home_reg": 0.4599,
-     "away_reg": 0.3701,
-     "reg_tie": 0.17
+     "p": 0.5597,
+     "fair": 1.787,
+     "book_name": "BetOnline.ag",
+     "book": 1.56,
+     "edge": -0.1268,
+     "home": 0.5597,
+     "away": 0.4402,
+     "home_reg": 0.4716,
+     "away_reg": 0.3596,
+     "reg_tie": 0.1688
     },
     "fg_spread": {
      "pick": "UTA",
      "line": -1.5,
-     "p": 0.3453,
-     "fair": 2.896,
+     "p": 0.3549,
+     "fair": 2.818,
+     "book_name": "DraftKings",
+     "book": 2.36,
+     "edge": -0.1625,
      "plus_pick": "UTA",
-     "plus_p": 0.7345
+     "plus_p": 0.744
     },
     "fg_total": {
-     "mean": 6.301,
-     "over55": 0.5789,
-     "over65": 0.465
+     "mean": 6.387,
+     "over55": 0.5923,
+     "over65": 0.4784,
+     "book_line": 6.5,
+     "book_over": 1.81,
+     "book_under": 2.1
     },
     "fg_over45": {
-     "p": 0.784,
-     "fair": 1.276
+     "p": 0.7946,
+     "fair": 1.258
     },
     "home_over15": {
      "pick": "UTA",
-     "p": 0.8312,
-     "fair": 1.203
+     "p": 0.8411,
+     "fair": 1.189
     },
     "away_over15": {
      "pick": "PIT",
-     "p": 0.7865,
-     "fair": 1.272
+     "p": 0.7882,
+     "fair": 1.269
     },
     "p1_under25": {
-     "p": 0.7316,
-     "fair": 1.367
+     "p": 0.7254,
+     "fair": 1.379
     }
    },
    "analytic": {
-    "u05_first5": 0.6695,
-    "u05_first10": 0.4254
+    "u05_first5": 0.6667,
+    "u05_first10": 0.4217
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6695,
-     "lo": 0.6326,
-     "hi": 0.7065,
-     "se_log_hazard": 0.0836
+     "p": 0.6667,
+     "lo": 0.6288,
+     "hi": 0.7046,
+     "se_log_hazard": 0.0853
     },
     "first10": {
-     "p": 0.4254,
-     "lo": 0.3754,
-     "hi": 0.4755,
-     "se_log_hazard": 0.0836
+     "p": 0.4217,
+     "lo": 0.3705,
+     "hi": 0.4728,
+     "se_log_hazard": 0.0853
     }
    },
    "mc_se": {
@@ -4965,31 +5065,31 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0632,
-    0.071,
-    0.0634,
-    0.0694,
-    0.0634,
-    0.0582,
-    0.0536,
-    0.0489,
-    0.0441,
-    0.0391
+    0.0633,
+    0.0706,
+    0.0653,
+    0.0698,
+    0.0623,
+    0.0594,
+    0.0535,
+    0.0488,
+    0.0445,
+    0.0406
    ],
    "p1": {
-    "home": 0.3549,
-    "tie": 0.3305,
-    "away": 0.3146,
+    "home": 0.3654,
+    "tie": 0.3264,
+    "away": 0.3082,
     "total_dist": [
-     0.1662,
-     0.2988,
-     0.2666,
-     0.2684
+     0.1629,
+     0.2931,
+     0.2695,
+     0.2746
     ],
-    "mean_total": 1.795
+    "mean_total": 1.815
    },
    "projected": {
-    "home": 3.3,
+    "home": 3.38,
     "away": 3.0,
     "median": [
      3,
@@ -5004,7 +5104,7 @@
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
      "sv_raw": 0.8973,
-     "sv_shrunk": 0.897,
+     "sv_shrunk": 0.8971,
      "sv_last5": 0.879,
      "e10_sv_raw": 0.9214,
      "starts_cur": 7,
@@ -5013,19 +5113,19 @@
      "gsax_per_60": 0.14
     },
     "away": {
-     "name": "Sergei Murashov",
-     "id": 8483703,
+     "name": "Arturs Silovs",
+     "id": 8481668,
      "status": "unconfirmed",
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
-     "sv_raw": 0.8915,
-     "sv_shrunk": 0.8966,
-     "sv_last5": 0.8803,
-     "e10_sv_raw": 0.878,
-     "starts_cur": 4,
-     "shots_weighted": 179,
-     "xg_ratio": 1.02,
-     "gsax_per_60": -0.59
+     "sv_raw": 0.8831,
+     "sv_shrunk": 0.8942,
+     "sv_last5": 0.873,
+     "e10_sv_raw": 0.8775,
+     "starts_cur": 5,
+     "shots_weighted": 736,
+     "xg_ratio": 1.045,
+     "gsax_per_60": -0.38
     }
    },
    "sides": {
@@ -5153,35 +5253,35 @@
       "prev_date": "2026-10-17"
      },
      "mults": {
-      "home_ice": 1.0368,
-      "off_shot_early": 1.0008,
+      "home_ice": 1.0371,
+      "off_shot_early": 1.0006,
       "off_shot_full": 1.0075,
-      "opp_def_shot_early": 1.0007,
-      "opp_def_shot_full": 1.0062,
-      "finish": 1.0163,
-      "opp_goalie": 1.0068,
-      "opp_goalie_sv_shrunk": 0.8966,
-      "context_total": 1.0088,
+      "opp_def_shot_early": 1.0006,
+      "opp_def_shot_full": 1.0061,
+      "finish": 1.0167,
+      "opp_goalie": 1.0305,
+      "opp_goalie_sv_shrunk": 0.8942,
+      "context_total": 1.0092,
       "early_context_total": 1.0
      },
      "context_detail": {
-      "opponent 3 games in 4 nights": 1.0088
+      "opponent 3 games in 4 nights": 1.0092
      },
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Sergei Murashov",
-      "id": 8483703,
+      "name": "Arturs Silovs",
+      "id": 8481668,
       "status": "unconfirmed",
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
-      "sv_raw": 0.8915,
-      "sv_shrunk": 0.8966,
-      "sv_last5": 0.8803,
-      "e10_sv_raw": 0.878,
-      "starts_cur": 4,
-      "shots_weighted": 179,
-      "xg_ratio": 1.02,
-      "gsax_per_60": -0.59
+      "sv_raw": 0.8831,
+      "sv_shrunk": 0.8942,
+      "sv_last5": 0.873,
+      "e10_sv_raw": 0.8775,
+      "starts_cur": 5,
+      "shots_weighted": 736,
+      "xg_ratio": 1.045,
+      "gsax_per_60": -0.38
      },
      "labels": {
       "team_profile": {
@@ -5190,7 +5290,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter unconfirmed (179 shots of data); re-check before the puck drops"
+       "note": "starter unconfirmed (736 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -5198,16 +5298,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03371,
-      0.04047,
-      0.04047,
-      0.04723,
-      0.04723,
-      0.04726,
-      0.04726,
-      0.04726,
-      0.04726,
-      0.04726
+      0.03445,
+      0.04135,
+      0.04135,
+      0.04826,
+      0.04826,
+      0.0483,
+      0.0483,
+      0.0483,
+      0.0483,
+      0.0483
      ]
     },
     "away": {
@@ -5334,14 +5434,14 @@
       "prev_date": "2026-10-17"
      },
      "mults": {
-      "home_ice": 0.9645,
-      "off_shot_early": 1.0079,
-      "off_shot_full": 1.012,
-      "opp_def_shot_early": 0.9695,
+      "home_ice": 0.9642,
+      "off_shot_early": 1.0077,
+      "off_shot_full": 1.0119,
+      "opp_def_shot_early": 0.9693,
       "opp_def_shot_full": 0.9665,
-      "finish": 1.0332,
-      "opp_goalie": 1.0026,
-      "opp_goalie_sv_shrunk": 0.897,
+      "finish": 1.0336,
+      "opp_goalie": 1.0028,
+      "opp_goalie_sv_shrunk": 0.8971,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
@@ -5354,7 +5454,7 @@
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
       "sv_raw": 0.8973,
-      "sv_shrunk": 0.897,
+      "sv_shrunk": 0.8971,
       "sv_last5": 0.879,
       "e10_sv_raw": 0.9214,
       "starts_cur": 7,
@@ -5377,49 +5477,49 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03097,
-      0.03718,
-      0.03718,
-      0.04339,
-      0.04339,
-      0.04342,
-      0.04342,
-      0.04342,
-      0.04342,
-      0.04342
+      0.03091,
+      0.03711,
+      0.03711,
+      0.0433,
+      0.0433,
+      0.04334,
+      0.04334,
+      0.04334,
+      0.04334,
+      0.04334
      ]
     }
    },
    "league": {
-    "games_in_profile": 2758,
-    "home_mult": 1.0751,
-    "league_sv": 0.8969,
-    "p_no_goal_5_league_observed": 0.6748,
-    "p_no_goal_10_league_observed": 0.4286,
+    "games_in_profile": 2760,
+    "home_mult": 1.0757,
+    "league_sv": 0.897,
+    "p_no_goal_5_league_observed": 0.6755,
+    "p_no_goal_10_league_observed": 0.4297,
     "base_rates_first_10": {
-     "0-1": 0.03173,
-     "1-2": 0.03809,
-     "2-3": 0.03809,
-     "3-4": 0.04445,
-     "4-5": 0.04445,
-     "5-6": 0.04448,
-     "6-7": 0.04448,
-     "7-8": 0.04448,
-     "8-9": 0.04448,
-     "9-10": 0.04448
+     "0-1": 0.03166,
+     "1-2": 0.03801,
+     "2-3": 0.03801,
+     "3-4": 0.04436,
+     "4-5": 0.04436,
+     "5-6": 0.04439,
+     "6-7": 0.04439,
+     "7-8": 0.04439,
+     "8-9": 0.04439,
+     "9-10": 0.04439
     },
     "context_effects": {
-     "b2b_off": 0.9295,
-     "b2b_def": 1.0398,
-     "long_travel_def": 0.9961,
-     "tz_shift_def": 1.0216,
-     "three_in_four_def": 1.0088,
-     "mutual_fatigue_early": 0.9464
+     "b2b_off": 0.9286,
+     "b2b_def": 1.0394,
+     "long_travel_def": 0.996,
+     "tz_shift_def": 1.0218,
+     "three_in_four_def": 1.0092,
+     "mutual_fatigue_early": 0.947
     },
     "context_samples": {
-     "b2b_off": 862,
-     "b2b_def": 862,
-     "long_travel_def": 1017,
+     "b2b_off": 864,
+     "b2b_def": 864,
+     "long_travel_def": 1018,
      "tz_shift_def": 495,
      "three_in_four_def": 1060,
      "mutual_fatigue_early": 243
@@ -5757,18 +5857,18 @@
       ]
      },
      "away": {
-      "starts_on_record": 8,
-      "last_start": "2026-10-17",
-      "days_since_last_start": 2,
+      "starts_on_record": 52,
+      "last_start": "2026-10-16",
+      "days_since_last_start": 3,
       "started_last_night": false,
-      "shots_faced_last_start": 19,
+      "shots_faced_last_start": 32,
       "goals_against_last_start": 5,
-      "consecutive_team_starts": 1,
-      "starts_last_7_days": 2,
+      "consecutive_team_starts": 0,
+      "starts_last_7_days": 1,
       "shots_faced_last_3": [
-       44,
-       19,
-       19
+       27,
+       23,
+       32
       ]
      }
     },
@@ -5794,7 +5894,7 @@
       "prev_date": "2026-10-17"
      },
      "mutual_fatigue": false,
-     "mutual_fatigue_mult": 0.9464,
+     "mutual_fatigue_mult": 0.947,
      "league_rates": {
       "neither": {
        "games": 1637,
@@ -5807,9 +5907,9 @@
        "no_goal_10": 0.4568
       },
       "one": {
-       "games": 878,
-       "no_goal_5": 0.6503,
-       "no_goal_10": 0.4146
+       "games": 880,
+       "no_goal_5": 0.6511,
+       "no_goal_10": 0.4159
       }
      }
     },
@@ -5825,7 +5925,7 @@
      "home": {
       "updated_at": "2026-10-18T01:57:30.596Z",
       "source_name": "Utah Mammoth",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Clayton Keller",
@@ -5927,9 +6027,9 @@
       ]
      },
      "away": {
-      "updated_at": "2026-10-18T04:19:01.120Z",
-      "source_name": "@penguins",
-      "fetched_utc": "2026-10-18 17:14 UTC",
+      "updated_at": "2026-10-19T00:25:37.330Z",
+      "source_name": "Last Game (2026-10-17)",
+      "fetched_utc": "2026-10-19 14:05 UTC",
       "lines": {
        "f1": [
         "Rickard Rakell",
@@ -5964,22 +6064,22 @@
         "Kris Letang"
        ],
        "g": [
-        "Sergei Murashov",
-        "Arturs Silovs"
+        "Arturs Silovs",
+        "Sergei Murashov"
        ],
        "pp1": [
-        "Ben Kindel",
-        "Evgeni Malkin",
+        "Bryan Rust",
+        "Tommy Novak",
         "Rickard Rakell",
         "Erik Karlsson",
         "Sidney Crosby"
        ],
        "pp2": [
         "Andrei Kuzmenko",
-        "Bryan Rust",
+        "Ben Kindel",
         "Ville Koivunen",
         "Kris Letang",
-        "Tommy Novak"
+        "Evgeni Malkin"
        ]
       },
       "injuries": [
@@ -5994,14 +6094,30 @@
        {
         "name": "Justin Brazeau",
         "pos": "IR1",
-        "status": "dtd",
+        "status": "ir",
         "game_time_decision": false,
         "news": "Brazeau left Friday's practice with a lower-body injury.",
         "news_at": "2026-09-25T12:04:53.269-04:00"
        },
        {
-        "name": "Egor Chinakhov",
+        "name": "Trevor van Riemsdyk",
         "pos": "IR2",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "van Riemsdyk (lower-body) has been placed on IR.",
+        "news_at": "2026-10-12T13:55:04.686-04:00"
+       },
+       {
+        "name": "Ryan Graves",
+        "pos": "IR3",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "Graves is expected to be back in the Penguins' lineup on Tuesday.",
+        "news_at": "2026-04-14T13:40:31.005-04:00"
+       },
+       {
+        "name": "Egor Chinakhov",
+        "pos": "IR4",
         "status": "dtd",
         "game_time_decision": false,
         "news": "Chinakhov (lower-body) will not play Friday in Colorado.",
@@ -6009,7 +6125,7 @@
        },
        {
         "name": "Samuel Girard",
-        "pos": "IR3",
+        "pos": "IR5",
         "status": "dtd",
         "game_time_decision": false,
         "news": "Girard (undisclosed) left Saturday\u2019s game and will not return.",
@@ -6499,7 +6615,7 @@
     "status": "model"
    },
    {
-    "factor": "Expected goals (MoneyPuck shot quality): shot-quality rates for and against, finishing as goals over xG, goalie as goals over xG faced (2,758 games loaded)",
+    "factor": "Expected goals (MoneyPuck shot quality): shot-quality rates for and against, finishing as goals over xG, goalie as goals over xG faced (2,760 games loaded)",
     "status": "shown"
    },
    {
@@ -6515,7 +6631,7 @@
     "status": "unavailable"
    }
   ],
-  "xg_games": 2758,
+  "xg_games": 2760,
   "base_rates_by_season": {
    "20242025": {
     "games": 1312,
@@ -6528,9 +6644,9 @@
     "no_goal_10": 0.4123
    },
    "20262027": {
-    "games": 134,
-    "no_goal_5": 0.7388,
-    "no_goal_10": 0.4627
+    "games": 136,
+    "no_goal_5": 0.7426,
+    "no_goal_10": 0.4706
    }
   },
   "schedule_rates": {
@@ -6545,31 +6661,31 @@
     "no_goal_10": 0.4568
    },
    "one": {
-    "games": 878,
-    "no_goal_5": 0.6503,
-    "no_goal_10": 0.4146
+    "games": 880,
+    "no_goal_5": 0.6511,
+    "no_goal_10": 0.4159
    }
   },
   "tested": {
-   "games": 2758,
-   "baseline_no_goal_5": 0.6686,
+   "games": 2760,
+   "baseline_no_goal_5": 0.6688,
    "goalie_workload": {
     "2 to 6 days since last start": {
-     "team_games": 4287,
-     "no_goal_5": 0.6625
+     "team_games": 4289,
+     "no_goal_5": 0.6626
     },
     "consecutive nights": {
      "team_games": 63,
      "no_goal_5": 0.6984
     },
     "first start in 7+ days": {
-     "team_games": 1050,
-     "no_goal_5": 0.6781
+     "team_games": 1052,
+     "no_goal_5": 0.6787
     }
    },
    "home_arena": {
     "arenas": 32,
-    "observed_sd_pts": 4.85,
+    "observed_sd_pts": 4.87,
     "expected_sd_if_no_effect_pts": 5.07,
     "extremes": {
      "PIT": 0.4941,
@@ -6588,7 +6704,7 @@
      "BOS": 0.6628,
      "CAR": 0.6628,
      "UTA": 0.6706,
-     "MIN": 0.6706,
+     "MIN": 0.6744,
      "NJD": 0.6782,
      "NYR": 0.6782,
      "CBJ": 0.6782,
@@ -6603,22 +6719,22 @@
      "EDM": 0.7294,
      "SJS": 0.7326,
      "FLA": 0.7412,
-     "CGY": 0.7529
+     "CGY": 0.7558
     }
    }
   },
   "context_effects": {
-   "b2b_off": 0.9295,
-   "b2b_def": 1.0398,
-   "long_travel_def": 0.9961,
-   "tz_shift_def": 1.0216,
-   "three_in_four_def": 1.0088,
-   "mutual_fatigue_early": 0.9464
+   "b2b_off": 0.9286,
+   "b2b_def": 1.0394,
+   "long_travel_def": 0.996,
+   "tz_shift_def": 1.0218,
+   "three_in_four_def": 1.0092,
+   "mutual_fatigue_early": 0.947
   },
   "context_samples": {
-   "b2b_off": 862,
-   "b2b_def": 862,
-   "long_travel_def": 1017,
+   "b2b_off": 864,
+   "b2b_def": 864,
+   "long_travel_def": 1018,
    "tz_shift_def": 495,
    "three_in_four_def": 1060,
    "mutual_fatigue_early": 243
@@ -6635,14 +6751,75 @@
    "play_by_play": "sportsdataverse nightly release of the NHL play-by-play feed (shots, goals, penalties, timestamps, strength, starters)",
    "schedule": "NHL API schedule (rest, travel and time zones derived from it)",
    "goalies": "DailyFaceoff starting-goalies page, parsed with the reporter and time of each confirmation",
-   "data_through": "2026-10-17"
+   "data_through": "2026-10-18"
   }
  },
  "changes": {
-  "since": "2026-10-18 21:22 UTC",
-  "items": [],
+  "since": "2026-10-19 00:25 UTC",
+  "items": [
+   {
+    "game_id": 2026020139,
+    "game": "SJS @ TOR",
+    "kind": "goalie",
+    "text": "SJS goalie now Yaroslav Askarov (unconfirmed), was Alex Nedeljkovic (unconfirmed)"
+   },
+   {
+    "game_id": 2026020139,
+    "game": "SJS @ TOR",
+    "kind": "move",
+    "text": "FG moneyline TOR 55.2% to 57.6%",
+    "delta": 0.0241,
+    "market": "fg_ml"
+   },
+   {
+    "game_id": 2026020139,
+    "game": "SJS @ TOR",
+    "kind": "move",
+    "text": "over 4.5 79.0% to 80.1%",
+    "delta": 0.0109,
+    "market": "fg_over45"
+   },
+   {
+    "game_id": 2026020139,
+    "game": "SJS @ TOR",
+    "kind": "move",
+    "text": "home over 1.5 83.6% to 85.1%",
+    "delta": 0.0152,
+    "market": "home_over15"
+   },
+   {
+    "game_id": 2026020139,
+    "game": "SJS @ TOR",
+    "kind": "move",
+    "text": "1P under 2.5 72.7% to 71.6%",
+    "delta": -0.011,
+    "market": "p1_under25"
+   },
+   {
+    "game_id": 2026020140,
+    "game": "PIT @ UTA",
+    "kind": "goalie",
+    "text": "PIT goalie now Arturs Silovs (unconfirmed), was Sergei Murashov (unconfirmed)"
+   },
+   {
+    "game_id": 2026020140,
+    "game": "PIT @ UTA",
+    "kind": "move",
+    "text": "FG moneyline UTA 54.8% to 56.0%",
+    "delta": 0.0116,
+    "market": "fg_ml"
+   },
+   {
+    "game_id": 2026020140,
+    "game": "PIT @ UTA",
+    "kind": "move",
+    "text": "over 4.5 78.4% to 79.5%",
+    "delta": 0.0106,
+    "market": "fg_over45"
+   }
+  ],
   "first_build": false,
   "data_through_before": "2026-10-17",
-  "data_through_after": "2026-10-17"
+  "data_through_after": "2026-10-18"
  }
 }
