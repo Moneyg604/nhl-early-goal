@@ -1,85 +1,79 @@
 {
- "date": "2026-10-18",
- "updated_utc": "2026-10-19 06:55 UTC",
- "updated_et": "2:55 AM ET",
+ "date": "2026-10-19",
+ "updated_utc": "2026-10-19 23:00 UTC",
+ "updated_et": "7:00 PM ET",
  "games": {
-  "2026020135": {
-   "state": "OFF",
+  "2026020137": {
+   "state": "PRE",
    "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "MIN",
-   "away": "CBJ",
-   "home_score": 2,
-   "away_score": 1,
-   "first_goal_min": 18.2,
-   "p1_done": true,
-   "p1_home": 1,
-   "p1_away": 1,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 18.2,
-     "team": "MIN"
-    },
-    {
-     "period": 1,
-     "minute": 19.2,
-     "team": "CBJ"
-    },
-    {
-     "period": 2,
-     "minute": 23.1,
-     "team": "MIN"
-    }
-   ]
-  },
-  "2026020136": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "CGY",
-   "away": "CAR",
-   "home_score": 3,
-   "away_score": 2,
-   "first_goal_min": 26.15,
-   "p1_done": true,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "NYR",
+   "away": "ANA",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 2,
-     "minute": 26.15,
-     "team": "CAR"
-    },
-    {
-     "period": 2,
-     "minute": 38.5,
-     "team": "CGY"
-    },
-    {
-     "period": 2,
-     "minute": 39.65,
-     "team": "CGY"
-    },
-    {
-     "period": 2,
-     "minute": 39.933,
-     "team": "CAR"
-    },
-    {
-     "period": 3,
-     "minute": 55.533,
-     "team": "CGY"
-    }
-   ]
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020138": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "PHI",
+   "away": "COL",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020139": {
+   "state": "PRE",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "TOR",
+   "away": "SJS",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020140": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "UTA",
+   "away": "PIT",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
   }
  }
 }
