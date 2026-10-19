@@ -1,7 +1,7 @@
 {
  "date": "2026-10-18",
- "updated_utc": "2026-10-19 01:10 UTC",
- "updated_et": "9:10 PM ET",
+ "updated_utc": "2026-10-19 01:15 UTC",
+ "updated_et": "9:15 PM ET",
  "games": {
   "2026020135": {
    "state": "OFF",
@@ -42,18 +42,24 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:02",
-   "elapsed_min": 25.97,
+   "time_remaining": "12:46",
+   "elapsed_min": 27.23,
    "home": "CGY",
    "away": "CAR",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 26.15,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 2,
+     "minute": 26.15,
+     "team": "CAR"
+    }
+   ]
   }
  }
 }
