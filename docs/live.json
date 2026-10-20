@@ -1,15 +1,15 @@
 {
  "date": "2026-10-19",
- "updated_utc": "2026-10-20 01:10 UTC",
- "updated_et": "9:10 PM ET",
+ "updated_utc": "2026-10-20 01:15 UTC",
+ "updated_et": "9:15 PM ET",
  "games": {
   "2026020137": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:56",
-   "elapsed_min": 45.07,
+   "time_remaining": "12:46",
+   "elapsed_min": 47.23,
    "home": "NYR",
    "away": "ANA",
    "home_score": 5,
@@ -52,8 +52,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "17:59",
-   "elapsed_min": 42.02,
+   "time_remaining": "14:06",
+   "elapsed_min": 45.9,
    "home": "PHI",
    "away": "COL",
    "home_score": 2,
@@ -86,8 +86,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "04:20",
-   "elapsed_min": 35.67,
+   "time_remaining": "00:38",
+   "elapsed_min": 39.37,
    "home": "TOR",
    "away": "SJS",
    "home_score": 0,
@@ -110,18 +110,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:48",
-   "elapsed_min": 0.2,
+   "time_remaining": "16:55",
+   "elapsed_min": 3.08,
    "home": "UTA",
    "away": "PIT",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 1.183,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 1.183,
+     "team": "PIT"
+    }
+   ]
   }
  }
 }
