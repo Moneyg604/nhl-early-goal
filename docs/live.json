@@ -1,7 +1,7 @@
 {
  "date": "2026-10-19",
- "updated_utc": "2026-10-20 02:15 UTC",
- "updated_et": "10:15 PM ET",
+ "updated_utc": "2026-10-20 02:20 UTC",
+ "updated_et": "10:20 PM ET",
  "games": {
   "2026020137": {
    "state": "OFF",
@@ -58,7 +58,7 @@
    ]
   },
   "2026020138": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -102,21 +102,21 @@
    ]
   },
   "2026020139": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:58",
-   "elapsed_min": 59.03,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "TOR",
    "away": "SJS",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 1,
    "first_goal_min": 13.9,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -132,6 +132,11 @@
      "period": 3,
      "minute": 44.933,
      "team": "TOR"
+    },
+    {
+     "period": 3,
+     "minute": 59.333,
+     "team": "TOR"
     }
    ]
   },
@@ -140,8 +145,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "16:18",
-   "elapsed_min": 23.7,
+   "time_remaining": "13:41",
+   "elapsed_min": 26.32,
    "home": "UTA",
    "away": "PIT",
    "home_score": 2,
