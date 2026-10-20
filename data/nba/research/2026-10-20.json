@@ -1,0 +1,194 @@
+{
+ "v": 1,
+ "season": 2027,
+ "date": "2026-10-20",
+ "generated_utc": "2026-10-20 19:53 UTC",
+ "analyst": "Claude research desk",
+ "odds_band": [
+  1.35,
+  2.2
+ ],
+ "summary": "Two games are still to tip (76ers at Knicks 7:00 PM ET, Thunder at Spurs 9:30 PM ET; Celtics at Pistons has tipped). One selection clears the bar: the Knicks moneyline at DraftKings 1.556, where the desk makes NY 66% against a 64% break-even; the Thunder-Spurs game and every spread, total and player prop on the slate fail the price, probability or confirmation tests, so the section is short by design.",
+ "games": {
+  "2026_10_20_OKC_SA": {
+   "notes": [
+    "Tip 9:30 PM ET at Frost Bank Center. Feed (DraftKings via ESPN): SA +1.5 at 1.87, OKC -1.5 at 1.952, SA moneyline 1.909 and OKC 1.909, total 230.5 (1.91 each side assumed on the board).",
+    "Third-party DraftKings-labelled page (Dimers) shows Spurs -1.5 at -102 and an unlabelled 233.5 total, which disagrees with the feed on the favourite. The spread line could not be confirmed, so no spread selection is made.",
+    "Injury report: SA Tobias Harris OUT (calf strain), Jayden Quaintance OUT (knee surgery); OKC Nikola Topic OUT (back surgery), Thomas Sorber OUT (knee surgery), Otega Oweh OUT (Achilles). Victor Wembanyama and Shai Gilgeous-Alexander carry no injury designation on the Oct 19 feed or the Oct 20 Thunder Wire report.",
+    "The model's game total is 224.4 for both games on tonight's slate, identical to PHI-NY, so the model total is treated as a placeholder and no total is taken.",
+    "No shootaround or same-day minutes note for either side was found; Harris's absence is taken from the report, with the rotation minutes that would shift to Keldon Johnson and Julian Champagnie unconfirmed."
+   ],
+   "weather": "Indoor arena: no effect.",
+   "injuries": [
+    "SA: Harris OUT (calf), Quaintance OUT (knee surgery)",
+    "OKC: Topic OUT (back surgery), Sorber OUT (knee surgery), Oweh OUT (Achilles)"
+   ],
+   "sources": [
+    {
+     "name": "Thunder vs. Spurs injury report, Oct 20 2026 (Yahoo Sports / OKC Thunder Wire)",
+     "url": "https://sports.yahoo.com/articles/full-injury-report-tuesdays-thunder-130111481.html",
+     "fetched": "2026-10-20T19:50Z"
+    },
+    {
+     "name": "Thunder vs. Spurs prediction and odds, Oct 20 2026 (Dimers)",
+     "url": "https://www.dimers.com/nba/predictions/2026_1_sas_okc",
+     "fetched": "2026-10-20T19:50Z"
+    },
+    {
+     "name": "Gill Sports payload, Oct 20 18:45 UTC (ESPN injuries, DraftKings feed, model)",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nba/days/2026-10-20.json",
+     "fetched": "2026-10-20T19:50Z"
+    }
+   ]
+  },
+  "2026_10_20_PHI_NY": {
+   "notes": [
+    "Tip 7:00 PM ET at Madison Square Garden. Feed (DraftKings via ESPN): NY -4.5 at 1.909, total 231.5 (1.91 each side assumed on the board, not confirmed), NY moneyline 1.556, PHI moneyline 2.50.",
+    "Injury report, Oct 20: PHI Tacko Fall OUT (hip), Dominick Barlow OUT (back), Hukporti out for season (Achilles, not in the feed); Adem Bona day-to-day (foot), Anfernee Simons day-to-day (hamstring), Dean Wade day-to-day (ankle) per the ESPN feed of Oct 19. NY: no injuries listed. Maxey, Embiid, Brunson, Towns, Anunoby, Hart are not on the Oct 20 report.",
+    "No shootaround or beat-writer minutes note for either side was found for today; the Simons and Bona minutes are unconfirmed, so no adjustment is made for them.",
+    "Ratings in the model have zero games this season (prior-season ratings), so the model's 0.75 home win is shrunk toward the market before it becomes the desk's number.",
+    "Props: the feed prices no player props for this game and no DraftKings prop page showing today's board was found; the only props page found was a 2024 article."
+   ],
+   "weather": "Indoor arena: no effect.",
+   "injuries": [
+    "PHI: Fall OUT (hip), Barlow OUT (back), Bona day-to-day (foot), Simons day-to-day (hamstring), Wade day-to-day (ankle)",
+    "NY: none listed"
+   ],
+   "sources": [
+    {
+     "name": "76ers vs. Knicks injury report, Oct 20 2026 (iHeart)",
+     "url": "https://foxphlgambler.iheart.com/content/2026-10-20-76ers-vs-knicks-injury-report-oct-20/",
+     "fetched": "2026-10-20T19:50Z"
+    },
+    {
+     "name": "Bettor's Insider, PHI-NYK Oct 20 (DraftKings Knicks moneyline -180)",
+     "url": "https://bettorsinsider.com/game/nba/phi-nyk/20261020/",
+     "fetched": "2026-10-20T19:50Z"
+    },
+    {
+     "name": "Gill Sports payload, Oct 20 18:45 UTC (ESPN injuries, DraftKings feed, model)",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nba/days/2026-10-20.json",
+     "fetched": "2026-10-20T19:50Z"
+    }
+   ]
+  }
+ },
+ "selections": [
+  {
+   "id": "ml|2026_10_20_PHI_NY|home||NY",
+   "game_id": "2026_10_20_PHI_NY",
+   "kind": "ml",
+   "side": "home",
+   "line": null,
+   "who": null,
+   "team": "NY",
+   "label": "NY moneyline",
+   "odds": 1.556,
+   "odds_source": "feed",
+   "p": 0.66,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 45,
+   "inputs": [
+    "DraftKings NY moneyline 1.556 (-180): the feed and the Bettor's Insider DraftKings column agree",
+    "PHI Oct 20 report: Fall OUT, Barlow OUT, Bona and Simons day-to-day; NY no injuries listed",
+    "Model: NY home win 0.7526 from a margin of +8.6 (ratings with zero games this season, so partly prior)",
+    "No-vig market NY 0.616 (1/1.556 and 1/2.50, overround removed)"
+   ],
+   "arithmetic": [
+    "No-vig NY = (1/1.556) / ((1/1.556) + (1/2.50)) = 0.6427 / 1.0427 = 0.6164",
+    "Model: P = Φ(8.6 / 12.6) = Φ(0.683) = 0.7526",
+    "Shrink toward market, weight 0.35 (zero games played this season): 0.6164 + 0.35 × (0.7526 − 0.6164) = 0.664, written as 0.66",
+    "Distance from no-vig: 0.66 − 0.616 = 4.4 points (inside the 8-point band, no re-check trigger)",
+    "Break-even at 1.556 = 1 / 1.556 = 0.643; EV = 0.66 × 1.556 − 1 = +0.027 (about +2.7%)"
+   ],
+   "pros": [
+    "Home court and a model margin of +8.6 point the same way",
+    "PHI are missing two bench bigs (Fall, Barlow) and have two day-to-day guards and a day-to-day big (Simons, Bona, Wade)",
+    "NY carry no injury on the Oct 20 report"
+   ],
+   "risks": [
+    "Ratings are untested: zero games this season, so the 0.75 model number could be off by several points",
+    "Simons and Bona are day-to-day with no same-day minutes note; if both play, PHI's depth is closer to full strength",
+    "The edge is small (about 4 points over no-vig): a single late scratch on NY would remove it"
+   ],
+   "verdict": "Knicks moneyline at DraftKings 1.556 (-180): the desk makes NY 66% against a 64.3% break-even and a 61.6% no-vig market. A small positive edge, graded B on partial evidence.",
+   "sources": [
+    {
+     "name": "76ers vs. Knicks injury report, Oct 20 2026 (iHeart)",
+     "url": "https://foxphlgambler.iheart.com/content/2026-10-20-76ers-vs-knicks-injury-report-oct-20/",
+     "fetched": "2026-10-20T19:50Z"
+    },
+    {
+     "name": "Bettor's Insider, PHI-NYK Oct 20 (DraftKings Knicks moneyline -180)",
+     "url": "https://bettorsinsider.com/game/nba/phi-nyk/20261020/",
+     "fetched": "2026-10-20T19:50Z"
+    },
+    {
+     "name": "Gill Sports payload, Oct 20 18:45 UTC",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nba/days/2026-10-20.json",
+     "fetched": "2026-10-20T19:50Z"
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "id": "ml|2026_10_20_OKC_SA|home||SA",
+   "label": "SA moneyline (1.909)",
+   "why": "Desk chance 0.511 (model 0.531 shrunk toward the 0.50 no-vig by the 0.35 weight) is below the 0.52 floor. Harris's absence is a small negative. Not taken.",
+   "game_id": "2026_10_20_OKC_SA"
+  },
+  {
+   "id": "spread|2026_10_20_OKC_SA|home|1.5|SA",
+   "label": "SA +1.5 (1.87)",
+   "why": "The feed and a third-party DraftKings-labelled page disagree on the favourite, so the line is not confirmed. At the feed price, desk cover 0.53 gives EV about -0.01. Not taken.",
+   "game_id": "2026_10_20_OKC_SA"
+  },
+  {
+   "id": "total|2026_10_20_OKC_SA|under|230.5|",
+   "label": "Under 230.5 (1.91 assumed)",
+   "why": "No DraftKings total price confirmed; the model total of 224.4 is the same placeholder value as the PHI-NY game, so the 0.65 model probability is not usable.",
+   "game_id": "2026_10_20_OKC_SA"
+  },
+  {
+   "id": "total|2026_10_20_OKC_SA|over|230.5|",
+   "label": "Over 230.5 (1.91 assumed)",
+   "why": "Same as the under: no confirmed DraftKings total price and no usable model total.",
+   "game_id": "2026_10_20_OKC_SA"
+  },
+  {
+   "id": "spread|2026_10_20_PHI_NY|home|-4.5|NY",
+   "label": "NY -4.5 (1.909)",
+   "why": "Same side as the moneyline pick and a thinner number: desk cover 0.54 (model 0.63 shrunk toward 0.50 by the same 0.35 weight), EV +0.03 at 1.909. Left out to avoid doubling one side of one game on untested ratings.",
+   "game_id": "2026_10_20_PHI_NY"
+  },
+  {
+   "id": "total|2026_10_20_PHI_NY|under|231.5|",
+   "label": "Under 231.5 (1.91 assumed)",
+   "why": "No DraftKings price confirmed for the total today (the feed assumes 1.91), and the model total of 224.4 is the same placeholder value as the OKC-SAS game, so the 0.65 model probability is not usable. No re-check reason survives.",
+   "game_id": "2026_10_20_PHI_NY"
+  },
+  {
+   "id": "ml|2026_10_20_PHI_NY|away||PHI",
+   "label": "PHI moneyline (2.50), wild card",
+   "why": "Desk chance 0.34 (no-vig 0.384 shrunk toward the model's 0.25) is at the 0.30 wild-card floor but EV at 2.50 is about -0.16. Not taken.",
+   "game_id": "2026_10_20_PHI_NY"
+  },
+  {
+   "id": "ast|2026_10_20_PHI_NY|under|1.5|Landry Shamet",
+   "label": "Landry Shamet under 1.5 assists",
+   "why": "Model line only: no DraftKings price for a player prop was found today. Model p 0.70 on zero games this season; declined until a DraftKings price is read.",
+   "game_id": "2026_10_20_PHI_NY"
+  },
+  {
+   "id": "ast|2026_10_20_PHI_NY|under|2.5|OG Anunoby",
+   "label": "OG Anunoby under 2.5 assists",
+   "why": "Model line only, no DraftKings price found today; model p 0.67 on zero games this season. Declined for the same reason.",
+   "game_id": "2026_10_20_PHI_NY"
+  }
+ ],
+ "best": [
+  "ml|2026_10_20_PHI_NY|home||NY"
+ ]
+}
