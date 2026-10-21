@@ -1,15 +1,15 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 01:30 UTC",
- "updated_et": "9:30 PM ET",
+ "updated_utc": "2026-10-21 01:35 UTC",
+ "updated_et": "9:35 PM ET",
  "games": {
   "2026020141": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:51",
-   "elapsed_min": 53.15,
+   "time_remaining": "04:18",
+   "elapsed_min": 55.7,
    "home": "MTL",
    "away": "SJS",
    "home_score": 3,
@@ -57,12 +57,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "03:55",
-   "elapsed_min": 56.08,
+   "time_remaining": "00:19",
+   "elapsed_min": 59.68,
    "home": "NJD",
    "away": "COL",
-   "home_score": 3,
-   "away_score": 1,
+   "home_score": 4,
+   "away_score": 2,
    "first_goal_min": 6.667,
    "p1_done": true,
    "p1_home": 1,
@@ -88,16 +88,26 @@
      "period": 3,
      "minute": 44.65,
      "team": "NJD"
+    },
+    {
+     "period": 3,
+     "minute": 56.083,
+     "team": "NJD"
+    },
+    {
+     "period": 3,
+     "minute": 56.783,
+     "team": "COL"
     }
    ]
   },
   "2026020143": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:11",
-   "elapsed_min": 57.82,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NYI",
    "away": "ANA",
    "home_score": 3,
@@ -106,7 +116,7 @@
    "p1_done": true,
    "p1_home": 3,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -130,7 +140,7 @@
     },
     {
      "period": 3,
-     "minute": 57.317,
+     "minute": 57.333,
      "team": "ANA"
     }
    ]
@@ -140,12 +150,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "03:14",
-   "elapsed_min": 56.77,
+   "time_remaining": "00:10",
+   "elapsed_min": 59.83,
    "home": "WSH",
    "away": "LAK",
    "home_score": 2,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 9.417,
    "p1_done": true,
    "p1_home": 2,
@@ -181,6 +191,11 @@
      "period": 3,
      "minute": 51.583,
      "team": "LAK"
+    },
+    {
+     "period": 3,
+     "minute": 58.25,
+     "team": "LAK"
     }
    ]
   },
@@ -189,8 +204,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "07:57",
-   "elapsed_min": 52.05,
+   "time_remaining": "05:29",
+   "elapsed_min": 54.52,
    "home": "CBJ",
    "away": "TOR",
    "home_score": 2,
@@ -243,8 +258,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "04:19",
-   "elapsed_min": 35.68,
+   "time_remaining": "01:31",
+   "elapsed_min": 38.48,
    "home": "STL",
    "away": "WPG",
    "home_score": 1,
@@ -267,8 +282,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "05:25",
-   "elapsed_min": 34.58,
+   "time_remaining": "03:31",
+   "elapsed_min": 36.48,
    "home": "DAL",
    "away": "BOS",
    "home_score": 1,
@@ -301,8 +316,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "08:10",
-   "elapsed_min": 11.83,
+   "time_remaining": "06:07",
+   "elapsed_min": 13.88,
    "home": "EDM",
    "away": "MIN",
    "home_score": 0,
