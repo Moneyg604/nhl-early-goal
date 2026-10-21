@@ -1,7 +1,7 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 03:55 UTC",
- "updated_et": "11:55 PM ET",
+ "updated_utc": "2026-10-21 04:00 UTC",
+ "updated_et": "12:00 AM ET",
  "games": {
   "2026020141": {
    "state": "OFF",
@@ -347,21 +347,21 @@
    ]
   },
   "2026020148": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
    "time_remaining": "01:28",
    "elapsed_min": 60.0,
    "home": "EDM",
    "away": "MIN",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 3,
    "first_goal_min": 3.533,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -392,6 +392,11 @@
      "period": 3,
      "minute": 53.117,
      "team": "MIN"
+    },
+    {
+     "period": 4,
+     "minute": 63.533,
+     "team": "EDM"
     }
    ]
   },
@@ -400,12 +405,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:59",
-   "elapsed_min": 47.02,
+   "time_remaining": "10:09",
+   "elapsed_min": 49.85,
    "home": "SEA",
    "away": "DET",
    "home_score": 3,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 6.75,
    "p1_done": true,
    "p1_home": 1,
@@ -431,6 +436,11 @@
      "period": 3,
      "minute": 46.417,
      "team": "DET"
+    },
+    {
+     "period": 3,
+     "minute": 47.4,
+     "team": "DET"
     }
    ]
   },
@@ -439,8 +449,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "08:36",
-   "elapsed_min": 33.12,
+   "time_remaining": "03:33",
+   "elapsed_min": 36.45,
    "home": "VAN",
    "away": "CAR",
    "home_score": 3,
@@ -488,12 +498,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:31",
-   "elapsed_min": 25.48,
+   "time_remaining": "10:35",
+   "elapsed_min": 29.42,
    "home": "VGK",
    "away": "TBL",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 4.183,
    "p1_done": true,
    "p1_home": 2,
@@ -519,6 +529,11 @@
      "period": 1,
      "minute": 18.5,
      "team": "VGK"
+    },
+    {
+     "period": 2,
+     "minute": 26.733,
+     "team": "TBL"
     }
    ]
   }
