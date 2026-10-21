@@ -1,7 +1,7 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 03:05 UTC",
- "updated_et": "11:05 PM ET",
+ "updated_utc": "2026-10-21 03:10 UTC",
+ "updated_et": "11:10 PM ET",
  "games": {
   "2026020141": {
    "state": "OFF",
@@ -350,9 +350,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "03:52",
-   "elapsed_min": 36.13,
+   "period": 3,
+   "time_remaining": "20:00",
+   "elapsed_min": 40.0,
    "home": "EDM",
    "away": "MIN",
    "home_score": 3,
@@ -390,8 +390,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "09:28",
-   "elapsed_min": 30.53,
+   "time_remaining": "07:07",
+   "elapsed_min": 32.88,
    "home": "SEA",
    "away": "DET",
    "home_score": 2,
@@ -419,12 +419,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "19:56",
-   "elapsed_min": 20.07,
+   "time_remaining": "17:18",
+   "elapsed_min": 22.7,
    "home": "VAN",
    "away": "CAR",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 4.733,
    "p1_done": true,
    "p1_home": 2,
@@ -450,6 +450,11 @@
      "period": 1,
      "minute": 19.967,
      "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 22.433,
+     "team": "CAR"
     }
    ]
   },
@@ -458,15 +463,15 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "10:17",
-   "elapsed_min": 9.72,
+   "time_remaining": "06:06",
+   "elapsed_min": 13.9,
    "home": "VGK",
    "away": "TBL",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 1,
    "first_goal_min": 4.183,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 1,
    "ended_in": null,
    "goals": [
@@ -474,6 +479,11 @@
      "period": 1,
      "minute": 4.183,
      "team": "TBL"
+    },
+    {
+     "period": 1,
+     "minute": 13.267,
+     "team": "VGK"
     }
    ]
   }
