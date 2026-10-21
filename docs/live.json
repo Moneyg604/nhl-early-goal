@@ -1,7 +1,7 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 05:15 UTC",
- "updated_et": "1:15 AM ET",
+ "updated_utc": "2026-10-21 05:20 UTC",
+ "updated_et": "1:20 AM ET",
  "games": {
   "2026020141": {
    "state": "OFF",
@@ -450,7 +450,7 @@
    ]
   },
   "2026020150": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -514,12 +514,12 @@
    ]
   },
   "2026020151": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "03:46",
-   "elapsed_min": 56.23,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "VGK",
    "away": "TBL",
    "home_score": 2,
@@ -528,7 +528,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
