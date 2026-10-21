@@ -1,15 +1,15 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 01:40 UTC",
- "updated_et": "9:40 PM ET",
+ "updated_utc": "2026-10-21 01:45 UTC",
+ "updated_et": "9:45 PM ET",
  "games": {
   "2026020141": {
    "state": "CRIT",
    "live": true,
    "final": false,
-   "period": 3,
-   "time_remaining": "01:45",
-   "elapsed_min": 58.25,
+   "period": 4,
+   "time_remaining": "04:00",
+   "elapsed_min": 60.0,
    "home": "MTL",
    "away": "SJS",
    "home_score": 3,
@@ -205,12 +205,12 @@
    ]
   },
   "2026020145": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "03:02",
-   "elapsed_min": 56.97,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CBJ",
    "away": "TOR",
    "home_score": 2,
@@ -219,7 +219,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -258,7 +258,7 @@
     },
     {
      "period": 3,
-     "minute": 56.95,
+     "minute": 56.967,
      "team": "TOR"
     }
    ]
@@ -268,8 +268,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "13:26",
-   "elapsed_min": 26.57,
+   "time_remaining": "08:25",
+   "elapsed_min": 31.58,
    "home": "STL",
    "away": "WPG",
    "home_score": 1,
@@ -292,8 +292,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "00:53",
-   "elapsed_min": 39.12,
+   "time_remaining": "12:56",
+   "elapsed_min": 27.5,
    "home": "DAL",
    "away": "BOS",
    "home_score": 1,
@@ -326,8 +326,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "03:46",
-   "elapsed_min": 16.23,
+   "time_remaining": "02:23",
+   "elapsed_min": 17.62,
    "home": "EDM",
    "away": "MIN",
    "home_score": 0,
