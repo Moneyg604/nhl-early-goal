@@ -1,7 +1,7 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 04:30 UTC",
- "updated_et": "12:30 AM ET",
+ "updated_utc": "2026-10-21 04:35 UTC",
+ "updated_et": "12:35 AM ET",
  "games": {
   "2026020141": {
    "state": "OFF",
@@ -347,7 +347,7 @@
    ]
   },
   "2026020148": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 4,
@@ -401,21 +401,21 @@
    ]
   },
   "2026020149": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 5,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
    "home": "SEA",
    "away": "DET",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 3,
    "first_goal_min": 6.75,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "SO",
    "goals": [
     {
      "period": 1,
@@ -450,16 +450,16 @@
    ]
   },
   "2026020150": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "07:09",
-   "elapsed_min": 52.85,
+   "time_remaining": "04:02",
+   "elapsed_min": 55.97,
    "home": "VAN",
    "away": "CAR",
    "home_score": 3,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 4.733,
    "p1_done": true,
    "p1_home": 2,
@@ -500,6 +500,11 @@
      "period": 3,
      "minute": 44.117,
      "team": "CAR"
+    },
+    {
+     "period": 3,
+     "minute": 50.367,
+     "team": "CAR"
     }
    ]
   },
@@ -508,7 +513,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "10:28",
+   "time_remaining": "05:27",
    "elapsed_min": 37.93,
    "home": "VGK",
    "away": "TBL",
