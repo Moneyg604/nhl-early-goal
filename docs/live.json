@@ -1,7 +1,7 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 02:00 UTC",
- "updated_et": "10:00 PM ET",
+ "updated_utc": "2026-10-21 02:05 UTC",
+ "updated_et": "10:05 PM ET",
  "games": {
   "2026020141": {
    "state": "FINAL",
@@ -273,8 +273,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "16:46",
-   "elapsed_min": 43.23,
+   "time_remaining": "13:26",
+   "elapsed_min": 46.57,
    "home": "STL",
    "away": "WPG",
    "home_score": 1,
@@ -302,8 +302,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "19:46",
-   "elapsed_min": 40.23,
+   "time_remaining": "17:31",
+   "elapsed_min": 42.48,
    "home": "DAL",
    "away": "BOS",
    "home_score": 1,
@@ -336,7 +336,7 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:51",
+   "time_remaining": "02:50",
    "elapsed_min": 19.95,
    "home": "EDM",
    "away": "MIN",
@@ -365,18 +365,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "13:40",
-   "elapsed_min": 6.33,
+   "time_remaining": "12:17",
+   "elapsed_min": 7.72,
    "home": "SEA",
    "away": "DET",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 6.75,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 6.75,
+     "team": "SEA"
+    }
+   ]
   },
   "2026020150": {
    "state": "PRE",
