@@ -1,15 +1,15 @@
 {
  "date": "2026-10-20",
- "updated_utc": "2026-10-21 01:35 UTC",
- "updated_et": "9:35 PM ET",
+ "updated_utc": "2026-10-21 01:40 UTC",
+ "updated_et": "9:40 PM ET",
  "games": {
   "2026020141": {
    "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:18",
-   "elapsed_min": 55.7,
+   "time_remaining": "01:45",
+   "elapsed_min": 58.25,
    "home": "MTL",
    "away": "SJS",
    "home_score": 3,
@@ -53,21 +53,21 @@
    ]
   },
   "2026020142": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:19",
-   "elapsed_min": 59.68,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NJD",
    "away": "COL",
    "home_score": 4,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 6.667,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -97,6 +97,11 @@
     {
      "period": 3,
      "minute": 56.783,
+     "team": "COL"
+    },
+    {
+     "period": 3,
+     "minute": 59.917,
      "team": "COL"
     }
    ]
@@ -146,12 +151,12 @@
    ]
   },
   "2026020144": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:10",
-   "elapsed_min": 59.83,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "WSH",
    "away": "LAK",
    "home_score": 2,
@@ -160,7 +165,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -200,16 +205,16 @@
    ]
   },
   "2026020145": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:29",
-   "elapsed_min": 54.52,
+   "time_remaining": "03:02",
+   "elapsed_min": 56.97,
    "home": "CBJ",
    "away": "TOR",
    "home_score": 2,
-   "away_score": 5,
+   "away_score": 6,
    "first_goal_min": 2.633,
    "p1_done": true,
    "p1_home": 1,
@@ -250,6 +255,11 @@
      "period": 3,
      "minute": 44.217,
      "team": "CBJ"
+    },
+    {
+     "period": 3,
+     "minute": 56.95,
+     "team": "TOR"
     }
    ]
   },
@@ -258,8 +268,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "01:31",
-   "elapsed_min": 38.48,
+   "time_remaining": "13:26",
+   "elapsed_min": 26.57,
    "home": "STL",
    "away": "WPG",
    "home_score": 1,
@@ -282,8 +292,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:31",
-   "elapsed_min": 36.48,
+   "time_remaining": "00:53",
+   "elapsed_min": 39.12,
    "home": "DAL",
    "away": "BOS",
    "home_score": 1,
@@ -316,8 +326,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "06:07",
-   "elapsed_min": 13.88,
+   "time_remaining": "03:46",
+   "elapsed_min": 16.23,
    "home": "EDM",
    "away": "MIN",
    "home_score": 0,
