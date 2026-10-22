@@ -1,7 +1,7 @@
 {
  "date": "2026-10-21",
- "updated_utc": "2026-10-22 02:25 UTC",
- "updated_et": "10:25 PM ET",
+ "updated_utc": "2026-10-22 02:30 UTC",
+ "updated_et": "10:30 PM ET",
  "games": {
   "2026020152": {
    "state": "FINAL",
@@ -43,12 +43,12 @@
    ]
   },
   "2026020153": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:08",
-   "elapsed_min": 59.87,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "OTT",
    "away": "FLA",
    "home_score": 5,
@@ -57,7 +57,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
