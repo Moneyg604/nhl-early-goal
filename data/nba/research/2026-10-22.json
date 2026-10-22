@@ -1,0 +1,184 @@
+{
+ "v": 1,
+ "season": 2027,
+ "date": "2026-10-22",
+ "generated_utc": "2026-10-22 19:47 UTC",
+ "analyst": "Claude research desk",
+ "odds_band": [
+  1.35,
+  2.2
+ ],
+ "summary": "Two games tonight (CLE at PHI, DEN at OKC). No selection clears the desk's bar: every DraftKings spread and moneyline sits at or below break-even against the desk's probability, the Denver moneyline misses the 0.30 wild-card floor, and no DraftKings price could be read today for a total or a player prop.",
+ "games": {
+  "2026_10_22_CLE_PHI": {
+   "notes": [
+    "Lines: DraftKings via the ESPN feed at 19:44 UTC: PHI -2.5 (1.909 / CLE 1.909), ML PHI 1.704 / CLE 2.20, total 236.5 (both sides assumed 1.91, not read from DraftKings). No-vig: PHI cover 0.500, ML PHI 0.5635 / CLE 0.4365. Articles move the number (TheSpread: PHI -3, total 236, opened -4.5; an 8:52 a.m. ET CBS note: PHI -3.5, total 235.5), none naming DraftKings, so the feed's DraftKings price is the one used.",
+    "Model: PHI 114.7, CLE 115.0, margin PHI -0.3, total 229.8, pace 101.1. PHI's ratings are one game; CLE's are league priors (0 games). Treated as no information. Desk margin is anchored to the market at PHI +2.5 (no-vig spread), with a small shift for Allen (below), so the desk's chance is about 0.50 for PHI -2.5 and 0.50 for CLE +2.5.",
+    "Availability: CLE Jarrett Allen (C) QUESTIONABLE, right patellar tendinopathy (day-to-day, updated 15:08 UTC). No same-day source says he is expected to play. If he sits, Mobley moves to center and Tyson enters the starting group, a loss of roughly 1 to 2 points of CLE rim protection and rebounding that is not priced by the 1-game model. CLE Khalifa Diop (C) and Nae'Qwan Tomlin (F) OUT. PHI Dean Wade (F) QUESTIONABLE, ankle (day-to-day); Tacko Fall, Dominick Barlow and Ariel Hukporti OUT. Joel Embiid is not on the report (available, 33 minutes projected).",
+    "Expected starters: PHI Maxey, Brown, LeBron James, Embiid (the 106-100 win over the Knicks used Maxey, Brown and James; Embiid is not on the report). CLE Mitchell, Harden, Mobley, Allen if he plays, Strus or Merrill: not confirmed in any source read today.",
+    "Desk read: Allen's questionable status is the one news item that moves the number, and it moves it toward PHI, not CLE. That is not enough to clear 0.52 on either side. CLE +2.5 at 1.909 needs 0.524 to break even; the desk's 0.48 to 0.50 is negative expected value. PHI -2.5 at 1.909 also needs 0.524; the desk's 0.50 to 0.52 is at best break-even.",
+    "Moneylines: PHI 1.704 needs 0.587 (desk about 0.56 to 0.58, negative EV); CLE 2.20 needs 0.455 (desk about 0.42 to 0.44, negative EV). No selection.",
+    "Totals: model 229.8 vs market 236.5 (the desk's under probability at 0.64 is 14 points from the 0.50 no-vig line). The model is built on priors and one game for PHI, and its league scoring baseline (113.3 per 100) gives a lower environment than the market. No sourced reason survived the re-check, and no DraftKings total price was read today, so no total is selected.",
+    "Props: no DraftKings player-prop price was readable today. TheSpread shows Mobley 10+ rebounds at +110 with no book named. Declined. Allen props are off until he is confirmed.",
+    "Result: no selections on this game. Every candidate is at or below break-even at the DraftKings price."
+   ],
+   "weather": "Indoor arena: no effect.",
+   "injuries": [
+    "CLE: OUT Khalifa Diop (knee), Nae'Qwan Tomlin (back). QUESTIONABLE Jarrett Allen (right patellar tendinopathy, day-to-day). Official ESPN feed injury list, updated 2026-10-22 15:08 UTC.",
+    "PHI: OUT Tacko Fall (quadriceps), Dominick Barlow (back), Ariel Hukporti (Achilles, out long-term). QUESTIONABLE Dean Wade (ankle, day-to-day). Joel Embiid not on the report.",
+    "The official 2026-10-22 final report was not separately readable; the feed's day-to-day flags are the latest read."
+   ],
+   "sources": [
+    {
+     "name": "Desk payload: DraftKings lines via ESPN feed, model, injuries",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nba/days/2026-10-22.json",
+     "fetched": "2026-10-22T19:44Z"
+    },
+    {
+     "name": "TheSpread: Cavaliers vs 76ers preview (no book named)",
+     "url": "https://www.thespread.com/nba-articles/cavaliers-vs-76ers-prediction-october-22-2026/",
+     "fetched": "2026-10-22T19:50Z"
+    },
+    {
+     "name": "CBS Sports: 76ers vs Cavaliers picks (no book named)",
+     "url": "https://www.cbssports.com/betting/news/76ers-cavaliers-odds-prediction-time-2026-nba-picks-thursday-october-22/",
+     "fetched": "2026-10-22T19:50Z"
+    }
+   ]
+  },
+  "2026_10_22_DEN_OKC": {
+   "notes": [
+    "Lines: DraftKings via the ESPN feed at 19:44 UTC: OKC -8.5 (1.952 / DEN +8.5 at 1.87), ML OKC 1.294 / DEN 3.70, total 236.5 (both sides assumed 1.91). Lineups.com lists DEN +8.5 at -110 at DraftKings, consistent with the feed. TheSpread and SI list -7.5 / -8.5 and 235.5 / 236.5 with no DraftKings label on the spread, so the feed is used.",
+    "Model: OKC ortg 115.9 / drtg 107.9 from one game; DEN 117.8 / 114.8 are 0-game priors. Margin OKC +7.5, total 230.2, pace 100.2. Treated as the prior-only model: it is anchored to the market.",
+    "Desk margin: OKC by about 8 points (market -8.5 with the feed's price; the model's 7.5 is a prior). Injury net effect is close to zero: both sides' missing players are bench depth (OKC: Nikola Topic, Thomas Sorber out, Otega Oweh out for the season; DEN: Julian Strawther out, Spencer Jones questionable at 21 minutes projected). Nothing in the starting groups changes.",
+    "Spread: DEN +8.5 (1.87) needs 0.535 to break even; the desk's cover is Phi((−8.0 + 8.5) / 12.6) = 0.516: negative EV (about −0.035). OKC −8.5 (1.952) needs 0.512; the desk's cover is Phi((8.0 − 8.5)/12.6) = 0.484: negative EV. No selection.",
+    "Moneylines: OKC 1.294 is below the spec's 1.35 band floor (ineligible) and its probability (about 0.74 vs break-even 0.77) is negative EV in any case. DEN 3.70 is a wild card (2.21 to 4.50 band) but the desk's win chance Phi(−8.0 / 12.6) = 0.26 is below the 0.30 wild-card floor. Neither qualifies.",
+    "Totals: model 230.2 vs market 236.5. The 6-point gap is a re-check trigger (under 0.63 against 0.50). The model is built on priors and league scoring (113.3 per 100) gives a lower environment, while the market prices a higher one; no source read today names a reason for a higher total, and no DraftKings total price was read. No total selected.",
+    "Props: no DraftKings player-prop price was readable today. TheSpread lists Jokic 10+ assists at -145 with no book named (Jokic's model assists mean 10.8, so a 9.5 or 10.5 DraftKings line would be worth a read); SI lists SGA over 30.5 points at -111 with an odds section citing DraftKings, while its spread disagrees with the feed. Neither is a DraftKings read the spec accepts. Declined; the owner should have the desk price these from a DraftKings page if wanted.",
+    "Result: no selections on this game. The desk's spread and moneyline probabilities are at or below break-even at the DraftKings prices; the wild card fails its floor."
+   ],
+   "weather": "Paycom Center, indoor: no effect.",
+   "injuries": [
+    "OKC: OUT Otega Oweh (Achilles, surgery, out for the season), Thomas Sorber (knee, surgery; return 2026-10-26), Nikola Topic (back, surgery; return 2026-10-26). Official ESPN feed list, updated 2026-10-21.",
+    "DEN: OUT Julian Strawther (knee sprain, return 2026-11-29). QUESTIONABLE Spencer Jones (hamstring, day-to-day, updated 2026-10-22 per the feed). Lineups.com reads the starting five (Murray, Braun, Johnson, Gordon, Jokic) as fully intact.",
+    "Starting groups for both sides were not confirmed by a same-day source; the rotation is taken from the payload's minutes projections."
+   ],
+   "sources": [
+    {
+     "name": "Desk payload: DraftKings lines via ESPN feed, model, injuries",
+     "url": "https://raw.githubusercontent.com/Moneyg604/nhl-early-goal/main/docs/nba/days/2026-10-22.json",
+     "fetched": "2026-10-22T19:44Z"
+    },
+    {
+     "name": "TheSpread: Nuggets vs Thunder preview (no book named)",
+     "url": "https://www.thespread.com/nba-articles/nuggets-vs-thunder-prediction-october-22-2026/",
+     "fetched": "2026-10-22T19:50Z"
+    },
+    {
+     "name": "SI: Nuggets vs Thunder picks (odds section cites DraftKings; spread conflicts with feed)",
+     "url": "https://www.si.com/betting/nuggets-vs-thunder-prediction-odds-and-best-nba-prop-bets-for-thursday-oct-22-2026",
+     "fetched": "2026-10-22T19:50Z"
+    },
+    {
+     "name": "Lineups.com: Nuggets vs Thunder picks (DEN +8.5 -110 at DraftKings)",
+     "url": "https://www.lineups.com/articles/nuggets-thunder-nba-picks-predictions-odds-for-thursday-october-22-2026/",
+     "fetched": "2026-10-22T19:50Z"
+    }
+   ]
+  }
+ },
+ "selections": [],
+ "declined": [
+  {
+   "id": "spread|2026_10_22_CLE_PHI|away|2.5|CLE",
+   "label": "CLE +2.5 (DraftKings 1.909)",
+   "why": "Desk cover about 0.48 to 0.50 against 0.524 break-even: negative EV. Allen's questionable tag weighs toward PHI, not CLE.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "spread|2026_10_22_CLE_PHI|home|-2.5|PHI",
+   "label": "PHI -2.5 (DraftKings 1.909)",
+   "why": "Desk cover about 0.50 to 0.52 against 0.524 break-even: no edge that clears the 0.52 floor with a sourced reason.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "ml|2026_10_22_CLE_PHI|home||PHI",
+   "label": "PHI moneyline (DraftKings 1.704)",
+   "why": "Desk about 0.56 to 0.58 against 0.587 break-even: negative EV.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "ml|2026_10_22_CLE_PHI|away||CLE",
+   "label": "CLE moneyline (DraftKings 2.20)",
+   "why": "Desk about 0.42 to 0.44 against 0.455 break-even: negative EV.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "total|2026_10_22_CLE_PHI|under|236.5|",
+   "label": "Under 236.5 (feed price assumed 1.91)",
+   "why": "Model 14 points from no-vig with no sourced reason; the total's DraftKings price was not read today, so it cannot be a selection.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "total|2026_10_22_CLE_PHI|over|236.5|",
+   "label": "Over 236.5 (feed price assumed 1.91)",
+   "why": "Same as the under: no sourced reason, no DraftKings price read today.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "prop|2026_10_22_CLE_PHI|Evan Mobley|reb|10+",
+   "label": "Evan Mobley 10+ rebounds (+110)",
+   "why": "Price from TheSpread with no book named, not a DraftKings read; Mobley's rebound projection (8.9) is near the line, not clear.",
+   "game_id": "2026_10_22_CLE_PHI"
+  },
+  {
+   "id": "spread|2026_10_22_DEN_OKC|away|8.5|DEN",
+   "label": "DEN +8.5 (DraftKings 1.87)",
+   "why": "Desk cover about 0.52 against 0.535 break-even: negative EV; injuries net to roughly zero.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "spread|2026_10_22_DEN_OKC|home|-8.5|OKC",
+   "label": "OKC -8.5 (DraftKings 1.952)",
+   "why": "Desk cover about 0.48 against 0.512 break-even: negative EV.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "ml|2026_10_22_DEN_OKC|home||OKC",
+   "label": "OKC moneyline (DraftKings 1.294)",
+   "why": "Below the 1.35 band floor; desk probability about 0.74, negative EV at this price.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "ml|2026_10_22_DEN_OKC|away||DEN",
+   "label": "DEN moneyline (DraftKings 3.70, wild card)",
+   "why": "Desk win chance about 0.26, below the 0.30 wild-card floor.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "total|2026_10_22_DEN_OKC|under|236.5|",
+   "label": "Under 236.5 (feed price assumed 1.91)",
+   "why": "Model 6 points below the line, but priors-based with no sourced reason and no DraftKings total price read today.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "total|2026_10_22_DEN_OKC|over|236.5|",
+   "label": "Over 236.5 (feed price assumed 1.91)",
+   "why": "No DraftKings total price read today; no sourced reason for a higher total.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "prop|2026_10_22_DEN_OKC|Nikola Jokic|ast|10+",
+   "label": "Nikola Jokic 10+ assists (-145, no book named)",
+   "why": "Price from TheSpread with no book named; not a DraftKings read. Model assists mean 10.8 makes it worth a DraftKings check.",
+   "game_id": "2026_10_22_DEN_OKC"
+  },
+  {
+   "id": "prop|2026_10_22_DEN_OKC|Shai Gilgeous-Alexander|pts|over 30.5",
+   "label": "Shai Gilgeous-Alexander over 30.5 points (-111)",
+   "why": "SI's odds section cites DraftKings but its spread disagrees with the feed; not confirmed on a DraftKings board, so declined.",
+   "game_id": "2026_10_22_DEN_OKC"
+  }
+ ],
+ "best": []
+}
