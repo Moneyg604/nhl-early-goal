@@ -1,0 +1,171 @@
+{
+ "v": 1,
+ "season": 2026,
+ "week": 7,
+ "generated_utc": "2026-10-22 15:46 UTC",
+ "analyst": "Claude research desk",
+ "odds_band": [
+  1.35,
+  2.2
+ ],
+ "summary": "Thursday night only: New England at Chicago (kickoff 20:15 ET). Tuesday practice and the payload show New England with multiple offensive-line starters out and Carlton Davis out, Chicago without RB2 Kyle Monangai; weather is clean. The desk's one pick is Under 50.5 at DraftKings 1.95 (desk 0.58); the moneyline and NE +3 are declined as having no independent edge over the market, and no DraftKings prop line could be confirmed, so the QB, receiving and rushing sections stay short.",
+ "games": {
+  "2026_07_NE_CHI": {
+   "notes": [
+    "Only game in this window: NE at CHI, Thursday 2026-10-22 20:15 ET (kickoff 00:15Z Oct 23). No Friday game on the slate.",
+    "Official designations: this run had Tuesday practice reports (Covers, FootballNation) and the payload's injury block. Wednesday and Thursday official designations could not be fetched (nfl.com injury page refused; no 2026 Wednesday or Thursday report found in search). Starter status below is from Tuesday practice and the payload; flagged as a gap.",
+    "Patriots: QB Drake Maye full participant Tuesday (right shoulder, no game designation found). A.J. Brown limited Tuesday (ankle). Romeo Doubs on IR (out at least four games). Alijah Vera-Tucker (hamstring) and Ben Brown (knee) did not practice; Morgan Moses (foot) limited; Carlton Davis III (neck) out per payload; Karon Prunty and Channing Canada out per payload. Multiple New England offensive-line starters are out, per FootballNation.",
+    "Bears: Kyle Monangai (RB2, thumb and toe) out per payload, did not practice Tuesday. Jack Sanborn (LB, concussion protocol) out. T.J. Edwards (LB, hamstring) Doubtful. Jonah Jackson (G, hip and quad) limited, improved. Tyrique Stevenson (CB, hip) full participant Tuesday. Caleb Williams not on the Tuesday report and expected to start (back from injury the weekend before, per Covers).",
+    "Weather: 55 F at kickoff +3h, wind 5.6 mph gusting 9.4, 0% precipitation, outdoor grass (Soldier Field). No weather effect on the arithmetic.",
+    "Short week both sides (4 days rest, Thursday night). Spread CHI -3.0 (DraftKings -3.0 at 1.98 / NE +3.0 at 1.85), total 50.5 (DraftKings under 1.95 / over 1.87), CHI moneyline DraftKings 1.65 / NE 2.30 (feed, 8 books).",
+    "Line movement: opener per Covers was Bears -2.5 (Oct 19); the current DraftKings spread is -3.0, a half-point move toward CHI without a named injury cause in the sources read (the Monangai and Sanborn news is older). Read as sharp-or-public money, not as news.",
+    "Season context: NE offense EPA per play +0.041 (ppd 2.08), NE defense EPA -0.023 (rank 16 on EPA pass). CHI offense EPA +0.023 (ppd 2.08), CHI defense EPA -0.007 (ppd 2.00, pace 0.93). CHI defense ranks 2nd on third-down defence and 2nd on sack rate; NE offense ranks 15th on sack-rate allowed."
+   ],
+   "weather": "55 F, wind 5.6 mph gusting 9.4, 0% precipitation, outdoor grass. No effect.",
+   "injuries": [
+    "NE: Maye full (shoulder, Tue). A.J. Brown limited (ankle, Tue). Vera-Tucker and B. Brown did not practice (Tue). Davis out (payload). Doubs on IR.",
+    "CHI: Monangai out (thumb/toe). Sanborn out (concussion). Edwards Doubtful (hamstring). Jackson limited (hip/quad). Stevenson full (hip, Tue). Williams expected to start."
+   ],
+   "sources": [
+    {
+     "name": "Covers: Patriots vs. Bears TNF prediction and early leans (Week 7 2026)",
+     "url": "https://www.covers.com/nfl/patriots-vs-bears-prediction-picks-odds-early-leans-week-7-2026",
+     "fetched": "2026-10-22T15:44Z"
+    },
+    {
+     "name": "FootballNation: Patriots at Bears Week 7 guide 2026",
+     "url": "https://www.footballnationusa.com/post/patriots-at-bears-week-7-guide-2026",
+     "fetched": "2026-10-22T15:45Z"
+    },
+    {
+     "name": "Week 7 payload: odds feed (8 books, DraftKings), injuries, weather, research (docs/nfl/weeks/2026-w07.json)",
+     "url": "https://github.com/Moneyg604/nhl-early-goal/blob/main/docs/nfl/weeks/2026-w07.json",
+     "fetched": "2026-10-22T15:40Z"
+    }
+   ]
+  }
+ },
+ "selections": [
+  {
+   "id": "total|2026_07_NE_CHI|under|50.5|",
+   "game_id": "2026_07_NE_CHI",
+   "kind": "total",
+   "side": "under",
+   "line": 50.5,
+   "who": null,
+   "team": null,
+   "label": "Under 50.5 (game total)",
+   "odds": 1.95,
+   "odds_source": "feed",
+   "p": 0.58,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 55,
+   "inputs": [
+    "Points per drive, season: CHI offense 2.08 ppd, CHI defense 2.00 ppd (pace 0.93), NE offense 2.08 ppd, NE defense ppd in payload research block. Both offenses at league-typical efficiency; the scoring is driven by the two defenses and the NE offensive line.",
+    "Raw simulation total before the market anchor: 46.74 (payload model.total). The calibrated sim total 50.45 equals the market 50.5 because the sim is anchored to the number; the raw figure is the arithmetic input.",
+    "NE offensive line: Vera-Tucker and B. Brown did not practice Tuesday, Moses limited (FootballNation). Fewer NE line starters lowers NE points and its red-zone TD share (NE red-zone TD rank 12).",
+    "CHI running game: Monangai out, so Roschon Johnson and Swift carry more; this moves a few points off CHI's offense, not a large swing.",
+    "Weather 55 F, 5.6 mph wind: no adjustment. Stadium outdoor grass: no adjustment.",
+    "Desk mean 47.0 points (raw 46.7 plus 0.3 for CHI's ppd), SD 13.5: P(total under 50.5) = Phi((50.5 - 47.0) / 13.5) = Phi(0.26) = 0.60; shaded to 0.58 for the anchor disagreement and the short-week pace question."
+   ],
+   "arithmetic": [
+    "Desk mean total 47.0; line 50.5; gap 3.5 points.",
+    "P(under 50.5) = Phi(3.5 / 13.5) = Phi(0.26) = 0.60; shaded to 0.58.",
+    "No-vig market (DraftKings 1.95 under, 1.87 over, averaged across 8 books): about 0.497 under. Desk 0.58 is +8.3 points on the market, which is the re-check trigger in ground rule 4.",
+    "Re-check: found reasons named in inputs (NE offensive-line starters out, CHI's Monangai out, the raw sim at 46.7). These are real scoring inputs, so the gap is kept but graded B with lower confidence (55).",
+    "Break-even at 1.95 = 0.513; EV = 0.58 x 1.95 - 1 = +13.1%; fair odds 1 / 0.58 = 1.72."
+   ],
+   "pros": [
+    "Raw points arithmetic (2.00 CHI defense ppd, NE's short-handed line) points under 50.5; the sim's own raw total is 46.7.",
+    "Two short-week teams on a Thursday with a slow NE pace (0.95) and a CHI defense pace of 0.93.",
+    "Weather is clean: no wind, no rain."
+   ],
+   "risks": [
+    "The calibrated sim sits on the market at 50.45: the market's number is already priced in the sim, so the model may be wrong in the same direction as the market.",
+    "Thursday night scoring variance: a single long drive or a pick-six swings 7 points.",
+    "Williams returned from injury; if the Bears offense is faster than its season ppd, the total goes over.",
+    "Wednesday and Thursday official designations were not checked; a late NE line change would shift the figure."
+   ],
+   "verdict": "Under 50.5 at DraftKings 1.95: the raw points arithmetic is about 47, the NE line is short, and the defenses are the better units. Break-even 0.513 against a desk 0.58.",
+   "sources": [
+    {
+     "name": "Covers: Patriots vs. Bears TNF prediction (Week 7 2026)",
+     "url": "https://www.covers.com/nfl/patriots-vs-bears-prediction-picks-odds-early-leans-week-7-2026",
+     "fetched": "2026-10-22T15:44Z"
+    },
+    {
+     "name": "FootballNation: Patriots at Bears Week 7 guide 2026",
+     "url": "https://www.footballnationusa.com/post/patriots-at-bears-week-7-guide-2026",
+     "fetched": "2026-10-22T15:45Z"
+    },
+    {
+     "name": "Week 7 payload: odds feed (DraftKings under 1.95) and model.total",
+     "url": "https://github.com/Moneyg604/nhl-early-goal/blob/main/docs/nfl/weeks/2026-w07.json",
+     "fetched": "2026-10-22T15:40Z"
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "id": "ml|2026_07_NE_CHI|home||CHI",
+   "label": "CHI moneyline (DraftKings 1.65)",
+   "why": "No independent edge: desk 0.58 vs no-vig market about 0.59 (DraftKings 1.65 = 0.606 break-even). The desk's margin input is the sim's calibrated 2.6, which already matches the market, so a pick on it would be a market pick, not an evidence pick.",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "spread|2026_07_NE_CHI|away|3|",
+   "label": "NE +3 (DraftKings 1.85)",
+   "why": "Desk P(NE covers) 0.51 rests on the same margin estimate as the ML decline; one estimate, not two picks. Declined as redundant with the no-edge ML, not as a price call.",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_NE_CHI|over|0|A.J. Brown",
+   "label": "A.J. Brown receiving yards (sim mean 59.2)",
+   "why": "No DraftKings prop line confirmed this run: the DraftKings board page was not reachable and the odds feed carries no prop prices before the Sunday pull. Not a selection without a DraftKings line.",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_NE_CHI|over|0|Luther Burden III",
+   "label": "Luther Burden III receiving yards (sim mean 50.5)",
+   "why": "No DraftKings prop line confirmed this run (same reason as A.J. Brown).",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_NE_CHI|over|0|Rome Odunze",
+   "label": "Rome Odunze receiving yards (sim mean 42.9)",
+   "why": "No DraftKings prop line confirmed this run (same reason).",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "desk|rush_yds|2026_07_NE_CHI|over|0|D'Andre Swift",
+   "label": "D'Andre Swift rushing yards (sim, with Monangai out)",
+   "why": "No DraftKings prop line confirmed this run; the sim's rushing mean is not checked against a DraftKings line.",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "desk|qb_yds|2026_07_NE_CHI|over|0|Drake Maye",
+   "label": "Drake Maye passing yards (sim mean 241.2 for CHI QB, NE QB not priced)",
+   "why": "No DraftKings passing-yards line confirmed this run; Maye full on Tuesday but the shoulder listing needs the Wednesday/Thursday designation. Not a selection without a DraftKings line.",
+   "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "fg|2026_07_NE_CHI|over|0.5|Cairo Santos",
+   "label": "Cairo Santos over 0.5 field goals",
+   "why": "Kicker field-goal market is off in the spec.",
+   "game_id": "2026_07_NE_CHI"
+  }
+ ],
+ "sections": {
+  "qb": [],
+  "receiving": [],
+  "rushing": [],
+  "game": [
+   "total|2026_07_NE_CHI|under|50.5|"
+  ]
+ },
+ "best": [
+  "total|2026_07_NE_CHI|under|50.5|"
+ ]
+}
