@@ -1,17 +1,15 @@
 {
  "date": "2026-10-23",
- "credits_remaining": 168,
- "updated_utc": "2026-10-23 19:05 UTC",
+ "credits_remaining": 167,
+ "updated_utc": "2026-10-23 21:58 UTC",
  "games": {
   "MTL@CHI": {
    "home": "CHI",
    "away": "MTL",
    "commence": "2026-10-24T00:10:00Z",
-   "fetched_utc": "2026-10-23 19:05 UTC",
+   "fetched_utc": "2026-10-23 21:58 UTC",
    "requested": [
-    "player_shots_on_goal",
-    "player_points",
-    "player_goal_scorer_anytime"
+    "team_totals"
    ],
    "markets": {
     "sog": {
@@ -2431,6 +2429,72 @@
         "line": null,
         "prices": {
          "yes": 8.5
+        }
+       }
+      }
+     }
+    },
+    "team_total": {
+     "CHI": {
+      "name": "CHI",
+      "line": 2.5,
+      "n": 2,
+      "over": 1.78,
+      "book_over": "FanDuel",
+      "under": 2.19,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.5505,
+      "books": {
+       "BetOnline.ag": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.66,
+         "under": 2.19
+        }
+       },
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.78
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.74,
+         "under": 1.98
+        }
+       }
+      }
+     },
+     "MTL": {
+      "name": "MTL",
+      "line": 3.5,
+      "n": 2,
+      "over": 1.97,
+      "book_over": "BetOnline.ag",
+      "under": 1.85,
+      "book_under": "FanDuel",
+      "consensus": 0.4806,
+      "books": {
+       "BetOnline.ag": {
+        "line": 3.5,
+        "prices": {
+         "over": 1.97,
+         "under": 1.79
+        }
+       },
+       "FanDuel": {
+        "line": 3.5,
+        "prices": {
+         "under": 1.85
+        }
+       },
+       "BetMGM": {
+        "line": 3.5,
+        "prices": {
+         "over": 1.91,
+         "under": 1.8
         }
        }
       }
@@ -4880,5 +4944,5 @@
    }
   }
  },
- "spent": 6
+ "spent": 7
 }
