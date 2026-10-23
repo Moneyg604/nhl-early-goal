@@ -1,7 +1,7 @@
 {
  "date": "2026-10-22",
- "updated_utc": "2026-10-23 04:05 UTC",
- "updated_et": "12:05 AM ET",
+ "updated_utc": "2026-10-23 04:10 UTC",
+ "updated_et": "12:10 AM ET",
  "games": {
   "2026020154": {
    "state": "OFF",
@@ -406,7 +406,7 @@
    ]
   },
   "2026020162": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -513,12 +513,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "20:00",
-   "elapsed_min": 40.0,
+   "time_remaining": "18:57",
+   "elapsed_min": 41.05,
    "home": "SEA",
    "away": "UTA",
    "home_score": 3,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 3.633,
    "p1_done": true,
    "p1_home": 2,
@@ -544,6 +544,11 @@
      "period": 2,
      "minute": 22.383,
      "team": "SEA"
+    },
+    {
+     "period": 3,
+     "minute": 40.45,
+     "team": "UTA"
     }
    ]
   },
@@ -552,11 +557,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:10",
-   "elapsed_min": 47.83,
+   "time_remaining": "08:10",
+   "elapsed_min": 51.83,
    "home": "VAN",
    "away": "DET",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 5,
    "first_goal_min": 4.3,
    "p1_done": true,
@@ -593,6 +598,11 @@
      "period": 3,
      "minute": 44.0,
      "team": "DET"
+    },
+    {
+     "period": 3,
+     "minute": 50.617,
+     "team": "VAN"
     }
    ]
   }
