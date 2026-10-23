@@ -1,7 +1,7 @@
 {
  "date": "2026-10-22",
- "updated_utc": "2026-10-23 02:15 UTC",
- "updated_et": "10:15 PM ET",
+ "updated_utc": "2026-10-23 02:20 UTC",
+ "updated_et": "10:20 PM ET",
  "games": {
   "2026020154": {
    "state": "OFF",
@@ -53,7 +53,7 @@
    ]
   },
   "2026020155": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -117,7 +117,7 @@
    ]
   },
   "2026020156": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -259,21 +259,21 @@
    ]
   },
   "2026020159": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
-   "time_remaining": "04:41",
+   "time_remaining": "02:18",
    "elapsed_min": 60.0,
    "home": "NYI",
    "away": "LAK",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 5.85,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -294,6 +294,11 @@
      "period": 3,
      "minute": 47.1,
      "team": "NYI"
+    },
+    {
+     "period": 4,
+     "minute": 62.7,
+     "team": "LAK"
     }
    ]
   },
@@ -302,11 +307,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "10:31",
-   "elapsed_min": 49.48,
+   "time_remaining": "09:10",
+   "elapsed_min": 50.83,
    "home": "STL",
    "away": "VGK",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 2,
    "first_goal_min": 10.0,
    "p1_done": true,
@@ -343,6 +348,11 @@
      "period": 3,
      "minute": 48.35,
      "team": "STL"
+    },
+    {
+     "period": 3,
+     "minute": 50.483,
+     "team": "STL"
     }
    ]
   },
@@ -351,8 +361,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "10:45",
-   "elapsed_min": 49.25,
+   "time_remaining": "08:01",
+   "elapsed_min": 51.98,
    "home": "DAL",
    "away": "WPG",
    "home_score": 1,
@@ -385,8 +395,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "13:19",
-   "elapsed_min": 26.68,
+   "time_remaining": "09:15",
+   "elapsed_min": 30.75,
    "home": "CGY",
    "away": "MIN",
    "home_score": 2,
@@ -414,8 +424,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:14",
-   "elapsed_min": 25.77,
+   "time_remaining": "12:14",
+   "elapsed_min": 27.77,
    "home": "EDM",
    "away": "CAR",
    "home_score": 2,
@@ -453,39 +463,50 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "16:22",
-   "elapsed_min": 3.63,
+   "time_remaining": "13:30",
+   "elapsed_min": 6.5,
    "home": "SEA",
    "away": "UTA",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 3.633,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 3.633,
+     "team": "SEA"
+    }
+   ]
   },
   "2026020165": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "15:07",
-   "elapsed_min": 4.88,
+   "time_remaining": "13:45",
+   "elapsed_min": 6.25,
    "home": "VAN",
    "away": "DET",
    "home_score": 0,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 4.3,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 1,
+   "p1_away": 2,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 4.3,
+     "team": "DET"
+    },
+    {
+     "period": 1,
+     "minute": 6.067,
      "team": "DET"
     }
    ]
