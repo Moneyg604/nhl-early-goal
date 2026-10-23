@@ -1,7 +1,7 @@
 {
  "date": "2026-10-22",
- "updated_utc": "2026-10-23 03:35 UTC",
- "updated_et": "11:35 PM ET",
+ "updated_utc": "2026-10-23 03:40 UTC",
+ "updated_et": "11:40 PM ET",
  "games": {
   "2026020154": {
    "state": "OFF",
@@ -406,12 +406,12 @@
    ]
   },
   "2026020162": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:04",
-   "elapsed_min": 58.93,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CGY",
    "away": "MIN",
    "home_score": 2,
@@ -420,7 +420,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -444,11 +444,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "01:36",
-   "elapsed_min": 58.4,
+   "time_remaining": "01:03",
+   "elapsed_min": 58.95,
    "home": "EDM",
    "away": "CAR",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 5,
    "first_goal_min": 8.117,
    "p1_done": true,
@@ -500,6 +500,11 @@
      "period": 3,
      "minute": 57.333,
      "team": "CAR"
+    },
+    {
+     "period": 3,
+     "minute": 58.533,
+     "team": "EDM"
     }
    ]
   },
@@ -508,8 +513,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "06:07",
-   "elapsed_min": 33.88,
+   "time_remaining": "03:29",
+   "elapsed_min": 36.52,
    "home": "SEA",
    "away": "UTA",
    "home_score": 3,
@@ -547,7 +552,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:48",
+   "time_remaining": "10:52",
    "elapsed_min": 34.97,
    "home": "VAN",
    "away": "DET",
