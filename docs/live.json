@@ -1,15 +1,15 @@
 {
  "date": "2026-10-23",
- "updated_utc": "2026-10-24 02:45 UTC",
- "updated_et": "10:45 PM ET",
+ "updated_utc": "2026-10-24 02:50 UTC",
+ "updated_et": "10:50 PM ET",
  "games": {
   "2026020166": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:24",
-   "elapsed_min": 59.6,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CHI",
    "away": "MTL",
    "home_score": 1,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -52,8 +52,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "04:48",
-   "elapsed_min": 35.2,
+   "time_remaining": "02:41",
+   "elapsed_min": 37.32,
    "home": "COL",
    "away": "TBL",
    "home_score": 4,
