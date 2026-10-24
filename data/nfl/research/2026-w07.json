@@ -2,13 +2,13 @@
  "v": 1,
  "season": 2026,
  "week": 7,
- "generated_utc": "2026-10-22 15:46 UTC",
+ "generated_utc": "2026-10-24 22:00 UTC",
  "analyst": "Claude research desk",
  "odds_band": [
   1.35,
   2.2
  ],
- "summary": "Thursday night only: New England at Chicago (kickoff 20:15 ET). Tuesday practice and the payload show New England with multiple offensive-line starters out and Carlton Davis out, Chicago without RB2 Kyle Monangai; weather is clean. The desk's one pick is Under 50.5 at DraftKings 1.95 (desk 0.58); the moneyline and NE +3 are declined as having no independent edge over the market, and no DraftKings prop line could be confirmed, so the QB, receiving and rushing sections stay short.",
+ "summary": "Saturday-evening desk for the Sunday slate, researched on the 21 October feed prices with same-day DraftKings pages where reachable; many feed prices were stale and several lines could not be confirmed on DraftKings today, so those were declined. Most Sunday games produced no selection that cleared the evidence floors, and the QB, receiving and rushing sections are thin. No quarterback or rushing-yards selection cleared the evidence floors (no DraftKings-confirmed lines for those props today), so those sections are short and say so.",
  "games": {
   "2026_07_NE_CHI": {
    "notes": [
@@ -43,9 +43,753 @@
      "fetched": "2026-10-22T15:40Z"
     }
    ]
+  },
+  "2026_07_CIN_BAL": {
+   "notes": [
+    "No selections written for this game. No candidate met all of: desk p at or above 0.50, a DraftKings line confirmed today, and evidence at least partial with the QB status settled.",
+    "Biggest open input: Lamar Jackson (BAL) is Questionable (ankle, limited practice) on the official report stamped 2026-10-24 16:39 UTC. The simulation assumes Tyler Huntley starts (2 of 3 sources). No same-day beat-writer source confirmed either way, so the Jackson leg of every BAL-side and total arithmetic is unmeasured.",
+    "Simulation numbers (not edited): BAL win 48.3% anchored (model alone 36%), margin mean BAL -0.91 (CIN +0.91), total mean 47.41 anchored (model alone 41.5), total line 48.5 on the feed's DraftKings entry.",
+    "Prices: the ranked board's DraftKings prices are the odds feed stamped 2026-10-21 18:06 UTC (feed, not re-read today). Web articles dated 2026-10-20 quote DraftKings at Ravens -2.5 (-118), moneyline Ravens -148 / Bengals +124, total 51.5. These do not match the feed's -1.5 / 48.5 and are not same-day, so no line was confirmed on DraftKings today beyond the feed.",
+    "Projected props: the extract's bot.extra holds no proj| receiving, rushing or passing-yard entries for this game (only fg and alt entries, both off by spec). No passing, receiving or rushing prop was selected."
+   ],
+   "weather": "Outdoor, grass, M&T Bank Stadium. Simulation inputs from Open-Meteo at 2026-10-24 16:40 UTC: 63.5 F, wind 4.5 mph gusting 5.5, precipitation 0%. No weather effect on volume or efficiency.",
+   "injuries": [
+    "BAL: Lamar Jackson QB Questionable (ankle, limited practice); Tyler Huntley expected starter per the simulation's sources.",
+    "BAL: Jaylinn Hawkins S Out (knee); Tavius Robinson LB Out (pectoral); T.J. Tampa CB Doubtful (knee); Broderick Washington DE Questionable (ankle); Ronnie Stanley T did not participate (toe); Calais Campbell DT rest.",
+    "CIN: Jonathan Allen DT, B.J. Hill DT and Dexter Lawrence DT did not participate (rest, not injury). Kyle Dugger S full participation per the official report.",
+    "Joe Burrow not on the injury report."
+   ],
+   "sources": [
+    {
+     "name": "Official injury report as stamped in the simulation extract (not re-fetched)",
+     "url": "desk-extract:2026_07_CIN_BAL.json",
+     "fetched": "2026-10-24T16:39Z"
+    },
+    {
+     "name": "Sports Illustrated Betting, Lamar Jackson injury update (Jesse Minter quote, DraftKings line)",
+     "url": "https://www.si.com/betting/concerning-lamar-jackson-injury-update-shifts-bengals-vs-ravens-odds-in-nfl-week-7",
+     "fetched": "2026-10-24T21:38Z"
+    },
+    {
+     "name": "Sports Illustrated Betting, Bengals vs Ravens Week 7 preview (DraftKings lines dated 2026-10-20)",
+     "url": "https://www.si.com/betting/bengals-vs-ravens-prediction-odds-spread-injuries-trends-for-nfl-week-7-01m5b8j6txyy",
+     "fetched": "2026-10-24T21:39Z"
+    },
+    {
+     "name": "Odds feed, DraftKings entries (extract game block, stamp 2026-10-21 18:06 UTC)",
+     "url": "desk-extract:2026_07_CIN_BAL.json",
+     "fetched": "2026-10-21T18:06Z"
+    },
+    {
+     "name": "ESPN BAL injuries page (fetch returned empty; not used)",
+     "url": "https://africa.espn.com/nfl/team/injuries/_/name/bal/e075ef65af66",
+     "fetched": "2026-10-24T21:40Z"
+    }
+   ]
+  },
+  "2026_07_CLE_TEN": {
+   "notes": [
+    "Game: CLE @ TEN, Sunday 2026-10-25 17:00 UTC, Nissan Stadium (open air, natural grass, TEN home). Both teams on 7 days rest.",
+    "Result: zero selections written. No candidate reached desk p 0.50 with a confirmed DraftKings line and a defensible edge. Game-line candidates are declined below with their arithmetic.",
+    "Board prices are stale. The odds feed (priced 2026-10-21) carried CLE moneyline 1.80, CLE -1.5 at 1.91 and Over 37.5 at 1.95. VegasInsider's DraftKings column today shows CLE -130 (1.77), CLE -2.5 at -108 (1.93), total 36.5 with Over -118 (1.85) and Under -102 (1.98). DraftKings moved the spread 1.0 toward CLE and the total 1.0 toward the under since 10-21. I found no news source that confirms the reason.",
+    "Simulation numbers (extract, not edited): TEN margin +0.61 (raw), P(CLE win) 0.482 raw / 0.538 market-calibrated, total mean 36.6 (anchored to market 36.5), raw model total 42.5.",
+    "Desk first-order total (points per drive, from the extract's research block): TEN 11.6 possessions x 1.42 ppd x (CLE defense 1.77 / 2.16), plus CLE 11.6 x 1.38 x (TEN defense 2.23 / 2.16) = about 30.1 points.",
+    "Verified today: Denzel Ward (CLE CB, hand) is Questionable after a limited Friday practice; coach Monken said he would expect him to play. Quinshon Judkins (CLE RB1, ankle) has no game designation on the Friday final report and is expected back. Calvin Ridley (TEN WR, hip) is Questionable after a Thursday non-participation. CLE out: Teven Jenkins (G), Kalia Davis (DT), Mike Hall Jr. (DT), Dillon Gabriel (backup QB).",
+    "Not verified: a Saturday official injury report and a same-day beat-writer note. The extract's injury pull is stamped 2026-10-24 16:39 UTC; the web articles found are dated Oct 22-23. Treat starter status as unmeasured for Saturday.",
+    "Blocked or empty: DraftKings sportsbook NFL page (access was not granted in this run, so it was not used). ESPN odds page returned no content. dawgsbynature.com is blocked by its robots rules. None of these was used as a source.",
+    "Props: no DraftKings posted line for any player prop on this game could be confirmed today. The only DraftKings-labelled prop on the FootballNation page is an anytime touchdown (off-spec), dated 2026-10-20."
+   ],
+   "weather": "Outdoor stadium, natural grass, no roof. Simulation forecast pull (Open-Meteo, kickoff + 3 h, stamped 2026-10-24 16:40 UTC): 74.8 F, wind 2.2 mph, gusts 6.0 mph, precipitation 0%. No wind or rain effect applied. Not re-checked on the web: web weather unmeasured.",
+   "injuries": [
+    "CLE: Denzel Ward (CB, hand) Questionable, limited Friday, coach expects him to play. Quinshon Judkins (RB1, ankle) no designation on the Friday final report, returning after missing the Ravens game. Dylan Sampson (RB, knee) Questionable and on injured reserve (needs activation). Grant Delpit (S, concussion/shoulder) Questionable. Quincy Williams (LB, neck) Questionable.",
+    "CLE out: Teven Jenkins (G, back), Kalia Davis (DT, quad), Mike Hall Jr. (DT, ankle), Dillon Gabriel (QB, back). Deshaun Watson is the starter (confirmed in the simulation's personnel block).",
+    "TEN: Calvin Ridley (WR, hip) Questionable, did not practice Thursday. Tyjae Spears (RB2) Questionable, limited. Tony Adams (S, ankle), Kevin Winston Jr. (S, quad), Dorian Mausi (LB, foot) Questionable. Tony Pollard (RB1) full participation (resting per report). Cam Ward is the starter. Titans elevated two practice-squad players for Week 7.",
+    "Starter verification: Saturday official report and same-day beat-writer note not found; the status above is from the Friday report and the Oct 22-23 articles."
+   ],
+   "sources": [
+    {
+     "name": "VegasInsider NFL matchup page (labelled DraftKings column)",
+     "url": "https://www.vegasinsider.com/nfl/matchups/browns-vs-titans/",
+     "fetched": "2026-10-24T21:46Z"
+    },
+    {
+     "name": "Cleveland Browns: Denzel Ward questionable for Week 7",
+     "url": "https://www.clevelandbrowns.com/news/denzel-ward-questionable-for-week-7-vs-the-titans-injury-report",
+     "fetched": "2026-10-24T21:45Z"
+    },
+    {
+     "name": "Yahoo Sports: Browns big news on Quinshon Judkins (dated Fri 2026-10-23 21:50 UTC)",
+     "url": "https://sports.yahoo.com/articles/browns-big-news-quinshon-judkins-215038142.html",
+     "fetched": "2026-10-24T21:44Z"
+    },
+    {
+     "name": "Heavy.com: Calvin Ridley hip, limited vs Browns (dated 2026-10-22)",
+     "url": "https://heavy.com/sports/nfl/tennessee-titans/calvin-ridley-hip-injury-limited-browns/",
+     "fetched": "2026-10-24T21:44Z"
+    },
+    {
+     "name": "FootballNation: Browns at Titans player props (dated 2026-10-20; only DraftKings-labelled item is an off-spec anytime TD)",
+     "url": "https://www.footballnationusa.com/post/browns-titans-player-props-week-7-2026",
+     "fetched": "2026-10-24T21:47Z"
+    },
+    {
+     "name": "Simulation extract (structured inputs: board, injuries, research, props, lines)",
+     "url": "file:///home/claude/desk-extract/2026_07_CLE_TEN.json",
+     "fetched": "2026-10-24T21:40Z"
+    }
+   ]
+  },
+  "2026_07_DEN_ARI": {
+   "notes": [
+    "Kickoff Sun 2026-10-25 20:05Z, Denver (4-2) at Arizona (2-4), State Farm Stadium, Glendale AZ.",
+    "Starters: Jacoby Brissett (ARI) and Bo Nix (DEN) are not on either Friday official report and are the expected starters (Oct 24 Denver Gazette).",
+    "DEN injuries (Fri 2026-10-23 official report): Pat Surtain II (CB) Questionable, ankle, limited all week; Jonah Coleman (RB) Questionable, ankle, on IR and eligible only if activated (sources disagree on activation); Tyler Badie (RB) Out; Talanoa Hufanga (S) Out; Jonah Elliss (OLB) Out. Jaylen Waddle (WR), Zach Allen (DL), Riley Moss (CB) expected to play.",
+    "ARI injuries (Fri 2026-10-23 official report): Jeremiyah Love (RB) Out; Walter Nolen III (DL) Out; Andrew Wingard (S) Out; Jon Gaines II (OL) Out; Budda Baker (S) Questionable, groin/illness, limited; Max Melton (CB) Questionable, knee, did not practice; Darius Robinson (DL) Questionable, back, limited; Carson Beck (QB) Questionable, back, did not practice (backup QB).",
+    "Line movement: opened DEN -7.5, now DEN -4.5 (VegasInsider); total 43.5 unchanged. Cause of the move not found in same-day sources: unmeasured.",
+    "DraftKings price check (same-day pages, snapshot time not shown on either): spread -4.5 / +4.5 at -110 both sides (matches feed); moneyline DEN -230 / ARI +190 (feed had DEN 1.42 and ARI 2.95, so DEN re-priced to 1.43 and ARI not selected); total over 43.5 -112 and under 43.5 -108 (feed under 1.95 and over 1.87; under would need re-pricing).",
+    "Simulation figures: raw model margin ARI -3.32 and total 44.73 (used for the desk's arithmetic per runbook); the board's calibrated margin is ARI -4.93 and total 43.71. The two disagree on the total's side and make the spread thin.",
+    "Matchup, from sources: Nix is 34th of 36 QBs by PFF. Denver averaged 196 yards in its two games since Payton took back play-calling, versus 280.3 in its first four (Gazette; not reconciled to the payload's season yards). Arizona allows 8.6 yards per pass attempt and is 31st in scoring defense; Denver is 22nd in total defense and 10th in points allowed (Gazette).",
+    "Payload ranks (EPA per play): DEN pass defense 5th, run defense 29th; ARI pass defense 30th, run defense 4th; DEN pass offense 24th; ARI pass offense 19th.",
+    "Rest: DEN 10 days, ARI 7 days; the advantage is in the simulation's margin.",
+    "Altitude: none for this game. Denver is the visitor and Glendale is near sea level, so Denver's altitude does not apply.",
+    "Unmeasured: who covers Cardinals receivers (no source names it), McBride and Wilson routes and target shares, snap counts for Surtain or Coleman if active, air-yard shares, Denver's play-caller effect (not a model input)."
+   ],
+   "weather": "Closed roof (State Farm Stadium is retractable). The roof state comes from the simulation's stadium block and was not confirmed by a same-day web source. Treated as an indoor, dry game: no wind, rain or temperature effect in the arithmetic. Surface: grass.",
+   "injuries": [
+    "DEN: Surtain (CB) Questionable, ankle, limited; Coleman (RB) Questionable, ankle, IR activation unclear; Badie (RB) Out; Hufanga (S) Out; Elliss (LB) Out. Waddle, Allen, Moss expected to play.",
+    "ARI: Love (RB) Out; Nolen (DL) Out; Wingard (S) Out; Gaines (OL) Out; Baker (S) Questionable, groin/illness, limited; Melton (CB) Questionable, did not practice; Robinson (DL) Questionable, limited; Beck (QB, backup) Questionable, did not practice."
+   ],
+   "sources": [
+    {
+     "name": "Broncos official Week 7 injury report (Fri 2026-10-23, 3:10 PM MT)",
+     "url": "https://www.denverbroncos.com/news/injuryreport/injury-report-cb-pat-surtain-ii-and-rb-jonah-coleman-questionable-for-week-7-vs-cardinals-3-broncos-ruled-out",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Cardinals official Week 7 injury report (Fri 2026-10-23)",
+     "url": "https://www.azcardinals.com/news/injury-report-week-7-vs-broncos",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Scores and Odds, Broncos vs Cardinals (DraftKings column; snapshot time not shown)",
+     "url": "https://www.scoresandodds.com/nfl/broncos-vs-cardinals",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "VegasInsider, Broncos vs Cardinals (opener and DraftKings; no snapshot time)",
+     "url": "https://www.vegasinsider.com/nfl/matchups/broncos-vs-cardinals/",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Denver Gazette, Tomasson scouting report (Sat 2026-10-24)",
+     "url": "https://www.denvergazette.com/2026/10/24/tomassons-scouting-report-broncos-at-cardinals/",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Broncos news, Surtain remains limited (dated 2026-10-22)",
+     "url": "https://www.denverbroncos.com/news/injury-report-cb-pat-surtain-ii-remains-limited-practice-participant-ahead-of-week-7-game-vs-cardinals",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Simulation payload block for this game (desk extract; model stamp 2026-10-24 16:40 UTC)",
+     "url": "/home/claude/desk-extract/2026_07_DEN_ARI.json",
+     "fetched": "2026-10-24T21:58Z"
+    }
+   ]
+  },
+  "2026_07_GB_DET": {
+   "notes": [
+    "Result: zero selections. No candidate has a DraftKings line confirmed from a same-day page, so none can meet the spec's DraftKings rule.",
+    "DraftKings check: the DraftKings event page (sportsbook.draftkings.com/event/det-lions-@-gb-packers/26844192) failed to load (client error). The DraftKings Packers game-lines page is login-walled and shows no Packers-Lions game. Neither page gave a same-day line.",
+    "Feed prices in the extract are dated 2026-10-21T18:06Z, three days old. They are not used as confirmation. Feed values: DET -3 at 1.91, DET moneyline 1.60, Over 53.5 at 1.91.",
+    "The 2026-10-20 SI preview (BetMGM, not DraftKings) shows Lions -3 at -108, Lions moneyline -165, total 53.5 at -110 each side. It is consistent with the feed but is not a DraftKings line.",
+    "Simulation (not desk research): home margin 4.21, target margin 3.0 (market), home win 0.619, total 47.28 (model) vs 53.5 line; p_model Over 53.5 = 0.482. The desk did not adopt these; they are cited only as the simulation's view.",
+    "Injury status from the payload extract (not verified against today's official report): Jordan Love (GB QB) back injury, full practice, no designation listed; Christian Watson (GB WR) ankle, limited; Matthew Golden (GB WR) shoulder, limited; Savion Williams (GB WR) ankle, limited.",
+    "Injury status from the 2026-10-20 SI preview: Packers Questionable: Benjamin St-Juste (CB), Brandon Cisse (CB), Aaron Banks (G). Lions Questionable: Rock Ya-Sin (CB), Cade Mays (C), Brian Branch (S). Lions coach Campbell said he plans to play Branch and Mays. Lions Out: Kerby Joseph (S). No same-day beat-writer note was found, so starters are unverified.",
+    "Quarterbacks: Goff (DET) and Love (GB) both show full practice in the payload. No quarterback passing-yards projection is on the board for this game, so no qb_yds candidate was examined.",
+    "Unmeasured: today's official injury report, same-day beat-writer notes, usage and form beyond the payload's last five games (routes and air yards), man-to-man assignments, and line movement beyond the 2026-10-20 preview.",
+    "Projected props (bot.extra) have no DraftKings price on the board. The desk did not find DraftKings lines for them today, so each is declined."
+   ],
+   "weather": "Ford Field is a dome (roof: dome in the payload). Weather has no effect on the arithmetic. No external weather page was checked.",
+   "injuries": [
+    "Packers: Love (back) full practice, no designation in payload; Watson (ankle) limited; Golden (shoulder) limited; Banks (knee) questionable and limited; St-Juste (hamstring) questionable and limited; Cisse (shoulder) limited; Micah Parsons PUP-R (per SI 2026-10-20).",
+    "Lions: Branch (Achilles) questionable; Mays (wrist) questionable; Ya-Sin (hamstring) full practice in payload, questionable in SI 2026-10-20; Kerby Joseph Out (SI 2026-10-20).",
+    "All of the above are unverified against today's official report. Starters cannot be confirmed."
+   ],
+   "sources": [
+    {
+     "name": "SI: Packers vs. Lions prediction, odds, injuries (Week 7 2026, dated 2026-10-20)",
+     "url": "https://www.si.com/betting/packers-vs-lions-prediction-odds-spread-injuries-trends-for-nfl-week-7-2026",
+     "fetched": "2026-10-24T21:55Z"
+    },
+    {
+     "name": "DraftKings Packers game lines (login-walled; no game shown)",
+     "url": "https://sportsbook.draftkings.com/teams/football/nfl/green-bay-packers?category=odds&subcategory=game-lines",
+     "fetched": "2026-10-24T21:56Z"
+    }
+   ]
+  },
+  "2026_07_IND_MIN": {
+   "notes": [
+    "IND @ MIN, Sunday 2026-10-25 17:00 UTC, U.S. Bank Stadium (dome). Desk reviewed only this game.",
+    "Starters checked against the official Week 7 report (Friday final, dated 2026-10-23) and a same-day Vikings team note (2026-10-24 19:30 UTC). Vikings say everyone on the active roster is available for Sunday; RB Jordan Mason, questionable on Friday, was activated from injured reserve on Saturday.",
+    "Colts: CB Ahmad (Sauce) Gardner out (calf), WR Anthony Gould out (concussion), TE Tyler Warren out (groin). LB C.J. Allen: NFL report lists Out, the Vikings copy of the same report lists Questionable; the desk treats him as unavailable. LB Bryce Boettcher and CB Justin Walley questionable. DT DeForest Buckner did not practise Friday (rest).",
+    "Vikings: Justin Jefferson (ankle) and T.J. Hockenson (concussion, cleared) full participation; Christian Darrisaw (concussion) did not practise Friday, back from protocol per team report; Jordan Addison (hamstring) full participation.",
+    "Game lines on the odds feed (DraftKings column, feed fetched 2026-10-21T18:06Z): spread MIN -6.5 at 1.93, total 41.5 over 1.91 / under 1.91, IND moneyline 3.35, MIN moneyline 1.34. Feed opening DraftKings total was 43.5 (now 41.5). The Sports Interaction page (not DraftKings) shows the spread opening at 5.5 moving to 6.5.",
+    "Projected props for this game (Aaron Jones rushing over 57.5, Jordan Addison receptions over 2.5) have no DraftKings line in the feed, and no DraftKings board read today showed them. Neither is selectable.",
+    "No quarterback passing-yards projection is on the extract board for this game, so the QB section has no candidate from this game.",
+    "The MIN moneyline (DraftKings feed 1.34) is in the feed but not on the extract's ranked board, so it was not evaluated in this run."
+   ],
+   "weather": "Dome (U.S. Bank Stadium, sportturf). No weather effect; no wind or rain inputs.",
+   "injuries": [
+    "IND OUT: CB Ahmad Gardner (calf), WR Anthony Gould (concussion), TE Tyler Warren (groin); LB C.J. Allen listed Out by NFL, Questionable on the Vikings copy.",
+    "IND QUESTIONABLE: LB Bryce Boettcher (groin), CB Justin Walley (knee), P Rigoberto Sanchez (foot).",
+    "IND rest/not injury related: WR Keenan Allen and RB Jonathan Taylor (practising full by Friday), DT DeForest Buckner (did not practise Friday).",
+    "MIN: RB Jordan Mason (thumb) questionable on Friday, activated Saturday, available. T Christian Darrisaw (concussion) did not practise Friday. WR Justin Jefferson (ankle) and TE T.J. Hockenson (concussion) full participation. WR Jordan Addison (hamstring) full participation."
+   ],
+   "sources": [
+    {
+     "name": "Vikings.com: Final Vikings vs. Colts injury report, Week 7 (official report, dated 2026-10-23)",
+     "url": "https://www.vikings.com/news/colts-injury-report-week-7-2026-nfl-season",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "NFL.com: NFL Week 7 injury report 2026 (Colts vs Vikings entries)",
+     "url": "https://www.nfl.com/news/nfl-week-7-injury-report-2026-season",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "Vikings.com: Jordan Mason activated for Week 7 vs Colts (dated 2026-10-24 15:30 ET)",
+     "url": "https://www.vikings.com/news/jordan-mason-activated-colts-game-week-7-2026",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "Sports Interaction: Colts vs Vikings Week 7 odds (not DraftKings; opening 5.5 to 6.5 spread, last updated 2026-10-21)",
+     "url": "https://news.sportsinteraction.com/nfl/story/colts-vs-vikings-odds-prediction-102526-216011",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "SI: Colts vs Vikings Week 7 prediction and odds (DraftKings attributed, published 2026-10-20; older than the feed, not used for pricing)",
+     "url": "https://www.si.com/betting/colts-vs-vikings-prediction-odds-spread-injuries-trends-for-nfl-week-7-01m5b8s1x8y7",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "Simulation payload and odds feed, game 2026_07_IND_MIN (DraftKings column; feed fetched 2026-10-21T18:06Z; desk extract)",
+     "url": "file:///home/claude/desk-extract/2026_07_IND_MIN.json",
+     "fetched": "2026-10-24T21:41Z"
+    }
+   ]
+  },
+  "2026_07_KC_SEA": {
+   "notes": [
+    "Game: KC @ SEA, Sun 2026-10-25 8:20 pm ET (2026-10-26 00:20Z), Lumen Field, open air, fieldturf. Rest: SEA 10 days, KC 7 (sim).",
+    "Simulation (extract, injuries stamped 2026-10-24 16:39 UTC): SEA 57.0% (reweighted to the market moneyline, so not an independent check), SEA margin +2.4, total 42.6. The sim lists KC left tackle Josh Simmons only as DNP Thursday; Yahoo (Oct 23) reports him placed on IR, so the sim does not carry his absence. The desk adds +0.5 points to SEA for it (judgment, unmeasured size).",
+    "Lines: DK feed (Oct 21): SEA ML 1.68, KC 2.24; spread SEA -2.5 (1.85) / KC +2.5 (1.98); total 42.5 (over 1.91, under 1.91). DK opened at SEA ML 1.74, spread -2.5, total 44.5; the total is now 42.5 on DK. NBC Sports (DK-labelled, published Oct 22): SEA -142 (1.70), KC +120 (2.20), SEA -2.5 (-110), total 42.5. The SEA ML price on the DK page (1.70) differs from the Oct 21 feed (1.68), so the ML is re-priced with odds_source draftkings. Recheck before kickoff.",
+    "Same-day check: no Saturday final report for Seattle was found in the search; the Friday Seattle report (Oct 23) is used. No same-day beat-writer note on Kelce beyond the Oct 24 iHeart preview, which lists no injury.",
+    "Props: no DK-labelled game-specific line was found for Mahomes or Darnold passing yards (BettingPros consensus 217.5, no DK label), so the QB section stays empty. Walker and Darnold rushing lines were not confirmed on DK (covers shows a DK Darnold rushing over 4.5 at -106 with no usage data in the extract), so the rushing section stays empty. Worthy receiving yards (DK over 48.5 at -111 per covers) lacks yards-per-game data in the extract.",
+    "Fetch stamps are approximate: all pages were fetched in the 21:4x to 21:59Z window on 2026-10-24.",
+    "Budget: 7 web searches and 9 page reads (one read failed) for this game."
+   ],
+   "weather": "Lumen Field, open air. Simulation feed (Open-Meteo, kickoff + 3 h, stamped 2026-10-24 16:40 UTC): 50 F, wind 4.5 mph gusting 12, rain chance 18%. DK Network (article 2026-10-23): 55 F at kickoff, wind 3 mph from the north, no gusts, 50% chance of light rain at kickoff. Both forecasts are below the 15 mph wind threshold, so no volume adjustment; the rain disagreement is noted as a risk.",
+   "injuries": [
+    "KC: OL Jaylon Moore (RT) OUT, concussion (official Friday report, did not practice).",
+    "KC: OL Josh Simmons (LT) on IR per Yahoo (Oct 23), not on the Friday report; not in the sim.",
+    "KC: WR Rashee Rice OUT, hamstring/knee. RB Brashard Smith OUT, hamstring (added after Thursday practice).",
+    "KC: CB L'Jarius Sneed Questionable, knee (limited; played 49% of snaps last week). LB Cooper McDonald Questionable, knee (returning from Week 1; must be activated).",
+    "KC: TE Travis Kelce limited in practice all week, ankle; no game designation on the Friday final report.",
+    "KC: QB Patrick Mahomes full participation, knee (no designation).",
+    "SEA: RB Zach Charbonnet OUT, knee. LB Chazz Surratt OUT, calf. LB Drake Thomas OUT, ankle.",
+    "SEA: S Nick Emmanwori Questionable, hip (limited). DL DeMarcus Lawrence Questionable, knee. LB Uchenna Nwosu Questionable, hip. LB Connor O'Toole Questionable, hamstring. QB2 Drew Lock Questionable, elbow. G Anthony Bradford no status.",
+    "SEA: QB Sam Darnold not on the report (starter). No Doubtful players on either report."
+   ],
+   "sources": [
+    {
+     "name": "Seahawks.com, Week 7 injury report: Chiefs at Seahawks (official Seattle report, dated Fri 2026-10-23)",
+     "url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
+     "fetched": "2026-10-24T21:47Z"
+    },
+    {
+     "name": "Yahoo Sports, Chiefs-Seahawks Week 7 final injury report (Chiefs, dated Fri 2026-10-23)",
+     "url": "https://sports.yahoo.com/articles/chiefs-seahawks-week-7-final-194500481.html",
+     "fetched": "2026-10-24T21:48Z"
+    },
+    {
+     "name": "1340 The Game (iHeart), Travis Kelce Week 7 preview (dated 2026-10-24)",
+     "url": "https://1340thegame.iheart.com/content/2026-10-24-travis-kelce-week-7-preview-vs-the-seahawks/",
+     "fetched": "2026-10-24T21:52Z"
+    },
+    {
+     "name": "Scores and Odds, Travis Kelce prop bets (DraftKings column: receptions O/U 4.5 Under -149; receiving yards O/U 47.5 -110/-114)",
+     "url": "https://www.scoresandodds.com/prop-bets/18314/travis-kelce",
+     "fetched": "2026-10-24T21:53Z"
+    },
+    {
+     "name": "NBC Sports, Chiefs vs Seahawks odds (DraftKings-labelled moneyline SEA -142 / KC +120; spread SEA -2.5 -110; total 42.5; published 2026-10-22)",
+     "url": "https://www.nbcsports.com/betting/nfl/news/chiefs-vs-seahawks-odds-expert-picks-team-and-player-news-betting-trends-and-stats",
+     "fetched": "2026-10-24T21:54Z"
+    },
+    {
+     "name": "DraftKings Network, NFL Week 7 weather forecast (dated 2026-10-23)",
+     "url": "https://dknetwork.draftkings.com/2026/10/23/nfl-week-7-weather-forecast/",
+     "fetched": "2026-10-24T21:51Z"
+    },
+    {
+     "name": "Covers, Chiefs vs Seahawks picks (no DraftKings label; total under 42.5 -110, unlabelled)",
+     "url": "https://www.covers.com/sport/football/nfl/matchup/380023/picks",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "BettingPros, Patrick Mahomes passing yards (consensus 217.5, no DraftKings label, no game date)",
+     "url": "https://www.bettingpros.com/nfl/props/patrick-mahomes/passing-yards/",
+     "fetched": "2026-10-24T21:55Z"
+    },
+    {
+     "name": "Sportsbetting Dime, Week 7 prop line movement (dated 2026-10-23; no line for this game)",
+     "url": "https://www.sportsbettingdime.com/news/nfl/nfl-props-line-movement-week-7-running-backs-see-totals-tumble/",
+     "fetched": "2026-10-24T21:56Z"
+    },
+    {
+     "name": "Simulation extract and DK feed (local): ranked board, bot.extra, odds feed stamped 2026-10-21 18:06Z, injuries 2026-10-24 16:39Z, usage 2026-10-24 13:20Z, weather 2026-10-24 16:40Z",
+     "url": "local file /home/claude/desk-extract/2026_07_KC_SEA.json",
+     "fetched": "2026-10-24T21:40Z"
+    }
+   ]
+  },
+  "2026_07_LA_LV": {
+   "notes": [
+    "LA @ LV, Sunday 2026-10-25 20:25 UTC, Allegiant Stadium (dome, roof closed).",
+    "Line history: DraftKings opened LV ML 3.50, spread LV +7.0, total 48.5; the feed (priced 2026-10-21) shows LV +4.5 at 1.87 and LV ML 2.80. The 2.5-point move toward LV is unexplained: no news for it was found on the web (unmeasured).",
+    "Same-day DraftKings board was NOT reachable (Rotowire fetch failed, ESPN odds page returned empty). Every selection below relies on the feed price; no DraftKings prop line was confirmed today.",
+    "SI article (2026-10-20) quotes BetMGM only: LA -4.5 (-105), LV +4.5 (-112), ML LA -210 / LV +175, total 47.5. Not used as a DraftKings line.",
+    "Section fill: QB props, receiving and rushing empty (no DraftKings posted line confirmed for any prop candidate). Game section has one selection.",
+    "Desk margin: the simulation's home (LV) margin mean -3.41 is used unadjusted; no measured news effect was found that could move it with confidence."
+   ],
+   "weather": "Dome (Allegiant Stadium, roof closed). No weather effect on volume or efficiency.",
+   "injuries": [
+    "LA: Puka Nacua (WR, calf) Questionable, did not participate in practice on the Friday report (nfl.com). Same-day update not found. Nacua is LA's top target (31% target share, 48 games).",
+    "LA: Trent McDuffie (CB, groin) Questionable, did not participate. Nate Landman (LB, concussion) Out. Colby Parkinson (TE) full participation.",
+    "LV: Mike Washington Jr. (RB2, foot/back) Questionable, did not participate. Carter Runyon (TE, foot) Out. Dont'e Thornton Jr. (WR, hamstring) Out. Brock Bowers (TE1) full participation. Ashton Jeanty (RB1) not on report.",
+    "Starters per the report: Cousins (LV) and Stafford (LA) not listed on the report. No backup QB reported. Kyren Williams not listed."
+   ],
+   "sources": [
+    {
+     "name": "NFL.com injury report, 2026 Week 7 (LA and LV entries)",
+     "url": "https://www.nfl.com/injuries/league/2026/reg7",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "SI betting preview, Rams vs Raiders Week 7 (BetMGM prices, dated 2026-10-20)",
+     "url": "https://www.si.com/betting/rams-vs-raiders-prediction-odds-spread-injuries-trends-for-nfl-week-7-2026",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "ESPN NFL odds page, game 401873021 (returned empty, not usable)",
+     "url": "https://www.espn.com/nfl/odds/_/gameId/401873021",
+     "fetched": "2026-10-24T22:02Z"
+    },
+    {
+     "name": "Odds feed and simulation payload (DraftKings column, feed priced)",
+     "url": "local:/home/claude/desk-extract/2026_07_LA_LV.json",
+     "fetched": "2026-10-21T18:06Z"
+    }
+   ]
+  },
+  "2026_07_MIA_NYJ": {
+   "notes": [
+    "MetLife Stadium is open air (outdoors, fieldturf). No dome or roof effect.",
+    "Simulation alone (before its market fit) gives NYJ 48% to win and a home margin of -0.7. Its calibrated figure (65.7%) was reweighted to the market's moneyline and spread, so the desk does not use it as independent evidence.",
+    "Current-season scoring: NYJ 18.7 for and 20.3 against (6 games); MIA 14.0 for and 26.4 against (5 games). The league average of 22.0 points per team-game is an assumption (not in the payload), so the margin is partial.",
+    "The sources disagree by about 20 points on NYJ's win chance (current-season scoring 72% before blending, simulation 48%). Grade C and confidence 40 reflect that.",
+    "Spread (MIA +4.5, desk 0.44) and total (Over 39.5, desk 0.46) are declined: both are below the 0.50 floor on the same blend. The simulation's total is 43.4 raw and 39.7 after its market fit; the season scoring gives 35.4. No total is picked.",
+    "DraftKings prices: the feed (priced 2026-10-21 18:06Z) gives NYJ ML 1.44 (-225), MIA +4.5 at 1.95 (-105), Over 39.5 at 1.93 (-108). A same-day check of scoresandodds matched all three lines. That page is an aggregator, not DraftKings' own board. The DraftKings sportsbook page could not be read (the fetch was refused), so the NYJ ML is priced from the feed (odds_source feed) and the cross-check is noted.",
+    "Sections: no QB (passing yards) or rushing candidate is in this game's candidate list (bot.extra carries no passing or rushing projections for it), so none was researched into a selection. Receiving: Malik Washington over 3.5 receptions is declined for lack of a DraftKings line.",
+    "Rest: MIA on 14 days (bye week) versus NYJ on 7. The simulation applies a measured rest effect for MIA; the size is not in the extract, so the blend carries it as a risk rather than a separate number.",
+    "Caleb Douglas (MIA WR) returns from a three-game absence. The season scoring for MIA includes his absence, so MIA's offence may be understated by the naive points figure. This is the main risk to the NYJ ML pick."
+   ],
+   "weather": "MetLife Stadium, open air, fieldturf. Forecast at kickoff +3h (Open-Meteo via the payload, 2026-10-24 16:40 UTC): 65.6F, wind 5.7 mph gusting 7.7, precipitation 0%. Wind is below 15 mph, so no passing-volume adjustment. Not checked against a second weather source (search budget).",
+   "injuries": [
+    "NYJ Out: Mauigoa (LB, quad), Max Mitchell (OL, concussion), Joseph Ossai (DE, ankle). Official report, Friday 2026-10-23.",
+    "NYJ Questionable: Breece Hall (RB, quad; limited Thu and Fri; coach Aaron Glenn says the decision comes Sunday, Braelon Allen gets carries if he sits), Kene Nwangwu (RB, knee; full Fri), Dylan Parham (G, knee; limited Fri).",
+    "NYJ expected to play: Adonai Mitchell (WR, finger; practised all week, per ESPN 2026-10-23). Geno Smith (QB) carries no designation.",
+    "MIA Out: Reese Taylor (CB, quad). Doubtful: Rob Beal Jr. (DE, hamstring). Questionable: Willie Gay Jr. (LB, illness; limited Fri), Kyle Louis (S, knee; full Fri, tagged IR-eligible).",
+    "MIA cleared Friday: Malik Willis (QB, thumb; full practice Fri), Caleb Douglas (WR, ankle; returns after missing three games), Jaylen Wright (RB, foot), Will Kacmarek (TE, hamstring).",
+    "The latest official report found is Friday 2026-10-23. No Saturday update was found in search; the payload's injury stamp is 2026-10-24 16:39 UTC."
+   ],
+   "sources": [
+    {
+     "name": "New York Jets Week 7 injury report, Friday 10/23 (official)",
+     "url": "https://www.newyorkjets.com/news/jets-injury-report-week-7-vs-dolphins-friday-10-23-2026",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Yahoo Sports, Dolphins rule out 1, list 3 (2026-10-23 8:19 PM UTC)",
+     "url": "https://sports.yahoo.com/articles/dolphins-rule-1-list-3-201958115.html",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "ESPN, Jets Mitchell to play, Hall questionable (2026-10-23 11:48 ET)",
+     "url": "https://www.espn.com/nfl/story/_/id/50258482/jets-wr-mitchell-play-rb-hall-questionable-vs-dolphins",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Miami Dolphins On SI, Douglas return and Week 7 report (2026-10-23 9:11 PM UTC)",
+     "url": "https://sports.yahoo.com/articles/great-douglas-news-highlights-positive-211125986.html",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Scores and Odds, Dolphins vs Jets lines (cross-check of the feed; aggregator, no timestamp shown)",
+     "url": "https://www.scoresandodds.com/nfl/dolphins-vs-jets",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Simulation payload extract: game block, ranked board, weather, injuries stamp 2026-10-24 16:39 UTC, odds feed 2026-10-21 18:06Z",
+     "url": "/home/claude/desk-extract/2026_07_MIA_NYJ.json",
+     "fetched": "2026-10-24T21:50Z"
+    }
+   ]
+  },
+  "2026_07_NYG_HOU": {
+   "notes": [
+    "Two selections, both game lines, built on the simulation's raw model (home margin 7.73, total 42.18), not the market-reweighted calibration (margin 10.3, total 42.49), because the calibration is anchored to the market (ground rule 4).",
+    "No QB, receiving or rushing selection survives this run: the two receiving projections (Likely over 4.5, Nabers over 5.5) have no DraftKings line confirmed on a DraftKings board, and the sim has no passing-yard or rushing candidate for this game in the extract. Sections QB, receiving and rushing stay short for this game.",
+    "Starters: J.J. McCarthy is the Giants starter (Harbaugh announced Wed Oct 21; ESPN report republished Oct 22). C.J. Stroud is the Texans starter (no contrary note found).",
+    "Line conflict to check before any bet on the spread: the SI DraftKings page (published Oct 20) shows Giants +9.5 at -108 and total 42.5 (under -102); the statsniper page (undated) shows Houston -10 with no prices; the odds feed (fetched 2026-10-21T18:06Z) shows DraftKings NYG +10 at 1.93. No same-day DraftKings page was reachable, so the feed line is kept with odds_source feed.",
+    "Calibration and the 8-point re-check: the NYG +10 desk figure is 7 points above the no-vig market (0.56 vs 0.49). Re-checked: the gap is the raw simulation vs the market-reweighted one, plus one news item (Theo Johnson Out, not Doubtful). No further news was found that would move the margin, so confidence is set at 40.",
+    "Declined on evidence, not price: NYG moneyline (desk 0.28, below the 0.50 floor), HOU -10 (desk 0.44), total over 42.5 (desk 0.49), all alternate totals and kicker props (off in the spec)."
+   ],
+   "weather": "Reliant Stadium, roof closed, astroturf: dome, no weather effect.",
+   "injuries": [
+    "Giants official report (published Oct 23 4:00 PM): OUT - LB Tremaine Edmunds (shoulder), S Jevon Holland (concussion), TE Theo Johnson (neck, Out on this report; sim had Doubtful), CB Greg Newsome II (concussion). QUESTIONABLE - CB Paulson Adebo, OT Jermaine Eluemunor, OT Marcus Mbow, S Tyler Nubin. Malik Nabers and Isaiah Likely are not on the report.",
+    "Texans (simulation injury stamp 2026-10-24 16:39 UTC; SI Oct 20 and statsniper pages agree): OUT - RB David Montgomery (groin), OT Blake Fisher (thumb), S Jalen Pitre (shoulder), S Reed Blankenship (concussion). QUESTIONABLE - WR Tank Dell (knee, full practice); the Oct 19 team note said Dell was set to return Sunday.",
+    "Official Texans Friday report not retrieved this run (ESPN page came back empty); Texans statuses rest on the simulation stamp and two secondary pages."
+   ],
+   "sources": [
+    {
+     "name": "Giants.com: Week 7 injury report (NYG)",
+     "url": "https://www.giants.com/news/giants-vs-texans-week-7-injury-report-tremaine-edmunds-jevon-holland-jermaine-eluemunor-andrew-thomas",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "ABC7 NY (ESPN, Jordan Raanan): McCarthy named QB1",
+     "url": "https://abc7ny.com/post/source-giants-turning-jj-mccarthy-qb1-week-texans/19965065/",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "SI: Giants vs Texans odds (Odds via DraftKings Sportsbook, published Oct 20)",
+     "url": "https://www.si.com/betting/giants-vs-texans-prediction-odds-spread-injuries-trends-for-nfl-week-7-01m5b8c8tmdr",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "Statsniper: NYG vs HOU week 7 (undated)",
+     "url": "https://statsniper.com/leagues/nfl/game/2026/week-7/nyg-vs-hou/",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "Simulation extract: odds feed (DraftKings prices, fetched 2026-10-21T18:06Z) and injury stamp 2026-10-24 16:39 UTC",
+     "url": "/home/claude/desk-extract/2026_07_NYG_HOU.json",
+     "fetched": "2026-10-24T21:45Z"
+    }
+   ]
+  },
+  "2026_07_PIT_NO": {
+   "notes": [
+    "Game: PIT @ NO, Sunday 2026-10-25 13:30 UTC, Stade de France, Paris (neutral site, NO listed as home).",
+    "Roof flag mismatch: the extract marks roof 'dome' and the simulation applied no weather. Stade de France is an open-air stadium, so the desk treats weather as an open-air input. Check the stadium flag in the payload.",
+    "Starters: NO QB Tyler Shough at full participation (no designation). PIT QB Aaron Rodgers not on the official report. Both confirmed starting by absence from the report; no beat-writer note found for either.",
+    "Odds: the feed block (fetched 2026-10-21T18:06Z) is stale and has moved. Feed DK spread NO +3.5 at 1.85 is now DK NO +3 at -110. Feed DK PIT ML 1.54 is now DK PIT -162 (decimal 1.617). Feed DK total 44.5 Over 1.91 is now Over 44.5 at -112 and Under at -108.",
+    "Simulation figures used per runbook: model.margin -2.29 (home NO, blend 0) and model.home_win 0.4363 (uncalibrated). The calibrated margin_mean -2.93 was not used because it is anchored to the market.",
+    "Net news adjustment applied to margins: 0.20 points toward NO (a desk judgement): PIT loses CB Echols and WR Skowronek (OUT) and has RB Dowdle and WR Metcalf (illness) questionable; NO has G Ruiz questionable, DT Shepherd resting and WR Tyson not expected to practice. Net effect estimated at about 0.2 points toward PIT.",
+    "Totals: the runbook total formula (pace times points per drive, per total card) is not in the extract, so total arithmetic is unmeasured. Simulation total is 46.01 raw and 44.63 anchored; these give Over 44.5 p 0.53 and 0.50. No total selection.",
+    "Off-market and not candidates: kicker field goals (fg, off in spec), alternate lines (off), anytime touchdowns (never a desk market), passing touchdowns (off), half totals (off).",
+    "Sections: QB props, no QB yards candidate on the board and no DraftKings QB yardage line confirmed (unmeasured, section short). Receiving: only Metcalf receptions from the projected props, DraftKings line not confirmed (declined), section short. Rushing: Warren 63.5 at p 0.4988, below 0.50 (declined), section short. Game: PIT moneyline and NO +3 spread selected.",
+    "Times in sources are approximate session fetch times (about 21:50Z on 2026-10-24) and not per-page timestamps; the pages showed no update times.",
+    "Prediction-market context only (not DraftKings, not used for pricing): Kalshi and Polymarket US show Steelers about 61 cents to win, Steelers -3.5 about 56-57 cents. Source: https://defirate.com/odds/nfl/pittsburgh-vs-new-orleans-10-25-2026/ (fetched 2026-10-24T21:50Z)."
+   ],
+   "weather": "Paris Sunday forecast (no hourly or wind figure in source): about 4 C at morning, about 13 C afternoon, dry, no precipitation probability given. Wind and gusts unmeasured. Roof: the extract says dome; the stadium is open-air, so the sim's dome treatment is wrong and the weather effect is only partly measured.",
+   "injuries": [
+    "PIT: CB Brandin Echols (hamstring) OUT; WR Ben Skowronek (calf) OUT (NFL.com, Oct 24 page).",
+    "PIT: RB Rico Dowdle (knee) QUESTIONABLE, limited in practice (NFL.com). S DeShon Elliott (knee) QUESTIONABLE, full practice.",
+    "PIT: WR DK Metcalf QUESTIONABLE with illness (ActionNetwork). Not listed on the NFL.com page fetched; conflict unresolved, treated as questionable.",
+    "NO: G Cesar Ruiz (knee) QUESTIONABLE, limited (NFL.com). DT Nathan Shepherd (illness, resting) QUESTIONABLE.",
+    "NO: WR Jordyn Tyson (hamstring) not expected to practice (GM Mickey Loomis, Oct 21, per Rotowire). Not on the NFL.com page fetched.",
+    "NO: QB Tyler Shough full participation, no designation. RB Alvin Kamara limited in practice, no game status (NFL.com)."
+   ],
+   "sources": [
+    {
+     "name": "NFL.com official injury report, Week 7",
+     "url": "https://www.nfl.com/injuries/league/2026/reg7",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Rotowire game page (news items Oct 22-24)",
+     "url": "https://www.rotowire.com/betting/nfl/game.php?id=2978508",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "ActionNetwork game page (injury notes)",
+     "url": "https://www.actionnetwork.com/nfl-game/pittsburgh-steelers-new-orleans-saints/290822",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "VegasInsider matchup odds (DraftKings column)",
+     "url": "https://www.vegasinsider.com/nfl/matchups/saints-vs-steelers",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Sortiraparis Paris weather, week of Oct 19-25",
+     "url": "https://www.sortiraparis.com/en/news/in-paris/articles/332748-weather-forecast-for-paris-and-ile-de-france-this-week-rain-and-wind-from-october-19-to-25",
+     "fetched": "2026-10-24T21:50Z"
+    },
+    {
+     "name": "Odds feed via desk extract (ranked board, DraftKings feed)",
+     "url": "none (desk extract /home/claude/desk-extract/2026_07_PIT_NO.json)",
+     "fetched": "2026-10-21T18:06Z"
+    }
+   ]
+  },
+  "2026_07_SF_ATL": {
+   "notes": [
+    "No selections this run. The desk could not verify the 49ers starting quarterback from a same-day official report or a same-day team or beat-writer source, and the starter drives every candidate in this game (moneyline, spread, total).",
+    "Brock Purdy (toe): limited in Thursday practice per the Falcoholic Week 7 report (undated page, consistent with a Friday 2026 report). No 2026 official Out designation was found for him, and no 2026 article confirmed him as the starter for Sunday. Mac Jones is the named backup.",
+    "Several search hits describe Purdy as out and Mac Jones starting for the Falcons game. Those are October 2025 articles (the 49ers.com ATLvsSF report dated 2025-10-17, the NFL.com piece, the SI and NBC Sports Bay Area pieces) and were discarded as evidence for this 2026 game.",
+    "Simulation (desk extract) assumed Purdy confirmed; the simulation's injury stamp is 2026-10-24 16:39 UTC. If Purdy is out, SF's scoring projection falls and the total and the ATL side both move. The desk cannot price that scenario without the confirmed status.",
+    "Feed prices in the extract date from 2026-10-21T18:06Z (about 3 days old). No same-day DraftKings page with its own board was fetched this run (the Rotowire page did not render DraftKings odds), so no feed price was re-confirmed today.",
+    "Desk evidence available: ATL QB Michael Penix Jr. confirmed (2026 game log: 16 games, 7.32 yards per dropback, 10 TD, 2 INT). SF pass offense ranked 1st and SF pass defense 18th by EPA (simulation extract). ATL pass defense ranked 19th. Home team Atlanta is 2-4, SF 6-0 per the extract's season records.",
+    "Injury news from 2026 sources (Oct 23-24): ATL Out: Brian Robinson (RB, hamstring), Divine Deablo (LB, forearm), Michael Jerrell (OT, biceps), Billy Bowman (S/CB, hamstring); ATL Questionable: Za'Darius Smith (LB, neck), Kendal Daniels (LB, neck), C.J. Henderson (CB, groin), Olamide Zaccheaus (WR, shoulder). SF Out: Mike Evans (WR, Achilles), Deebo Samuel (WR, hamstring), Nick Bosa (DE, knee), Garret Wallow (LB, hamstring), Luke Gifford (LB, groin), Marques Sigle (S, ankle); SF Questionable: Upton Stout (CB, shoulder), Christian Kirk (WR, activated from IR).",
+    "Weather: Mercedes-Benz Stadium, closed roof, fieldturf. A dome means no weather effect.",
+    "Line movement (from the extract, opener vs current): spread opened ATL +4.5 and sits ATL +3 (feed, DraftKings 1.98); total opened 49.5 and sits 50.5 (DraftKings Under 50.5 at 1.87); ML opened ATL 2.85 and sits 2.50 (DraftKings). The extract does not say whether these moves came with news; the desk did not confirm this from a same-day source."
+   ],
+   "weather": "Dome (Mercedes-Benz Stadium, roof closed, fieldturf). No weather effect.",
+   "injuries": [
+    "ATL Out (2026, per 2026-dated news Oct 23-24): Brian Robinson (RB, hamstring); Divine Deablo (LB, forearm); Michael Jerrell (OT, biceps); Billy Bowman (CB/S, hamstring).",
+    "ATL Questionable (2026): Za'Darius Smith (LB, neck); Kendal Daniels (LB, neck); C.J. Henderson (CB, groin); Olamide Zaccheaus (WR, shoulder). Drake London and Kyle Pitts not listed as injured in the 2026 sources read.",
+    "SF Out (2026): Mike Evans (WR, Achilles); Deebo Samuel (WR, hamstring); Nick Bosa (DE, knee); Garret Wallow (LB, hamstring); Luke Gifford (LB, groin); Marques Sigle (S, ankle).",
+    "SF Questionable (2026): Upton Stout (CB, shoulder); Christian Kirk activated from IR and off the questionable tag.",
+    "SF QB Brock Purdy (toe): limited in Thursday practice per the Falcoholic Week 7 report; no 2026 official final status found. UNVERIFIED for Sunday. Mac Jones is the backup.",
+    "SF TE George Kittle (hamstring): limited in Thursday practice per the Falcoholic report; a 2025 article described him as returning from IR, not used for 2026."
+   ],
+   "sources": [
+    {
+     "name": "The Falcoholic: Falcons vs 49ers Week 7 injury report (undated, Friday-based)",
+     "url": "https://www.thefalcoholic.com/atlanta-falcons-injuries/87952/falcons-vs-49ers-week-7-injury-report-jake-matthews-expected-to-play-jalon-walker-ruled-out",
+     "fetched": "2026-10-24T21:52Z"
+    },
+    {
+     "name": "Rotowire: 49ers vs Falcons game page (2026 news items dated Oct 23-24)",
+     "url": "https://www.rotowire.com/betting/nfl/game.php?id=2978836",
+     "fetched": "2026-10-24T21:54Z"
+    },
+    {
+     "name": "Desk simulation extract 2026_07_SF_ATL (ranked board, DraftKings feed prices dated 2026-10-21T18:06Z, injury stamp 2026-10-24 16:39 UTC)",
+     "url": "file:///home/claude/desk-extract/2026_07_SF_ATL.json",
+     "fetched": "2026-10-24T21:45Z"
+    }
+   ]
+  },
+  "2026_07_TB_CAR": {
+   "notes": [
+    "TB @ CAR, Sunday 2026-10-25 17:00Z (1 p.m. ET), Bank of America Stadium, outdoors on grass. Both teams on 7 days rest; same division.",
+    "TB QB is unresolved. Baker Mayfield (dislocated right thumb, out since Oct 4) is listed Questionable on the Oct 23 report (per its headline). Bowles said Oct 21 the team 'initially plans to start Jalon Daniels'. A later headline says Mayfield is set to make his return. No same-day official status or beat-writer confirmation was found, so the TB-side arithmetic is partial. The simulation uses Daniels (2 of 3 sources).",
+    "TB ruled out: Emeka Egbuka (WR, concussion), Luke Goedeke (T, calf), Antoine Winfield Jr. (S, rib). Christian Rozeboom (LB) on injured reserve. CAR ruled out: Jaelan Phillips (LB, hamstring), Thomas Incoom (LB, calf). Bryce Young (CAR QB) full practice, knee, no game status.",
+    "Feed prices (DraftKings in the odds feed) are dated 2026-10-21T18:06Z, about 71 hours old. SI (Oct 21) reported DraftKings had moved the spread to Panthers -3.5, which matches the feed. No same-day DraftKings board was found within the research budget, so the feed prices are used as the only DraftKings reference and the staleness is named in risks.",
+    "Line movement: spread opened CAR -2.5 to -3 across books and now sits at -3 to -3.5. Total opened 43.5 and is 44.5. CAR moneyline shortened from 1.66 to 1.57 (DraftKings feed). The moves came alongside the QB news (Daniels starting); no separate sharp-money signal could be isolated.",
+    "Matchup (payload ranks): TB pass offense 31st, TB pass defense 9th, TB run defense 8th. CAR pass offense 8th, CAR pass defense 10th, CAR run defense 26th. Explosive plays: TB offense 24th, CAR offense 10th.",
+    "Total cross-check: the points-per-drive formula gives about 39.9 points against the simulation's 44.6. The two estimates conflict, so the total is declined.",
+    "Not priced: no receiving, rushing or QB yardage projections are in bot.extra for this game, and no DraftKings prop line was found within the research budget. No prop is selected."
+   ],
+   "weather": "Outdoor, grass, not a dome. 67F, wind 12 mph gusting 16, precipitation 0 percent (Open-Meteo, kickoff plus 3 h; payload stamp 2026-10-24 16:40 UTC). Sustained wind below the 15 mph threshold; the gust is noted, and the simulation's own weather handling is used.",
+   "injuries": [
+    "TB Out: Emeka Egbuka (WR, concussion), Luke Goedeke (T, calf), Antoine Winfield Jr. (S, rib). Rozeboom (LB) on injured reserve.",
+    "TB QB Questionable: Baker Mayfield (right thumb), per the Oct 23 report headline. Daniels is the planned starter per Bowles (Oct 21). Starter NOT confirmed for Oct 25.",
+    "CAR Out: Jaelan Phillips (LB, hamstring), Thomas Incoom (LB, calf). Questionable: Bam Martin-Scott (LB, hamstring), Monroe Freeling (T, knee), per payload stamp 2026-10-24 16:39 UTC.",
+    "CAR QB Bryce Young: full practice, knee, no game status listed."
+   ],
+   "sources": [
+    {
+     "name": "Buccaneers Week 7 injury report (issued Wed Oct 21, practice participation)",
+     "url": "https://www.buccaneers.com/news/buccaneers-panthers-injury-report-oct-21-week-7-2026",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "Buccaneers: Jalon Daniels will remain starter (Oct 4; Mayfield thumb history)",
+     "url": "https://www.buccaneers.com/news/jalon-daniels-will-remain-bucs-starter-baker-mayfield-absence",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "SI: Baker Mayfield injury update, Bucs underdogs (Oct 21 11:40Z; DraftKings spread -3.5)",
+     "url": "https://www.si.com/betting/baker-mayfield-injury-update-bucs-set-as-clear-underdogs-with-quarterback-status-in-question-vs-panthers",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "Action Network odds page (book not named; not used for pricing)",
+     "url": "https://www.actionnetwork.com/nfl-game/buccaneers-panthers-score-odds-october-25-2026/290933",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "theScore event page (headline on Mayfield return; no odds shown)",
+     "url": "https://www.thescore.com/nfl/event/140676",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "Simulation extract: game block, ranked board, odds feed, injuries, weather (payload stamps)",
+     "url": "file:///home/claude/desk-extract/2026_07_TB_CAR.json",
+     "fetched": "2026-10-24T16:40Z"
+    }
+   ]
   }
  },
  "selections": [
+  {
+   "id": "desk|ml|2026_07_DEN_ARI|away||DEN",
+   "game_id": "2026_07_DEN_ARI",
+   "kind": "ml",
+   "side": "away",
+   "line": null,
+   "who": null,
+   "team": "DEN",
+   "label": "DEN moneyline",
+   "odds": 1.43,
+   "odds_source": "draftkings",
+   "p": 0.6,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 55,
+   "inputs": [
+    "Simulation margin (payload model.margin, home ARI): -3.32, so DEN +3.32. Raw figure used per runbook.",
+    "News already in the margin: the simulation's injury stamp (2026-10-24 16:39 UTC) postdates the Friday 2026-10-23 official reports, which list Surtain (Q), Coleman (Q), Hufanga (Out), Elliss (Out), Badie (Out) for DEN and Love, Nolen, Wingard, Gaines (Out), Baker (Q), Melton (Q), Robinson (Q), Beck (Q) for ARI.",
+    "Starters: Bo Nix (DEN) and Jacoby Brissett (ARI) are not on either Friday report; the Oct 24 Denver Gazette preview says Brissett holds the job.",
+    "Rest: DEN 10 days vs ARI 7; the rest advantage is inside the simulation margin.",
+    "Market context: 8-book consensus DEN 0.658 no-vig (payload); simulation calibrated to market 0.662. Desk 0.60 is 6 points below consensus, inside the 8-point re-check line."
+   ],
+   "arithmetic": [
+    "team_margin DEN = +3.32 (minus the home-side model margin -3.32)",
+    "P(win DEN) = Phi(team_margin / 13.5) = Phi(3.32 / 13.5) = Phi(0.246) = 0.597, shown as 0.60",
+    "News adjustment for Surtain (Questionable, limited all week): effect unmeasured, not applied. If he sits, DEN's pass defense weakens and the desk figure falls.",
+    "Price check: DraftKings DEN -230 (decimal 1.43) on the same-day page. Feed had 1.42; re-priced at the page value.",
+    "Break-even at 1.43 = 1 / 1.43 = 0.699. EV at desk p = 0.597 x 1.43 - 1 = -0.146 (-15%). The desk does not beat this price; the pick rests on evidence, not value."
+   ],
+   "pros": [
+    "All three figures put DEN above 0.59: desk raw 0.597, simulation calibrated 0.66, 8-book consensus 0.66.",
+    "Defense by EPA per play (payload): DEN pass defense 5th; ARI pass defense 30th.",
+    "ARI loses four starters/rotation players to Out: Love (RB), Nolen (DL), Wingard (S), Gaines (G). DEN loses Hufanga (S), Elliss (LB) and Badie (RB) but keeps Waddle and Allen.",
+    "DEN has 10 days of rest to ARI's 7."
+   ],
+   "risks": [
+    "Price: DraftKings -230 needs 0.70 to break even; the desk's 0.60 is well short. Shown, not used to pick.",
+    "Surtain II (DEN CB1) Questionable with an ankle, limited Wed through Fri, out Weeks 5 and 6. If he sits, the pass-defense edge narrows (effect unmeasured).",
+    "Nix form: PFF ranks him 34th of 36 QBs; the Gazette says DEN averaged 196 yards in its two games since Payton took back play-calling (280 in the first four). Two-game sample; the 280 figure is not reconciled to the payload's season numbers.",
+    "Coleman (RB) Questionable; sources disagree on his IR activation, so the run game is unsettled.",
+    "Single-game variance: margin SD 13.5 points; a +3.3 mean still loses about 40% of the time."
+   ],
+   "verdict": "Denver to win at DraftKings -230 (1.43). Desk chance 0.60 (grade B) from the simulation's margin with the Friday injury reports already in it. At this price the EV is about -15%, so this is an evidence call, not a value call. Recheck Surtain's status Sunday morning.",
+   "sources": [
+    {
+     "name": "Broncos official Week 7 injury report (Fri 2026-10-23, 3:10 PM MT)",
+     "url": "https://www.denverbroncos.com/news/injuryreport/injury-report-cb-pat-surtain-ii-and-rb-jonah-coleman-questionable-for-week-7-vs-cardinals-3-broncos-ruled-out",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Cardinals official Week 7 injury report (Fri 2026-10-23)",
+     "url": "https://www.azcardinals.com/news/injury-report-week-7-vs-broncos",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Scores and Odds, Broncos vs Cardinals (DraftKings column; snapshot time not shown)",
+     "url": "https://www.scoresandodds.com/nfl/broncos-vs-cardinals",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "VegasInsider, Broncos vs Cardinals (opener and DraftKings; no snapshot time)",
+     "url": "https://www.vegasinsider.com/nfl/matchups/broncos-vs-cardinals/",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Denver Gazette, Tomasson scouting report (Sat 2026-10-24)",
+     "url": "https://www.denvergazette.com/2026/10/24/tomassons-scouting-report-broncos-at-cardinals/",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Broncos news, Surtain remains limited (dated 2026-10-22)",
+     "url": "https://www.denverbroncos.com/news/injury-report-cb-pat-surtain-ii-remains-limited-practice-participant-ahead-of-week-7-game-vs-cardinals",
+     "fetched": "2026-10-24T21:58Z"
+    },
+    {
+     "name": "Simulation payload block for this game (desk extract; model stamp 2026-10-24 16:40 UTC)",
+     "url": "/home/claude/desk-extract/2026_07_DEN_ARI.json",
+     "fetched": "2026-10-24T21:58Z"
+    }
+   ]
+  },
+  {
+   "id": "desk|recs|2026_07_KC_SEA|under|4.5|Travis Kelce",
+   "game_id": "2026_07_KC_SEA",
+   "kind": "recs",
+   "side": "under",
+   "line": 4.5,
+   "who": "Travis Kelce",
+   "team": "KC",
+   "label": "Travis Kelce under 4.5 receptions",
+   "odds": 1.67,
+   "odds_source": "draftkings",
+   "p": 0.59,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 55,
+   "inputs": [
+    "Season (5 games): 27 targets, 20 receptions, 299 yards, 2 TD (iHeart, Oct 24; the sim's game log also has five KC games).",
+    "Target share 17.1% (iHeart). The sim carries 20% of team targets and 17.5% of completions, with a mean of 4.1 receptions.",
+    "Last four games targets: 11, 2, 4, 5 (sim log); the 11-target game (Sept 20) is the variance in the sample.",
+    "Catch rate this season: 20 / 27 = 0.74.",
+    "Competition: Xavier Worthy 18% target share, Kenneth Walker III 12% (sim). Rice (WR) is out, which moves some targets to others.",
+    "SEA pass defense: fewest passing yards allowed in the NFL, 141.3 per game (iHeart); pass defense EPA -0.140, 2nd (sim extract).",
+    "Ankle: limited in practice all week, no game designation on the Friday final report (Yahoo, Oct 23). Not a Doubtful or Out player."
+   ],
+   "arithmetic": [
+    "Targets = 27 / 5 games = 5.4 per game (season; the last four games average 5.5)",
+    "Receptions mean = 5.4 x 0.74 = 4.0 (sim 4.1)",
+    "SD = 1.1 x sqrt(4.0) = 2.2 (runbook default; not measured for this player)",
+    "P(under 4.5) = P(X <= 4) = Phi((4.5 - 4.0) / 2.2) = Phi(0.227) = 0.59",
+    "Cross-check: sim P(under 4.5) = 0.584; desk minus sim = +0.6 points",
+    "DK under -149 = 1.67 decimal. Break-even = 1 / 1.67 = 0.599. EV at DK price = 0.59 x 1.67 - 1 = -0.015 (about -1.5 cents per unit). Fair odds = 1 / 0.59 = 1.69.",
+    "Price shown for information only; the choice rests on the target and catch-rate inputs."
+   ],
+   "pros": [
+    "Volume and efficiency are both measured this season (27 targets in 5 games; 74% catch rate), so the mean is not a guess.",
+    "SEA allows the fewest passing yards in the league (141.3 per game) and ranks 2nd in pass defense EPA.",
+    "Worthy (18%) and Walker (12%) take a share of the targets; the sim's 4.1 mean agrees with the desk's 4.0.",
+    "Under 4.5 wins on a normal game of 4 or fewer catches; the line sits above the season rate."
+   ],
+   "risks": [
+    "Ankle: limited all week. A limited Kelce can play fewer snaps (helps the under) or be targeted more if the offense leans on him (hurts it); the Sunday inactives or pregame note decides it.",
+    "Rice is out. If Mahomes concentrates targets on Kelce, the mean rises toward 5 and the under fails.",
+    "A scratch: DraftKings normally voids a prop when the player does not play, so a scratch returns the stake rather than winning. Confirm the DK rule before betting.",
+    "SD is the runbook default (1.1 x sqrt(mean)), not a measured spread; a higher spread from the 11-target game would lower the probability.",
+    "Season-level catch rate used; per-game receptions were not in the extract."
+   ],
+   "verdict": "Lean under 4.5 receptions at DK -149 (1.67). The desk's 59% is just under the 59.9% break-even at that price, so this is a lean, not a priced edge. Check Kelce's pregame status and Rice's status before taking it; a scratch voids the bet at DK.",
+   "sources": [
+    {
+     "name": "Scores and Odds, Travis Kelce prop bets (DraftKings receptions O/U 4.5, Under -149)",
+     "url": "https://www.scoresandodds.com/prop-bets/18314/travis-kelce",
+     "fetched": "2026-10-24T21:53Z"
+    },
+    {
+     "name": "1340 The Game (iHeart), Travis Kelce Week 7 preview (Oct 24): 27 targets, 17.1% share, 20 receptions, SEA allows 141.3 passing yards per game",
+     "url": "https://1340thegame.iheart.com/content/2026-10-24-travis-kelce-week-7-preview-vs-the-seahawks/",
+     "fetched": "2026-10-24T21:52Z"
+    },
+    {
+     "name": "Yahoo Sports, Chiefs final Week 7 injury report (Kelce ankle, no designation)",
+     "url": "https://sports.yahoo.com/articles/chiefs-seahawks-week-7-final-194500481.html",
+     "fetched": "2026-10-24T21:48Z"
+    },
+    {
+     "name": "Simulation extract (local): Kelce usage, targets and receptions projection",
+     "url": "local file /home/claude/desk-extract/2026_07_KC_SEA.json",
+     "fetched": "2026-10-24T21:40Z"
+    }
+   ]
+  },
   {
    "id": "total|2026_07_NE_CHI|under|50.5|",
    "game_id": "2026_07_NE_CHI",
@@ -105,6 +849,282 @@
      "fetched": "2026-10-22T15:40Z"
     }
    ]
+  },
+  {
+   "id": "ml|2026_07_KC_SEA|home||SEA",
+   "game_id": "2026_07_KC_SEA",
+   "kind": "ml",
+   "side": "home",
+   "line": null,
+   "who": null,
+   "team": "SEA",
+   "label": "SEA moneyline",
+   "odds": 1.7,
+   "odds_source": "draftkings",
+   "p": 0.58,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 50,
+   "inputs": [
+    "Simulation margin SEA +2.4 at home (EPA ratings and home field; SEA rest 10 days vs KC 7 included). The sim's SEA win 57.0% is already reweighted to the market moneyline (market 57.2%), so it is not an independent check.",
+    "Season EPA per play (sim extract, data through 2026-10-19): KC offense +0.069, defense -0.066; SEA offense -0.016, defense -0.107.",
+    "Quarterbacks, this season (sim profile): Darnold (SEA) 7.28 yards per dropback, EPA per dropback 0.019; Mahomes (KC) 7.05 yards per dropback, EPA per dropback 0.131. Both starting (Darnold not on the report; Mahomes full participation).",
+    "KC line on the official report: OL Jaylon Moore (RT) Out; LT Josh Simmons on IR (Yahoo, Oct 23), not in the sim; RB Brashard Smith Out; WR Rashee Rice Out.",
+    "SEA on the report: RB Zach Charbonnet Out; LB Chazz Surratt Out; LB Drake Thomas Out. The sim already carries these as out.",
+    "News adjustment: +0.5 points to SEA for the KC left-tackle absence the sim does not carry. The size is a judgment; no measured effect for a tackle swap is in the data, so the leg is an estimate (hence partial).",
+    "Weather: wind 3 to 4.5 mph (gust 12), below the 15 mph threshold; rain 18% (Open-Meteo) or 50% light rain (DK Network). No volume adjustment."
+   ],
+   "arithmetic": [
+    "Desk margin (SEA) = sim 2.4 + news 0.5 = 2.9 points",
+    "P(SEA win) = Phi(2.9 / 13.5) = Phi(0.215) = 0.585",
+    "Desk p = 0.58 (rounded down; the +0.5 is an estimate). Sim 0.570, so desk minus sim = +1.0 point of probability.",
+    "No-vig market from the DK-labelled page (SEA 1.70, KC 2.20): 0.588 / (0.588 + 0.455) = 0.564. Desk minus market = +1.6 points, inside the 8-point re-check trigger.",
+    "Break-even at DK 1.70 = 1 / 1.70 = 0.588. EV at DK price = 0.58 x 1.70 - 1 = -0.014 (about -1.4 cents per unit). Fair odds = 1 / 0.58 = 1.72.",
+    "Price shown for information only; the choice rests on the margin and the injury inputs above."
+   ],
+   "pros": [
+    "Home side with a 3-day rest edge (SEA 10 days vs KC 7); the measured rest effect is already in the sim.",
+    "KC's offensive line is the thinnest unit on the field: RT Moore out and LT Simmons on IR. The sim carries only Moore.",
+    "SEA pass defense EPA -0.140 (2nd in the league, per sim extract), against a KC offense that depends on Mahomes and Rice; Rice is out.",
+    "Line moved toward SEA on DK: opening 1.74 (Oct 21 feed) to 1.68 (feed) and 1.70 (DK-labelled page, Oct 22)."
+   ],
+   "risks": [
+    "Mahomes has an EPA per dropback of 0.131 and KC is 5-0; the KC offense's season EPA (+0.069) is better than SEA's (-0.016). A quarterback edge can overturn a 3-point home edge.",
+    "The sim's margin (+2.4) sits close to the number, so the sim gives little independent edge at 1.70; the desk's +0.5 point news adjustment is the whole difference from the market.",
+    "Price is at break-even: the desk's 58% needs 58.8% to break even at 1.70.",
+    "Simmons on IR is reported in one source (Yahoo, Oct 23); the Saturday Seattle final report was not found, so late SEA changes are not checked.",
+    "Rain: DK Network forecasts 50% light rain at kickoff vs 18% in the sim feed; light rain slightly raises fumbles and lowers deep throws.",
+    "Ties: about 0.3% of simulated games; the DK rule for a tied game on a moneyline (refund or loss) was not checked, and the desk win probability excludes ties.",
+    "Kelce (KC TE) limited with an ankle all week; a limited Kelce lowers the KC passing game slightly."
+   ],
+   "verdict": "Lean SEA moneyline at DK 1.70 (-142). The desk's 58% is close to the 58.8% break-even at that price, so this is a lean with no priced edge: take it only if you would take SEA at 1.70 anyway, and recheck the KC left tackle status and the Saturday Seattle report before kickoff.",
+   "sources": [
+    {
+     "name": "NBC Sports, Chiefs vs Seahawks odds (DraftKings: SEA -142, KC +120, total 42.5)",
+     "url": "https://www.nbcsports.com/betting/nfl/news/chiefs-vs-seahawks-odds-expert-picks-team-and-player-news-betting-trends-and-stats",
+     "fetched": "2026-10-24T21:54Z"
+    },
+    {
+     "name": "Seahawks.com, Week 7 injury report (Friday Oct 23)",
+     "url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
+     "fetched": "2026-10-24T21:47Z"
+    },
+    {
+     "name": "Yahoo Sports, Chiefs final Week 7 injury report (Simmons on IR, Moore, Rice, Smith out)",
+     "url": "https://sports.yahoo.com/articles/chiefs-seahawks-week-7-final-194500481.html",
+     "fetched": "2026-10-24T21:48Z"
+    },
+    {
+     "name": "DraftKings Network, NFL Week 7 weather forecast (Oct 23)",
+     "url": "https://dknetwork.draftkings.com/2026/10/23/nfl-week-7-weather-forecast/",
+     "fetched": "2026-10-24T21:51Z"
+    },
+    {
+     "name": "Simulation extract and DK feed (local)",
+     "url": "local file /home/claude/desk-extract/2026_07_KC_SEA.json",
+     "fetched": "2026-10-24T21:40Z"
+    }
+   ]
+  },
+  {
+   "id": "total|2026_07_IND_MIN|over|41.5|",
+   "game_id": "2026_07_IND_MIN",
+   "kind": "total",
+   "side": "over",
+   "line": 41.5,
+   "who": null,
+   "team": null,
+   "label": "IND @ MIN: Over 41.5 total points",
+   "odds": 1.91,
+   "odds_source": "feed",
+   "p": 0.58,
+   "grade": "C",
+   "evidence": "partial",
+   "confidence": 35,
+   "inputs": [
+    "Pre-calibration total from the simulation (model.total): 44.37, built from both offences' points per drive against both defences, pace 0.96 (MIN) and 0.983 (IND), dome, rest advantage MIN (14 days vs 7).",
+    "MIN offence points per drive 1.821 (season), MIN defence 1.473 allowed; MIN offence EPA per play -0.088, defence -0.135.",
+    "IND injuries that lower the Colts' pass defence: CB Ahmad Gardner out, LB C.J. Allen out (NFL report). The raw total already carries the 16:39 UTC injury stamp.",
+    "MIN RB Jordan Mason cleared to play after Friday's questionable tag; Hockenson and Darrisaw back from concussion. These came after the model stamp (16:40 UTC) and nudge the total up slightly, not quantified.",
+    "Anchored total used by the simulation: 41.85 (home 24.3 + away 17.55), set to the market line 41.5. The desk does not use the anchored figure as its probability because the anchor is a market match, not an input.",
+    "Market: DraftKings 41.5 over/under at 1.91 each (no-vig 0.50), feed opening 43.5 to now 41.5. The gap to the raw total is 2.9 points; no news source found explains the drop."
+   ],
+   "arithmetic": [
+    "Mean = pre-calibration total = 44.37 points (volume: 2 offences' drives x points per drive, adjusted for pace).",
+    "SD = 13.5 points (league total SD).",
+    "P(over 41.5) = Phi((44.37 - 41.5) / 13.5) = Phi(0.213) = 0.58.",
+    "Cross-check with the anchored mean 41.85: Phi((41.85 - 41.5) / 13.5) = Phi(0.026) = 0.51. The desk takes the wider gap as the reason for the low confidence.",
+    "No-vig market at DraftKings 1.91 / 1.91 = 0.50. Break-even = 1 / 1.91 = 0.524. Fair odds = 1 / 0.58 = 1.72.",
+    "EV at DraftKings 1.91 = 0.58 x 1.91 - 1 = +0.108 (shown as information; the price did not choose this selection).",
+    "Re-check trigger: desk 0.58 vs no-vig 0.50 is more than 8 points. Re-checked every input; no surviving news reason for the market's 2-point drop, so confidence is lowered to 35 and the probability is not moved."
+   ],
+   "pros": [
+    "The raw EPA-based model is 44.4 points, about 3 points above the line; the model's inputs (pace, points per drive, dome) favour scoring.",
+    "Two Colts defensive starters are out (CB Gardner, LB Allen), and TE Warren is out, weakening the coverage the Vikings offence faces.",
+    "Vikings skill players are healthy for Sunday: Mason cleared, Jefferson and Hockenson full participation, Addison full participation.",
+    "Dome: no weather risk to the total."
+   ],
+   "risks": [
+    "The market dropped the total 2 points (43.5 to 41.5) with no news source found to explain it; if the market has information the desk lacks, the edge is gone.",
+    "The anchored (market-matched) simulation says 41.85, which is 51%, not 58%.",
+    "Expected blowout script: MIN is a 6.5-point favourite, which cuts late-game passing and pace.",
+    "C.J. Allen's status conflicts between the NFL report (Out) and the Vikings copy (Questionable); no effect on the scoring line in the model.",
+    "Mason (thumb) played on Friday as questionable and is a rushing-volume factor for the Vikings offence."
+   ],
+   "verdict": "Lean over 41.5 at 1.91 only if you accept the raw EPA total over the market's number. The desk's edge is real on its own inputs but unexplained against the market move, so confidence is low. Break-even at 1.91 is 52.4%; the desk's 58% clears it, but size the bet small.",
+   "sources": [
+    {
+     "name": "Vikings.com: Final Vikings vs. Colts injury report, Week 7",
+     "url": "https://www.vikings.com/news/colts-injury-report-week-7-2026-nfl-season",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "Vikings.com: Jordan Mason activated for Week 7",
+     "url": "https://www.vikings.com/news/jordan-mason-activated-colts-game-week-7-2026",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "NFL.com: NFL Week 7 injury report 2026",
+     "url": "https://www.nfl.com/news/nfl-week-7-injury-report-2026-season",
+     "fetched": "2026-10-24T21:41Z"
+    },
+    {
+     "name": "Simulation payload and odds feed (DraftKings column, feed fetched 2026-10-21T18:06Z)",
+     "url": "file:///home/claude/desk-extract/2026_07_IND_MIN.json",
+     "fetched": "2026-10-24T21:41Z"
+    }
+   ]
+  },
+  {
+   "id": "ml|2026_07_TB_CAR|home||CAR",
+   "game_id": "2026_07_TB_CAR",
+   "kind": "ml",
+   "side": "home",
+   "line": null,
+   "who": null,
+   "team": "CAR",
+   "label": "CAR moneyline",
+   "odds": 1.57,
+   "odds_source": "feed",
+   "p": 0.58,
+   "grade": "C",
+   "evidence": "partial",
+   "confidence": 35,
+   "inputs": [
+    "Calibrated simulation margin: CAR +2.68 (margin_mean, market-calibrated). Simulation P(CAR win) 0.578; no-vig market 0.608 across 8 books.",
+    "CAR starter Bryce Young confirmed (full practice, knee, no game status).",
+    "TB starter NOT confirmed: Daniels planned per Bowles (Oct 21); Mayfield Questionable on the Oct 23 report and a return headline. Simulation uses Daniels. Effect of Mayfield starting is unmeasured.",
+    "TB out: Egbuka (WR), Goedeke (T), Winfield Jr. (S). CAR out: Phillips (LB), Incoom (LB).",
+    "Pass offense vs pass defense: CAR pass offense 8th vs TB pass defense 9th; TB pass offense 31st vs CAR pass defense 10th.",
+    "Home field and the 7-day rest on both sides are already inside the simulation's margin."
+   ],
+   "arithmetic": [
+    "Team margin CAR = +2.68 points (calibrated mean).",
+    "SD 13.5. P(CAR win) = Phi(2.68 / 13.5) = Phi(0.199) = 0.58 (normal approximation; the 0.3 percent tie is ignored).",
+    "Cross-check: simulation P(CAR win) = 0.578; no-vig market 0.608. Desk sits 2.8 points under the market, inside the 8-point re-check trigger.",
+    "Price, shown only: fair odds 1/0.58 = 1.72; break-even 1/1.57 = 0.637; EV at 1.57 = 0.58 x 1.57 - 1 = -0.09. Not used to choose."
+   ],
+   "pros": [
+    "Two TB starters out on offense (Egbuka WR, Goedeke T) and the TB pass offense ranked 31st.",
+    "Daniels' three starts this season: 4.82 yards per dropback, EPA per dropback -0.19, 4 interceptions (payload).",
+    "CAR's Bryce Young: 6.41 yards per dropback and EPA +0.03 per dropback over 49 games (payload)."
+   ],
+   "risks": [
+    "Mayfield may start. The TB starter is not confirmed for Oct 25; if he plays, this pick's probability falls and the pick should be re-run.",
+    "Feed price is about 71 hours old (2026-10-21T18:06Z). A same-day DraftKings line could differ; not re-confirmed.",
+    "Price is negative EV on the desk's own number: break-even 63.7 percent vs desk 58 percent.",
+    "CAR's defense has two LBs out (Phillips, Incoom) and a 26th-ranked run defense."
+   ],
+   "verdict": "Desk lean CAR, 58 percent, grade C. Only act if the TB starter is confirmed as Daniels on Sunday's official report and a same-day DraftKings price is checked: at 1.57 the desk's own chance does not beat the break-even of 63.7 percent.",
+   "sources": [
+    {
+     "name": "Buccaneers Week 7 injury report",
+     "url": "https://www.buccaneers.com/news/buccaneers-panthers-injury-report-oct-21-week-7-2026",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "SI: Mayfield injury update (Oct 21)",
+     "url": "https://www.si.com/betting/baker-mayfield-injury-update-bucs-set-as-clear-underdogs-with-quarterback-status-in-question-vs-panthers",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "theScore event page (Mayfield return headline)",
+     "url": "https://www.thescore.com/nfl/event/140676",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "Simulation extract (ranked board, odds feed, injuries, weather)",
+     "url": "file:///home/claude/desk-extract/2026_07_TB_CAR.json",
+     "fetched": "2026-10-24T16:40Z"
+    }
+   ]
+  },
+  {
+   "id": "spread|2026_07_NYG_HOU|away|10|NYG",
+   "game_id": "2026_07_NYG_HOU",
+   "kind": "spread",
+   "side": "away",
+   "line": 10.0,
+   "who": null,
+   "team": "NYG",
+   "label": "NYG +10",
+   "odds": 1.93,
+   "odds_source": "feed",
+   "p": 0.56,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 40,
+   "inputs": [
+    "Simulation raw home (HOU) margin 7.73 (payload model.margin); NYG team margin -7.73",
+    "News the sim did not fully see: Theo Johnson (NYG TE) Out on the Oct 23 report (sim had Doubtful): -0.3 for NYG",
+    "McCarthy starting is already in the sim (NYG qb_change -0.42 points); not counted twice",
+    "Houston losses in the sim: Montgomery, Fisher, Pitre, Blankenship; Dell Questionable (no adjustment)",
+    "Dome: no weather effect; home field already in the sim",
+    "Line: feed NYG +10 at 1.93 (fetched 2026-10-21T18:06Z); SI DraftKings page (Oct 20) shows Giants +9.5 at -108 (1.93)"
+   ],
+   "arithmetic": [
+    "NYG team margin = -7.73 - 0.3 = -8.0",
+    "Cover margin = team margin + line = -8.0 + 10 = +2.0",
+    "P(NYG covers +10) = Phi(2.0 / 13.5) = Phi(0.148) = 0.56 (push at exactly 10 is about 1.7% in the sim; the normal approximation ignores it)",
+    "Market: no-vig DraftKings NYG +10 = 0.491 (feed); desk minus market = +7 points (under the 8-point re-check trigger; re-checked, see notes)",
+    "Break-even at 1.93 = 0.518; EV at 1.93 = 0.56 x 1.93 - 1 = +0.08",
+    "If the line is +9.5 (SI, Oct 20): Phi((-8.0 + 9.5) / 13.5) = Phi(0.111) = 0.54, still above 0.50"
+   ],
+   "pros": [
+    "Desk margin of 8.0 is 2 points inside the line; the sim already prices the new quarterback and the Houston injuries",
+    "Houston's defense is strong on the pass rush (third in the NFL in sacks through five games) and the Houston pass defense ranks 22nd by EPA; both point to a close game, not a blowout",
+    "Giants underdog script keeps Nabers and Likely involved late (not priced here)"
+   ],
+   "risks": [
+    "McCarthy's first start: -0.20 EPA per dropback in 96 dropbacks this season",
+    "The calibrated simulation (margin 10.3, cover 0.49) and the no-vig market both sit on the line: the desk's edge depends on using the raw margin",
+    "The DraftKings line is in conflict across sources: feed -10 (Oct 21), SI DraftKings +9.5 (Oct 20), statsniper undated -10; a same-day DraftKings page was not reachable",
+    "Push at exactly 10 (about 1.7%)",
+    "A Houston blowout (Stroud, Dell active) would lose the cover"
+   ],
+   "verdict": "Lean NYG +10 at 1.93 (desk 56%, break-even 52%), only if DraftKings still shows +10; at +9.5 the desk is still 54%. Confidence moderate: the edge rests on the raw model margin, not on measured news.",
+   "sources": [
+    {
+     "name": "Simulation extract: odds feed and model margin",
+     "url": "/home/claude/desk-extract/2026_07_NYG_HOU.json",
+     "fetched": "2026-10-24T21:45Z"
+    },
+    {
+     "name": "Giants.com: Week 7 injury report (Theo Johnson Out)",
+     "url": "https://www.giants.com/news/giants-vs-texans-week-7-injury-report-tremaine-edmunds-jevon-holland-jermaine-eluemunor-andrew-thomas",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "ABC7 NY (ESPN): McCarthy named QB1",
+     "url": "https://abc7ny.com/post/source-giants-turning-jj-mccarthy-qb1-week-texans/19965065/",
+     "fetched": "2026-10-24T22:00Z"
+    },
+    {
+     "name": "SI: Giants vs Texans odds (DraftKings, Oct 20)",
+     "url": "https://www.si.com/betting/giants-vs-texans-prediction-odds-spread-injuries-trends-for-nfl-week-7-01m5b8c8tmdr",
+     "fetched": "2026-10-24T22:00Z"
+    }
+   ]
   }
  ],
  "declined": [
@@ -155,17 +1175,848 @@
    "label": "Cairo Santos over 0.5 field goals",
    "why": "Kicker field-goal market is off in the spec.",
    "game_id": "2026_07_NE_CHI"
+  },
+  {
+   "id": "ml|2026_07_CIN_BAL|away||CIN",
+   "label": "CIN moneyline",
+   "why": "Desk p about 0.51 (simulation anchored 0.5145; normal approx from margin +0.91 gives 0.53). Jackson leg unmeasured, so this is partial at best and falls below 0.50 if Jackson plays. DraftKings CIN ML 1.91 is feed-only and not on the ranked board; no same-day DraftKings line confirmed.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "ml|2026_07_CIN_BAL|home|BAL",
+   "label": "BAL moneyline",
+   "why": "Desk p 0.48 (simulation anchored 0.4827) on the Huntley-starts baseline, below min_p 0.50. Would rise only if Jackson's status changed, which is unmeasured.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "total|2026_07_CIN_BAL|over|48.5|",
+   "label": "Over 48.5",
+   "why": "Desk p = Phi((47.41 - 48.5) / 13.5) = 0.47, below min_p 0.50. The simulation's distribution shows 0.5175 but its mean sits below the line; model alone (41.5) is far lower. The spread between these is unresolved, so no selection.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "total|2026_07_CIN_BAL|under|48.5|",
+   "label": "Under 48.5",
+   "why": "Normal-approx p 0.53 on the anchored mean, but the Under 48.5 DraftKings price (1.95) is feed-only and was not on the ranked board. No same-day DraftKings line confirmed. The 2026-10-20 article quotes DraftKings total 51.5, which does not match the feed.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "spread|2026_07_CIN_BAL|home|-1.5|BAL",
+   "label": "BAL -1.5",
+   "why": "Desk p 0.48 (simulation 0.4843); below min_p 0.50.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "spread|2026_07_CIN_BAL|away|+1.5|CIN",
+   "label": "CIN +1.5",
+   "why": "Normal-approx p about 0.57 on the Huntley baseline (margin +0.91), but Jackson's status could move the margin several points toward BAL. DraftKings CIN +1.5 at 1.85 is feed-only, not on the ranked board, and not confirmed today (2026-10-20 article quotes DraftKings Ravens -2.5).",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "fg|2026_07_CIN_BAL|over|0.5|Tyler Loop",
+   "label": "Tyler Loop over 0.5 FG",
+   "why": "Kicker field goals are off in the spec.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "fg|2026_07_CIN_BAL|over|0.5|Evan McPherson",
+   "label": "Evan McPherson over 0.5 FG",
+   "why": "Kicker field goals are off in the spec.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "alt|2026_07_CIN_BAL",
+   "label": "All alternate lines (spread and total alts on board)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "qb_yds|2026_07_CIN_BAL",
+   "label": "QB passing yards (Huntley, Burrow)",
+   "why": "No projected passing-yard prop in the extract and no DraftKings passing-yard line confirmed today. Not priced, not selected.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "rec_yds_recs_rush_yds|2026_07_CIN_BAL",
+   "label": "Receiving, receptions and rushing props",
+   "why": "No projected prop for this game in the extract's bot.extra and no DraftKings line confirmed today. Not priced, not selected.",
+   "game_id": "2026_07_CIN_BAL"
+  },
+  {
+   "id": "ml|2026_07_CLE_TEN|away||CLE",
+   "label": "CLE moneyline",
+   "why": "Desk p 0.48: TEN margin +0.61 (sim) gives P(CLE win) = Phi(-0.61/13.5) = 0.48, below 0.50. Feed price 1.80 (2026-10-21) is no longer DraftKings' price; DraftKings today is CLE -130 (1.77). EV at 1.77 = 0.48 x 1.77 - 1 = -0.15. Not taken.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "spread|2026_07_CLE_TEN|away|-1.5|CLE",
+   "label": "CLE -1.5",
+   "why": "The feed line -1.5 (1.91, 2026-10-21) is no longer DraftKings' posted line. DraftKings today is CLE -2.5 at -108 (1.93). Desk p for CLE -2.5 = Phi((-0.61 - 2.5)/13.5) = 0.41. Not taken.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "total|2026_07_CLE_TEN|over|37.5|",
+   "label": "Over 37.5",
+   "why": "The feed line 37.5 (1.95, 2026-10-21) is no longer posted; DraftKings' total today is 36.5. Not re-priced: the desk's own total evidence does not agree (see the next two entries).",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|total|2026_07_CLE_TEN|over|36.5|",
+   "label": "Over 36.5 (DraftKings today, Over -118 = 1.85)",
+   "why": "Three readings disagree. Desk first-order points-per-drive total 30.1 gives P(over 36.5) = Phi((30.1 - 36.5)/13.5) = 0.32. Simulation anchored to the market, mean 36.6, gives 0.50. Simulation raw total 42.5 gives 0.67. The anchored figure simply restates the market, so there is no independent edge. Declined.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|total|2026_07_CLE_TEN|under|36.5|",
+   "label": "Under 36.5 (DraftKings today, Under -102 = 1.98)",
+   "why": "The first-order figure (30.1) gives P(under) = 0.68, but the anchored simulation gives 0.50 and the raw simulation gives 0.33. The desk sits about 20 points from the no-vig market (0.48). That is a re-check trigger, and the re-check did not find a reason that survives (no weather, the wind is 2 mph; the injury news is minor). Lower confidence and decline.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|ml|2026_07_CLE_TEN|home||TEN",
+   "label": "TEN moneyline (DraftKings today, +110 = 2.10)",
+   "why": "Raw sim margin TEN +0.61 gives P(TEN win) = Phi(0.61/13.5) = 0.52, only 0.02 above a coin flip. News does not clearly move it: Judkins returning (CLE run game up), Ward expected to play (CLE pass defence intact), Titans elevated two practice-squad players. The per-play EPA table favours CLE net by about 0.10 per play (TEN offence -0.134, defence +0.054; CLE offence -0.157, defence -0.065), which conflicts with the sim's TEN lean. Evidence conflicts, so no selection.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|rush_yds|2026_07_CLE_TEN|over|unconfirmed|Quinshon Judkins",
+   "label": "Quinshon Judkins rushing yards (line unconfirmed)",
+   "why": "No DraftKings posted line for this market found on a DraftKings-labelled page today. Sim: mean 44.6, fair line 42.5. Desk arithmetic: last four played carries 12, 18, 17, 14 (mean 15.3) x season YPC 3.33 = 50.8 yards, so a probability is possible but needs the posted line. Declined: line unconfirmed.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_CLE_TEN|over|unconfirmed|Denzel Boston",
+   "label": "Denzel Boston receiving yards (line unconfirmed)",
+   "why": "No DraftKings line found. The only figure on the FootballNation page (44.5) is a research threshold, not a sportsbook line. Declined.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_CLE_TEN|over|unconfirmed|Harold Fannin Jr.",
+   "label": "Harold Fannin Jr. receptions/yards (line unconfirmed)",
+   "why": "No DraftKings line found (the page lists only research thresholds). Declined.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|qb_yds|2026_07_CLE_TEN|over|unconfirmed|Deshaun Watson",
+   "label": "Deshaun Watson passing yards (line unconfirmed)",
+   "why": "No DraftKings line found. The 219.5 figure on the FootballNation page is a research threshold. Sim fair line 210.5 (mean 215.3). Declined.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "desk|qb_yds|2026_07_CLE_TEN|over|unconfirmed|Cam Ward",
+   "label": "Cam Ward passing yards (line unconfirmed)",
+   "why": "No DraftKings line found. Sim fair line 184.5 (mean 189.2). Declined.",
+   "game_id": "2026_07_CLE_TEN"
+  },
+  {
+   "id": "ml|2026_07_DEN_ARI|home||ARI",
+   "label": "ARI moneyline",
+   "why": "Desk p 0.40 (raw margin -3.32, P(win) = Phi(-0.246)); simulation calibrated 0.34. Below 0.50. Also feed price 2.95 does not match the same-day DraftKings page (Cardinals +190, 2.90).",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "desk|spread|2026_07_DEN_ARI|away|-4.5|DEN",
+   "label": "DEN -4.5",
+   "why": "Desk p 0.47 (mirror of ARI +4.5, 1 - 0.535). Below 0.50.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "total|2026_07_DEN_ARI|under|43.5|",
+   "label": "Under 43.5",
+   "why": "Raw model total 44.73 gives under 0.46; simulation calibrated total (43.71, own distribution) gives under 0.51. The two figures disagree on the side, and no research input breaks the tie. Also the feed price 1.95 is not DraftKings' same-day price (under -108, 1.93), so it would need re-pricing.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "desk|total|2026_07_DEN_ARI|over|43.5|",
+   "label": "Over 43.5",
+   "why": "Raw model total 44.73 gives over 0.54; simulation calibrated gives over 0.49. The figures disagree on the side, so no pick. Same-day DraftKings over -112 (1.89) differs from the feed (1.87).",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "fg|2026_07_DEN_ARI|over|0.5|Chad Ryland",
+   "label": "Chad Ryland over 0.5 field goals made",
+   "why": "Kicker field-goal market is off in the spec; no DraftKings price.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "fg|2026_07_DEN_ARI|over|0.5|Wil Lutz",
+   "label": "Wil Lutz over 0.5 field goals made",
+   "why": "Kicker field-goal market is off in the spec; no DraftKings price.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "alt|total|2026_07_DEN_ARI|over|36.5|",
+   "label": "Over 36.5 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "alt|total|2026_07_DEN_ARI|under|50.5|",
+   "label": "Under 50.5 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "alt|total|2026_07_DEN_ARI|over|40|",
+   "label": "Over 40 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "alt|spread|2026_07_DEN_ARI|away|1|",
+   "label": "DEN +1 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "alt|spread|2026_07_DEN_ARI|away|-2.5|",
+   "label": "DEN -2.5 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "game.props (McBride rec yds, Wilson rec yds)",
+   "label": "Trey McBride / Michael Wilson receiving props",
+   "why": "Not in bot.extra for this game (only kicker and alternate-line entries are projected there). Not researched: no DraftKings receiving line was confirmed, and the research budget went to game lines.",
+   "game_id": "2026_07_DEN_ARI"
+  },
+  {
+   "id": "spread|2026_07_GB_DET|home|-3|DET",
+   "label": "DET -3 (spread, feed 1.91)",
+   "why": "No same-day DraftKings line confirmed; feed price is from 2026-10-21. Board p 0.4873 is below the 0.50 floor, and the simulation's p_model is 0.4806.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "ml|2026_07_GB_DET|home||DET",
+   "label": "DET moneyline (feed 1.60)",
+   "why": "No same-day DraftKings line confirmed; feed price is from 2026-10-21. The board's p 0.609 is the market's number, not the desk's. Lions availability (Mays, Branch questionable) and Packers starters (Banks, St-Juste, Cisse questionable) are unverified. No desk adjustment to the simulation's margin was found.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "total|2026_07_GB_DET|over|53.5|",
+   "label": "Over 53.5 (game total, feed 1.91)",
+   "why": "Simulation p_model 0.4823 is below the 0.50 floor; no same-day DraftKings line confirmed.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "proj|rush_yds|2026_07_GB_DET|over|75.5|Jahmyr Gibbs",
+   "label": "Jahmyr Gibbs over 75.5 rush yds",
+   "why": "Simulation p 0.4987 is below the 0.50 floor; no DraftKings line found for this prop today.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "proj|recs|2026_07_GB_DET|over|2.5|Jameson Williams",
+   "label": "Jameson Williams over 2.5 receptions",
+   "why": "No DraftKings line found today. Simulation p 0.591 is above the floor, but the desk did not measure routes or catch rate, so the arithmetic is incomplete. Last five games' targets (9, 4, 4, 8, 4) give a mean of 5.8, which alone is not enough.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "proj|recs|2026_07_GB_DET|over|3.5|Christian Watson",
+   "label": "Christian Watson over 3.5 receptions",
+   "why": "No DraftKings line found today. Watson is limited with an ankle injury in the payload; his status is unverified against today's report. Simulation p 0.5425.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "proj|rec_yds|2026_07_GB_DET|over|50.5|Matthew Golden",
+   "label": "Matthew Golden over 50.5 rec yds",
+   "why": "Simulation p 0.4974 is below the 0.50 floor; limited with a shoulder injury; no DraftKings line found today.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "fg|2026_07_GB_DET|over|0.5|Trey Smack",
+   "label": "Trey Smack over 0.5 field goals",
+   "why": "Kicker field-goal market is off in the owner's spec (markets.fg false).",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "alt|spread|2026_07_GB_DET|home|-6.5|",
+   "label": "DET -6.5 (alt spread)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "alt|spread|2026_07_GB_DET|home|0.5|",
+   "label": "DET -0.5 (alt spread)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "alt|total|2026_07_GB_DET|over|46.5|",
+   "label": "Over 46.5 (alt total)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "alt|total|2026_07_GB_DET|under|60.5|",
+   "label": "Under 60.5 (alt total)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_GB_DET"
+  },
+  {
+   "id": "proj|recs|2026_07_IND_MIN|over|2.5|Jordan Addison",
+   "label": "Jordan Addison over 2.5 receptions",
+   "why": "No DraftKings line found: the odds feed has no price and no page read today showed DraftKings' board for this prop, so it cannot be confirmed. Sim probability 0.54 (2.8 receptions projected); last-4 targets 5.5 per game would imply a higher mean, but catch rate is not measured this season, so no desk probability was set.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "proj|rush_yds|2026_07_IND_MIN|over|57.5|Aaron Jones",
+   "label": "Aaron Jones over 57.5 rushing yards",
+   "why": "Simulation probability 0.4986 is below the 0.50 floor, and no DraftKings line was found to confirm the prop.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "spread|2026_07_IND_MIN|home|-6.5|MIN",
+   "label": "MIN -6.5 (DraftKings 1.93)",
+   "why": "Desk probability below the floor: pre-calibration margin 4.09 gives P(cover) = Phi((4.09 - 6.5) / 13.5) = 0.43; anchored margin 6.48 gives 0.50 only because the anchor matches the market. No news source gives a measured edge over the number.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "ml|2026_07_IND_MIN|away||IND",
+   "label": "IND moneyline (DraftKings 3.35)",
+   "why": "Simulation probability 0.2865, well below the 0.50 floor. Starters' news (Gardner, Warren, Allen out) does not change that.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "fg|2026_07_IND_MIN|over|0.5|Will Reichard",
+   "label": "Will Reichard over 0.5 field goals",
+   "why": "Kicker field goals are off in the spec, and there is no DraftKings price.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "fg|2026_07_IND_MIN|over|0.5|Spencer Shrader",
+   "label": "Spencer Shrader over 0.5 field goals",
+   "why": "Kicker field goals are off in the spec, and there is no DraftKings price.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "alt|spread|2026_07_IND_MIN|home|-3|",
+   "label": "MIN +3 (alternate line)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "alt|total|2026_07_IND_MIN|over|34.5|",
+   "label": "Over 34.5 (alternate line)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "alt|total|2026_07_IND_MIN|under|48.5|",
+   "label": "Under 48.5 (alternate line)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "alt|spread|2026_07_IND_MIN|home|0.5|",
+   "label": "MIN -0.5 (alternate line)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "alt|total|2026_07_IND_MIN|under|45|",
+   "label": "Under 45 (alternate line)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "alt|total|2026_07_IND_MIN|over|38|",
+   "label": "Over 38 (alternate line)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_IND_MIN"
+  },
+  {
+   "id": "ml|2026_07_KC_SEA|away||KC",
+   "label": "KC moneyline (DK +120, 2.20)",
+   "why": "Desk p about 0.41 (sim 0.43 with the KC tackle news pushing it lower); well below 0.50.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "spread|2026_07_KC_SEA|away|2.5|KC",
+   "label": "KC +2.5 (DK 1.98, feed)",
+   "why": "Desk p 0.49 (KC cover needs SEA margin below 2.5; desk margin 2.9). Below the 0.50 floor.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "spread|2026_07_KC_SEA|home|-2.5|SEA",
+   "label": "SEA -2.5 (DK -110, NBC Oct 22)",
+   "why": "Desk p 0.51 (P(SEA margin above 2.5) = Phi(0.4 / 13.5) = 0.512). No measured edge over the no-vig line; the grade would be C on a thin margin, so not taken.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "total|2026_07_KC_SEA|over|42.5|",
+   "label": "Over 42.5 (DK 1.91, feed)",
+   "why": "Desk mean about 42.0 after the Simmons (IR) and light-rain adjustments (sim 42.6), so P(over 42.5) = Phi(-0.5 / 13.5) = 0.49. Below the 0.50 floor.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "total|2026_07_KC_SEA|under|42.5|",
+   "label": "Under 42.5 (DK 1.91, feed)",
+   "why": "Desk p 0.51-0.52 on a mean of 42.0-42.6. Within noise of the no-vig line; no measured edge, so not taken (C grade would be thin).",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_KC_SEA|over|47.5|Travis Kelce",
+   "label": "Travis Kelce over 47.5 receiving yards (DK -110)",
+   "why": "Normal approximation gives 0.59 (mean 5.4 targets x 11.1 yards per target x 0.92 SEA adjustment = 55 yards), but at SD 0.6 x mean the lognormal with the same mean and SD gives 0.49. The spread is too wide to call; below 0.50 on the stricter form.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "desk|qb_yds|2026_07_KC_SEA|under|217.5|Patrick Mahomes",
+   "label": "Mahomes passing yards (consensus 217.5, no DK line)",
+   "why": "No DraftKings-labelled line for this game found (BettingPros consensus only). Sim fair line 211.5, not confirmable on DK.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "desk|qb_yds|2026_07_KC_SEA|over|217.5|Sam Darnold",
+   "label": "Darnold passing yards (sim fair 217.5, no DK line)",
+   "why": "No DraftKings-labelled passing-yards line found for this game. Unconfirmed line, declined.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "desk|rush_yds|2026_07_KC_SEA|over|4.5|Sam Darnold",
+   "label": "Darnold rushing yards over 4.5 (DK -106 per covers)",
+   "why": "Darnold's rushing usage is not in the extract, so the arithmetic cannot be done; evidence unmeasured.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "desk|rec_yds|2026_07_KC_SEA|over|48.5|Xavier Worthy",
+   "label": "Worthy receiving yards over 48.5 (DK -111 per covers)",
+   "why": "Worthy's targets are measured (about 5.8 per game, 18% share) but yards per target and per-game yards are not in the extract, so the mean cannot be built. Unmeasured.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "rush_yds|2026_07_KC_SEA|over|unconfirmed|Kenneth Walker III",
+   "label": "Kenneth Walker III rushing yards (no DK line found)",
+   "why": "Walker has a 60% carry share and 41% red-zone share (sim), but no DraftKings-labelled rushing line was found within the search budget. Declined on the unconfirmed line.",
+   "game_id": "2026_07_KC_SEA"
+  },
+  {
+   "id": "desk|ml|2026_07_LA_LV|away||LA",
+   "label": "LA moneyline",
+   "why": "Desk p about 0.60 (margin -3.41 gives P(LA win) = Phi(3.41/13.5) = 0.60), the strongest case on evidence, but it is not on the ranked board and no same-day DraftKings page was reachable. The payload's DraftKings LA ML 1.46 is dated 2026-10-21. Unconfirmed line, so declined.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "ml|2026_07_LA_LV|home||LV",
+   "label": "LV moneyline",
+   "why": "Desk p 0.38 (no-vig market 0.384, simulation 0.345), below the 0.50 floor.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "total|2026_07_LA_LV|over|48.5|",
+   "label": "Over 48.5",
+   "why": "Desk p 0.50 at most (mean 48.5 from the anchored simulation, z = 0), with no measured edge; the simulation's own p is 0.497. Below the 0.50 floor on the simulation figure; no same-day DraftKings total read.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "proj|recs|2026_07_LA_LV|over|2.5|Tre Tucker",
+   "label": "Tre Tucker over 2.5 receptions",
+   "why": "Simulation projection (p 0.59) with no price. No DraftKings posted line confirmed today.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "proj|recs|2026_07_LA_LV|over|2.5|Kyren Williams",
+   "label": "Kyren Williams over 2.5 receptions",
+   "why": "Simulation projection (p 0.55) with no price. No DraftKings posted line confirmed today.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "proj|recs|2026_07_LA_LV|over|2.5|Tyler Higbee",
+   "label": "Tyler Higbee over 2.5 receptions",
+   "why": "Simulation projection (p 0.57) with no price. No DraftKings posted line confirmed today.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "proj|rec_yds|2026_07_LA_LV|over|33.5|Tyler Higbee",
+   "label": "Tyler Higbee over 33.5 receiving yards",
+   "why": "Simulation projection (p 0.51), a near coin flip, with no price. No DraftKings posted line confirmed today.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "fg|2026_07_LA_LV|over|0.5|Matt Gay",
+   "label": "Matt Gay over 0.5 field goals made",
+   "why": "Kicker field goals are off in the spec.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "fg|2026_07_LA_LV|over|0.5|Blake Grupe",
+   "label": "Blake Grupe over 0.5 field goals made",
+   "why": "Kicker field goals are off in the spec.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "alt|total|2026_07_LA_LV|over|41.5|",
+   "label": "Over 41.5 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "alt|total|2026_07_LA_LV|under|55.5|",
+   "label": "Under 55.5 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "alt|spread|2026_07_LA_LV|away|1|",
+   "label": "LA +1 (alt)",
+   "why": "Alternate lines are off in the spec.",
+   "game_id": "2026_07_LA_LV"
+  },
+  {
+   "id": "spread|2026_07_MIA_NYJ|away|4.5|MIA",
+   "label": "MIA +4.5",
+   "why": "Desk p 0.44: blended margin NYJ +6.45, so MIA team margin -6.45 + 4.5 = -1.95, /13.5 = Phi(-0.14). Below the 0.50 floor. Feed 1.95 (-105) noted, not used. The simulation's calibrated 0.51 is its market fit, not evidence.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "total|2026_07_MIA_NYJ|over|39.5|",
+   "label": "Over 39.5",
+   "why": "Desk p 0.46: blended mean 38.1 against 39.5, SD 13.5. Below the 0.50 floor. The simulation's raw total (43.4) and the season scoring (35.4) disagree too widely to pick a side.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "proj|recs|2026_07_MIA_NYJ|over|3.5|Malik Washington",
+   "label": "Malik Washington over 3.5 receptions (sim line)",
+   "why": "No DraftKings line confirmed: DraftKings' sportsbook page could not be read, and the only line found (over 4.5, plus money) is from sportsgrid at an unnamed book. Simulation p 0.525 at 3.5 is not a DraftKings price. Recent receptions 6, 5, 5, 4, 3 (weeks 1 to 5, iHeart).",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "fg|2026_07_MIA_NYJ|over|0.5|Jason Sanders",
+   "label": "Jason Sanders over 0.5 field goals made",
+   "why": "Kicker field goals are off in the spec (markets.fg false). No DraftKings price in the feed.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "alt|total|2026_07_MIA_NYJ|over|32.5|",
+   "label": "Over 32.5 (alt)",
+   "why": "Alternate line: off in the spec.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "alt|total|2026_07_MIA_NYJ|under|46.5|",
+   "label": "Under 46.5 (alt)",
+   "why": "Alternate line: off in the spec.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "alt|total|2026_07_MIA_NYJ|over|36|",
+   "label": "Over 36 (alt)",
+   "why": "Alternate line: off in the spec.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "alt|total|2026_07_MIA_NYJ|under|43|",
+   "label": "Under 43 (alt)",
+   "why": "Alternate line: off in the spec.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "alt|spread|2026_07_MIA_NYJ|home|-1|",
+   "label": "NYJ +1 (alt)",
+   "why": "Alternate line: off in the spec.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "alt|spread|2026_07_MIA_NYJ|home|2.5|",
+   "label": "NYJ -2.5 (alt)",
+   "why": "Alternate line: off in the spec.",
+   "game_id": "2026_07_MIA_NYJ"
+  },
+  {
+   "id": "ml|2026_07_NYG_HOU|away||NYG",
+   "label": "NYG moneyline (DK 4.8)",
+   "why": "Desk p 0.28 (Phi(-8.0/13.5)) is below the 0.50 floor. No measured input supports a side at 0.50. The no-vig market is 0.205 and the calibrated sim 0.21; DK 4.8 implies 20.8%.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "spread|2026_07_NYG_HOU|home|-10|HOU",
+   "label": "HOU -10 (DK 1.89)",
+   "why": "Desk p 0.44 (Phi((8.0 - 10) / 13.5)) is below the 0.50 floor; negative EV at 1.89.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "total|2026_07_NYG_HOU|over|42.5|",
+   "label": "Over 42.5 (DK 1.85)",
+   "why": "Desk p 0.49 is below the 0.50 floor; mirror of the selected under, which is the only total side with a desk edge.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "fg|2026_07_NYG_HOU|over|0.5|Ka'imi Fairbairn",
+   "label": "Ka'imi Fairbairn over 0.5 field goals made",
+   "why": "Kicker field goals are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "fg|2026_07_NYG_HOU|over|0.5|Dominic Zvada",
+   "label": "Dominic Zvada over 0.5 field goals made",
+   "why": "Kicker field goals are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "fg|2026_07_NYG_HOU|under|2.5|Dominic Zvada",
+   "label": "Dominic Zvada under 2.5 field goals made",
+   "why": "Kicker field goals are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "alt|total|2026_07_NYG_HOU|over|35.5|",
+   "label": "Over 35.5 (alt)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "alt|total|2026_07_NYG_HOU|under|49.5|",
+   "label": "Under 49.5 (alt)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "alt|total|2026_07_NYG_HOU|over|39|",
+   "label": "Over 39 (alt)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "alt|total|2026_07_NYG_HOU|under|46|",
+   "label": "Under 46 (alt)",
+   "why": "Alternate lines are off in the owner's spec.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "proj|recs|2026_07_NYG_HOU|over|4.5|Isaiah Likely",
+   "label": "Isaiah Likely over 4.5 receptions",
+   "why": "No DraftKings receptions line confirmed on a DraftKings board this run, so it cannot be a selection. Simulation p 0.53 is information only. Likely is not on the Oct 23 report.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "proj|recs|2026_07_NYG_HOU|over|5.5|Malik Nabers",
+   "label": "Malik Nabers over 5.5 receptions",
+   "why": "No DraftKings receptions line confirmed on a DraftKings board this run, so it cannot be a selection. Simulation p 0.53 is information only. Nabers is not on the Oct 23 report.",
+   "game_id": "2026_07_NYG_HOU"
+  },
+  {
+   "id": "ml|2026_07_PIT_NO|home||NO",
+   "label": "NO moneyline (feed 2.54)",
+   "why": "Desk p 0.44 (Phi(-2.09/13.5) = 0.44) is below the 0.50 floor; the feed price was not used.",
+   "game_id": "2026_07_PIT_NO"
+  },
+  {
+   "id": "spread|2026_07_PIT_NO|home|3.5|NO",
+   "label": "NO +3.5 spread (feed 1.85, Oct 21)",
+   "why": "Feed line has moved: DraftKings now shows NO +3 at -110 (VegasInsider). Re-priced at +3 and selected; the feed line is not kept.",
+   "game_id": "2026_07_PIT_NO"
+  },
+  {
+   "id": "total|2026_07_PIT_NO|over|44.5|",
+   "label": "Over 44.5 (DK -112)",
+   "why": "Runbook total arithmetic (pace x points per drive per total card) is not in the extract, so unmeasured. Sim total 46.01 raw gives 0.53; anchored 44.63 gives 0.50. No edge the desk can measure.",
+   "game_id": "2026_07_PIT_NO"
+  },
+  {
+   "id": "total|2026_07_PIT_NO|under|44.5|",
+   "label": "Under 44.5 (DK -108)",
+   "why": "Same as Over 44.5: unmeasured total arithmetic and no edge; the two sides cannot be separated.",
+   "game_id": "2026_07_PIT_NO"
+  },
+  {
+   "id": "proj|recs|2026_07_PIT_NO|over|3.5|DK Metcalf",
+   "label": "DK Metcalf over 3.5 receptions (sim line)",
+   "why": "No DraftKings receptions line confirmed today (the sources show no DraftKings props). Sim p 0.54 uses no price. Metcalf is questionable with illness (ActionNetwork) and not on the NFL.com report fetched.",
+   "game_id": "2026_07_PIT_NO"
+  },
+  {
+   "id": "proj|rush_yds|2026_07_PIT_NO|over|63.5|Jaylen Warren",
+   "label": "Jaylen Warren over 63.5 rush yds (sim line)",
+   "why": "Desk p 0.4988 is below the 0.50 floor. No DraftKings rushing line confirmed (the Kalshi 60+ yards line is not DraftKings).",
+   "game_id": "2026_07_PIT_NO"
+  },
+  {
+   "id": "ml|2026_07_SF_ATL|home||ATL",
+   "label": "ATL moneyline (feed 2.50)",
+   "why": "Starter not verified: SF QB Brock Purdy's Sunday status (toe, limited Thursday) is not confirmed by a same-day official report or team source. The feed price is dated 2026-10-21 and no same-day DraftKings board was read. Not selected; the desk's own figure is not computed without the starter.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "spread|2026_07_SF_ATL|home|3|ATL",
+   "label": "ATL +3 (feed 1.98)",
+   "why": "Same blocker: the spread depends on whether Purdy starts, and the feed line and price are from 2026-10-21. Not selected.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "total|2026_07_SF_ATL|under|50.5|",
+   "label": "Under 50.5 (feed 1.87)",
+   "why": "Same blocker: total depends on the SF starter (Purdy vs Mac Jones). Feed line and price are from 2026-10-21, not re-read on DraftKings today. Not selected.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "desk|recs|2026_07_SF_ATL|over|4.5|Drake London",
+   "label": "Drake London over 4.5 receptions (sim line, no price)",
+   "why": "No DraftKings posted line was read from a same-day DraftKings page, and the feed has no price for this market. Declined: line not confirmed on DraftKings. The simulation projection (4.9 receptions, 54.3% over 4.5) is information only.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "fg|2026_07_SF_ATL|over|0.5|Nick Folk",
+   "label": "Nick Folk over 0.5 field goals made",
+   "why": "Kicker field goals are off in the owner's spec (markets.fg false). Not a desk market.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "fg|2026_07_SF_ATL|over|0.5|Eddy Pineiro",
+   "label": "Eddy Pineiro over 0.5 field goals made",
+   "why": "Kicker field goals are off in the owner's spec (markets.fg false). Not a desk market.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "alt|spread|2026_07_SF_ATL|away|6.5|",
+   "label": "SF +6.5 (alternate line)",
+   "why": "Alternate lines are off in the spec. Not eligible.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "alt|total|2026_07_SF_ATL|under|57.5|",
+   "label": "Under 57.5 (alternate line)",
+   "why": "Alternate lines are off in the spec. Not eligible.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "alt|total|2026_07_SF_ATL|over|43.5|",
+   "label": "Over 43.5 (alternate line)",
+   "why": "Alternate lines are off in the spec. Not eligible.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "alt|total|2026_07_SF_ATL|under|54|",
+   "label": "Under 54 (alternate line)",
+   "why": "Alternate lines are off in the spec. Not eligible.",
+   "game_id": "2026_07_SF_ATL"
+  },
+  {
+   "id": "total|2026_07_TB_CAR|over|44.5|",
+   "label": "Over 44.5",
+   "why": "No edge. Simulation P(over) 0.479; normal approximation on the mean 44.64 gives about 0.50. The points-per-drive check gives 39.9, so the two estimates conflict. Feed price 1.91 is 71 hours old and not re-confirmed. Not selected.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "candidate|total|2026_07_TB_CAR|under|44.5",
+   "label": "Under 44.5",
+   "why": "Complement of the over. Simulation P(under) 0.521 but the points-per-drive check (39.9) points the same way with a different size, and the TB starter is unresolved, so no measured edge. Not selected.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "ml|2026_07_TB_CAR|away||TB",
+   "label": "TB moneyline",
+   "why": "Desk P(TB win) = 0.42 (below 0.50). Feed price 2.45, 2 days old.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "spread|2026_07_TB_CAR|home|-3.5|CAR",
+   "label": "CAR -3.5",
+   "why": "Complement of TB +3.5. Desk P(CAR cover) about 0.48 (below 0.50).",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "candidate|qb_yds|2026_07_TB_CAR|BryceYoung|over|228.5",
+   "label": "Bryce Young over 228.5 passing yards (fair line from simulation)",
+   "why": "No DraftKings line confirmed today; not on the board (bot.extra has no QB yardage projection for this game). Starter and price not checked within the research budget.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "candidate|qb_yds|2026_07_TB_CAR|JalonDaniels|over|205.5",
+   "label": "Jalon Daniels over 205.5 passing yards (fair line from simulation)",
+   "why": "TB starter not confirmed (Mayfield Questionable); no DraftKings line confirmed today. Not selected.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "fg|2026_07_TB_CAR|over|0.5|Ryan Fitzgerald",
+   "label": "Ryan Fitzgerald over 0.5 field goals made",
+   "why": "Kicker field-goal market is off in the spec, and there is no DraftKings price.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "fg|2026_07_TB_CAR|over|0.5|Chase McLaughlin",
+   "label": "Chase McLaughlin over 0.5 field goals made",
+   "why": "Kicker field-goal market is off in the spec, and there is no DraftKings price.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "alt|spread|2026_07_TB_CAR|home|-7|",
+   "label": "CAR +7 (alt)",
+   "why": "Alternate lines are off in the spec; no DraftKings price.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "alt|total|2026_07_TB_CAR|over|37.5|",
+   "label": "Over 37.5 (alt)",
+   "why": "Alternate lines are off in the spec; no DraftKings price.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "alt|total|2026_07_TB_CAR|under|51.5|",
+   "label": "Under 51.5 (alt)",
+   "why": "Alternate lines are off in the spec; no DraftKings price.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "alt|total|2026_07_TB_CAR|over|41|",
+   "label": "Over 41 (alt)",
+   "why": "Alternate lines are off in the spec; no DraftKings price.",
+   "game_id": "2026_07_TB_CAR"
+  },
+  {
+   "id": "ml|2026_07_MIA_NYJ|home||NYJ",
+   "label": "NYJ moneyline",
+   "why": "Desk p 0.68 rests on the market price (no-vig, about 0.69 at 1.44); the simulation gives NYJ 0.48 and no independent evidence closes that gap, so not taken."
+  },
+  {
+   "id": "desk|ml|2026_07_PIT_NO|away||PIT",
+   "label": "PIT moneyline",
+   "why": "Game section full (six); p 0.56 ranks below the six kept. Grade C, DraftKings line confirmed."
+  },
+  {
+   "id": "spread|2026_07_DEN_ARI|home|4.5|ARI",
+   "label": "ARI +4.5",
+   "why": "Game section full (six); p 0.53 ranks below the six kept."
+  },
+  {
+   "id": "spread|2026_07_LA_LV|home|4.5|LV",
+   "label": "LV +4.5",
+   "why": "Game section full (six); p 0.53, no measured edge, feed price unconfirmed today."
+  },
+  {
+   "id": "desk|spread|2026_07_PIT_NO|home|3|NO",
+   "label": "NO +3 spread",
+   "why": "Game section full (six); p 0.53 ranks below the six kept."
+  },
+  {
+   "id": "spread|2026_07_TB_CAR|away|3.5|TB",
+   "label": "TB +3.5",
+   "why": "Game section full (six); p 0.52, starter for TB unresolved."
+  },
+  {
+   "id": "total|2026_07_NYG_HOU|under|42.5|",
+   "label": "Under 42.5",
+   "why": "Game section full (six); p 0.51, below the kept selections."
   }
  ],
  "sections": {
   "qb": [],
-  "receiving": [],
+  "receiving": [
+   "desk|recs|2026_07_KC_SEA|under|4.5|Travis Kelce"
+  ],
   "rushing": [],
   "game": [
-   "total|2026_07_NE_CHI|under|50.5|"
+   "total|2026_07_NE_CHI|under|50.5|",
+   "desk|ml|2026_07_DEN_ARI|away||DEN",
+   "ml|2026_07_KC_SEA|home||SEA",
+   "total|2026_07_IND_MIN|over|41.5|",
+   "ml|2026_07_TB_CAR|home||CAR",
+   "spread|2026_07_NYG_HOU|away|10|NYG"
   ]
  },
  "best": [
+  "desk|ml|2026_07_DEN_ARI|away||DEN",
+  "desk|recs|2026_07_KC_SEA|under|4.5|Travis Kelce",
+  "ml|2026_07_KC_SEA|home||SEA",
   "total|2026_07_NE_CHI|under|50.5|"
  ]
 }
