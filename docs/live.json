@@ -1,7 +1,7 @@
 {
  "date": "2026-10-24",
- "updated_utc": "2026-10-25 04:35 UTC",
- "updated_et": "12:35 AM ET",
+ "updated_utc": "2026-10-25 04:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020168": {
    "state": "OFF",
@@ -549,12 +549,12 @@
    ]
   },
   "2026020178": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:58",
-   "elapsed_min": 57.03,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CGY",
    "away": "DET",
    "home_score": 4,
@@ -563,7 +563,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -593,12 +593,12 @@
    ]
   },
   "2026020179": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:35",
-   "elapsed_min": 57.42,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "SEA",
    "away": "MIN",
    "home_score": 1,
@@ -607,7 +607,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
