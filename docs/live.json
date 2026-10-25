@@ -1,7 +1,7 @@
 {
  "date": "2026-10-24",
- "updated_utc": "2026-10-25 01:45 UTC",
- "updated_et": "9:45 PM ET",
+ "updated_utc": "2026-10-25 01:50 UTC",
+ "updated_et": "9:50 PM ET",
  "games": {
   "2026020168": {
    "state": "OFF",
@@ -107,9 +107,9 @@
    ]
   },
   "2026020170": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
@@ -121,7 +121,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -170,27 +170,27 @@
     },
     {
      "period": 3,
-     "minute": 59.5,
+     "minute": 59.533,
      "team": "BOS"
     }
    ]
   },
   "2026020171": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:11",
-   "elapsed_min": 59.82,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "OTT",
    "away": "NYR",
-   "home_score": 6,
+   "home_score": 7,
    "away_score": 4,
    "first_goal_min": 5.567,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -240,6 +240,11 @@
     {
      "period": 3,
      "minute": 58.783,
+     "team": "OTT"
+    },
+    {
+     "period": 3,
+     "minute": 59.8,
      "team": "OTT"
     }
    ]
@@ -416,21 +421,21 @@
    ]
   },
   "2026020176": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:07",
-   "elapsed_min": 58.88,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "EDM",
    "away": "TOR",
    "home_score": 2,
-   "away_score": 6,
+   "away_score": 7,
    "first_goal_min": 14.267,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -471,6 +476,11 @@
      "period": 3,
      "minute": 57.933,
      "team": "TOR"
+    },
+    {
+     "period": 3,
+     "minute": 59.483,
+     "team": "TOR"
     }
    ]
   },
@@ -479,15 +489,15 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "04:29",
-   "elapsed_min": 15.52,
+   "time_remaining": "02:21",
+   "elapsed_min": 17.65,
    "home": "UTA",
    "away": "TBL",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 3,
    "first_goal_min": 5.167,
    "p1_done": false,
-   "p1_home": 1,
+   "p1_home": 2,
    "p1_away": 3,
    "ended_in": null,
    "goals": [
@@ -510,6 +520,11 @@
      "period": 1,
      "minute": 12.7,
      "team": "TBL"
+    },
+    {
+     "period": 1,
+     "minute": 17.65,
+     "team": "UTA"
     }
    ]
   },
