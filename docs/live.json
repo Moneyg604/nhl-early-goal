@@ -1,7 +1,7 @@
 {
  "date": "2026-10-24",
- "updated_utc": "2026-10-25 02:40 UTC",
- "updated_et": "10:40 PM ET",
+ "updated_utc": "2026-10-25 02:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020168": {
    "state": "OFF",
@@ -489,11 +489,11 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "05:21",
-   "elapsed_min": 34.65,
+   "time_remaining": "03:49",
+   "elapsed_min": 36.18,
    "home": "UTA",
    "away": "TBL",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 4,
    "first_goal_min": 5.167,
    "p1_done": true,
@@ -530,6 +530,11 @@
      "period": 2,
      "minute": 25.533,
      "team": "TBL"
+    },
+    {
+     "period": 2,
+     "minute": 34.65,
+     "team": "UTA"
     }
    ]
   },
@@ -538,26 +543,32 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "04:42",
-   "elapsed_min": 15.3,
+   "time_remaining": "01:48",
+   "elapsed_min": 18.2,
    "home": "CGY",
    "away": "DET",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 17.833,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 17.833,
+     "team": "CGY"
+    }
+   ]
   },
   "2026020179": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "05:10",
-   "elapsed_min": 14.83,
+   "time_remaining": "02:24",
+   "elapsed_min": 17.6,
    "home": "SEA",
    "away": "MIN",
    "home_score": 1,
