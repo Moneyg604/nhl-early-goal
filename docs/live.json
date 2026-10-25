@@ -1,7 +1,7 @@
 {
  "date": "2026-10-24",
- "updated_utc": "2026-10-25 04:00 UTC",
- "updated_et": "12:00 AM ET",
+ "updated_utc": "2026-10-25 04:05 UTC",
+ "updated_et": "12:05 AM ET",
  "games": {
   "2026020168": {
    "state": "OFF",
@@ -485,9 +485,9 @@
    ]
   },
   "2026020177": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
    "time_remaining": "03:16",
    "elapsed_min": 60.0,
@@ -499,7 +499,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 3,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -543,7 +543,7 @@
     },
     {
      "period": 4,
-     "minute": 61.717,
+     "minute": 61.733,
      "team": "UTA"
     }
    ]
@@ -553,8 +553,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "20:00",
-   "elapsed_min": 40.0,
+   "time_remaining": "17:53",
+   "elapsed_min": 42.12,
    "home": "CGY",
    "away": "DET",
    "home_score": 4,
@@ -597,8 +597,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "20:00",
-   "elapsed_min": 40.0,
+   "time_remaining": "17:40",
+   "elapsed_min": 42.33,
    "home": "SEA",
    "away": "MIN",
    "home_score": 1,
