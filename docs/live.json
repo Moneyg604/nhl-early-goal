@@ -1,7 +1,7 @@
 {
  "date": "2026-10-25",
- "updated_utc": "2026-10-25 22:35 UTC",
- "updated_et": "6:35 PM ET",
+ "updated_utc": "2026-10-25 22:40 UTC",
+ "updated_et": "6:40 PM ET",
  "games": {
   "2026020180": {
    "state": "OFF",
@@ -52,21 +52,31 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "06:17",
-   "elapsed_min": 13.72,
+   "time_remaining": "03:54",
+   "elapsed_min": 16.1,
    "home": "DAL",
    "away": "NYI",
-   "home_score": 1,
-   "away_score": 0,
+   "home_score": 2,
+   "away_score": 1,
    "first_goal_min": 11.517,
    "p1_done": false,
-   "p1_home": 1,
-   "p1_away": 0,
+   "p1_home": 2,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 11.517,
+     "team": "DAL"
+    },
+    {
+     "period": 1,
+     "minute": 13.717,
+     "team": "NYI"
+    },
+    {
+     "period": 1,
+     "minute": 14.533,
      "team": "DAL"
     }
    ]
