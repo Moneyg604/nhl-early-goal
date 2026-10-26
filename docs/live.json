@@ -1,7 +1,7 @@
 {
  "date": "2026-10-25",
- "updated_utc": "2026-10-26 02:40 UTC",
- "updated_et": "10:40 PM ET",
+ "updated_utc": "2026-10-26 02:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020180": {
    "state": "OFF",
@@ -146,12 +146,12 @@
    ]
   },
   "2026020183": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:38",
-   "elapsed_min": 59.37,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NSH",
    "away": "COL",
    "home_score": 6,
@@ -160,7 +160,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -209,18 +209,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "02:46",
-   "elapsed_min": 17.23,
+   "time_remaining": "00:27",
+   "elapsed_min": 19.55,
    "home": "VAN",
    "away": "MIN",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 18.55,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 18.55,
+     "team": "MIN"
+    }
+   ]
   }
  }
 }
