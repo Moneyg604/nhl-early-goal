@@ -1,0 +1,399 @@
+{
+ "v": 1,
+ "season": 2027,
+ "date": "2026-10-27",
+ "generated_utc": "2026-10-27 19:47 UTC",
+ "analyst": "Claude research desk",
+ "odds_band": [
+  1.35,
+  2.2
+ ],
+ "summary": "Four NBA games tip tonight (BKN-BOS, DET-NY, SAC-SA, POR-LAL). Two selections clear the desk's rules: NY moneyline at 1.588 (Duren out for DET) and LAL moneyline at 1.80 (Henderson and Carlson questionable for POR); the 1.35 to 2.20 band and the 0.52 floor removed most sides, totals and props have no DraftKings price read today, so the slate is short and Best picks are fewer than three.",
+ "games": {
+  "2026_10_27_BKN_BOS": {
+   "notes": [
+    "No selection this run. The only priced sides that clear the 0.52 floor are outside the band or below it: BOS moneyline 1.16 is outside the 1.35 to 2.20 band; BOS -12.5 at 1.909 has desk chance 0.517 (model 0.547 before the injury check, no-vig 0.500), below the 0.52 floor after the Derrick White and Devin Carter news.",
+    "Availability (Oct 27 same-day reports): Devin Carter (BOS) Out, illness, fourth straight game missed. Derrick White (BOS) Probable, right hip synovitis, expected to play. Tyler Bilodeau (BKN) Out, shoulder sprain (payload, dated Oct 25). Nets otherwise healthy apart from G League assignments. Starters not named in any source read today.",
+    "Model (payload, box-score ratings): BOS 112.6, BKN 98.5, home margin +14.0, P(BOS win) 0.868 (the model has no lineup adjustment; BKN ratings rest on 3 games, BOS on 3). Market no-vig BOS moneyline 82.7%. The gap is 4.6 points, inside the 8-point re-check trigger, and the model has no injury input, so the desk does not move the number off the market.",
+    "Totals: Under 222.5 at 1.91 and Over 222.5 at 1.91 are assumed by ESPN, not read on DraftKings today. Under the spec's line rule a total needs DraftKings' own price from a page showing its board, which was not available, so the total is declined. Prop: Neemias Queta under 0.5 threes has a model line only and no DraftKings price in tonight's feed; declined (no price)."
+   ],
+   "weather": "indoor, n/a",
+   "injuries": [
+    "Devin Carter (BOS) Out, illness (Athlon, Oct 27)",
+    "Derrick White (BOS) Probable, right hip synovitis, expected to play (Athlon, Oct 27)",
+    "Tyler Bilodeau (BKN) Out, shoulder sprain (ESPN payload, Oct 25)"
+   ],
+   "sources": [
+    {
+     "name": "Athlon Sports: Final injury report for Nets-Celtics",
+     "url": "https://athlonsports.com/nba/boston-celtics/final-injury-report-for-nets-celtics-will-derrick-white-play",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ESPN game feed (lines, injuries) as carried in the desk payload",
+     "url": "https://www.espn.com/nba/game/_/gameId/401909877",
+     "fetched": "2026-10-27T19:40Z"
+    }
+   ]
+  },
+  "2026_10_27_DET_NY": {
+   "notes": [
+    "One selection: NY moneyline at 1.588. The model has NY as a slight favourite (home, P 0.566); the same-day news moves the number further toward NY, so the desk's chance is 0.62.",
+    "Availability (Oct 27 10:00 AM ET report, per Yahoo Sports and ClutchPoints): Jalen Duren (DET) Out, right hamstring strain, expected to miss at least two weeks. Ausar Thompson (DET) Questionable, right ankle sprain. Isaiah Joe (DET) Questionable, right hip contusion. Ugonna Onyenso (DET) Out. Jose Alvarado (NY) Out, left ankle sprain. Karl-Anthony Towns plays centre for NY, and Paul Reed is expected to take a bigger role for DET with Duren out.",
+    "Market: no-vig NY moneyline 60.4%; the desk is 1.6 points above it, inside the 8-point trigger. The desk's number is driven by Duren's absence, which the model does not include, so the gap is explained rather than invented.",
+    "Price: NY 1.588 and DET 2.42 are the feed's DraftKings moneyline prices (ESPN). The spread on DET +4.5 at 1.87 was declined (see declined): after the Duren adjustment its desk chance falls to about 0.48.",
+    "Totals (Under 219.5 at 1.91, assumed, not read on DraftKings) and props (no DraftKings prices) are not taken; see declined."
+   ],
+   "weather": "indoor, n/a",
+   "injuries": [
+    "Jalen Duren (DET) Out, right hamstring strain, at least two weeks (Yahoo Sports, Oct 27 10:00 AM ET report)",
+    "Ausar Thompson (DET) Questionable, right ankle sprain (same report)",
+    "Isaiah Joe (DET) Questionable, right hip contusion (same report)",
+    "Ugonna Onyenso (DET) Out (same report)",
+    "Jose Alvarado (NY) Out, left ankle sprain (same report)"
+   ],
+   "sources": [
+    {
+     "name": "Yahoo Sports: Pistons vs. Knicks injury report (Oct 27 10:00 AM ET NBA report)",
+     "url": "https://sports.yahoo.com/articles/pistons-vs-knicks-injury-report-171939546.html",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ClutchPoints: Pistons vs. Knicks injury report (Thompson and Joe listed with Duren out)",
+     "url": "https://clutchpoints.com/nba/nba-stories/pistons-vs-knicks-injury-report-ausar-thompson-isaiah-joe-listed-with-jalen-duren-already-out",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ESPN game feed (moneyline and spread prices, model) as carried in the desk payload",
+     "url": "https://www.espn.com/nba/game/_/gameId/401909878/pistons-knicks",
+     "fetched": "2026-10-27T19:40Z"
+    }
+   ]
+  },
+  "2026_10_27_POR_LAL": {
+   "notes": [
+    "One selection: LAL moneyline at 1.80. The model's home win chance for LAL is 0.605; the desk adjusts it down for the Portland news in the Oct 27 10:00 AM ET report (Henderson and Carlson questionable) and lands at 0.58, 4.8 points above the no-vig market.",
+    "Availability (Oct 27 10:00 AM ET report, per ClutchPoints and the Lineups.com preview): Scoot Henderson (POR) Questionable, left ankle soreness, a bench-scoring role if he plays. Branden Carlson (POR) Questionable, remaining in concussion protocol. Shaedon Sharpe (POR) Out, right meniscus surgery recovery. Cameron Carr (LAL) Out, right oblique strain (not yet debuted). Adou Thiero (LAL) Out, left knee swelling. Walker Kessler (LAL) Available, finger splint. Luka Dončić is not on either report and is averaging 34.3 points over three games; LeBron James has left the Lakers (CBS Sports preview, Oct 26), so he is not a factor.",
+    "Market: no-vig LAL moneyline 53.3% (ESPN feed prices: LAL 1.80, POR 2.05). The desk is 4.8 points above it, inside the 8-point re-check trigger. The gap is explained by the model's home court and rating edge (LAL ortg-based margin +3.3 before news), not invented.",
+    "Lineup risk: if Henderson and Carlson both play, the desk's number is about right; if both sit, LAL's chance rises slightly (POR thinner in the backcourt and the big rotation). Sharpe's absence is not counted (its size is not measured in the sources).",
+    "LAL −1.5 at 1.87 (desk 0.54) was declined: it is the same game and the same side, so taking both is double exposure for about 1% extra expected value. The ML is the cleaner expression."
+   ],
+   "weather": "indoor, n/a",
+   "injuries": [
+    "Scoot Henderson (POR) Questionable, left ankle soreness (Oct 27 10:00 AM ET report)",
+    "Branden Carlson (POR) Questionable, concussion protocol (same report)",
+    "Shaedon Sharpe (POR) Out, right meniscus surgery recovery (same report)",
+    "Cameron Carr (LAL) Out, right oblique strain (same report)",
+    "Adou Thiero (LAL) Out, left knee swelling (same report)",
+    "Walker Kessler (LAL) Available, finger splint (same report)"
+   ],
+   "sources": [
+    {
+     "name": "ClutchPoints: Blazers vs. Lakers injury report (NBA report dated Oct 27 10:00 AM ET)",
+     "url": "https://clutchpoints.com/nba/portland-trail-blazers/blazers-vs-lakers-injury-report-scoot-henderson-listed-with-ankle-issue",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "Heavy: Lakers injury report vs. Trail Blazers (Oct 27)",
+     "url": "https://heavy.com/sports/nba/los-angeles-lakers/injury-report-vs-blazers-october-27/",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "CBS Sports: Luka Doncic leads undefeated Lakers against Trail Blazers (Oct 26 preview)",
+     "url": "https://www.cbssports.com/nba/news/luka-doncic-leads-undefeated-lakers-against-trail-blazers/",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "Lineups.com: Trail Blazers-Lakers picks (Oct 27)",
+     "url": "https://www.lineups.com/articles/trail-blazers-lakers-nba-picks-predictions-odds-for-tuesday-october-27-2026/",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ESPN game feed (moneyline prices, model) as carried in the desk payload",
+     "url": "https://www.espn.com/nba/game/_/gameId/401909880/trail-blazers-lakers",
+     "fetched": "2026-10-27T19:40Z"
+    }
+   ]
+  },
+  "2026_10_27_SAC_SA": {
+   "notes": [
+    "No selection this run. The lean in the payload (SAC +18.5 at 1.926) is the only side near the floor, and it does not survive the lineup check: both teams are missing starters and the model has no lineup term.",
+    "Availability (Oct 26 6:00 PM ET report, the latest found; no later same-day update located): Keegan Murray (SAC) Out, left ankle capsulitis, added over the weekend. Dylan Cardwell (SAC) Out, left calf, no return before Nov 2. Maxime Raynaud (SAC) Out, right patella, no return before Nov 2. Ben Simmons (SAC) Out for the season, Achilles. Tobias Harris (SA) Out, left calf. Jayden Quaintance (SA) Out, right knee.",
+    "Model (payload): SA 118.1, SAC 102.7, margin SA +15.4, total 220.7; P(SA win) 0.889. Market no-vig SA moneyline 91.2%. The desk does not use the model's win chance without the lineup adjustment: losing Murray and Cardwell (both starters for SAC) lowers SAC's expected output, which widens SA's margin, so the SAC +18.5 cover gets harder, not easier.",
+    "Lineup adjustment (judgement, named): SAC without Murray and Cardwell −2 points; SA without Harris and Quaintance +1 point (the two Spurs absences are depth, not starters, in the report). SA's expected margin moves from +15.4 to about +18.4, and P(SAC covers +18.5) = Φ((18.5 − 18.4) ÷ 12.6) ≈ 0.50 to 0.52. Not enough edge to take."
+   ],
+   "weather": "indoor, n/a",
+   "injuries": [
+    "Keegan Murray (SAC) Out, left ankle capsulitis (Oct 26 report)",
+    "Dylan Cardwell (SAC) Out, left calf (Oct 26 report)",
+    "Maxime Raynaud (SAC) Out, right patella (Oct 26 report)",
+    "Ben Simmons (SAC) Out for season, Achilles",
+    "Tobias Harris (SA) Out, left calf (Oct 26 report)",
+    "Jayden Quaintance (SA) Out, right knee (Oct 26 report)"
+   ],
+   "sources": [
+    {
+     "name": "Airalamo: Spurs-Kings injury report (report dated Oct 26 6:00 PM ET)",
+     "url": "https://airalamo.com/spurs-kings-injury-report-keegan-murray-ben-simmons-and-more-to-know-before-tip",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ESPN game feed (spread and moneyline prices, model) as carried in the desk payload",
+     "url": "https://www.espn.com/nba/game/_/gameId/401909879",
+     "fetched": "2026-10-27T19:40Z"
+    }
+   ]
+  }
+ },
+ "selections": [
+  {
+   "id": "ml|2026_10_27_DET_NY|home||NY",
+   "game_id": "2026_10_27_DET_NY",
+   "kind": "ml",
+   "side": "home",
+   "line": null,
+   "who": null,
+   "team": "NY",
+   "label": "NY moneyline",
+   "odds": 1.588,
+   "odds_source": "feed",
+   "p": 0.62,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 50,
+   "inputs": [
+    "Payload model: P(NY win) 0.566 at home (ratings from 3 games each; DET 107.9 ortg-based margin, NY home court included), implied expected margin NY +2.1, margin sd 12.6",
+    "Jalen Duren (DET) Out, hamstring, at least two weeks (Yahoo, Oct 27 10:00 AM ET). Starting centre for DET; the model has no lineup term, so the desk adds the absence: +2.5 points to NY (a judgement inside the runbook's lineup range; a starting big, not a star)",
+    "Jose Alvarado (NY) Out, ankle: −0.5 points to NY (backup guard, small effect)",
+    "Ausar Thompson (DET) and Isaiah Joe (DET) Questionable: not adjusted (no expected-to-play source found; if both sit, the desk's number is understated)",
+    "Adjusted NY margin = +2.1 + 2.5 − 0.5 = +4.1",
+    "P(NY wins) = Φ(4.1 ÷ 12.6) = Φ(0.325) = 0.627, trimmed to 0.62 for the two Questionable DET players' unknown effects on the upside"
+   ],
+   "arithmetic": [
+    "Model: P(NY win) 0.566 → Φ⁻¹(0.566) = 0.167 → 0.167 × 12.6 = +2.1 points NY",
+    "Lineup adjustment: +2.5 (Duren) − 0.5 (Alvarado) = +2.0 → adjusted NY margin +4.1",
+    "P(NY win) = Φ(4.1 ÷ 12.6) = Φ(0.325) = 0.627, desk 0.62",
+    "No-vig market: 1 ÷ 1.588 = 0.630; 1 ÷ 2.42 (DET) = 0.413; NY = 0.630 ÷ 1.043 = 0.604",
+    "Desk minus no-vig: 0.62 − 0.604 = +1.6 points (inside the 8-point trigger, no re-check needed)",
+    "Break-even at 1.588 = 1 ÷ 1.588 = 0.630; EV = 0.62 × 1.588 − 1 = −1.5% (near break-even: this is a win-probability pick at a short price, not a value pick)"
+   ],
+   "pros": [
+    "Duren is out for at least two weeks, the one news item the model does not see, and it moves the margin toward NY",
+    "Detroit's remaining bigs are thin (Reed as the main centre), and Towns is an excellent matchup at the five",
+    "The desk's number sits close to the no-vig market (1.6 points apart), so the case rests on news the market has already priced rather than on a disagreement with it"
+   ],
+   "risks": [
+    "Thompson (Questionable, ankle) and Joe (Questionable, hip): if both play, DET is closer to full strength and the desk's number is too high; if both sit, it is too low",
+    "Ratings rest on three games each; the model's margin is noisy",
+    "Price: 1.588 is at break-even for the desk's number, so the EV is about zero to slightly negative; a move to NY −3.5 or shorter is no longer worth taking on this number",
+    "Alvarado's absence weakens NY's backcourt depth, not counted beyond −0.5"
+   ],
+   "verdict": "NY moneyline at 1.588 (feed): desk chance 0.62 against a 0.63 break-even, so the edge is small. Grade B on the Duren news; take it only if NY is still 1.55 or better at tip, and drop it if Thompson and Joe are both confirmed playing and the price has not moved.",
+   "sources": [
+    {
+     "name": "Yahoo Sports: Pistons vs. Knicks injury report (Oct 27 10:00 AM ET NBA report)",
+     "url": "https://sports.yahoo.com/articles/pistons-vs-knicks-injury-report-171939546.html",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ClutchPoints: Pistons vs. Knicks injury report",
+     "url": "https://clutchpoints.com/nba/nba-stories/pistons-vs-knicks-injury-report-ausar-thompson-isaiah-joe-listed-with-jalen-duren-already-out",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ESPN game feed (moneyline prices, model) as carried in the desk payload",
+     "url": "https://www.espn.com/nba/game/_/gameId/401909878/pistons-knicks",
+     "fetched": "2026-10-27T19:40Z"
+    }
+   ]
+  },
+  {
+   "id": "ml|2026_10_27_POR_LAL|home||LAL",
+   "game_id": "2026_10_27_POR_LAL",
+   "kind": "ml",
+   "side": "home",
+   "line": null,
+   "who": null,
+   "team": "LAL",
+   "label": "LAL moneyline",
+   "odds": 1.8,
+   "odds_source": "feed",
+   "p": 0.58,
+   "grade": "B",
+   "evidence": "partial",
+   "confidence": 50,
+   "inputs": [
+    "Payload model: P(LAL win) 0.605 at home, implied expected margin LAL +3.3 (ratings from 3 games each; LAL undefeated at 3-0), margin sd 12.6",
+    "Scoot Henderson (POR) Questionable, ankle: −0.3 points expected (he may play as a bench scorer; the expected effect is discounted for the chance he plays)",
+    "Branden Carlson (POR) Questionable, concussion protocol: −0.3 points expected (same logic)",
+    "Shaedon Sharpe (POR) Out: not counted (size of his share of POR's minutes is not measured in the sources)",
+    "Carr and Thiero (LAL) Out, rookies not in the rotation: not counted",
+    "Luka Dončić not on the report and averaging 34.3 points in three games: no adjustment; LeBron James not on the roster",
+    "Adjusted LAL margin = 3.3 − 0.3 − 0.3 = +2.7",
+    "P(LAL win) = Φ(2.7 ÷ 12.6) = Φ(0.214) = 0.585, desk 0.58"
+   ],
+   "arithmetic": [
+    "Model: P(LAL win) 0.605 → Φ⁻¹(0.605) = 0.263 → 0.263 × 12.6 = +3.3 points LAL",
+    "Lineup adjustment: −0.3 (Henderson) − 0.3 (Carlson) = −0.6 → adjusted margin +2.7",
+    "P(LAL win) = Φ(2.7 ÷ 12.6) = Φ(0.214) = 0.585, desk 0.58 (rounded down for the Henderson and Carlson uncertainty)",
+    "No-vig market: 1 ÷ 1.80 = 0.556; 1 ÷ 2.05 = 0.488; LAL = 0.556 ÷ 1.044 = 0.533",
+    "Desk minus no-vig: 0.58 − 0.533 = +4.7 points (inside the 8-point trigger)",
+    "Break-even at 1.80 = 1 ÷ 1.80 = 0.556; EV = 0.58 × 1.80 − 1 = +4.4%"
+   ],
+   "pros": [
+    "Lakers are home and undefeated with Dončić available and on a scoring run (34.3 points over three games)",
+    "Portland is missing Sharpe and has two questionable players in the rotation, one of them in concussion protocol",
+    "Positive expected value at the desk's number: the desk chance is above the break-even of 0.556"
+   ],
+   "risks": [
+    "Henderson's ankle and Carlson's concussion: if either is out, Portland's backcourt and bench depth thins, which helps LAL, but a concussion setback could also change the late rotation",
+    "Ratings rest on three games each (LAL 3-0, POR 0-3); a small sample",
+    "The desk is not using Dončić's minutes or a minutes limit: the sources read today do not give one, so the desk assumes full availability and is exposed if he is managed",
+    "Lakers' depth without Carr and Thiero is thin, though neither is in the rotation"
+   ],
+   "verdict": "LAL moneyline at 1.80 (feed): desk chance 0.58 against a 0.556 break-even, a small but positive edge. Grade B on the Portland news; take it if LAL is still 1.75 or better at tip, and drop it if Dončić is listed as questionable or Henderson and Carlson are both confirmed to play at full minutes.",
+   "sources": [
+    {
+     "name": "ClutchPoints: Blazers vs. Lakers injury report (NBA report dated Oct 27 10:00 AM ET)",
+     "url": "https://clutchpoints.com/nba/portland-trail-blazers/blazers-vs-lakers-injury-report-scoot-henderson-listed-with-ankle-issue",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "Heavy: Lakers injury report vs. Trail Blazers (Oct 27)",
+     "url": "https://heavy.com/sports/nba/los-angeles-lakers/injury-report-vs-blazers-october-27/",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "CBS Sports: Luka Doncic leads undefeated Lakers against Trail Blazers (Oct 26)",
+     "url": "https://www.cbssports.com/nba/news/luka-doncic-leads-undefeated-lakers-against-trail-blazers/",
+     "fetched": "2026-10-27T19:50Z"
+    },
+    {
+     "name": "ESPN game feed (moneyline prices, model) as carried in the desk payload",
+     "url": "https://www.espn.com/nba/game/_/gameId/401909880/trail-blazers-lakers",
+     "fetched": "2026-10-27T19:40Z"
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "id": "spread|2026_10_27_BKN_BOS|home|-12.5|BOS",
+   "label": "BOS -12.5 spread (1.909)",
+   "why": "Desk chance 0.517 (margin BOS +14.0 from the model; the cover needs a margin above 12.5; Φ((14.0 − 12.5) ÷ 12.6) = 0.55 on the model alone, trimmed for the 4 to 5 point gap to the market and the unmodelled Carter absence), below the 0.52 floor. Not taken.",
+   "game_id": "2026_10_27_BKN_BOS"
+  },
+  {
+   "id": "ml|2026_10_27_BKN_BOS|home||BOS",
+   "label": "BOS moneyline 1.16",
+   "why": "Outside the spec's 1.35 to 2.20 band.",
+   "game_id": "2026_10_27_BKN_BOS"
+  },
+  {
+   "id": "total|2026_10_27_BKN_BOS|under|222.5|",
+   "label": "Under 222.5 (1.91 assumed)",
+   "why": "The 1.91 price is assumed by ESPN, not read on DraftKings today; a total needs DraftKings' own price. Model under 73% against no-vig 50%, a large gap with no lineup reason, so it is not taken even with a price.",
+   "game_id": "2026_10_27_BKN_BOS"
+  },
+  {
+   "id": "threes|2026_10_27_BKN_BOS|under|0.5|Neemias Queta",
+   "label": "Neemias Queta under 0.5 threes",
+   "why": "Model line only, no DraftKings price in the feed or read today.",
+   "game_id": "2026_10_27_BKN_BOS"
+  },
+  {
+   "id": "spread|2026_10_27_DET_NY|away|4.5|DET",
+   "label": "DET +4.5 spread (1.87)",
+   "why": "Desk chance about 0.48 after the Duren adjustment (model DET cover 0.576 before news; the 2.5-point Duren effect moves the cover below 0.52). Below the floor; not taken.",
+   "game_id": "2026_10_27_DET_NY"
+  },
+  {
+   "id": "spread|2026_10_27_DET_NY|home|-4.5|NY",
+   "label": "NY −4.5 spread (1.952)",
+   "why": "Desk chance about 0.47 on the model's margin before news, about 0.54 after the Duren adjustment; the spread needs a margin above 4.5, a much narrower edge than the moneyline at this price. Not taken, since the moneyline is the cleaner expression of the same news.",
+   "game_id": "2026_10_27_DET_NY"
+  },
+  {
+   "id": "ml|2026_10_27_DET_NY|away||DET",
+   "label": "DET moneyline 2.42 (wild card)",
+   "why": "Desk chance 0.38 (the complement of NY's 0.62). Wild card eligible (2.21 to 4.50, chance at least 0.30), but expected value is 0.38 × 2.42 − 1 = −8%. Not taken.",
+   "game_id": "2026_10_27_DET_NY"
+  },
+  {
+   "id": "total|2026_10_27_DET_NY|under|219.5|",
+   "label": "Under 219.5 (1.91 assumed)",
+   "why": "The 1.91 price is assumed by ESPN, not read on DraftKings today. Model under chance 0.66 against no-vig 0.50 with no lineup reason strong enough to explain a gap that large; declined, and no price confirmed.",
+   "game_id": "2026_10_27_DET_NY"
+  },
+  {
+   "id": "prop|2026_10_27_DET_NY|props",
+   "label": "Player props (Knicks and Pistons)",
+   "why": "No DraftKings prop price read today for either side; the feed prices props for two games a night at most and tonight's feed carries none for this game. Not taken.",
+   "game_id": "2026_10_27_DET_NY"
+  },
+  {
+   "id": "spread|2026_10_27_POR_LAL|home|-1.5|LAL",
+   "label": "LAL −1.5 spread (1.87)",
+   "why": "Desk chance about 0.54 (margin +2.7 against the 1.5 cover, Φ((2.7 − 1.5) ÷ 12.6) = 0.54), EV +1%. Same side, same game as the moneyline; taking both is double exposure for little extra value. Not taken.",
+   "game_id": "2026_10_27_POR_LAL"
+  },
+  {
+   "id": "spread|2026_10_27_POR_LAL|away|1.5|POR",
+   "label": "POR +1.5 spread (1.952)",
+   "why": "Desk chance about 0.46 after the lineup check, below the floor.",
+   "game_id": "2026_10_27_POR_LAL"
+  },
+  {
+   "id": "ml|2026_10_27_POR_LAL|away||POR",
+   "label": "POR moneyline 2.05",
+   "why": "Desk chance about 0.42 (complement of LAL's 0.58), below the floor.",
+   "game_id": "2026_10_27_POR_LAL"
+  },
+  {
+   "id": "total|2026_10_27_POR_LAL|over|233.5|",
+   "label": "Over 233.5 (1.91 assumed)",
+   "why": "The 1.91 price is assumed by ESPN, not read on DraftKings today; the total is declined without a confirmed price. Over 235.5 at −110 is quoted by Lineups.com but its sportsbook is not named, so it is not used.",
+   "game_id": "2026_10_27_POR_LAL"
+  },
+  {
+   "id": "prop|2026_10_27_POR_LAL|props",
+   "label": "Player props (Lakers and Trail Blazers)",
+   "why": "No DraftKings prop price read today; tonight's feed carries no props for this game. Not taken.",
+   "game_id": "2026_10_27_POR_LAL"
+  },
+  {
+   "id": "spread|2026_10_27_SAC_SA|away|18.5|SAC",
+   "label": "SAC +18.5 spread (1.926)",
+   "why": "Model chance 0.597 before the lineup check; after Murray and Cardwell are taken out of SAC's rotation the desk's chance is about 0.50 to 0.52, at or below the floor. Not taken.",
+   "game_id": "2026_10_27_SAC_SA"
+  },
+  {
+   "id": "spread|2026_10_27_SAC_SA|home|-18.5|SA",
+   "label": "SA −18.5 spread (1.893)",
+   "why": "Desk chance about 0.44 after the lineup check (cover needs a margin above 18.5; expected margin about +18.4). Below the floor.",
+   "game_id": "2026_10_27_SAC_SA"
+  },
+  {
+   "id": "ml|2026_10_27_SAC_SA|home||SA",
+   "label": "SA moneyline 1.056",
+   "why": "Outside the spec's 1.35 to 2.20 band, and the no-vig price is 0.91.",
+   "game_id": "2026_10_27_SAC_SA"
+  },
+  {
+   "id": "total|2026_10_27_SAC_SA|under|232.5|",
+   "label": "Under 232.5 (1.91 assumed)",
+   "why": "The 1.91 price is assumed by ESPN, not read on DraftKings today; declined without a confirmed price.",
+   "game_id": "2026_10_27_SAC_SA"
+  },
+  {
+   "id": "prop|2026_10_27_SAC_SA|props",
+   "label": "Player props (Kings and Spurs)",
+   "why": "No DraftKings prop price read today; the usage shift from Murray and Cardwell's absence would need a measured role change first, which the sources do not give.",
+   "game_id": "2026_10_27_SAC_SA"
+  }
+ ],
+ "best": [
+  "ml|2026_10_27_DET_NY|home||NY",
+  "ml|2026_10_27_POR_LAL|home||LAL"
+ ]
+}
