@@ -1,15 +1,15 @@
 {
  "date": "2026-10-26",
- "updated_utc": "2026-10-27 01:45 UTC",
- "updated_et": "9:45 PM ET",
+ "updated_utc": "2026-10-27 01:50 UTC",
+ "updated_et": "9:50 PM ET",
  "games": {
   "2026020185": {
    "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "02:57",
-   "elapsed_min": 57.05,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NYR",
    "away": "LAK",
    "home_score": 3,
@@ -72,8 +72,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "19:00",
-   "elapsed_min": 21.0,
+   "time_remaining": "15:40",
+   "elapsed_min": 24.33,
    "home": "CGY",
    "away": "TOR",
    "home_score": 3,
@@ -106,18 +106,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "15:39",
-   "elapsed_min": 4.35,
+   "time_remaining": "12:20",
+   "elapsed_min": 7.67,
    "home": "EDM",
    "away": "DET",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 6.167,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 6.167,
+     "team": "EDM"
+    }
+   ]
   }
  }
 }
