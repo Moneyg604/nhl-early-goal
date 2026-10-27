@@ -1,7 +1,7 @@
 {
  "date": "2026-10-26",
- "updated_utc": "2026-10-27 03:15 UTC",
- "updated_et": "11:15 PM ET",
+ "updated_utc": "2026-10-27 03:20 UTC",
+ "updated_et": "11:20 PM ET",
  "games": {
   "2026020185": {
    "state": "OFF",
@@ -68,21 +68,21 @@
    ]
   },
   "2026020186": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:04",
-   "elapsed_min": 58.93,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CGY",
    "away": "TOR",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 2,
    "first_goal_min": 10.083,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -113,6 +113,11 @@
      "period": 3,
      "minute": 58.583,
      "team": "CGY"
+    },
+    {
+     "period": 3,
+     "minute": 59.35,
+     "team": "CGY"
     }
    ]
   },
@@ -121,8 +126,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:53",
-   "elapsed_min": 28.58,
+   "time_remaining": "09:52",
+   "elapsed_min": 30.13,
    "home": "EDM",
    "away": "DET",
    "home_score": 1,
