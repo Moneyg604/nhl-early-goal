@@ -1,12 +1,12 @@
 {
  "date": "2026-10-26",
- "updated_utc": "2026-10-27 01:50 UTC",
- "updated_et": "9:50 PM ET",
+ "updated_utc": "2026-10-27 01:55 UTC",
+ "updated_et": "9:55 PM ET",
  "games": {
   "2026020185": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 3,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -72,8 +72,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:40",
-   "elapsed_min": 24.33,
+   "time_remaining": "12:33",
+   "elapsed_min": 27.45,
    "home": "CGY",
    "away": "TOR",
    "home_score": 3,
@@ -106,8 +106,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "12:20",
-   "elapsed_min": 7.67,
+   "time_remaining": "10:29",
+   "elapsed_min": 9.52,
    "home": "EDM",
    "away": "DET",
    "home_score": 1,
