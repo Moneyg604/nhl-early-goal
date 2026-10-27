@@ -1,21 +1,21 @@
 {
  "date": "2026-10-26",
- "updated_utc": "2026-10-27 00:00 UTC",
- "updated_et": "8:00 PM ET",
+ "updated_utc": "2026-10-27 00:10 UTC",
+ "updated_et": "8:10 PM ET",
  "games": {
   "2026020185": {
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 1,
-   "time_remaining": "01:01",
-   "elapsed_min": 18.98,
+   "period": 2,
+   "time_remaining": "15:44",
+   "elapsed_min": 24.27,
    "home": "NYR",
    "away": "LAK",
    "home_score": 1,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 1.25,
-   "p1_done": false,
+   "p1_done": true,
    "p1_home": 1,
    "p1_away": 3,
    "ended_in": null,
@@ -38,6 +38,11 @@
     {
      "period": 1,
      "minute": 17.533,
+     "team": "LAK"
+    },
+    {
+     "period": 2,
+     "minute": 21.5,
      "team": "LAK"
     }
    ]
