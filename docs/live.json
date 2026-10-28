@@ -1,25 +1,31 @@
 {
  "date": "2026-10-28",
- "updated_utc": "2026-10-28 23:40 UTC",
- "updated_et": "7:40 PM ET",
+ "updated_utc": "2026-10-28 23:45 UTC",
+ "updated_et": "7:45 PM ET",
  "games": {
   "2026020199": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "18:44",
-   "elapsed_min": 1.27,
+   "time_remaining": "15:35",
+   "elapsed_min": 4.42,
    "home": "WSH",
    "away": "PHI",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 1.833,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 1.833,
+     "team": "WSH"
+    }
+   ]
   },
   "2026020200": {
    "state": "FUT",
