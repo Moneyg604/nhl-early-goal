@@ -1,7 +1,7 @@
 {
  "date": "2026-10-27",
- "updated_utc": "2026-10-28 04:50 UTC",
- "updated_et": "12:50 AM ET",
+ "updated_utc": "2026-10-28 04:55 UTC",
+ "updated_et": "12:55 AM ET",
  "games": {
   "2026020188": {
    "state": "OFF",
@@ -385,11 +385,11 @@
    ]
   },
   "2026020197": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
-   "time_remaining": "00:10",
+   "time_remaining": "00:11",
    "elapsed_min": 60.0,
    "home": "ANA",
    "away": "VAN",
@@ -399,7 +399,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -450,6 +450,11 @@
      "period": 3,
      "minute": 58.05,
      "team": "VAN"
+    },
+    {
+     "period": 4,
+     "minute": 64.817,
+     "team": "VAN"
     }
    ]
   },
@@ -458,8 +463,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "17:43",
-   "elapsed_min": 42.28,
+   "time_remaining": "15:03",
+   "elapsed_min": 44.95,
    "home": "SJS",
    "away": "BUF",
    "home_score": 0,
