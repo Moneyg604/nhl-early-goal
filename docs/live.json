@@ -1,7 +1,7 @@
 {
  "date": "2026-10-27",
- "updated_utc": "2026-10-28 03:45 UTC",
- "updated_et": "11:45 PM ET",
+ "updated_utc": "2026-10-28 03:50 UTC",
+ "updated_et": "11:50 PM ET",
  "games": {
   "2026020188": {
    "state": "OFF",
@@ -306,8 +306,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:16",
-   "elapsed_min": 55.73,
+   "time_remaining": "02:45",
+   "elapsed_min": 57.25,
    "home": "UTA",
    "away": "MIN",
    "home_score": 0,
@@ -340,7 +340,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "12:59",
+   "time_remaining": "07:53",
    "elapsed_min": 39.82,
    "home": "VGK",
    "away": "OTT",
@@ -364,7 +364,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "10:50",
+   "time_remaining": "05:48",
    "elapsed_min": 38.4,
    "home": "ANA",
    "away": "VAN",
@@ -407,19 +407,25 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 1,
-   "time_remaining": "00:00",
-   "elapsed_min": 20.0,
+   "period": 2,
+   "time_remaining": "17:56",
+   "elapsed_min": 22.07,
    "home": "SJS",
    "away": "BUF",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
-   "p1_done": false,
+   "away_score": 1,
+   "first_goal_min": 20.833,
+   "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 2,
+     "minute": 20.833,
+     "team": "BUF"
+    }
+   ]
   }
  }
 }
