@@ -1,10 +1,10 @@
 {
  "date": "2026-10-28",
- "updated_utc": "2026-10-29 02:40 UTC",
- "updated_et": "10:40 PM ET",
+ "updated_utc": "2026-10-29 02:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020199": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -62,8 +62,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "18:23",
-   "elapsed_min": 41.62,
+   "time_remaining": "15:49",
+   "elapsed_min": 44.18,
    "home": "EDM",
    "away": "CGY",
    "home_score": 4,
@@ -101,8 +101,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "00:31",
-   "elapsed_min": 39.48,
+   "time_remaining": "13:34",
+   "elapsed_min": 30.97,
    "home": "COL",
    "away": "NJD",
    "home_score": 1,
@@ -130,22 +130,27 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "02:47",
-   "elapsed_min": 17.22,
+   "time_remaining": "16:31",
+   "elapsed_min": 19.23,
    "home": "SEA",
    "away": "TOR",
    "home_score": 1,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 1.983,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 1.983,
      "team": "SEA"
+    },
+    {
+     "period": 1,
+     "minute": 19.233,
+     "team": "TOR"
     }
    ]
   }
