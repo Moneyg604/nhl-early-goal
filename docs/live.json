@@ -1,15 +1,15 @@
 {
  "date": "2026-10-29",
- "updated_utc": "2026-10-29 23:30 UTC",
- "updated_et": "7:30 PM ET",
+ "updated_utc": "2026-10-29 23:35 UTC",
+ "updated_et": "7:35 PM ET",
  "games": {
   "2026020204": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:45",
-   "elapsed_min": 12.25,
+   "time_remaining": "05:37",
+   "elapsed_min": 14.38,
    "home": "TBL",
    "away": "WPG",
    "home_score": 1,
@@ -32,8 +32,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "08:38",
-   "elapsed_min": 11.37,
+   "time_remaining": "06:37",
+   "elapsed_min": 13.38,
    "home": "PIT",
    "away": "UTA",
    "home_score": 0,
@@ -56,18 +56,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:16",
-   "elapsed_min": 12.73,
+   "time_remaining": "04:04",
+   "elapsed_min": 15.93,
    "home": "CAR",
    "away": "CBJ",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 15.85,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 15.85,
+     "team": "CAR"
+    }
+   ]
   },
   "2026020203": {
    "state": "PRE",
