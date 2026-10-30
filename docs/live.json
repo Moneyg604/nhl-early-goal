@@ -1,7 +1,7 @@
 {
  "date": "2026-10-29",
- "updated_utc": "2026-10-30 02:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-10-30 02:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020204": {
    "state": "FINAL",
@@ -127,7 +127,7 @@
    ]
   },
   "2026020206": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -219,8 +219,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "15:50",
-   "elapsed_min": 44.17,
+   "time_remaining": "13:17",
+   "elapsed_min": 46.72,
    "home": "STL",
    "away": "BOS",
    "home_score": 3,
@@ -257,9 +257,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "01:48",
-   "elapsed_min": 38.2,
+   "period": 3,
+   "time_remaining": "19:21",
+   "elapsed_min": 40.65,
    "home": "NSH",
    "away": "WSH",
    "home_score": 2,
@@ -302,8 +302,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:10",
-   "elapsed_min": 46.83,
+   "time_remaining": "10:47",
+   "elapsed_min": 49.22,
    "home": "DAL",
    "away": "MTL",
    "home_score": 2,
@@ -351,12 +351,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:12",
-   "elapsed_min": 46.8,
+   "time_remaining": "10:57",
+   "elapsed_min": 49.05,
    "home": "MIN",
    "away": "NYI",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 0.45,
    "p1_done": true,
    "p1_home": 1,
@@ -382,6 +382,11 @@
      "period": 2,
      "minute": 37.35,
      "team": "MIN"
+    },
+    {
+     "period": 3,
+     "minute": 47.233,
+     "team": "NYI"
     }
    ]
   },
@@ -390,26 +395,32 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:25",
-   "elapsed_min": 0.58,
+   "time_remaining": "18:03",
+   "elapsed_min": 1.95,
    "home": "ANA",
    "away": "BUF",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 1.95,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 1.95,
+     "team": "ANA"
+    }
+   ]
   },
   "2026020212": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "18:48",
-   "elapsed_min": 1.2,
+   "time_remaining": "15:17",
+   "elapsed_min": 4.72,
    "home": "LAK",
    "away": "OTT",
    "home_score": 0,
@@ -426,8 +437,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "18:49",
-   "elapsed_min": 1.18,
+   "time_remaining": "15:03",
+   "elapsed_min": 4.95,
    "home": "SJS",
    "away": "VAN",
    "home_score": 0,
