@@ -1,7 +1,7 @@
 {
  "date": "2026-10-29",
- "updated_utc": "2026-10-30 03:25 UTC",
- "updated_et": "11:25 PM ET",
+ "updated_utc": "2026-10-30 03:30 UTC",
+ "updated_et": "11:30 PM ET",
  "games": {
   "2026020204": {
    "state": "OFF",
@@ -259,7 +259,7 @@
    ]
   },
   "2026020208": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -425,8 +425,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "10:12",
-   "elapsed_min": 29.8,
+   "time_remaining": "08:08",
+   "elapsed_min": 31.87,
    "home": "ANA",
    "away": "BUF",
    "home_score": 3,
@@ -474,8 +474,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "08:45",
-   "elapsed_min": 31.25,
+   "time_remaining": "08:29",
+   "elapsed_min": 31.52,
    "home": "LAK",
    "away": "OTT",
    "home_score": 4,
@@ -518,12 +518,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:42",
-   "elapsed_min": 36.3,
+   "time_remaining": "00:22",
+   "elapsed_min": 39.63,
    "home": "SJS",
    "away": "VAN",
    "home_score": 0,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 13.35,
    "p1_done": true,
    "p1_home": 0,
@@ -533,6 +533,11 @@
     {
      "period": 1,
      "minute": 13.35,
+     "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 38.933,
      "team": "VAN"
     }
    ]
