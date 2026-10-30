@@ -1,7 +1,7 @@
 {
  "date": "2026-10-29",
- "updated_utc": "2026-10-30 04:25 UTC",
- "updated_et": "12:25 AM ET",
+ "updated_utc": "2026-10-30 04:30 UTC",
+ "updated_et": "12:30 AM ET",
  "games": {
   "2026020204": {
    "state": "OFF",
@@ -425,8 +425,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "08:45",
-   "elapsed_min": 51.25,
+   "time_remaining": "05:57",
+   "elapsed_min": 54.05,
    "home": "ANA",
    "away": "BUF",
    "home_score": 4,
@@ -499,8 +499,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:59",
-   "elapsed_min": 48.02,
+   "time_remaining": "08:24",
+   "elapsed_min": 51.6,
    "home": "LAK",
    "away": "OTT",
    "home_score": 5,
@@ -554,12 +554,12 @@
    ]
   },
   "2026020213": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:22",
-   "elapsed_min": 58.63,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "SJS",
    "away": "VAN",
    "home_score": 3,
@@ -568,7 +568,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
