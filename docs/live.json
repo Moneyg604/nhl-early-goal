@@ -1,7 +1,7 @@
 {
  "date": "2026-10-30",
- "updated_utc": "2026-10-31 02:45 UTC",
- "updated_et": "10:45 PM ET",
+ "updated_utc": "2026-10-31 02:50 UTC",
+ "updated_et": "10:50 PM ET",
  "games": {
   "2026020214": {
    "state": "OFF",
@@ -112,12 +112,12 @@
    ]
   },
   "2026020216": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:37",
-   "elapsed_min": 59.38,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CGY",
    "away": "SEA",
    "home_score": 6,
@@ -126,7 +126,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
