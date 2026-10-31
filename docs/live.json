@@ -1,15 +1,15 @@
 {
  "date": "2026-10-30",
- "updated_utc": "2026-10-31 00:35 UTC",
- "updated_et": "8:35 PM ET",
+ "updated_utc": "2026-10-31 00:40 UTC",
+ "updated_et": "8:40 PM ET",
  "games": {
   "2026020214": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:03",
-   "elapsed_min": 58.95,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "VGK",
    "away": "NJD",
    "home_score": 2,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -62,11 +62,11 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "04:59",
-   "elapsed_min": 35.02,
+   "time_remaining": "03:08",
+   "elapsed_min": 36.87,
    "home": "FLA",
    "away": "WPG",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 1,
    "first_goal_min": 18.25,
    "p1_done": true,
@@ -88,6 +88,11 @@
      "period": 2,
      "minute": 29.85,
      "team": "WPG"
+    },
+    {
+     "period": 2,
+     "minute": 35.4,
+     "team": "FLA"
     }
    ]
   },
@@ -96,8 +101,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "06:38",
-   "elapsed_min": 13.37,
+   "time_remaining": "03:56",
+   "elapsed_min": 16.07,
    "home": "CGY",
    "away": "SEA",
    "home_score": 1,
