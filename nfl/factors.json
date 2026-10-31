@@ -1,0 +1,128 @@
+{
+ "blend": {
+  "margin": 0.0,
+  "total": 0.0
+ },
+ "key_numbers": {
+  "0": 0.9069,
+  "1": 0.9349,
+  "2": 1.0976,
+  "3": 1.3667,
+  "4": 0.9589,
+  "5": 1.2681,
+  "6": 1.2784,
+  "7": 1.1457,
+  "8": 1.1189,
+  "9": 0.6112,
+  "10": 0.874,
+  "11": 0.5699,
+  "12": 0.8269,
+  "13": 0.7452,
+  "14": 1.1064,
+  "15": 0.774,
+  "16": 0.8317,
+  "17": 1.2638,
+  "18": 0.9641,
+  "19": 0.9016,
+  "20": 0.8751,
+  "21": 0.9808
+ },
+ "key_number_test": {
+  "use": true,
+  "ll_without": 0.71103,
+  "ll_with": 0.71037,
+  "test_season": 2025
+ },
+ "switches": {},
+ "updated_utc": "2026-10-15 05:11 UTC",
+ "tested": [
+  {
+   "name": "Recent seasons weighted 35% / 15% (instead of 60% / 30%)",
+   "result": "QB yards gain 0.0184 vs 0.0169, anytime TD 0.0048 vs 0.0046, team FGs o1.5 -0.0069 vs -0.0091 (log loss vs baseline, 3 seasons)",
+   "kept": true
+  },
+  {
+   "name": "Team touchdown / turnover rates shrunk with 300 pseudo-drives (instead of 120)",
+   "result": "halves, field goals and QB yards all slightly better; the model-alone game lines slightly worse (they are not used)",
+   "kept": true
+  },
+  {
+   "name": "Field-goal tries shrunk with 600 pseudo-drives, kicker with 150 attempts",
+   "result": "team FGs o1.5 -0.0030 vs -0.0043; heavier shrinkage (2000) and no roof effect did not help further",
+   "kept": true
+  },
+  {
+   "name": "Market anchor moves field-goal tries 30% as much as touchdowns",
+   "result": "team FGs o1.5 turned from -0.0030 to +0.0029, o0.5 from -0.0045 to +0.0020 (higher-scoring games produce touchdowns, not more field goals); 0% was worse than 30%",
+   "kept": true
+  },
+  {
+   "name": "Team half shapes (separate first- and second-half rates)",
+   "result": "1st half +0.0006 without it, 2nd half and field goals worse without it: mixed, kept on",
+   "kept": true
+  },
+  {
+   "name": "Keep part of the model's disagreement with the closing spread / total",
+   "result": "regression weight -0.17 \u00b1 0.11 (spread) and 0.03 \u00b1 0.14 (total): no information beyond the line",
+   "kept": false
+  },
+  {
+   "name": "Key-number correction of the margin distribution (more 3s and 7s)",
+   "result": "trained on 2023-24 and tested on 2025: cover / push / miss log loss 0.71086 vs 0.71092, below the threshold",
+   "kept": false
+  },
+  {
+   "name": "Players' own games weighted with a 6-game half-life (instead of 12)",
+   "result": "anytime TD gain 0.0069 vs 0.0049 (log loss vs each player's own rate, 14,788 player-games)",
+   "kept": true
+  },
+  {
+   "name": "Touchdown shares scaled by the recent change in snap share (last two games vs his average, pulled halfway to 1)",
+   "result": "anytime TD gain 0.0071 vs 0.0049 alone, 0.0082 together with the 6-game half-life; full weight (not halfway) 0.0080",
+   "kept": true
+  },
+  {
+   "name": "Receiving-yards props from usage shares x simulated passing yards (noise sd = k sqrt(expected))",
+   "result": "6,902 player-games 2023-25, over/under at each player's trailing-average line: log-loss gain 0.0380 +/- 0.0042 vs the trailing average; median error 22.8 yds vs 24.3",
+   "kept": true
+  },
+  {
+   "name": "Rushing-yards props from carry share x simulated rushes x player YPC",
+   "result": "3,231 player-games: gain 0.0218 +/- 0.0074 vs the trailing average; median error 22.8 yds vs 24.1",
+   "kept": true
+  },
+  {
+   "name": "Receptions props from reception share x simulated completions",
+   "result": "7,182 player-games: gain 0.0323 +/- 0.0046 vs the trailing average; median error 1.63 vs 1.71",
+   "kept": true
+  },
+  {
+   "name": "Player candidates chosen from pregame rosters and injury reports (look-ahead removed)",
+   "result": "the test used to pick touchdown and yardage candidates from who touched the ball in the game; it now uses that week's active roster minus Out / Doubtful, exactly as the live page does, and settles only players who took the field (a scratch is a void bet). Anytime TD gain 0.0218 +/- 0.0015 over 17,710 player-games; yardage props unchanged; listed candidates score 96.5% of team touchdowns",
+   "kept": true
+  },
+  {
+   "name": "All markets read from one market-reweighted distribution (halves, field goals, passing, players share the moneyline / spread weights)",
+   "result": "1st half 0.0003 vs -0.0009, 2nd half 0.0010 vs 0.0004, QB TDs over 1.5 0.0111 vs 0.0087 (now beats baseline), QB yards and yardage props unchanged; the cards and the parlay slip now price from the same joint distribution",
+   "kept": true
+  },
+  {
+   "name": "Overtime rules (2025: both teams possess after a first-drive touchdown, then next score wins, defensive scores end it, clock expiry ties)",
+   "result": "unit-tested rule by rule; simulated overtime rate 4.5% vs 5.3% actual (2023-25), simulated ties 0.3% vs 0.1%",
+   "kept": true
+  },
+  {
+   "name": "Lighter shrinkage on quarterback volume and efficiency (dropbacks 100 -> 30 or 15 pseudo-drives, yards per dropback 250 -> 120 or 60, recent seasons 20% / 5%)",
+   "result": "Walk-forward on 2025 weeks 2-18 and 2026 weeks 2-5 (622 QB games): the projections stop being too compressed (actual-vs-projected slope 1.30 -> 1.07 / 0.97) but get less accurate (mean absolute error 54.6 -> 54.7 / 55.0 yds, log loss 0.670 -> 0.672 / 0.674). In 2026 the model still under-projects the top third of passers by about 20 yds under every setting. Not adopted: the projection cannot be fixed by retuning, so passing props are now priced from the market and the model may only nudge them (nfl/value.py).",
+   "kept": false
+  }
+ ],
+ "validated_markets": [
+  "anytime_td",
+  "qb_tds",
+  "qb_yards",
+  "rec_yds",
+  "recs",
+  "rush_yds"
+ ]
+}
