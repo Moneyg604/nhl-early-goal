@@ -11830,8 +11830,426 @@
    "n_published": 11
   },
   "2026-10-30": {
-   "games": {},
-   "top": {},
+   "games": {
+    "2026020214": {
+     "game_id": 2026020214,
+     "matchup": "NJD @ VGK",
+     "tier": "B",
+     "final": "NJD 5 @ VGK 2",
+     "first_goal_min": 5.63,
+     "p1_score": "2-2",
+     "home": "VGK",
+     "away": "NJD",
+     "home_score": 2,
+     "away_score": 5,
+     "ended_in": "REG",
+     "p1_home": 2,
+     "p1_away": 2,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6877,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4543,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "VGK",
+       "p": 0.3601,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "VGK",
+       "p": 0.7018,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "VGK",
+       "p": 0.3601,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "VGK",
+       "p": 0.5689,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "VGK",
+       "p": 0.3549,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5234,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7448,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "VGK",
+       "p": 0.8204,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "NJD",
+       "p": 0.7496,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7621,
+       "hit": 0
+      }
+     }
+    },
+    "2026020215": {
+     "game_id": 2026020215,
+     "matchup": "WPG @ FLA",
+     "tier": "B",
+     "final": "WPG 2 @ FLA 5",
+     "first_goal_min": 18.25,
+     "p1_score": "0-1",
+     "home": "FLA",
+     "away": "WPG",
+     "home_score": 5,
+     "away_score": 2,
+     "ended_in": "REG",
+     "p1_home": 1,
+     "p1_away": 0,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6864,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4469,
+       "hit": 1
+      },
+      "p1_minus05": {
+       "pick": "FLA",
+       "p": 0.3792,
+       "hit": 1
+      },
+      "p1_plus05": {
+       "pick": "FLA",
+       "p": 0.7152,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "FLA",
+       "p": 0.3792,
+       "hit": 1
+      },
+      "fg_ml": {
+       "pick": "FLA",
+       "p": 0.6203,
+       "hit": 1
+      },
+      "fg_spread": {
+       "pick": "FLA",
+       "p": 0.404,
+       "hit": 1
+      },
+      "fg_over55": {
+       "p": 0.5361,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7543,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "FLA",
+       "p": 0.848,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "WPG",
+       "p": 0.7248,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7524,
+       "hit": 1
+      }
+     }
+    },
+    "2026020216": {
+     "game_id": 2026020216,
+     "matchup": "SEA @ CGY",
+     "tier": "B",
+     "final": "SEA 2 @ CGY 6",
+     "first_goal_min": 2.53,
+     "p1_score": "1-1",
+     "home": "CGY",
+     "away": "SEA",
+     "home_score": 6,
+     "away_score": 2,
+     "ended_in": "REG",
+     "p1_home": 1,
+     "p1_away": 1,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6764,
+       "hit": 0
+      },
+      "u05_first10": {
+       "p": 0.4368,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "CGY",
+       "p": 0.334,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "CGY",
+       "p": 0.6681,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "CGY",
+       "p": 0.334,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "SEA",
+       "p": 0.5011,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "SEA",
+       "p": 0.2988,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.547,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7601,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "CGY",
+       "p": 0.7972,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "SEA",
+       "p": 0.7963,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7458,
+       "hit": 1
+      }
+     }
+    }
+   },
+   "top": {
+    "u05_first5": [
+     {
+      "matchup": "NJD @ VGK",
+      "pick": null,
+      "p": 0.6877,
+      "hit": 1
+     },
+     {
+      "matchup": "WPG @ FLA",
+      "pick": null,
+      "p": 0.6864,
+      "hit": 1
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": null,
+      "p": 0.6764,
+      "hit": 0
+     }
+    ],
+    "u05_first10": [
+     {
+      "matchup": "NJD @ VGK",
+      "pick": null,
+      "p": 0.4543,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ FLA",
+      "pick": null,
+      "p": 0.4469,
+      "hit": 1
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": null,
+      "p": 0.4368,
+      "hit": 0
+     }
+    ],
+    "p1_plus05": [
+     {
+      "matchup": "WPG @ FLA",
+      "pick": "FLA",
+      "p": 0.7152,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": "VGK",
+      "p": 0.7018,
+      "hit": 1
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": "CGY",
+      "p": 0.6681,
+      "hit": 1
+     }
+    ],
+    "p1_minus05": [
+     {
+      "matchup": "WPG @ FLA",
+      "pick": "FLA",
+      "p": 0.3792,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": "VGK",
+      "p": 0.3601,
+      "hit": 0
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": "CGY",
+      "p": 0.334,
+      "hit": 0
+     }
+    ],
+    "p1_ml": [
+     {
+      "matchup": "WPG @ FLA",
+      "pick": "FLA",
+      "p": 0.3792,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": "VGK",
+      "p": 0.3601,
+      "hit": 0
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": "CGY",
+      "p": 0.334,
+      "hit": 0
+     }
+    ],
+    "fg_ml": [
+     {
+      "matchup": "WPG @ FLA",
+      "pick": "FLA",
+      "p": 0.6203,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": "VGK",
+      "p": 0.5689,
+      "hit": 0
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": "SEA",
+      "p": 0.5011,
+      "hit": 0
+     }
+    ],
+    "fg_spread": [
+     {
+      "matchup": "WPG @ FLA",
+      "pick": "FLA",
+      "p": 0.404,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": "VGK",
+      "p": 0.3549,
+      "hit": 0
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": "SEA",
+      "p": 0.2988,
+      "hit": 0
+     }
+    ],
+    "fg_over45": [
+     {
+      "matchup": "SEA @ CGY",
+      "pick": null,
+      "p": 0.7601,
+      "hit": 1
+     },
+     {
+      "matchup": "WPG @ FLA",
+      "pick": null,
+      "p": 0.7543,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": null,
+      "p": 0.7448,
+      "hit": 1
+     }
+    ],
+    "p1_under25": [
+     {
+      "matchup": "NJD @ VGK",
+      "pick": null,
+      "p": 0.7621,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ FLA",
+      "pick": null,
+      "p": 0.7524,
+      "hit": 1
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": null,
+      "p": 0.7458,
+      "hit": 1
+     }
+    ],
+    "team_over15": [
+     {
+      "matchup": "WPG @ FLA",
+      "pick": "FLA",
+      "p": 0.848,
+      "hit": 1
+     },
+     {
+      "matchup": "NJD @ VGK",
+      "pick": "VGK",
+      "p": 0.8204,
+      "hit": 1
+     },
+     {
+      "matchup": "SEA @ CGY",
+      "pick": "CGY",
+      "p": 0.7972,
+      "hit": 1
+     }
+    ]
+   },
    "n_published": 3
   },
   "2026-10-31": {
@@ -11846,143 +12264,142 @@
   }
  },
  "pending": [
-  "2026-10-30",
   "2026-10-31",
   "2026-11-01"
  ],
  "summary": {
   "markets": {
    "u05_first5": {
-    "n": 124,
-    "hit_rate": 0.6613,
-    "mean_pred": 0.6758,
-    "brier": 0.224
+    "n": 127,
+    "hit_rate": 0.6614,
+    "mean_pred": 0.676,
+    "brier": 0.2238
    },
    "u05_first10": {
-    "n": 124,
-    "hit_rate": 0.4194,
-    "mean_pred": 0.4343,
-    "brier": 0.2429
+    "n": 127,
+    "hit_rate": 0.4173,
+    "mean_pred": 0.4346,
+    "brier": 0.2427
    },
    "p1_minus05": {
-    "n": 124,
-    "hit_rate": 0.3226,
-    "mean_pred": 0.3607,
-    "brier": 0.221
+    "n": 127,
+    "hit_rate": 0.3228,
+    "mean_pred": 0.3606,
+    "brier": 0.2208
    },
    "p1_plus05": {
-    "n": 124,
-    "hit_rate": 0.6855,
+    "n": 127,
+    "hit_rate": 0.6929,
     "mean_pred": 0.6942,
-    "brier": 0.2158
+    "brier": 0.2129
    },
    "p1_ml": {
-    "n": 124,
-    "hit_rate": 0.3226,
-    "mean_pred": 0.3607,
-    "brier": 0.221
+    "n": 127,
+    "hit_rate": 0.3228,
+    "mean_pred": 0.3606,
+    "brier": 0.2208
    },
    "fg_ml": {
-    "n": 124,
-    "hit_rate": 0.621,
-    "mean_pred": 0.5563,
+    "n": 127,
+    "hit_rate": 0.6142,
+    "mean_pred": 0.5565,
     "brier": 0.2372
    },
    "fg_spread": {
-    "n": 124,
-    "hit_rate": 0.3387,
+    "n": 127,
+    "hit_rate": 0.3386,
     "mean_pred": 0.3492,
-    "brier": 0.2228
+    "brier": 0.2221
    },
    "fg_over55": {
-    "n": 124,
-    "hit_rate": 0.6129,
-    "mean_pred": 0.554,
-    "brier": 0.2339
+    "n": 127,
+    "hit_rate": 0.622,
+    "mean_pred": 0.5536,
+    "brier": 0.2335
    },
    "fg_over45": {
-    "n": 108,
-    "hit_rate": 0.8056,
-    "mean_pred": 0.7666,
-    "brier": 0.1567
+    "n": 111,
+    "hit_rate": 0.8108,
+    "mean_pred": 0.7662,
+    "brier": 0.1542
    },
    "home_over15": {
-    "n": 108,
-    "hit_rate": 0.8704,
-    "mean_pred": 0.8188,
-    "brier": 0.1124
+    "n": 111,
+    "hit_rate": 0.8739,
+    "mean_pred": 0.8189,
+    "brier": 0.1102
    },
    "away_over15": {
-    "n": 108,
-    "hit_rate": 0.7963,
-    "mean_pred": 0.7775,
-    "brier": 0.1605
+    "n": 111,
+    "hit_rate": 0.8018,
+    "mean_pred": 0.777,
+    "brier": 0.1578
    },
    "p1_under25": {
-    "n": 108,
-    "hit_rate": 0.75,
-    "mean_pred": 0.7428,
-    "brier": 0.1868
+    "n": 111,
+    "hit_rate": 0.7477,
+    "mean_pred": 0.7431,
+    "brier": 0.1881
    }
   },
   "top3": {
    "u05_first5": {
-    "n": 46,
-    "hit_rate": 0.6957,
-    "mean_pred": 0.6821
+    "n": 49,
+    "hit_rate": 0.6939,
+    "mean_pred": 0.6822
    },
    "u05_first10": {
-    "n": 46,
-    "hit_rate": 0.5217,
-    "mean_pred": 0.4429
+    "n": 49,
+    "hit_rate": 0.5102,
+    "mean_pred": 0.4431
    },
    "p1_plus05": {
-    "n": 46,
-    "hit_rate": 0.7174,
-    "mean_pred": 0.7078
+    "n": 49,
+    "hit_rate": 0.7347,
+    "mean_pred": 0.7071
    },
    "p1_minus05": {
-    "n": 46,
-    "hit_rate": 0.3261,
-    "mean_pred": 0.377
+    "n": 49,
+    "hit_rate": 0.3265,
+    "mean_pred": 0.3758
    },
    "p1_ml": {
-    "n": 46,
-    "hit_rate": 0.3261,
-    "mean_pred": 0.377
+    "n": 49,
+    "hit_rate": 0.3265,
+    "mean_pred": 0.3758
    },
    "fg_ml": {
-    "n": 46,
-    "hit_rate": 0.6522,
-    "mean_pred": 0.5864
+    "n": 49,
+    "hit_rate": 0.6327,
+    "mean_pred": 0.585
    },
    "fg_spread": {
-    "n": 46,
-    "hit_rate": 0.413,
-    "mean_pred": 0.3765
+    "n": 49,
+    "hit_rate": 0.4082,
+    "mean_pred": 0.3751
    },
    "fg_over45": {
-    "n": 43,
-    "hit_rate": 0.8372,
-    "mean_pred": 0.7843
+    "n": 46,
+    "hit_rate": 0.8478,
+    "mean_pred": 0.7823
    },
    "p1_under25": {
-    "n": 43,
-    "hit_rate": 0.7674,
+    "n": 46,
+    "hit_rate": 0.7609,
     "mean_pred": 0.7529
    },
    "team_over15": {
-    "n": 48,
-    "hit_rate": 0.9792,
-    "mean_pred": 0.8362
+    "n": 51,
+    "hit_rate": 0.9804,
+    "mean_pred": 0.8354
    }
   },
   "pick_of_day": {
-   "n": 17,
-   "hit_rate": 0.7059,
-   "mean_pred": 0.6868
+   "n": 18,
+   "hit_rate": 0.7222,
+   "mean_pred": 0.6869
   },
-  "days_scored": 17,
-  "games_scored": 124
+  "days_scored": 18,
+  "games_scored": 127
  }
 }
