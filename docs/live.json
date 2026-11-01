@@ -1,7 +1,7 @@
 {
  "date": "2026-11-01",
- "updated_utc": "2026-11-01 23:05 UTC",
- "updated_et": "6:05 PM ET",
+ "updated_utc": "2026-11-01 23:10 UTC",
+ "updated_et": "6:10 PM ET",
  "games": {
   "2026020227": {
    "state": "OFF",
@@ -58,16 +58,16 @@
    ]
   },
   "2026020228": {
-   "state": "CRIT",
-   "live": true,
+   "state": "OVER",
+   "live": false,
    "final": false,
    "period": 3,
-   "time_remaining": "01:10",
-   "elapsed_min": 58.83,
+   "time_remaining": "00:00",
+   "elapsed_min": 59.58,
    "home": "WSH",
    "away": "MIN",
    "home_score": 1,
-   "away_score": 3,
+   "away_score": 5,
    "first_goal_min": 3.7,
    "p1_done": true,
    "p1_home": 0,
@@ -93,6 +93,16 @@
      "period": 3,
      "minute": 57.617,
      "team": "MIN"
+    },
+    {
+     "period": 3,
+     "minute": 59.033,
+     "team": "MIN"
+    },
+    {
+     "period": 3,
+     "minute": 59.583,
+     "team": "MIN"
     }
    ]
   },
@@ -101,11 +111,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "17:07",
-   "elapsed_min": 42.88,
+   "time_remaining": "13:40",
+   "elapsed_min": 46.33,
    "home": "PHI",
    "away": "UTA",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 1,
    "first_goal_min": 12.817,
    "p1_done": true,
@@ -137,6 +147,11 @@
      "period": 3,
      "minute": 41.033,
      "team": "PHI"
+    },
+    {
+     "period": 3,
+     "minute": 45.583,
+     "team": "PHI"
     }
    ]
   },
@@ -145,8 +160,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "20:00",
-   "elapsed_min": 0.0,
+   "time_remaining": "19:10",
+   "elapsed_min": 0.83,
    "home": "NYR",
    "away": "EDM",
    "home_score": 0,
