@@ -1,7 +1,887 @@
 {
  "date": "2026-10-31",
- "credits_remaining": 1,
- "updated_utc": "2026-10-31 22:35 UTC",
- "games": {},
- "spent": 0
+ "credits_remaining": 499,
+ "updated_utc": "2026-11-01 01:24 UTC",
+ "games": {
+  "PIT@MTL": {
+   "home": "MTL",
+   "away": "PIT",
+   "commence": "2026-10-31T23:15:00Z",
+   "fetched_utc": "2026-11-01 01:24 UTC",
+   "requested": [
+    "player_shots_on_goal"
+   ],
+   "markets": {}
+  },
+  "TOR@VAN": {
+   "home": "VAN",
+   "away": "TOR",
+   "commence": "2026-10-31T23:15:04Z",
+   "fetched_utc": "2026-11-01 01:24 UTC",
+   "requested": [
+    "player_shots_on_goal"
+   ],
+   "markets": {}
+  },
+  "CBJ@DAL": {
+   "home": "DAL",
+   "away": "CBJ",
+   "commence": "2026-11-01T00:08:37Z",
+   "fetched_utc": "2026-11-01 01:24 UTC",
+   "requested": [
+    "player_shots_on_goal"
+   ],
+   "markets": {}
+  },
+  "CGY@COL": {
+   "home": "COL",
+   "away": "CGY",
+   "commence": "2026-11-01T02:10:00Z",
+   "fetched_utc": "2026-11-01 01:24 UTC",
+   "requested": [
+    "player_shots_on_goal"
+   ],
+   "markets": {
+    "sog": {
+     "n mackinnon": {
+      "name": "Nathan MacKinnon",
+      "line": 3.5,
+      "n": 4,
+      "over": 1.62,
+      "book_over": "DraftKings",
+      "under": 2.26,
+      "book_under": "FanDuel",
+      "consensus": 0.5829,
+      "books": {
+       "DraftKings": {
+        "line": 3.5,
+        "prices": {
+         "over": 1.62,
+         "under": 2.2
+        }
+       },
+       "BetOnline.ag": {
+        "line": 3.5,
+        "prices": {
+         "over": 1.61,
+         "under": 2.25
+        }
+       },
+       "FanDuel": {
+        "line": 3.5,
+        "prices": {
+         "over": 1.61,
+         "under": 2.26
+        }
+       },
+       "Bovada": {
+        "line": 3.5,
+        "prices": {
+         "over": 1.61,
+         "under": 2.25
+        }
+       },
+       "BetMGM": {
+        "line": 4.5,
+        "prices": {
+         "over": 2.2,
+         "under": 1.57
+        }
+       }
+      }
+     },
+     "c makar": {
+      "name": "Cale Makar",
+      "line": 2.5,
+      "n": 4,
+      "over": 1.76,
+      "book_over": "BetOnline.ag",
+      "under": 2.15,
+      "book_under": "Bovada",
+      "consensus": 0.5399,
+      "books": {
+       "DraftKings": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.74,
+         "under": 2.0
+        }
+       },
+       "BetOnline.ag": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.76,
+         "under": 2.02
+        }
+       },
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.72,
+         "under": 2.06
+        }
+       },
+       "Bovada": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.67,
+         "under": 2.15
+        }
+       },
+       "BetMGM": {
+        "line": 3.5,
+        "prices": {
+         "over": 2.5,
+         "under": 1.44
+        }
+       }
+      }
+     },
+     "n kadri": {
+      "name": "Nazem Kadri",
+      "line": 2.5,
+      "n": 5,
+      "over": 1.88,
+      "book_over": "FanDuel",
+      "under": 1.95,
+      "book_under": "DraftKings",
+      "consensus": 0.5095,
+      "books": {
+       "DraftKings": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.8,
+         "under": 1.95
+        }
+       },
+       "BetOnline.ag": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.87,
+         "under": 1.89
+        }
+       },
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.88,
+         "under": 1.88
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.8,
+         "under": 1.87
+        }
+       },
+       "Bovada": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.8,
+         "under": 1.95
+        }
+       }
+      }
+     },
+     "m necas": {
+      "name": "Martin Necas",
+      "line": 2.5,
+      "n": 5,
+      "over": 1.89,
+      "book_over": "BetOnline.ag",
+      "under": 2.0,
+      "book_under": "Bovada",
+      "consensus": 0.5107,
+      "books": {
+       "DraftKings": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.83,
+         "under": 1.91
+        }
+       },
+       "BetOnline.ag": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.89,
+         "under": 1.87
+        }
+       },
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.83,
+         "under": 1.93
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.83,
+         "under": 1.83
+        }
+       },
+       "Bovada": {
+        "line": 2.5,
+        "prices": {
+         "over": 1.77,
+         "under": 2.0
+        }
+       }
+      }
+     },
+     "m coronato": {
+      "name": "Matt Coronato",
+      "line": 2.5,
+      "n": 4,
+      "over": 2.4,
+      "book_over": "Bovada",
+      "under": 1.6,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.4004,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.54,
+         "under": 2.4
+        }
+       },
+       "BetOnline.ag": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.28,
+         "under": 1.6
+        }
+       },
+       "FanDuel": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.38,
+         "under": 1.55
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.25,
+         "under": 1.54
+        }
+       },
+       "Bovada": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.4,
+         "under": 1.54
+        }
+       }
+      }
+     },
+     "s malinski": {
+      "name": "Sam Malinski",
+      "line": 1.5,
+      "n": 3,
+      "over": 1.57,
+      "book_over": "Bovada",
+      "under": 2.35,
+      "book_under": "DraftKings",
+      "consensus": 0.6041,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.54,
+         "under": 2.35
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.5,
+         "under": 2.35
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.57,
+         "under": 2.35
+        }
+       },
+       "BetOnline.ag": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.86,
+         "under": 1.4
+        }
+       }
+      }
+     },
+     "a lehkonen": {
+      "name": "Artturi Lehkonen",
+      "line": 1.5,
+      "n": 3,
+      "over": 1.58,
+      "book_over": "BetOnline.ag",
+      "under": 2.31,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.5959,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.56,
+         "under": 2.3
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.58,
+         "under": 2.31
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.53,
+         "under": 2.3
+        }
+       },
+       "Bovada": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.5,
+         "under": 1.5
+        }
+       }
+      }
+     },
+     "j farabee": {
+      "name": "Joel Farabee",
+      "line": 1.5,
+      "n": 5,
+      "over": 1.61,
+      "book_over": "DraftKings",
+      "under": 2.42,
+      "book_under": "FanDuel",
+      "consensus": 0.5913,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.61,
+         "under": 2.2
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.59,
+         "under": 2.29
+        }
+       },
+       "FanDuel": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.53,
+         "under": 2.42
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.54,
+         "under": 2.25
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.59,
+         "under": 2.3
+        }
+       }
+      }
+     },
+     "b nelson": {
+      "name": "Brock Nelson",
+      "line": 1.5,
+      "n": 3,
+      "over": 1.65,
+      "book_over": "BetOnline.ag",
+      "under": 2.2,
+      "book_under": "Bovada",
+      "consensus": 0.5703,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.62,
+         "under": 2.15
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.65,
+         "under": 2.19
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.65,
+         "under": 2.2
+        }
+       },
+       "BetMGM": {
+        "line": 2.5,
+        "prices": {
+         "over": 2.8,
+         "under": 1.36
+        }
+       }
+      }
+     },
+     "t hughes": {
+      "name": "T.J. Hughes",
+      "line": 1.5,
+      "n": 3,
+      "over": 1.69,
+      "book_over": "BetOnline.ag",
+      "under": 2.2,
+      "book_under": "DraftKings",
+      "consensus": 0.5564,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.62,
+         "under": 2.2
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.69,
+         "under": 2.12
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.69,
+         "under": 2.0
+        }
+       }
+      }
+     },
+     "m gridin": {
+      "name": "Matvei Gridin",
+      "line": 1.5,
+      "n": 5,
+      "over": 1.69,
+      "book_over": "DraftKings",
+      "under": 2.25,
+      "book_under": "FanDuel",
+      "consensus": 0.5628,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.69,
+         "under": 2.05
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.67,
+         "under": 2.15
+        }
+       },
+       "FanDuel": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.61,
+         "under": 2.25
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.65,
+         "under": 2.05
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.67,
+         "under": 2.15
+        }
+       }
+      }
+     },
+     "g landeskog": {
+      "name": "Gabriel Landeskog",
+      "line": 1.5,
+      "n": 4,
+      "over": 1.77,
+      "book_over": "BetOnline.ag",
+      "under": 2.05,
+      "book_under": "DraftKings",
+      "consensus": 0.5415,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.71,
+         "under": 2.05
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.77,
+         "under": 2.01
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.69,
+         "under": 2.0
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.74,
+         "under": 2.05
+        }
+       }
+      }
+     },
+     "m backlund": {
+      "name": "Mikael Backlund",
+      "line": 1.5,
+      "n": 5,
+      "over": 1.71,
+      "book_over": "DraftKings",
+      "under": 2.26,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.5645,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.71,
+         "under": 2.05
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.61,
+         "under": 2.26
+        }
+       },
+       "FanDuel": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.62,
+         "under": 2.22
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.62,
+         "under": 2.1
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.69,
+         "under": 2.1
+        }
+       }
+      }
+     },
+     "b burns": {
+      "name": "Brent Burns",
+      "line": 1.5,
+      "n": 3,
+      "over": 1.77,
+      "book_over": "DraftKings",
+      "under": 2.01,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.5317,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.77,
+         "under": 1.95
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.77,
+         "under": 2.01
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.71,
+         "under": 1.95
+        }
+       }
+      }
+     },
+     "d toews": {
+      "name": "Devon Toews",
+      "line": 1.5,
+      "n": 4,
+      "over": 1.97,
+      "book_over": "BetOnline.ag",
+      "under": 1.91,
+      "book_under": "BetMGM",
+      "consensus": 0.5,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.87,
+         "under": 1.87
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.97,
+         "under": 1.8
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.74,
+         "under": 1.91
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.87,
+         "under": 1.87
+        }
+       }
+      }
+     },
+     "m frost": {
+      "name": "Morgan Frost",
+      "line": 1.5,
+      "n": 4,
+      "over": 2.05,
+      "book_over": "DraftKings",
+      "under": 1.8,
+      "book_under": "BetMGM",
+      "consensus": 0.4708,
+      "books": {
+       "DraftKings": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.05,
+         "under": 1.69
+        }
+       },
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.99,
+         "under": 1.78
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.87,
+         "under": 1.8
+        }
+       },
+       "Bovada": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.0,
+         "under": 1.77
+        }
+       }
+      }
+     },
+     "y sharangovich": {
+      "name": "Yegor Sharangovich",
+      "line": 1.5,
+      "n": 2,
+      "over": 2.06,
+      "book_over": "BetOnline.ag",
+      "under": 1.73,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.4572,
+      "books": {
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.06,
+         "under": 1.73
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.0,
+         "under": 1.69
+        }
+       }
+      }
+     },
+     "z parekh": {
+      "name": "Zayne Parekh",
+      "line": 1.5,
+      "n": 2,
+      "over": 2.09,
+      "book_over": "BetOnline.ag",
+      "under": 1.71,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.454,
+      "books": {
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.09,
+         "under": 1.71
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.0,
+         "under": 1.69
+        }
+       }
+      }
+     },
+     "r strome": {
+      "name": "Ryan Strome",
+      "line": 1.5,
+      "n": 1,
+      "over": 2.0,
+      "book_over": "BetOnline.ag",
+      "under": 1.77,
+      "book_under": "BetOnline.ag",
+      "consensus": 0.4695,
+      "books": {
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.0,
+         "under": 1.77
+        }
+       }
+      }
+     },
+     "j schwartz": {
+      "name": "Jaden Schwartz",
+      "line": 1.5,
+      "n": 2,
+      "over": 1.91,
+      "book_over": "BetOnline.ag",
+      "under": 1.91,
+      "book_under": "BetMGM",
+      "consensus": 0.5077,
+      "books": {
+       "BetOnline.ag": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.91,
+         "under": 1.85
+        }
+       },
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 1.74,
+         "under": 1.91
+        }
+       }
+      }
+     },
+     "s nemec": {
+      "name": "Simon Nemec",
+      "line": 1.5,
+      "n": 1,
+      "over": 2.25,
+      "book_over": "BetMGM",
+      "under": 1.54,
+      "book_under": "BetMGM",
+      "consensus": 0.4063,
+      "books": {
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.25,
+         "under": 1.54
+        }
+       }
+      }
+     },
+     "a suniev": {
+      "name": "Aydar Suniev",
+      "line": 1.5,
+      "n": 1,
+      "over": 2.1,
+      "book_over": "BetMGM",
+      "under": 1.62,
+      "book_under": "BetMGM",
+      "consensus": 0.4355,
+      "books": {
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.1,
+         "under": 1.62
+        }
+       }
+      }
+     },
+     "p kelly": {
+      "name": "Parker Kelly",
+      "line": 1.5,
+      "n": 1,
+      "over": 2.3,
+      "book_over": "BetMGM",
+      "under": 1.53,
+      "book_under": "BetMGM",
+      "consensus": 0.3995,
+      "books": {
+       "BetMGM": {
+        "line": 1.5,
+        "prices": {
+         "over": 2.3,
+         "under": 1.53
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "spent": 4
 }
