@@ -1,7 +1,7 @@
 {
  "date": "2026-10-31",
- "updated_utc": "2026-11-01 04:32 UTC",
- "updated_et": "12:32 AM ET",
+ "updated_utc": "2026-11-01 04:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020217": {
    "state": "OFF",
@@ -475,12 +475,12 @@
    ]
   },
   "2026020226": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:46",
-   "elapsed_min": 57.23,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "COL",
    "away": "CGY",
    "home_score": 5,
@@ -489,7 +489,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
