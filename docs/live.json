@@ -1,7 +1,7 @@
 {
  "date": "2026-10-31",
- "updated_utc": "2026-11-01 01:50 UTC",
- "updated_et": "9:50 PM ET",
+ "updated_utc": "2026-11-01 01:55 UTC",
+ "updated_et": "9:55 PM ET",
  "games": {
   "2026020217": {
    "state": "OFF",
@@ -323,12 +323,12 @@
    ]
   },
   "2026020223": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:30",
-   "elapsed_min": 59.5,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "MTL",
    "away": "PIT",
    "home_score": 5,
@@ -337,7 +337,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -440,8 +440,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "06:16",
-   "elapsed_min": 33.73,
+   "time_remaining": "01:16",
+   "elapsed_min": 38.73,
    "home": "DAL",
    "away": "CBJ",
    "home_score": 2,
