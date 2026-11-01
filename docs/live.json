@@ -1,7 +1,7 @@
 {
  "date": "2026-10-31",
- "updated_utc": "2026-11-01 02:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-11-01 02:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020217": {
    "state": "OFF",
@@ -440,12 +440,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:09",
-   "elapsed_min": 45.85,
+   "time_remaining": "13:12",
+   "elapsed_min": 46.8,
    "home": "DAL",
    "away": "CBJ",
    "home_score": 2,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 2.267,
    "p1_done": true,
    "p1_home": 2,
@@ -461,20 +461,25 @@
      "period": 1,
      "minute": 19.983,
      "team": "DAL"
+    },
+    {
+     "period": 3,
+     "minute": 46.333,
+     "team": "CBJ"
     }
    ]
   },
   "2026020226": {
-   "state": "PRE",
-   "live": false,
+   "state": "LIVE",
+   "live": true,
    "final": false,
-   "period": null,
-   "time_remaining": null,
-   "elapsed_min": 0.0,
+   "period": 1,
+   "time_remaining": "17:30",
+   "elapsed_min": 2.5,
    "home": "COL",
    "away": "CGY",
-   "home_score": null,
-   "away_score": null,
+   "home_score": 0,
+   "away_score": 0,
    "first_goal_min": null,
    "p1_done": false,
    "p1_home": 0,
