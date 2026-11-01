@@ -1,15 +1,15 @@
 {
  "date": "2026-11-01",
- "updated_utc": "2026-11-01 20:40 UTC",
- "updated_et": "3:40 PM ET",
+ "updated_utc": "2026-11-01 20:45 UTC",
+ "updated_et": "3:45 PM ET",
  "games": {
   "2026020227": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
-   "elapsed_min": 48.63,
+   "elapsed_min": 60.0,
    "home": "CAR",
    "away": "WPG",
    "home_score": 7,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -62,18 +62,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "20:00",
-   "elapsed_min": 0.0,
+   "time_remaining": "15:52",
+   "elapsed_min": 4.13,
    "home": "WSH",
    "away": "MIN",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 3.7,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 3.7,
+     "team": "MIN"
+    }
+   ]
   },
   "2026020229": {
    "state": "PRE",
