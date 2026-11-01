@@ -1,7 +1,7 @@
 {
  "date": "2026-10-31",
- "updated_utc": "2026-11-01 00:10 UTC",
- "updated_et": "8:10 PM ET",
+ "updated_utc": "2026-11-01 00:15 UTC",
+ "updated_et": "8:15 PM ET",
  "games": {
   "2026020217": {
    "state": "OFF",
@@ -326,15 +326,15 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 1,
-   "time_remaining": "03:20",
-   "elapsed_min": 16.67,
+   "period": 2,
+   "time_remaining": "20:00",
+   "elapsed_min": 20.0,
    "home": "MTL",
    "away": "PIT",
    "home_score": 2,
    "away_score": 2,
    "first_goal_min": 2.133,
-   "p1_done": false,
+   "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
    "ended_in": null,
@@ -366,12 +366,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "18:14",
-   "elapsed_min": 21.77,
+   "time_remaining": "15:43",
+   "elapsed_min": 24.28,
    "home": "VAN",
    "away": "TOR",
    "home_score": 1,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 1.383,
    "p1_done": true,
    "p1_home": 1,
@@ -387,6 +387,11 @@
      "period": 1,
      "minute": 10.5,
      "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 23.783,
+     "team": "TOR"
     }
    ]
   },
@@ -395,18 +400,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:10",
-   "elapsed_min": 0.83,
+   "time_remaining": "17:38",
+   "elapsed_min": 2.37,
    "home": "DAL",
    "away": "CBJ",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 2.267,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 2.267,
+     "team": "DAL"
+    }
+   ]
   },
   "2026020226": {
    "state": "FUT",
