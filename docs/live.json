@@ -1,7 +1,7 @@
 {
  "date": "2026-11-01",
- "updated_utc": "2026-11-02 03:40 UTC",
- "updated_et": "10:40 PM ET",
+ "updated_utc": "2026-11-02 03:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020227": {
    "state": "OFF",
@@ -215,12 +215,12 @@
    ]
   },
   "2026020231": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "03:24",
-   "elapsed_min": 56.6,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "ANA",
    "away": "OTT",
    "home_score": 6,
@@ -229,7 +229,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 3,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
