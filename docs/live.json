@@ -1,7 +1,7 @@
 {
  "date": "2026-11-01",
- "updated_utc": "2026-11-02 02:05 UTC",
- "updated_et": "9:05 PM ET",
+ "updated_utc": "2026-11-02 02:10 UTC",
+ "updated_et": "9:10 PM ET",
  "games": {
   "2026020227": {
    "state": "OFF",
@@ -171,7 +171,7 @@
    ]
   },
   "2026020230": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -219,11 +219,11 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "19:00",
-   "elapsed_min": 21.0,
+   "time_remaining": "16:27",
+   "elapsed_min": 23.55,
    "home": "ANA",
    "away": "OTT",
-   "home_score": 0,
+   "home_score": 2,
    "away_score": 3,
    "first_goal_min": 6.0,
    "p1_done": true,
@@ -245,6 +245,16 @@
      "period": 1,
      "minute": 17.617,
      "team": "OTT"
+    },
+    {
+     "period": 2,
+     "minute": 21.583,
+     "team": "ANA"
+    },
+    {
+     "period": 2,
+     "minute": 23.55,
+     "team": "ANA"
     }
    ]
   }
