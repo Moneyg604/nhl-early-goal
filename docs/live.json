@@ -1,7 +1,7 @@
 {
  "date": "2026-11-02",
- "updated_utc": "2026-11-03 03:47 UTC",
- "updated_et": "10:47 PM ET",
+ "updated_utc": "2026-11-03 03:55 UTC",
+ "updated_et": "10:55 PM ET",
  "games": {
   "2026020232": {
    "state": "OFF",
@@ -102,21 +102,21 @@
    ]
   },
   "2026020234": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:54",
-   "elapsed_min": 57.1,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CHI",
    "away": "COL",
    "home_score": 2,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 0.95,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -147,6 +147,11 @@
      "period": 2,
      "minute": 39.817,
      "team": "COL"
+    },
+    {
+     "period": 3,
+     "minute": 57.633,
+     "team": "COL"
     }
    ]
   },
@@ -155,8 +160,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:44",
-   "elapsed_min": 24.27,
+   "time_remaining": "08:16",
+   "elapsed_min": 31.73,
    "home": "SJS",
    "away": "CGY",
    "home_score": 0,
