@@ -1,15 +1,15 @@
 {
  "date": "2026-11-03",
- "updated_utc": "2026-11-04 02:40 UTC",
- "updated_et": "9:40 PM ET",
+ "updated_utc": "2026-11-04 02:45 UTC",
+ "updated_et": "9:45 PM ET",
  "games": {
   "2026020236": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:34",
-   "elapsed_min": 59.43,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "TOR",
    "away": "UTA",
    "home_score": 2,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -52,8 +52,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:58",
-   "elapsed_min": 55.03,
+   "time_remaining": "02:47",
+   "elapsed_min": 57.22,
    "home": "MTL",
    "away": "WPG",
    "home_score": 4,
@@ -127,6 +127,11 @@
      "period": 3,
      "minute": 45.483,
      "team": "DET"
+    },
+    {
+     "period": 3,
+     "minute": 59.983,
+     "team": "TBL"
     }
    ]
   },
@@ -135,11 +140,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "03:44",
-   "elapsed_min": 56.27,
+   "time_remaining": "01:36",
+   "elapsed_min": 58.4,
    "home": "NYR",
    "away": "STL",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 0,
    "first_goal_min": 21.817,
    "p1_done": true,
@@ -155,6 +160,11 @@
     {
      "period": 3,
      "minute": 49.017,
+     "team": "NYR"
+    },
+    {
+     "period": 3,
+     "minute": 57.967,
      "team": "NYR"
     }
    ]
@@ -209,9 +219,9 @@
    ]
   },
   "2026020242": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
@@ -223,7 +233,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -253,9 +263,9 @@
    ]
   },
   "2026020243": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
@@ -267,7 +277,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -395,8 +405,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:44",
-   "elapsed_min": 46.27,
+   "time_remaining": "09:10",
+   "elapsed_min": 50.83,
    "home": "NJD",
    "away": "EDM",
    "home_score": 3,
@@ -444,8 +454,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:25",
-   "elapsed_min": 36.58,
+   "time_remaining": "00:00",
+   "elapsed_min": 40.0,
    "home": "NSH",
    "away": "CAR",
    "home_score": 2,
@@ -478,16 +488,16 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "03:01",
-   "elapsed_min": 16.98,
+   "time_remaining": "01:54",
+   "elapsed_min": 18.1,
    "home": "VAN",
    "away": "ANA",
    "home_score": 1,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 4.067,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 1,
+   "p1_away": 2,
    "ended_in": null,
    "goals": [
     {
@@ -499,6 +509,11 @@
      "period": 1,
      "minute": 6.067,
      "team": "VAN"
+    },
+    {
+     "period": 1,
+     "minute": 17.117,
+     "team": "ANA"
     }
    ]
   }
