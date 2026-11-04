@@ -1,7 +1,7 @@
 {
  "date": "2026-11-03",
- "updated_utc": "2026-11-04 03:40 UTC",
- "updated_et": "10:40 PM ET",
+ "updated_utc": "2026-11-04 03:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020236": {
    "state": "OFF",
@@ -480,12 +480,12 @@
    ]
   },
   "2026020245": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:08",
-   "elapsed_min": 59.87,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NSH",
    "away": "CAR",
    "home_score": 4,
@@ -494,7 +494,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -528,12 +528,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "01:35",
+   "time_remaining": "75:56",
    "elapsed_min": 38.42,
    "home": "VAN",
    "away": "ANA",
    "home_score": 2,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 4.067,
    "p1_done": true,
    "p1_home": 1,
@@ -564,6 +564,11 @@
      "period": 2,
      "minute": 28.283,
      "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 38.417,
+     "team": "ANA"
     }
    ]
   }
