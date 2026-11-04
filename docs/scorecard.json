@@ -14242,8 +14242,1002 @@
    "n_published": 4
   },
   "2026-11-03": {
-   "games": {},
-   "top": {},
+   "games": {
+    "2026020236": {
+     "game_id": 2026020236,
+     "matchup": "UTA @ TOR",
+     "tier": "B",
+     "final": "UTA 3 @ TOR 2",
+     "first_goal_min": 19.78,
+     "p1_score": "1-0",
+     "home": "TOR",
+     "away": "UTA",
+     "home_score": 2,
+     "away_score": 3,
+     "ended_in": "REG",
+     "p1_home": 0,
+     "p1_away": 1,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6587,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4111,
+       "hit": 1
+      },
+      "p1_minus05": {
+       "pick": "UTA",
+       "p": 0.353,
+       "hit": 1
+      },
+      "p1_plus05": {
+       "pick": "UTA",
+       "p": 0.6741,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "UTA",
+       "p": 0.353,
+       "hit": 1
+      },
+      "fg_ml": {
+       "pick": "UTA",
+       "p": 0.5244,
+       "hit": 1
+      },
+      "fg_spread": {
+       "pick": "UTA",
+       "p": 0.3281,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.6215,
+       "hit": 0
+      },
+      "fg_over45": {
+       "p": 0.8132,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "TOR",
+       "p": 0.8179,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "UTA",
+       "p": 0.839,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7086,
+       "hit": 1
+      }
+     }
+    },
+    "2026020237": {
+     "game_id": 2026020237,
+     "matchup": "WPG @ MTL",
+     "tier": "B",
+     "final": "WPG 5 @ MTL 4 (OT)",
+     "first_goal_min": 3.08,
+     "p1_score": "0-2",
+     "home": "MTL",
+     "away": "WPG",
+     "home_score": 4,
+     "away_score": 5,
+     "ended_in": "OT",
+     "p1_home": 2,
+     "p1_away": 0,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6725,
+       "hit": 0
+      },
+      "u05_first10": {
+       "p": 0.4333,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "MTL",
+       "p": 0.3819,
+       "hit": 1
+      },
+      "p1_plus05": {
+       "pick": "MTL",
+       "p": 0.7134,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "MTL",
+       "p": 0.3819,
+       "hit": 1
+      },
+      "fg_ml": {
+       "pick": "MTL",
+       "p": 0.5892,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "MTL",
+       "p": 0.3758,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5542,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7662,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "MTL",
+       "p": 0.8406,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "WPG",
+       "p": 0.7545,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7404,
+       "hit": 1
+      }
+     }
+    },
+    "2026020238": {
+     "game_id": 2026020238,
+     "matchup": "DET @ TBL",
+     "tier": "B",
+     "final": "DET 2 @ TBL 4",
+     "first_goal_min": 7.9,
+     "p1_score": "0-2",
+     "home": "TBL",
+     "away": "DET",
+     "home_score": 4,
+     "away_score": 2,
+     "ended_in": "REG",
+     "p1_home": 2,
+     "p1_away": 0,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6733,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4283,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "TBL",
+       "p": 0.4194,
+       "hit": 1
+      },
+      "p1_plus05": {
+       "pick": "TBL",
+       "p": 0.7425,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "TBL",
+       "p": 0.4194,
+       "hit": 1
+      },
+      "fg_ml": {
+       "pick": "TBL",
+       "p": 0.6745,
+       "hit": 1
+      },
+      "fg_spread": {
+       "pick": "TBL",
+       "p": 0.4598,
+       "hit": 1
+      },
+      "fg_over55": {
+       "p": 0.5698,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7756,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "TBL",
+       "p": 0.877,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "DET",
+       "p": 0.7082,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7337,
+       "hit": 1
+      }
+     }
+    },
+    "2026020239": {
+     "game_id": 2026020239,
+     "matchup": "EDM @ NJD",
+     "tier": "B",
+     "final": "EDM 3 @ NJD 4 (SO)",
+     "first_goal_min": 8.48,
+     "p1_score": "1-0",
+     "home": "NJD",
+     "away": "EDM",
+     "home_score": 4,
+     "away_score": 3,
+     "ended_in": "SO",
+     "p1_home": 0,
+     "p1_away": 1,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6804,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4429,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "NJD",
+       "p": 0.3412,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "NJD",
+       "p": 0.6771,
+       "hit": 0
+      },
+      "p1_ml": {
+       "pick": "NJD",
+       "p": 0.3412,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "NJD",
+       "p": 0.5243,
+       "hit": 1
+      },
+      "fg_spread": {
+       "pick": "NJD",
+       "p": 0.3219,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5673,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7758,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "NJD",
+       "p": 0.8155,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "EDM",
+       "p": 0.7954,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7448,
+       "hit": 1
+      }
+     }
+    },
+    "2026020240": {
+     "game_id": 2026020240,
+     "matchup": "STL @ NYR",
+     "tier": "B",
+     "final": "STL 1 @ NYR 3",
+     "first_goal_min": 21.82,
+     "p1_score": "0-0",
+     "home": "NYR",
+     "away": "STL",
+     "home_score": 3,
+     "away_score": 1,
+     "ended_in": "REG",
+     "p1_home": 0,
+     "p1_away": 0,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6838,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4453,
+       "hit": 1
+      },
+      "p1_minus05": {
+       "pick": "NYR",
+       "p": 0.3353,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "NYR",
+       "p": 0.6784,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "NYR",
+       "p": 0.3353,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "NYR",
+       "p": 0.5128,
+       "hit": 1
+      },
+      "fg_spread": {
+       "pick": "NYR",
+       "p": 0.3058,
+       "hit": 1
+      },
+      "fg_over55": {
+       "p": 0.5254,
+       "hit": 0
+      },
+      "fg_over45": {
+       "p": 0.7459,
+       "hit": 0
+      },
+      "home_over15": {
+       "pick": "NYR",
+       "p": 0.794,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "STL",
+       "p": 0.7843,
+       "hit": 0
+      },
+      "p1_under25": {
+       "p": 0.756,
+       "hit": 1
+      }
+     }
+    },
+    "2026020241": {
+     "game_id": 2026020241,
+     "matchup": "MIN @ PHI",
+     "tier": "B",
+     "final": "MIN 4 @ PHI 2",
+     "first_goal_min": 4.1,
+     "p1_score": "2-0",
+     "home": "PHI",
+     "away": "MIN",
+     "home_score": 2,
+     "away_score": 4,
+     "ended_in": "REG",
+     "p1_home": 0,
+     "p1_away": 2,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6919,
+       "hit": 0
+      },
+      "u05_first10": {
+       "p": 0.4565,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "PHI",
+       "p": 0.3304,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "PHI",
+       "p": 0.6764,
+       "hit": 0
+      },
+      "p1_ml": {
+       "pick": "PHI",
+       "p": 0.3304,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "PHI",
+       "p": 0.5058,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "PHI",
+       "p": 0.2984,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5046,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7299,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "PHI",
+       "p": 0.7824,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "MIN",
+       "p": 0.7772,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7679,
+       "hit": 1
+      }
+     }
+    },
+    "2026020242": {
+     "game_id": 2026020242,
+     "matchup": "VGK @ PIT",
+     "tier": "B",
+     "final": "VGK 3 @ PIT 2",
+     "first_goal_min": 16.6,
+     "p1_score": "1-0",
+     "home": "PIT",
+     "away": "VGK",
+     "home_score": 2,
+     "away_score": 3,
+     "ended_in": "REG",
+     "p1_home": 0,
+     "p1_away": 1,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6661,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4206,
+       "hit": 1
+      },
+      "p1_minus05": {
+       "pick": "PIT",
+       "p": 0.3629,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "PIT",
+       "p": 0.6892,
+       "hit": 0
+      },
+      "p1_ml": {
+       "pick": "PIT",
+       "p": 0.3629,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "PIT",
+       "p": 0.5648,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "PIT",
+       "p": 0.3595,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5911,
+       "hit": 0
+      },
+      "fg_over45": {
+       "p": 0.7935,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "PIT",
+       "p": 0.843,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "VGK",
+       "p": 0.7845,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7264,
+       "hit": 1
+      }
+     }
+    },
+    "2026020243": {
+     "game_id": 2026020243,
+     "matchup": "DAL @ WSH",
+     "tier": "B",
+     "final": "DAL 6 @ WSH 5",
+     "first_goal_min": 8.93,
+     "p1_score": "1-0",
+     "home": "WSH",
+     "away": "DAL",
+     "home_score": 5,
+     "away_score": 6,
+     "ended_in": "REG",
+     "p1_home": 0,
+     "p1_away": 1,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6811,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4392,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "WSH",
+       "p": 0.3484,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "WSH",
+       "p": 0.6835,
+       "hit": 0
+      },
+      "p1_ml": {
+       "pick": "WSH",
+       "p": 0.3484,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "WSH",
+       "p": 0.5323,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "WSH",
+       "p": 0.3252,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5387,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.756,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "WSH",
+       "p": 0.809,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "DAL",
+       "p": 0.7774,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.749,
+       "hit": 1
+      }
+     }
+    },
+    "2026020244": {
+     "game_id": 2026020244,
+     "matchup": "COL @ CBJ",
+     "tier": "B",
+     "final": "COL 2 @ CBJ 7",
+     "first_goal_min": 0.47,
+     "p1_score": "1-2",
+     "home": "CBJ",
+     "away": "COL",
+     "home_score": 7,
+     "away_score": 2,
+     "ended_in": "REG",
+     "p1_home": 2,
+     "p1_away": 1,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6605,
+       "hit": 0
+      },
+      "u05_first10": {
+       "p": 0.4161,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "COL",
+       "p": 0.3514,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "COL",
+       "p": 0.6768,
+       "hit": 0
+      },
+      "p1_ml": {
+       "pick": "COL",
+       "p": 0.3514,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "COL",
+       "p": 0.5108,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "COL",
+       "p": 0.3144,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5906,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.794,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "CBJ",
+       "p": 0.8116,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "COL",
+       "p": 0.8213,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7201,
+       "hit": 0
+      }
+     }
+    },
+    "2026020245": {
+     "game_id": 2026020245,
+     "matchup": "CAR @ NSH",
+     "tier": "B",
+     "final": "CAR 1 @ NSH 4",
+     "first_goal_min": 12.53,
+     "p1_score": "0-1",
+     "home": "NSH",
+     "away": "CAR",
+     "home_score": 4,
+     "away_score": 1,
+     "ended_in": "REG",
+     "p1_home": 1,
+     "p1_away": 0,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6751,
+       "hit": 1
+      },
+      "u05_first10": {
+       "p": 0.4336,
+       "hit": 1
+      },
+      "p1_minus05": {
+       "pick": "CAR",
+       "p": 0.3848,
+       "hit": 0
+      },
+      "p1_plus05": {
+       "pick": "CAR",
+       "p": 0.7166,
+       "hit": 0
+      },
+      "p1_ml": {
+       "pick": "CAR",
+       "p": 0.3848,
+       "hit": 0
+      },
+      "fg_ml": {
+       "pick": "CAR",
+       "p": 0.5898,
+       "hit": 0
+      },
+      "fg_spread": {
+       "pick": "CAR",
+       "p": 0.3789,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5568,
+       "hit": 0
+      },
+      "fg_over45": {
+       "p": 0.7683,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "NSH",
+       "p": 0.7558,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "CAR",
+       "p": 0.8403,
+       "hit": 0
+      },
+      "p1_under25": {
+       "p": 0.7411,
+       "hit": 1
+      }
+     }
+    },
+    "2026020246": {
+     "game_id": 2026020246,
+     "matchup": "ANA @ VAN",
+     "tier": "B",
+     "final": "ANA 5 @ VAN 4",
+     "first_goal_min": 4.07,
+     "p1_score": "2-1",
+     "home": "VAN",
+     "away": "ANA",
+     "home_score": 4,
+     "away_score": 5,
+     "ended_in": "REG",
+     "p1_home": 1,
+     "p1_away": 2,
+     "markets": {
+      "u05_first5": {
+       "p": 0.6617,
+       "hit": 0
+      },
+      "u05_first10": {
+       "p": 0.4171,
+       "hit": 0
+      },
+      "p1_minus05": {
+       "pick": "ANA",
+       "p": 0.356,
+       "hit": 1
+      },
+      "p1_plus05": {
+       "pick": "ANA",
+       "p": 0.6796,
+       "hit": 1
+      },
+      "p1_ml": {
+       "pick": "ANA",
+       "p": 0.356,
+       "hit": 1
+      },
+      "fg_ml": {
+       "pick": "ANA",
+       "p": 0.5357,
+       "hit": 1
+      },
+      "fg_spread": {
+       "pick": "ANA",
+       "p": 0.336,
+       "hit": 0
+      },
+      "fg_over55": {
+       "p": 0.5892,
+       "hit": 1
+      },
+      "fg_over45": {
+       "p": 0.7918,
+       "hit": 1
+      },
+      "home_over15": {
+       "pick": "VAN",
+       "p": 0.7961,
+       "hit": 1
+      },
+      "away_over15": {
+       "pick": "ANA",
+       "p": 0.8331,
+       "hit": 1
+      },
+      "p1_under25": {
+       "p": 0.7238,
+       "hit": 0
+      }
+     }
+    }
+   },
+   "top": {
+    "u05_first5": [
+     {
+      "matchup": "MIN @ PHI",
+      "pick": null,
+      "p": 0.6919,
+      "hit": 0
+     },
+     {
+      "matchup": "STL @ NYR",
+      "pick": null,
+      "p": 0.6838,
+      "hit": 1
+     },
+     {
+      "matchup": "DAL @ WSH",
+      "pick": null,
+      "p": 0.6811,
+      "hit": 1
+     }
+    ],
+    "u05_first10": [
+     {
+      "matchup": "MIN @ PHI",
+      "pick": null,
+      "p": 0.4565,
+      "hit": 0
+     },
+     {
+      "matchup": "STL @ NYR",
+      "pick": null,
+      "p": 0.4453,
+      "hit": 1
+     },
+     {
+      "matchup": "EDM @ NJD",
+      "pick": null,
+      "p": 0.4429,
+      "hit": 0
+     }
+    ],
+    "p1_plus05": [
+     {
+      "matchup": "DET @ TBL",
+      "pick": "TBL",
+      "p": 0.7425,
+      "hit": 1
+     },
+     {
+      "matchup": "CAR @ NSH",
+      "pick": "CAR",
+      "p": 0.7166,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ MTL",
+      "pick": "MTL",
+      "p": 0.7134,
+      "hit": 1
+     }
+    ],
+    "p1_minus05": [
+     {
+      "matchup": "DET @ TBL",
+      "pick": "TBL",
+      "p": 0.4194,
+      "hit": 1
+     },
+     {
+      "matchup": "CAR @ NSH",
+      "pick": "CAR",
+      "p": 0.3848,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ MTL",
+      "pick": "MTL",
+      "p": 0.3819,
+      "hit": 1
+     }
+    ],
+    "p1_ml": [
+     {
+      "matchup": "DET @ TBL",
+      "pick": "TBL",
+      "p": 0.4194,
+      "hit": 1
+     },
+     {
+      "matchup": "CAR @ NSH",
+      "pick": "CAR",
+      "p": 0.3848,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ MTL",
+      "pick": "MTL",
+      "p": 0.3819,
+      "hit": 1
+     }
+    ],
+    "fg_ml": [
+     {
+      "matchup": "DET @ TBL",
+      "pick": "TBL",
+      "p": 0.6745,
+      "hit": 1
+     },
+     {
+      "matchup": "CAR @ NSH",
+      "pick": "CAR",
+      "p": 0.5898,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ MTL",
+      "pick": "MTL",
+      "p": 0.5892,
+      "hit": 0
+     }
+    ],
+    "fg_spread": [
+     {
+      "matchup": "DET @ TBL",
+      "pick": "TBL",
+      "p": 0.4598,
+      "hit": 1
+     },
+     {
+      "matchup": "CAR @ NSH",
+      "pick": "CAR",
+      "p": 0.3789,
+      "hit": 0
+     },
+     {
+      "matchup": "WPG @ MTL",
+      "pick": "MTL",
+      "p": 0.3758,
+      "hit": 0
+     }
+    ],
+    "fg_over45": [
+     {
+      "matchup": "UTA @ TOR",
+      "pick": null,
+      "p": 0.8132,
+      "hit": 1
+     },
+     {
+      "matchup": "COL @ CBJ",
+      "pick": null,
+      "p": 0.794,
+      "hit": 1
+     },
+     {
+      "matchup": "VGK @ PIT",
+      "pick": null,
+      "p": 0.7935,
+      "hit": 1
+     }
+    ],
+    "p1_under25": [
+     {
+      "matchup": "MIN @ PHI",
+      "pick": null,
+      "p": 0.7679,
+      "hit": 1
+     },
+     {
+      "matchup": "STL @ NYR",
+      "pick": null,
+      "p": 0.756,
+      "hit": 1
+     },
+     {
+      "matchup": "DAL @ WSH",
+      "pick": null,
+      "p": 0.749,
+      "hit": 1
+     }
+    ],
+    "team_over15": [
+     {
+      "matchup": "DET @ TBL",
+      "pick": "TBL",
+      "p": 0.877,
+      "hit": 1
+     },
+     {
+      "matchup": "VGK @ PIT",
+      "pick": "PIT",
+      "p": 0.843,
+      "hit": 1
+     },
+     {
+      "matchup": "WPG @ MTL",
+      "pick": "MTL",
+      "p": 0.8406,
+      "hit": 1
+     }
+    ]
+   },
    "n_published": 11
   },
   "2026-11-04": {
@@ -14258,143 +15252,142 @@
   }
  },
  "pending": [
-  "2026-11-03",
   "2026-11-04",
   "2026-11-05"
  ],
  "summary": {
   "markets": {
    "u05_first5": {
-    "n": 146,
-    "hit_rate": 0.6575,
-    "mean_pred": 0.6758,
-    "brier": 0.2253
+    "n": 157,
+    "hit_rate": 0.6561,
+    "mean_pred": 0.6756,
+    "brier": 0.2258
    },
    "u05_first10": {
-    "n": 146,
-    "hit_rate": 0.4041,
-    "mean_pred": 0.4347,
-    "brier": 0.2412
+    "n": 157,
+    "hit_rate": 0.4013,
+    "mean_pred": 0.4344,
+    "brier": 0.241
    },
    "p1_minus05": {
-    "n": 146,
-    "hit_rate": 0.3082,
+    "n": 157,
+    "hit_rate": 0.3121,
     "mean_pred": 0.3608,
-    "brier": 0.2153
+    "brier": 0.2156
    },
    "p1_plus05": {
-    "n": 146,
-    "hit_rate": 0.6986,
-    "mean_pred": 0.6942,
-    "brier": 0.21
+    "n": 157,
+    "hit_rate": 0.6815,
+    "mean_pred": 0.694,
+    "brier": 0.2162
    },
    "p1_ml": {
-    "n": 146,
-    "hit_rate": 0.3082,
+    "n": 157,
+    "hit_rate": 0.3121,
     "mean_pred": 0.3608,
-    "brier": 0.2153
+    "brier": 0.2156
    },
    "fg_ml": {
-    "n": 146,
-    "hit_rate": 0.6096,
-    "mean_pred": 0.5567,
-    "brier": 0.2363
+    "n": 157,
+    "hit_rate": 0.5987,
+    "mean_pred": 0.5563,
+    "brier": 0.2378
    },
    "fg_spread": {
-    "n": 146,
-    "hit_rate": 0.3425,
-    "mean_pred": 0.3495,
-    "brier": 0.2209
+    "n": 157,
+    "hit_rate": 0.3312,
+    "mean_pred": 0.3492,
+    "brier": 0.217
    },
    "fg_over55": {
-    "n": 146,
-    "hit_rate": 0.6301,
-    "mean_pred": 0.5541,
-    "brier": 0.2332
+    "n": 157,
+    "hit_rate": 0.6306,
+    "mean_pred": 0.5548,
+    "brier": 0.234
    },
    "fg_over45": {
-    "n": 130,
-    "hit_rate": 0.8154,
-    "mean_pred": 0.7667,
-    "brier": 0.1515
+    "n": 141,
+    "hit_rate": 0.8227,
+    "mean_pred": 0.7672,
+    "brier": 0.1472
    },
    "home_over15": {
-    "n": 130,
-    "hit_rate": 0.8538,
-    "mean_pred": 0.8186,
-    "brier": 0.1234
+    "n": 141,
+    "hit_rate": 0.8652,
+    "mean_pred": 0.8182,
+    "brier": 0.1165
    },
    "away_over15": {
-    "n": 130,
-    "hit_rate": 0.8154,
-    "mean_pred": 0.7776,
-    "brier": 0.1492
+    "n": 141,
+    "hit_rate": 0.8156,
+    "mean_pred": 0.7787,
+    "brier": 0.1499
    },
    "p1_under25": {
-    "n": 130,
-    "hit_rate": 0.7615,
-    "mean_pred": 0.7428,
-    "brier": 0.1811
+    "n": 141,
+    "hit_rate": 0.766,
+    "mean_pred": 0.7424,
+    "brier": 0.1787
    }
   },
   "top3": {
    "u05_first5": {
-    "n": 58,
-    "hit_rate": 0.6897,
-    "mean_pred": 0.6817
+    "n": 61,
+    "hit_rate": 0.6885,
+    "mean_pred": 0.6819
    },
    "u05_first10": {
-    "n": 58,
-    "hit_rate": 0.4828,
-    "mean_pred": 0.4429
+    "n": 61,
+    "hit_rate": 0.4754,
+    "mean_pred": 0.4432
    },
    "p1_plus05": {
-    "n": 58,
-    "hit_rate": 0.7241,
-    "mean_pred": 0.7078
+    "n": 61,
+    "hit_rate": 0.7213,
+    "mean_pred": 0.7086
    },
    "p1_minus05": {
-    "n": 58,
-    "hit_rate": 0.3103,
-    "mean_pred": 0.3769
+    "n": 61,
+    "hit_rate": 0.3279,
+    "mean_pred": 0.3778
    },
    "p1_ml": {
-    "n": 58,
-    "hit_rate": 0.3103,
-    "mean_pred": 0.3769
+    "n": 61,
+    "hit_rate": 0.3279,
+    "mean_pred": 0.3778
    },
    "fg_ml": {
-    "n": 58,
-    "hit_rate": 0.6379,
-    "mean_pred": 0.5869
+    "n": 61,
+    "hit_rate": 0.623,
+    "mean_pred": 0.5884
    },
    "fg_spread": {
-    "n": 58,
-    "hit_rate": 0.4138,
-    "mean_pred": 0.3769
+    "n": 61,
+    "hit_rate": 0.4098,
+    "mean_pred": 0.3783
    },
    "fg_over45": {
-    "n": 55,
-    "hit_rate": 0.8545,
-    "mean_pred": 0.7819
+    "n": 58,
+    "hit_rate": 0.8621,
+    "mean_pred": 0.7828
    },
    "p1_under25": {
-    "n": 55,
-    "hit_rate": 0.8,
-    "mean_pred": 0.7524
+    "n": 58,
+    "hit_rate": 0.8103,
+    "mean_pred": 0.7527
    },
    "team_over15": {
-    "n": 60,
-    "hit_rate": 0.95,
-    "mean_pred": 0.837
+    "n": 63,
+    "hit_rate": 0.9524,
+    "mean_pred": 0.8378
    }
   },
   "pick_of_day": {
-   "n": 21,
-   "hit_rate": 0.7143,
-   "mean_pred": 0.6866
+   "n": 22,
+   "hit_rate": 0.6818,
+   "mean_pred": 0.6868
   },
-  "days_scored": 21,
-  "games_scored": 146
+  "days_scored": 22,
+  "games_scored": 157
  }
 }
