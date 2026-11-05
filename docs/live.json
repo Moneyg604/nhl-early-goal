@@ -1,7 +1,7 @@
 {
  "date": "2026-11-04",
- "updated_utc": "2026-11-05 05:40 UTC",
- "updated_et": "12:40 AM ET",
+ "updated_utc": "2026-11-05 05:45 UTC",
+ "updated_et": "12:45 AM ET",
  "games": {
   "2026020247": {
    "state": "OFF",
@@ -97,12 +97,12 @@
    ]
   },
   "2026020249": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:11",
-   "elapsed_min": 54.82,
+   "time_remaining": "02:56",
+   "elapsed_min": 57.07,
    "home": "LAK",
    "away": "SJS",
    "home_score": 7,
@@ -161,12 +161,12 @@
    ]
   },
   "2026020250": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 4,
    "time_remaining": "04:05",
-   "elapsed_min": 33.15,
+   "elapsed_min": 60.0,
    "home": "SEA",
    "away": "CGY",
    "home_score": 2,
@@ -175,7 +175,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
