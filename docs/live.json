@@ -1,7 +1,7 @@
 {
  "date": "2026-11-04",
- "updated_utc": "2026-11-05 05:35 UTC",
- "updated_et": "12:35 AM ET",
+ "updated_utc": "2026-11-05 05:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020247": {
    "state": "OFF",
@@ -101,11 +101,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "08:05",
-   "elapsed_min": 51.92,
+   "time_remaining": "05:11",
+   "elapsed_min": 54.82,
    "home": "LAK",
    "away": "SJS",
-   "home_score": 6,
+   "home_score": 7,
    "away_score": 2,
    "first_goal_min": 1.383,
    "p1_done": true,
@@ -152,19 +152,24 @@
      "period": 3,
      "minute": 49.683,
      "team": "SJS"
+    },
+    {
+     "period": 3,
+     "minute": 54.467,
+     "team": "LAK"
     }
    ]
   },
   "2026020250": {
-   "state": "CRIT",
-   "live": true,
+   "state": "OVER",
+   "live": false,
    "final": false,
-   "period": 3,
-   "time_remaining": "00:19",
-   "elapsed_min": 59.68,
+   "period": 4,
+   "time_remaining": "04:05",
+   "elapsed_min": 33.15,
    "home": "SEA",
    "away": "CGY",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 1,
    "first_goal_min": 12.75,
    "p1_done": true,
@@ -180,6 +185,11 @@
     {
      "period": 2,
      "minute": 33.15,
+     "team": "SEA"
+    },
+    {
+     "period": 4,
+     "minute": 60.917,
      "team": "SEA"
     }
    ]
