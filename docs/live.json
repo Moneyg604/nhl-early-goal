@@ -1,7 +1,7 @@
 {
  "date": "2026-11-05",
- "updated_utc": "2026-11-06 05:10 UTC",
- "updated_et": "12:10 AM ET",
+ "updated_utc": "2026-11-06 05:15 UTC",
+ "updated_et": "12:15 AM ET",
  "games": {
   "2026020251": {
    "state": "OFF",
@@ -524,16 +524,16 @@
    ]
   },
   "2026020261": {
-   "state": "CRIT",
-   "live": true,
+   "state": "OVER",
+   "live": false,
    "final": false,
    "period": 4,
-   "time_remaining": "05:00",
-   "elapsed_min": 60.0,
+   "time_remaining": "02:43",
+   "elapsed_min": 25.13,
    "home": "COL",
    "away": "NSH",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 4.017,
    "p1_done": true,
    "p1_home": 1,
@@ -559,6 +559,11 @@
      "period": 2,
      "minute": 25.133,
      "team": "COL"
+    },
+    {
+     "period": 4,
+     "minute": 62.283,
+     "team": "NSH"
     }
    ]
   }
