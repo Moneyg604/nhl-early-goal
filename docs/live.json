@@ -1,18 +1,18 @@
 {
  "date": "2026-11-05",
- "updated_utc": "2026-11-06 02:40 UTC",
- "updated_et": "9:40 PM ET",
+ "updated_utc": "2026-11-06 02:45 UTC",
+ "updated_et": "9:45 PM ET",
  "games": {
   "2026020251": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:48",
-   "elapsed_min": 54.2,
+   "time_remaining": "03:36",
+   "elapsed_min": 56.4,
    "home": "MTL",
    "away": "UTA",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 4,
    "first_goal_min": 1.7,
    "p1_done": true,
@@ -54,25 +54,30 @@
      "period": 3,
      "minute": 47.233,
      "team": "UTA"
+    },
+    {
+     "period": 3,
+     "minute": 54.9,
+     "team": "MTL"
     }
    ]
   },
   "2026020252": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:38",
-   "elapsed_min": 57.37,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "DET",
    "away": "VGK",
    "home_score": 1,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 42.033,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 3,
@@ -83,16 +88,21 @@
      "period": 3,
      "minute": 44.333,
      "team": "VGK"
+    },
+    {
+     "period": 3,
+     "minute": 58.3,
+     "team": "VGK"
     }
    ]
   },
   "2026020253": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:50",
-   "elapsed_min": 53.17,
+   "time_remaining": "04:46",
+   "elapsed_min": 55.23,
    "home": "TBL",
    "away": "CHI",
    "home_score": 4,
@@ -126,21 +136,21 @@
    ]
   },
   "2026020254": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
-   "period": 3,
-   "time_remaining": "00:30",
-   "elapsed_min": 59.5,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
+   "period": 4,
+   "time_remaining": "03:35",
+   "elapsed_min": 60.0,
    "home": "NJD",
    "away": "STL",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 4,
    "first_goal_min": 7.567,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -181,6 +191,11 @@
      "period": 3,
      "minute": 54.9,
      "team": "STL"
+    },
+    {
+     "period": 4,
+     "minute": 61.417,
+     "team": "NJD"
     }
    ]
   },
@@ -189,12 +204,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "01:33",
-   "elapsed_min": 58.45,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NYI",
    "away": "CAR",
    "home_score": 3,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 0.95,
    "p1_done": true,
    "p1_home": 0,
@@ -234,6 +249,11 @@
     {
      "period": 3,
      "minute": 54.867,
+     "team": "CAR"
+    },
+    {
+     "period": 3,
+     "minute": 59.15,
      "team": "CAR"
     }
    ]
@@ -345,8 +365,8 @@
    "state": "CRIT",
    "live": true,
    "final": false,
-   "period": 3,
-   "time_remaining": "00:00",
+   "period": 4,
+   "time_remaining": "01:56",
    "elapsed_min": 60.0,
    "home": "CBJ",
    "away": "DAL",
@@ -434,8 +454,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "05:13",
-   "elapsed_min": 34.78,
+   "time_remaining": "02:29",
+   "elapsed_min": 37.52,
    "home": "EDM",
    "away": "ANA",
    "home_score": 2,
@@ -478,18 +498,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:21",
-   "elapsed_min": 0.65,
+   "time_remaining": "15:59",
+   "elapsed_min": 4.02,
    "home": "COL",
    "away": "NSH",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 4.017,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 4.017,
+     "team": "NSH"
+    }
+   ]
   }
  }
 }
