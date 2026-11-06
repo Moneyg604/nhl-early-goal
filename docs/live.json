@@ -1,15 +1,15 @@
 {
  "date": "2026-11-05",
- "updated_utc": "2026-11-06 02:30 UTC",
- "updated_et": "9:30 PM ET",
+ "updated_utc": "2026-11-06 02:35 UTC",
+ "updated_et": "9:35 PM ET",
  "games": {
   "2026020251": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:00",
-   "elapsed_min": 49.0,
+   "time_remaining": "08:36",
+   "elapsed_min": 51.4,
    "home": "MTL",
    "away": "UTA",
    "home_score": 3,
@@ -58,12 +58,12 @@
    ]
   },
   "2026020252": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:22",
-   "elapsed_min": 53.63,
+   "time_remaining": "04:52",
+   "elapsed_min": 55.13,
    "home": "DET",
    "away": "VGK",
    "home_score": 1,
@@ -91,8 +91,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:21",
-   "elapsed_min": 48.65,
+   "time_remaining": "08:44",
+   "elapsed_min": 51.27,
    "home": "TBL",
    "away": "CHI",
    "home_score": 4,
@@ -126,16 +126,16 @@
    ]
   },
   "2026020254": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:17",
-   "elapsed_min": 54.72,
+   "time_remaining": "03:57",
+   "elapsed_min": 56.05,
    "home": "NJD",
    "away": "STL",
    "home_score": 4,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 7.567,
    "p1_done": true,
    "p1_home": 1,
@@ -174,22 +174,27 @@
     },
     {
      "period": 3,
-     "minute": 54.567,
+     "minute": 54.6,
+     "team": "STL"
+    },
+    {
+     "period": 3,
+     "minute": 54.9,
      "team": "STL"
     }
    ]
   },
   "2026020255": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:17",
-   "elapsed_min": 53.72,
+   "time_remaining": "04:32",
+   "elapsed_min": 55.47,
    "home": "NYI",
    "away": "CAR",
    "home_score": 3,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 0.95,
    "p1_done": true,
    "p1_home": 0,
@@ -225,16 +230,21 @@
      "period": 2,
      "minute": 37.217,
      "team": "NYI"
+    },
+    {
+     "period": 3,
+     "minute": 54.817,
+     "team": "CAR"
     }
    ]
   },
   "2026020256": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:12",
-   "elapsed_min": 58.8,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "NYR",
    "away": "PHI",
    "home_score": 3,
@@ -243,7 +253,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -273,12 +283,12 @@
    ]
   },
   "2026020257": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:39",
-   "elapsed_min": 59.35,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "PIT",
    "away": "BOS",
    "home_score": 2,
@@ -287,7 +297,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 3,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -336,11 +346,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:36",
-   "elapsed_min": 55.4,
+   "time_remaining": "01:54",
+   "elapsed_min": 58.1,
    "home": "CBJ",
    "away": "DAL",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 1,
    "first_goal_min": 46.45,
    "p1_done": true,
@@ -352,6 +362,11 @@
      "period": 3,
      "minute": 46.45,
      "team": "DAL"
+    },
+    {
+     "period": 3,
+     "minute": 56.767,
+     "team": "CBJ"
     }
    ]
   },
@@ -360,8 +375,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:39",
-   "elapsed_min": 55.35,
+   "time_remaining": "02:39",
+   "elapsed_min": 57.35,
    "home": "WPG",
    "away": "VAN",
    "home_score": 6,
@@ -419,8 +434,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "10:38",
-   "elapsed_min": 29.37,
+   "time_remaining": "07:57",
+   "elapsed_min": 32.05,
    "home": "EDM",
    "away": "ANA",
    "home_score": 2,
