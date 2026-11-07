@@ -1,7 +1,7 @@
 {
  "date": "2026-11-06",
- "updated_utc": "2026-11-07 03:35 UTC",
- "updated_et": "10:35 PM ET",
+ "updated_utc": "2026-11-07 03:40 UTC",
+ "updated_et": "10:40 PM ET",
  "games": {
   "2026020262": {
    "state": "OFF",
@@ -58,12 +58,12 @@
    ]
   },
   "2026020263": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "03:17",
-   "elapsed_min": 56.72,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "MIN",
    "away": "SJS",
    "home_score": 4,
@@ -72,7 +72,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -106,8 +106,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:59",
-   "elapsed_min": 55.02,
+   "time_remaining": "01:34",
+   "elapsed_min": 58.43,
    "home": "CGY",
    "away": "ANA",
    "home_score": 3,
@@ -146,6 +146,11 @@
     {
      "period": 3,
      "minute": 40.917,
+     "team": "ANA"
+    },
+    {
+     "period": 3,
+     "minute": 58.4,
      "team": "ANA"
     }
    ]
