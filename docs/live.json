@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 03:25 UTC",
- "updated_et": "10:25 PM ET",
+ "updated_utc": "2026-11-08 03:30 UTC",
+ "updated_et": "10:30 PM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -313,21 +313,21 @@
    ]
   },
   "2026020271": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:56",
-   "elapsed_min": 58.07,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CAR",
    "away": "CHI",
-   "home_score": 8,
+   "home_score": 9,
    "away_score": 2,
    "first_goal_min": 1.567,
    "p1_done": true,
    "p1_home": 4,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -378,6 +378,11 @@
      "period": 3,
      "minute": 56.3,
      "team": "CAR"
+    },
+    {
+     "period": 3,
+     "minute": 59.783,
+     "team": "CAR"
     }
    ]
   },
@@ -386,8 +391,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "08:31",
-   "elapsed_min": 51.48,
+   "time_remaining": "05:32",
+   "elapsed_min": 54.47,
    "home": "DAL",
    "away": "SJS",
    "home_score": 4,
@@ -440,12 +445,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:38",
-   "elapsed_min": 53.37,
+   "time_remaining": "05:23",
+   "elapsed_min": 54.62,
    "home": "MIN",
    "away": "TBL",
    "home_score": 3,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 0.917,
    "p1_done": true,
    "p1_home": 2,
@@ -471,6 +476,11 @@
      "period": 3,
      "minute": 46.817,
      "team": "MIN"
+    },
+    {
+     "period": 3,
+     "minute": 53.733,
+     "team": "TBL"
     }
    ]
   },
@@ -479,8 +489,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "09:49",
-   "elapsed_min": 30.18,
+   "time_remaining": "07:30",
+   "elapsed_min": 32.5,
    "home": "COL",
    "away": "DET",
    "home_score": 1,
@@ -503,8 +513,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "10:54",
-   "elapsed_min": 29.1,
+   "time_remaining": "09:56",
+   "elapsed_min": 30.07,
    "home": "LAK",
    "away": "PIT",
    "home_score": 2,
@@ -547,18 +557,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "11:10",
-   "elapsed_min": 8.83,
+   "time_remaining": "09:35",
+   "elapsed_min": 10.42,
    "home": "EDM",
    "away": "VAN",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 9.233,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 9.233,
+     "team": "EDM"
+    }
+   ]
   }
  }
 }
