@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 04:37 UTC",
- "updated_et": "11:37 PM ET",
+ "updated_utc": "2026-11-08 04:40 UTC",
+ "updated_et": "11:40 PM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -495,12 +495,12 @@
    ]
   },
   "2026020274": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:22",
-   "elapsed_min": 59.63,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "COL",
    "away": "DET",
    "home_score": 4,
@@ -509,7 +509,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 2,
@@ -538,8 +538,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "03:19",
-   "elapsed_min": 56.68,
+   "time_remaining": "01:16",
+   "elapsed_min": 58.73,
    "home": "LAK",
    "away": "PIT",
    "home_score": 2,
@@ -587,8 +587,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "04:32",
-   "elapsed_min": 35.47,
+   "time_remaining": "02:52",
+   "elapsed_min": 37.13,
    "home": "EDM",
    "away": "VAN",
    "home_score": 1,
