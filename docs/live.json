@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 00:40 UTC",
- "updated_et": "7:40 PM ET",
+ "updated_utc": "2026-11-08 00:45 UTC",
+ "updated_et": "7:45 PM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -155,8 +155,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "02:35",
-   "elapsed_min": 17.42,
+   "time_remaining": "00:00",
+   "elapsed_min": 20.0,
    "home": "TOR",
    "away": "MTL",
    "home_score": 0,
@@ -184,8 +184,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:17",
-   "elapsed_min": 10.72,
+   "time_remaining": "05:58",
+   "elapsed_min": 14.03,
    "home": "OTT",
    "away": "UTA",
    "home_score": 1,
@@ -213,18 +213,29 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "04:54",
-   "elapsed_min": 15.1,
+   "time_remaining": "02:32",
+   "elapsed_min": 17.47,
    "home": "NYI",
    "away": "NJD",
-   "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "home_score": 1,
+   "away_score": 1,
+   "first_goal_min": 15.1,
    "p1_done": false,
-   "p1_home": 0,
-   "p1_away": 0,
+   "p1_home": 1,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 15.1,
+     "team": "NYI"
+    },
+    {
+     "period": 1,
+     "minute": 15.383,
+     "team": "NJD"
+    }
+   ]
   },
   "2026020271": {
    "state": "PRE",
