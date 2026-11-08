@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 02:50 UTC",
- "updated_et": "9:50 PM ET",
+ "updated_utc": "2026-11-08 02:55 UTC",
+ "updated_et": "9:55 PM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -200,12 +200,12 @@
    ]
   },
   "2026020269": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
-   "elapsed_min": 59.73,
+   "elapsed_min": 60.0,
    "home": "OTT",
    "away": "UTA",
    "home_score": 4,
@@ -214,7 +214,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -252,9 +252,9 @@
    "state": "CRIT",
    "live": true,
    "final": false,
-   "period": 3,
-   "time_remaining": "02:20",
-   "elapsed_min": 57.67,
+   "period": 4,
+   "time_remaining": "04:58",
+   "elapsed_min": 60.0,
    "home": "NYI",
    "away": "NJD",
    "home_score": 4,
@@ -311,9 +311,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "04:28",
-   "elapsed_min": 38.1,
+   "period": 3,
+   "time_remaining": "20:00",
+   "elapsed_min": 40.0,
    "home": "CAR",
    "away": "CHI",
    "home_score": 7,
@@ -366,7 +366,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "13:33",
+   "time_remaining": "08:34",
    "elapsed_min": 37.03,
    "home": "DAL",
    "away": "SJS",
@@ -420,7 +420,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "12:17",
+   "time_remaining": "07:18",
    "elapsed_min": 36.57,
    "home": "MIN",
    "away": "TBL",
@@ -454,8 +454,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "13:39",
-   "elapsed_min": 6.35,
+   "time_remaining": "08:42",
+   "elapsed_min": 11.3,
    "home": "COL",
    "away": "DET",
    "home_score": 0,
@@ -472,16 +472,16 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "00:09",
-   "elapsed_min": 19.85,
+   "time_remaining": "15:23",
+   "elapsed_min": 19.52,
    "home": "LAK",
    "away": "PIT",
    "home_score": 1,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 1.867,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 2,
+   "p1_away": 3,
    "ended_in": null,
    "goals": [
     {
@@ -498,6 +498,11 @@
      "period": 1,
      "minute": 9.917,
      "team": "LAK"
+    },
+    {
+     "period": 1,
+     "minute": 19.517,
+     "team": "PIT"
     }
    ]
   },
