@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 00:25 UTC",
- "updated_et": "7:25 PM ET",
+ "updated_utc": "2026-11-08 00:30 UTC",
+ "updated_et": "7:30 PM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -97,15 +97,15 @@
    ]
   },
   "2026020267": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:57",
-   "elapsed_min": 54.05,
+   "time_remaining": "03:56",
+   "elapsed_min": 56.07,
    "home": "SEA",
    "away": "NYR",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 4,
    "first_goal_min": 1.583,
    "p1_done": true,
@@ -142,6 +142,11 @@
      "period": 3,
      "minute": 46.633,
      "team": "SEA"
+    },
+    {
+     "period": 3,
+     "minute": 55.033,
+     "team": "SEA"
     }
    ]
   },
@@ -150,8 +155,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "11:40",
-   "elapsed_min": 8.33,
+   "time_remaining": "09:27",
+   "elapsed_min": 10.55,
    "home": "TOR",
    "away": "MTL",
    "home_score": 0,
@@ -174,26 +179,32 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "16:33",
-   "elapsed_min": 3.45,
+   "time_remaining": "13:56",
+   "elapsed_min": 6.07,
    "home": "OTT",
    "away": "UTA",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 5.45,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 5.45,
+     "team": "OTT"
+    }
+   ]
   },
   "2026020270": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "11:45",
-   "elapsed_min": 8.25,
+   "time_remaining": "08:36",
+   "elapsed_min": 11.4,
    "home": "NYI",
    "away": "NJD",
    "home_score": 0,
@@ -206,7 +217,7 @@
    "goals": []
   },
   "2026020271": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -224,7 +235,7 @@
    "goals": []
   },
   "2026020272": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -242,7 +253,7 @@
    "goals": []
   },
   "2026020273": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
