@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 05:40 UTC",
- "updated_et": "12:40 AM ET",
+ "updated_utc": "2026-11-08 05:45 UTC",
+ "updated_et": "12:45 AM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -588,21 +588,21 @@
    ]
   },
   "2026020276": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:15",
-   "elapsed_min": 58.75,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "EDM",
    "away": "VAN",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 2,
    "first_goal_min": 9.233,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -628,6 +628,11 @@
      "period": 3,
      "minute": 57.417,
      "team": "VAN"
+    },
+    {
+     "period": 3,
+     "minute": 59.25,
+     "team": "EDM"
     }
    ]
   }
