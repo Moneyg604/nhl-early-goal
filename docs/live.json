@@ -1,7 +1,7 @@
 {
  "date": "2026-11-07",
- "updated_utc": "2026-11-08 03:45 UTC",
- "updated_et": "10:45 PM ET",
+ "updated_utc": "2026-11-08 03:50 UTC",
+ "updated_et": "10:50 PM ET",
  "games": {
   "2026020265": {
    "state": "OFF",
@@ -441,21 +441,21 @@
    ]
   },
   "2026020273": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
-   "time_remaining": "03:56",
+   "time_remaining": "01:36",
    "elapsed_min": 60.0,
    "home": "MIN",
    "away": "TBL",
    "home_score": 3,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 0.917,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -486,6 +486,11 @@
      "period": 3,
      "minute": 56.483,
      "team": "TBL"
+    },
+    {
+     "period": 4,
+     "minute": 63.4,
+     "team": "TBL"
     }
    ]
   },
@@ -494,7 +499,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "13:46",
+   "time_remaining": "08:45",
    "elapsed_min": 32.5,
    "home": "COL",
    "away": "DET",
@@ -523,12 +528,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:34",
-   "elapsed_min": 36.43,
+   "time_remaining": "00:44",
+   "elapsed_min": 39.27,
    "home": "LAK",
    "away": "PIT",
    "home_score": 2,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 1.867,
    "p1_done": true,
    "p1_home": 1,
@@ -559,6 +564,11 @@
      "period": 2,
      "minute": 23.117,
      "team": "LAK"
+    },
+    {
+     "period": 2,
+     "minute": 37.217,
+     "team": "PIT"
     }
    ]
   },
@@ -567,22 +577,27 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "02:21",
-   "elapsed_min": 17.65,
+   "time_remaining": "00:08",
+   "elapsed_min": 19.87,
    "home": "EDM",
    "away": "VAN",
    "home_score": 1,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 9.233,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 9.233,
      "team": "EDM"
+    },
+    {
+     "period": 1,
+     "minute": 19.833,
+     "team": "VAN"
     }
    ]
   }
