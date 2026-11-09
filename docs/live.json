@@ -1,7 +1,7 @@
 {
  "date": "2026-11-08",
- "updated_utc": "2026-11-09 01:25 UTC",
- "updated_et": "8:25 PM ET",
+ "updated_utc": "2026-11-09 01:30 UTC",
+ "updated_et": "8:30 PM ET",
  "games": {
   "2026020277": {
    "state": "OFF",
@@ -92,16 +92,16 @@
    ]
   },
   "2026020280": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:33",
-   "elapsed_min": 54.45,
+   "time_remaining": "01:45",
+   "elapsed_min": 58.25,
    "home": "WPG",
    "away": "TBL",
    "home_score": 3,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 21.883,
    "p1_done": true,
    "p1_home": 0,
@@ -132,6 +132,11 @@
      "period": 3,
      "minute": 54.017,
      "team": "TBL"
+    },
+    {
+     "period": 3,
+     "minute": 54.45,
+     "team": "TBL"
     }
    ]
   },
@@ -140,26 +145,32 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "13:11",
-   "elapsed_min": 26.82,
+   "time_remaining": "11:09",
+   "elapsed_min": 28.85,
    "home": "TOR",
    "away": "NJD",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 28.467,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 2,
+     "minute": 28.467,
+     "team": "NJD"
+    }
+   ]
   },
   "2026020281": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "11:59",
-   "elapsed_min": 28.02,
+   "time_remaining": "08:31",
+   "elapsed_min": 31.48,
    "home": "CGY",
    "away": "PHI",
    "home_score": 2,
@@ -197,8 +208,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "10:24",
-   "elapsed_min": 9.6,
+   "time_remaining": "08:00",
+   "elapsed_min": 12.0,
    "home": "ANA",
    "away": "PIT",
    "home_score": 1,
