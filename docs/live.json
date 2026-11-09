@@ -1,7 +1,7 @@
 {
  "date": "2026-11-08",
- "updated_utc": "2026-11-09 03:35 UTC",
- "updated_et": "10:35 PM ET",
+ "updated_utc": "2026-11-09 03:40 UTC",
+ "updated_et": "10:40 PM ET",
  "games": {
   "2026020277": {
    "state": "OFF",
@@ -239,21 +239,21 @@
    ]
   },
   "2026020282": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:39",
-   "elapsed_min": 58.35,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "ANA",
    "away": "PIT",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 2,
    "first_goal_min": 8.45,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -284,6 +284,11 @@
      "period": 3,
      "minute": 53.7,
      "team": "PIT"
+    },
+    {
+     "period": 3,
+     "minute": 59.433,
+     "team": "ANA"
     }
    ]
   }
