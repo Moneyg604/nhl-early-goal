@@ -1,7 +1,7 @@
 {
  "date": "2026-11-08",
- "updated_utc": "2026-11-09 01:35 UTC",
- "updated_et": "8:35 PM ET",
+ "updated_utc": "2026-11-09 01:40 UTC",
+ "updated_et": "8:40 PM ET",
  "games": {
   "2026020277": {
    "state": "OFF",
@@ -92,9 +92,9 @@
    ]
   },
   "2026020280": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
@@ -106,7 +106,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 2,
@@ -140,7 +140,7 @@
     },
     {
      "period": 3,
-     "minute": 59.983,
+     "minute": 59.967,
      "team": "WPG"
     }
    ]
@@ -150,12 +150,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "08:29",
-   "elapsed_min": 31.52,
+   "time_remaining": "05:17",
+   "elapsed_min": 34.72,
    "home": "TOR",
    "away": "NJD",
    "home_score": 0,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 28.467,
    "p1_done": true,
    "p1_home": 0,
@@ -166,6 +166,11 @@
      "period": 2,
      "minute": 28.467,
      "team": "NJD"
+    },
+    {
+     "period": 2,
+     "minute": 32.733,
+     "team": "NJD"
     }
    ]
   },
@@ -174,12 +179,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "07:08",
-   "elapsed_min": 32.87,
+   "time_remaining": "03:53",
+   "elapsed_min": 36.12,
    "home": "CGY",
    "away": "PHI",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 12.767,
    "p1_done": true,
    "p1_home": 1,
@@ -205,6 +210,11 @@
      "period": 2,
      "minute": 25.983,
      "team": "CGY"
+    },
+    {
+     "period": 2,
+     "minute": 35.117,
+     "team": "PHI"
     }
    ]
   },
@@ -213,8 +223,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "05:23",
-   "elapsed_min": 14.62,
+   "time_remaining": "03:05",
+   "elapsed_min": 16.92,
    "home": "ANA",
    "away": "PIT",
    "home_score": 1,
