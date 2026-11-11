@@ -1,15 +1,15 @@
 {
  "date": "2026-11-10",
- "updated_utc": "2026-11-11 02:15 UTC",
- "updated_et": "9:15 PM ET",
+ "updated_utc": "2026-11-11 02:20 UTC",
+ "updated_et": "9:20 PM ET",
  "games": {
   "2026020286": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:26",
-   "elapsed_min": 48.57,
+   "time_remaining": "09:01",
+   "elapsed_min": 50.98,
    "home": "TOR",
    "away": "COL",
    "home_score": 3,
@@ -62,26 +62,32 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "19:13",
-   "elapsed_min": 40.78,
+   "time_remaining": "15:19",
+   "elapsed_min": 44.68,
    "home": "MTL",
    "away": "MIN",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 42.883,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 3,
+     "minute": 42.883,
+     "team": "MIN"
+    }
+   ]
   },
   "2026020288": {
    "state": "LIVE",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:27",
-   "elapsed_min": 47.55,
+   "time_remaining": "09:05",
+   "elapsed_min": 50.92,
    "home": "OTT",
    "away": "WSH",
    "home_score": 2,
@@ -114,11 +120,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "09:43",
-   "elapsed_min": 50.28,
+   "time_remaining": "08:02",
+   "elapsed_min": 51.97,
    "home": "WPG",
    "away": "NJD",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 2,
    "first_goal_min": 7.9,
    "p1_done": true,
@@ -145,6 +151,11 @@
      "period": 2,
      "minute": 21.967,
      "team": "NJD"
+    },
+    {
+     "period": 3,
+     "minute": 51.967,
+     "team": "WPG"
     }
    ]
   },
@@ -153,8 +164,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:21",
-   "elapsed_min": 39.67,
+   "time_remaining": "10:17",
+   "elapsed_min": 39.68,
    "home": "CBJ",
    "away": "FLA",
    "home_score": 1,
@@ -177,7 +188,7 @@
     },
     {
      "period": 2,
-     "minute": 39.667,
+     "minute": 39.683,
      "team": "CBJ"
     }
    ]
@@ -187,8 +198,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:14",
-   "elapsed_min": 24.77,
+   "time_remaining": "13:35",
+   "elapsed_min": 26.42,
    "home": "STL",
    "away": "DET",
    "home_score": 2,
