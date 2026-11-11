@@ -1,7 +1,7 @@
 {
  "date": "2026-11-10",
- "updated_utc": "2026-11-11 00:05 UTC",
- "updated_et": "7:05 PM ET",
+ "updated_utc": "2026-11-11 00:10 UTC",
+ "updated_et": "7:10 PM ET",
  "games": {
   "2026020286": {
    "state": "PRE",
@@ -40,34 +40,40 @@
    "goals": []
   },
   "2026020288": {
-   "state": "PRE",
-   "live": false,
+   "state": "LIVE",
+   "live": true,
    "final": false,
-   "period": null,
-   "time_remaining": null,
-   "elapsed_min": 0.0,
+   "period": 1,
+   "time_remaining": "19:12",
+   "elapsed_min": 0.8,
    "home": "OTT",
    "away": "WSH",
-   "home_score": null,
-   "away_score": null,
-   "first_goal_min": null,
+   "home_score": 0,
+   "away_score": 1,
+   "first_goal_min": 0.583,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 0.583,
+     "team": "WSH"
+    }
+   ]
   },
   "2026020291": {
-   "state": "PRE",
-   "live": false,
+   "state": "LIVE",
+   "live": true,
    "final": false,
-   "period": null,
-   "time_remaining": null,
+   "period": 1,
+   "time_remaining": "20:00",
    "elapsed_min": 0.0,
    "home": "WPG",
    "away": "NJD",
-   "home_score": null,
-   "away_score": null,
+   "home_score": 0,
+   "away_score": 0,
    "first_goal_min": null,
    "p1_done": false,
    "p1_home": 0,
