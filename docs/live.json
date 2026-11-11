@@ -1,10 +1,10 @@
 {
  "date": "2026-11-10",
- "updated_utc": "2026-11-11 03:05 UTC",
- "updated_et": "10:05 PM ET",
+ "updated_utc": "2026-11-11 03:10 UTC",
+ "updated_et": "10:10 PM ET",
  "games": {
   "2026020286": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -199,12 +199,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:00",
-   "elapsed_min": 56.0,
+   "time_remaining": "00:54",
+   "elapsed_min": 59.1,
    "home": "CBJ",
    "away": "FLA",
    "home_score": 1,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 22.0,
    "p1_done": true,
    "p1_home": 0,
@@ -230,6 +230,11 @@
      "period": 3,
      "minute": 54.483,
      "team": "FLA"
+    },
+    {
+     "period": 3,
+     "minute": 57.733,
+     "team": "FLA"
     }
    ]
   },
@@ -238,8 +243,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "19:01",
-   "elapsed_min": 40.98,
+   "time_remaining": "16:37",
+   "elapsed_min": 43.38,
    "home": "STL",
    "away": "DET",
    "home_score": 2,
@@ -268,16 +273,16 @@
    ]
   },
   "2026020292": {
-   "state": "PRE",
-   "live": false,
+   "state": "LIVE",
+   "live": true,
    "final": false,
-   "period": null,
-   "time_remaining": null,
-   "elapsed_min": 0.0,
+   "period": 1,
+   "time_remaining": "19:16",
+   "elapsed_min": 0.73,
    "home": "LAK",
    "away": "NSH",
-   "home_score": null,
-   "away_score": null,
+   "home_score": 0,
+   "away_score": 0,
    "first_goal_min": null,
    "p1_done": false,
    "p1_home": 0,
