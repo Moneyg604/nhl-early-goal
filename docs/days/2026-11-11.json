@@ -1,6 +1,6 @@
 {
  "date": "2026-11-11",
- "generated_utc": "2026-11-11 21:12 UTC",
+ "generated_utc": "2026-11-11 22:00 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -944,13 +944,13 @@
  "pick_of_day": {
   "matchup": "NYR @ CGY",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6784,
-  "fair": 1.474,
+  "p": 0.6807,
+  "fair": 1.469,
   "tier": "B",
   "game_id": 2026020294,
   "runner_up": {
    "matchup": "PHI @ EDM",
-   "p": 0.6754,
+   "p": 0.678,
    "tier": "B"
   }
  },
@@ -959,21 +959,21 @@
    {
     "matchup": "NYR @ CGY",
     "pick": null,
-    "p": 0.6784,
+    "p": 0.6807,
     "tier": "B",
     "game_id": 2026020294
    },
    {
     "matchup": "PHI @ EDM",
     "pick": null,
-    "p": 0.6754,
+    "p": 0.678,
     "tier": "B",
     "game_id": 2026020295
    },
    {
     "matchup": "UTA @ VGK",
     "pick": null,
-    "p": 0.6708,
+    "p": 0.6717,
     "tier": "B",
     "game_id": 2026020296
    }
@@ -982,53 +982,53 @@
    {
     "matchup": "NYR @ CGY",
     "pick": null,
-    "p": 0.4404,
+    "p": 0.4439,
     "tier": "B",
     "game_id": 2026020294
    },
    {
     "matchup": "PHI @ EDM",
     "pick": null,
-    "p": 0.4364,
+    "p": 0.4387,
     "tier": "B",
     "game_id": 2026020295
    },
    {
     "matchup": "UTA @ VGK",
     "pick": null,
-    "p": 0.4315,
+    "p": 0.4309,
     "tier": "B",
     "game_id": 2026020296
    }
   ],
   "fg_over45": [
    {
-    "matchup": "TBL @ BUF",
-    "pick": null,
-    "p": 0.7948,
-    "tier": "B",
-    "game_id": 2026020293
-   },
-   {
     "matchup": "PIT @ SJS",
     "pick": null,
-    "p": 0.7943,
+    "p": 0.7964,
     "tier": "B",
     "game_id": 2026020298
    },
    {
     "matchup": "NSH @ ANA",
     "pick": null,
-    "p": 0.7933,
+    "p": 0.7953,
     "tier": "B",
     "game_id": 2026020297
+   },
+   {
+    "matchup": "TBL @ BUF",
+    "pick": null,
+    "p": 0.7945,
+    "tier": "B",
+    "game_id": 2026020293
    }
   ],
   "team_over15": [
    {
     "matchup": "NSH @ ANA",
     "pick": "ANA",
-    "p": 0.8667,
+    "p": 0.8683,
     "tier": "B",
     "game_id": 2026020297,
     "market": "home_over15"
@@ -1036,7 +1036,7 @@
    {
     "matchup": "PHI @ EDM",
     "pick": "EDM",
-    "p": 0.8402,
+    "p": 0.8408,
     "tier": "B",
     "game_id": 2026020295,
     "market": "home_over15"
@@ -1044,7 +1044,7 @@
    {
     "matchup": "PIT @ SJS",
     "pick": "PIT",
-    "p": 0.8401,
+    "p": 0.8402,
     "tier": "B",
     "game_id": 2026020298,
     "market": "away_over15"
@@ -1054,67 +1054,67 @@
    {
     "matchup": "NYR @ CGY",
     "pick": null,
-    "p": 0.7543,
+    "p": 0.7554,
     "tier": "B",
     "game_id": 2026020294
    },
    {
     "matchup": "PHI @ EDM",
     "pick": null,
-    "p": 0.748,
+    "p": 0.7467,
     "tier": "B",
     "game_id": 2026020295
    },
    {
     "matchup": "UTA @ VGK",
     "pick": null,
-    "p": 0.7411,
+    "p": 0.7377,
     "tier": "B",
     "game_id": 2026020296
    }
   ],
   "p1_plus05": [
    {
-    "matchup": "NSH @ ANA",
-    "pick": "ANA",
-    "p": 0.7132,
-    "tier": "B",
-    "game_id": 2026020297
-   },
-   {
     "matchup": "PHI @ EDM",
     "pick": "EDM",
-    "p": 0.7124,
+    "p": 0.7129,
     "tier": "B",
     "game_id": 2026020295
    },
    {
-    "matchup": "UTA @ VGK",
-    "pick": "VGK",
-    "p": 0.697,
+    "matchup": "NSH @ ANA",
+    "pick": "ANA",
+    "p": 0.7093,
     "tier": "B",
-    "game_id": 2026020296
+    "game_id": 2026020297
+   },
+   {
+    "matchup": "PIT @ SJS",
+    "pick": "PIT",
+    "p": 0.6902,
+    "tier": "B",
+    "game_id": 2026020298
    }
   ],
   "p1_minus05": [
    {
     "matchup": "NSH @ ANA",
     "pick": "ANA",
-    "p": 0.3892,
+    "p": 0.3888,
     "tier": "B",
     "game_id": 2026020297
    },
    {
     "matchup": "PHI @ EDM",
     "pick": "EDM",
-    "p": 0.3794,
+    "p": 0.38,
     "tier": "B",
     "game_id": 2026020295
    },
    {
     "matchup": "PIT @ SJS",
     "pick": "PIT",
-    "p": 0.3667,
+    "p": 0.3662,
     "tier": "B",
     "game_id": 2026020298
    }
@@ -1123,21 +1123,21 @@
    {
     "matchup": "NSH @ ANA",
     "pick": "ANA",
-    "p": 0.3892,
+    "p": 0.3888,
     "tier": "B",
     "game_id": 2026020297
    },
    {
     "matchup": "PHI @ EDM",
     "pick": "EDM",
-    "p": 0.3794,
+    "p": 0.38,
     "tier": "B",
     "game_id": 2026020295
    },
    {
     "matchup": "PIT @ SJS",
     "pick": "PIT",
-    "p": 0.3667,
+    "p": 0.3662,
     "tier": "B",
     "game_id": 2026020298
    }
@@ -1146,21 +1146,21 @@
    {
     "matchup": "NSH @ ANA",
     "pick": "ANA",
-    "p": 0.6231,
+    "p": 0.6217,
     "tier": "B",
     "game_id": 2026020297
    },
    {
     "matchup": "PHI @ EDM",
     "pick": "EDM",
-    "p": 0.5918,
+    "p": 0.5939,
     "tier": "B",
     "game_id": 2026020295
    },
    {
     "matchup": "UTA @ VGK",
     "pick": "VGK",
-    "p": 0.5597,
+    "p": 0.5568,
     "tier": "B",
     "game_id": 2026020296
    }
@@ -1169,23 +1169,23 @@
    {
     "matchup": "NSH @ ANA",
     "pick": "ANA",
-    "p": 0.414,
+    "p": 0.4118,
     "tier": "B",
     "game_id": 2026020297
    },
    {
     "matchup": "PHI @ EDM",
     "pick": "EDM",
-    "p": 0.3821,
+    "p": 0.3808,
     "tier": "B",
     "game_id": 2026020295
    },
    {
-    "matchup": "UTA @ VGK",
-    "pick": "VGK",
-    "p": 0.3514,
+    "matchup": "PIT @ SJS",
+    "pick": "PIT",
+    "p": 0.3499,
     "tier": "B",
-    "game_id": 2026020296
+    "game_id": 2026020298
    }
   ]
  },
@@ -1206,88 +1206,79 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6596,
-     "fair": 1.516
+     "p": 0.6594,
+     "fair": 1.517
     },
     "o05_first5": {
-     "p": 0.3404,
-     "fair": 2.937
+     "p": 0.3406,
+     "fair": 2.936
     },
     "u05_first10": {
-     "p": 0.4137,
+     "p": 0.4138,
      "fair": 2.417
     },
     "o05_first10": {
-     "p": 0.5863,
+     "p": 0.5862,
      "fair": 1.706
     },
     "p1_minus05": {
      "pick": "TBL",
-     "p": 0.3513,
-     "fair": 2.847
+     "p": 0.3479,
+     "fair": 2.875
     },
     "p1_plus05": {
      "pick": "TBL",
-     "p": 0.672,
-     "fair": 1.488
+     "p": 0.673,
+     "fair": 1.486
     },
     "p1_ml": {
      "pick": "TBL",
-     "p": 0.3513,
-     "fair": 2.847,
-     "home": 0.3281,
-     "tie": 0.3206,
-     "away": 0.3513
+     "p": 0.3479,
+     "fair": 2.875,
+     "home": 0.327,
+     "tie": 0.3251,
+     "away": 0.3479
     },
     "fg_ml": {
      "pick": "TBL",
-     "p": 0.5239,
+     "p": 0.5238,
      "fair": 1.909,
-     "book_name": "BetOnline.ag",
-     "book": 1.78,
-     "edge": -0.0674,
-     "home": 0.4761,
-     "away": 0.5239,
-     "home_reg": 0.392,
-     "away_reg": 0.4391,
-     "reg_tie": 0.1689
+     "home": 0.4762,
+     "away": 0.5238,
+     "home_reg": 0.3921,
+     "away_reg": 0.438,
+     "reg_tie": 0.1699
     },
     "fg_spread": {
      "pick": "TBL",
      "line": -1.5,
-     "p": 0.326,
-     "fair": 3.067,
-     "book_name": "DraftKings",
-     "book": 2.9,
-     "edge": -0.0545,
+     "p": 0.3247,
+     "fair": 3.079,
      "plus_pick": "TBL",
-     "plus_p": 0.7153
+     "plus_p": 0.7169
     },
     "fg_total": {
-     "mean": 6.41,
-     "over55": 0.5948,
-     "over65": 0.4819,
-     "book_line": 6.5,
-     "book_over": 1.87,
-     "book_under": 2.0
+     "mean": 6.392,
+     "over55": 0.592,
+     "over65": 0.4785
     },
     "fg_over45": {
-     "p": 0.7948,
-     "fair": 1.258
+     "p": 0.7945,
+     "fair": 1.259
     },
     "home_over15": {
      "pick": "BUF",
-     "p": 0.8038,
-     "fair": 1.244
+     "p": 0.8046,
+     "fair": 1.243
     },
     "away_over15": {
      "pick": "TBL",
-     "p": 0.8292,
-     "fair": 1.206
+     "p": 0.8283,
+     "fair": 1.207
     },
     "p1_under25": {
-     "p": 0.7191,
-     "fair": 1.391
+     "p": 0.7206,
+     "fair": 1.388
     }
    },
    "analytic": {
@@ -1313,32 +1304,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0634,
-    0.0745,
+    0.0624,
+    0.0756,
     0.0682,
-    0.071,
-    0.0633,
-    0.0593,
-    0.0521,
-    0.0485,
-    0.0445,
-    0.0415
+    0.07,
+    0.0643,
+    0.06,
+    0.0529,
+    0.0483,
+    0.044,
+    0.0404
    ],
    "p1": {
-    "home": 0.3281,
-    "tie": 0.3206,
-    "away": 0.3513,
+    "home": 0.327,
+    "tie": 0.3251,
+    "away": 0.3479,
     "total_dist": [
-     0.1561,
-     0.2944,
-     0.2687,
-     0.2808
+     0.1593,
+     0.2925,
+     0.2688,
+     0.2794
     ],
-    "mean_total": 1.846
+    "mean_total": 1.838
    },
    "projected": {
-    "home": 3.13,
-    "away": 3.28,
+    "home": 3.12,
+    "away": 3.27,
     "median": [
      3,
      3
@@ -2466,20 +2457,20 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6784,
-     "fair": 1.474
+     "p": 0.6807,
+     "fair": 1.469
     },
     "o05_first5": {
-     "p": 0.3216,
-     "fair": 3.109
+     "p": 0.3193,
+     "fair": 3.132
     },
     "u05_first10": {
-     "p": 0.4404,
-     "fair": 2.271
+     "p": 0.4439,
+     "fair": 2.253
     },
     "o05_first10": {
-     "p": 0.5596,
-     "fair": 1.787
+     "p": 0.5561,
+     "fair": 1.798
     },
     "p1_minus05": {
      "pick": "CGY",
@@ -2488,63 +2479,57 @@
     },
     "p1_plus05": {
      "pick": "CGY",
-     "p": 0.6758,
-     "fair": 1.48
+     "p": 0.6778,
+     "fair": 1.475
     },
     "p1_ml": {
      "pick": "CGY",
      "p": 0.3378,
      "fair": 2.96,
      "home": 0.3378,
-     "tie": 0.3379,
-     "away": 0.3242
+     "tie": 0.34,
+     "away": 0.3222
     },
     "fg_ml": {
      "pick": "CGY",
-     "p": 0.5077,
-     "fair": 1.97,
-     "book_name": "LowVig.ag",
-     "book": 2.29,
-     "edge": 0.1626,
-     "home": 0.5077,
-     "away": 0.4923,
-     "home_reg": 0.4175,
-     "away_reg": 0.4056,
-     "reg_tie": 0.1769
+     "p": 0.5066,
+     "fair": 1.974,
+     "home": 0.5066,
+     "away": 0.4934,
+     "home_reg": 0.4167,
+     "away_reg": 0.4048,
+     "reg_tie": 0.1786
     },
     "fg_spread": {
      "pick": "CGY",
      "line": -1.5,
-     "p": 0.3042,
-     "fair": 3.287,
+     "p": 0.3031,
+     "fair": 3.299,
      "plus_pick": "CGY",
-     "plus_p": 0.7064
+     "plus_p": 0.7106
     },
     "fg_total": {
-     "mean": 5.991,
-     "over55": 0.5257,
-     "over65": 0.4096,
-     "book_line": 6.0,
-     "book_over": 2.02,
-     "book_under": 1.85
+     "mean": 5.987,
+     "over55": 0.526,
+     "over65": 0.412
     },
     "fg_over45": {
-     "p": 0.7461,
+     "p": 0.7463,
      "fair": 1.34
     },
     "home_over15": {
      "pick": "CGY",
-     "p": 0.7917,
-     "fair": 1.263
+     "p": 0.7928,
+     "fair": 1.261
     },
     "away_over15": {
      "pick": "NYR",
-     "p": 0.7858,
-     "fair": 1.273
+     "p": 0.7836,
+     "fair": 1.276
     },
     "p1_under25": {
-     "p": 0.7543,
-     "fair": 1.326
+     "p": 0.7554,
+     "fair": 1.324
     }
    },
    "analytic": {
@@ -2566,32 +2551,32 @@
     }
    },
    "mc_se": {
-    "first5": 0.00148,
+    "first5": 0.00147,
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0575,
-    0.0691,
-    0.0647,
-    0.0677,
-    0.0628,
-    0.0572,
-    0.0516,
-    0.0476,
-    0.0422,
-    0.0394
+    0.0584,
+    0.0698,
+    0.065,
+    0.0646,
+    0.0615,
+    0.0563,
+    0.0507,
+    0.0469,
+    0.0434,
+    0.0396
    ],
    "p1": {
     "home": 0.3378,
-    "tie": 0.3379,
-    "away": 0.3242,
+    "tie": 0.34,
+    "away": 0.3222,
     "total_dist": [
-     0.181,
-     0.3087,
-     0.2646,
-     0.2457
+     0.1821,
+     0.3098,
+     0.2635,
+     0.2446
     ],
-    "mean_total": 1.71
+    "mean_total": 1.706
    },
    "projected": {
     "home": 3.02,
@@ -3718,88 +3703,79 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6754,
-     "fair": 1.481
+     "p": 0.678,
+     "fair": 1.475
     },
     "o05_first5": {
-     "p": 0.3246,
-     "fair": 3.081
+     "p": 0.322,
+     "fair": 3.105
     },
     "u05_first10": {
-     "p": 0.4364,
-     "fair": 2.291
+     "p": 0.4387,
+     "fair": 2.28
     },
     "o05_first10": {
-     "p": 0.5636,
-     "fair": 1.774
+     "p": 0.5613,
+     "fair": 1.781
     },
     "p1_minus05": {
      "pick": "EDM",
-     "p": 0.3794,
-     "fair": 2.636
+     "p": 0.38,
+     "fair": 2.631
     },
     "p1_plus05": {
      "pick": "EDM",
-     "p": 0.7124,
-     "fair": 1.404
+     "p": 0.7129,
+     "fair": 1.403
     },
     "p1_ml": {
      "pick": "EDM",
-     "p": 0.3794,
-     "fair": 2.636,
-     "home": 0.3794,
-     "tie": 0.333,
-     "away": 0.2876
+     "p": 0.38,
+     "fair": 2.631,
+     "home": 0.38,
+     "tie": 0.3329,
+     "away": 0.2871
     },
     "fg_ml": {
      "pick": "EDM",
-     "p": 0.5918,
-     "fair": 1.69,
-     "book_name": "LowVig.ag",
-     "book": 1.56,
-     "edge": -0.0767,
-     "home": 0.5918,
-     "away": 0.4082,
-     "home_reg": 0.502,
-     "away_reg": 0.3278,
-     "reg_tie": 0.1702
+     "p": 0.5939,
+     "fair": 1.684,
+     "home": 0.5939,
+     "away": 0.4061,
+     "home_reg": 0.5024,
+     "away_reg": 0.3249,
+     "reg_tie": 0.1727
     },
     "fg_spread": {
      "pick": "EDM",
      "line": -1.5,
-     "p": 0.3821,
-     "fair": 2.617,
-     "book_name": "LowVig.ag",
-     "book": 2.4,
-     "edge": -0.0831,
+     "p": 0.3808,
+     "fair": 2.626,
      "plus_pick": "EDM",
-     "plus_p": 0.7718
+     "plus_p": 0.7733
     },
     "fg_total": {
-     "mean": 6.122,
-     "over55": 0.5512,
-     "over65": 0.4329,
-     "book_line": 6.0,
-     "book_over": 1.87,
-     "book_under": 2.01
+     "mean": 6.131,
+     "over55": 0.5508,
+     "over65": 0.4348
     },
     "fg_over45": {
-     "p": 0.7636,
-     "fair": 1.31
+     "p": 0.7666,
+     "fair": 1.305
     },
     "home_over15": {
      "pick": "EDM",
-     "p": 0.8402,
-     "fair": 1.19
+     "p": 0.8408,
+     "fair": 1.189
     },
     "away_over15": {
      "pick": "PHI",
-     "p": 0.7492,
-     "fair": 1.335
+     "p": 0.7513,
+     "fair": 1.331
     },
     "p1_under25": {
-     "p": 0.748,
-     "fair": 1.337
+     "p": 0.7467,
+     "fair": 1.339
     }
    },
    "analytic": {
@@ -3825,31 +3801,31 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0581,
-    0.0706,
-    0.0645,
-    0.0684,
-    0.063,
-    0.0568,
-    0.0518,
-    0.0471,
-    0.0431,
-    0.0401
+    0.0587,
+    0.0703,
+    0.0647,
+    0.0667,
+    0.0616,
+    0.0555,
+    0.052,
+    0.0481,
+    0.0438,
+    0.04
    ],
    "p1": {
-    "home": 0.3794,
-    "tie": 0.333,
-    "away": 0.2876,
+    "home": 0.38,
+    "tie": 0.3329,
+    "away": 0.2871,
     "total_dist": [
-     0.1751,
-     0.3076,
-     0.2653,
-     0.252
+     0.1746,
+     0.3069,
+     0.2651,
+     0.2533
     ],
-    "mean_total": 1.737
+    "mean_total": 1.738
    },
    "projected": {
-    "home": 3.35,
+    "home": 3.36,
     "away": 2.77,
     "median": [
      3,
@@ -4968,88 +4944,79 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6708,
-     "fair": 1.491
+     "p": 0.6717,
+     "fair": 1.489
     },
     "o05_first5": {
-     "p": 0.3292,
-     "fair": 3.038
+     "p": 0.3283,
+     "fair": 3.046
     },
     "u05_first10": {
-     "p": 0.4315,
-     "fair": 2.317
+     "p": 0.4309,
+     "fair": 2.321
     },
     "o05_first10": {
-     "p": 0.5685,
-     "fair": 1.759
+     "p": 0.5691,
+     "fair": 1.757
     },
     "p1_minus05": {
      "pick": "VGK",
-     "p": 0.3624,
-     "fair": 2.76
+     "p": 0.3617,
+     "fair": 2.765
     },
     "p1_plus05": {
      "pick": "VGK",
-     "p": 0.697,
-     "fair": 1.435
+     "p": 0.6897,
+     "fair": 1.45
     },
     "p1_ml": {
      "pick": "VGK",
-     "p": 0.3624,
-     "fair": 2.76,
-     "home": 0.3624,
-     "tie": 0.3346,
-     "away": 0.303
+     "p": 0.3617,
+     "fair": 2.765,
+     "home": 0.3617,
+     "tie": 0.328,
+     "away": 0.3103
     },
     "fg_ml": {
      "pick": "VGK",
-     "p": 0.5597,
-     "fair": 1.787,
-     "book_name": "DraftKings",
-     "book": 1.8,
-     "edge": 0.0075,
-     "home": 0.5597,
-     "away": 0.4403,
-     "home_reg": 0.4677,
-     "away_reg": 0.3587,
-     "reg_tie": 0.1735
+     "p": 0.5568,
+     "fair": 1.796,
+     "home": 0.5568,
+     "away": 0.4432,
+     "home_reg": 0.4662,
+     "away_reg": 0.3613,
+     "reg_tie": 0.1725
     },
     "fg_spread": {
      "pick": "VGK",
      "line": -1.5,
-     "p": 0.3514,
-     "fair": 2.846,
-     "book_name": "BetUS",
-     "book": 3.0,
-     "edge": 0.0541,
+     "p": 0.3498,
+     "fair": 2.859,
      "plus_pick": "VGK",
-     "plus_p": 0.7454
+     "plus_p": 0.7437
     },
     "fg_total": {
-     "mean": 6.193,
-     "over55": 0.5602,
-     "over65": 0.4452,
-     "book_line": 6.5,
-     "book_over": 1.99,
-     "book_under": 1.87
+     "mean": 6.19,
+     "over55": 0.5618,
+     "over65": 0.4462
     },
     "fg_over45": {
-     "p": 0.7724,
-     "fair": 1.295
+     "p": 0.7716,
+     "fair": 1.296
     },
     "home_over15": {
      "pick": "VGK",
-     "p": 0.8288,
-     "fair": 1.207
+     "p": 0.8277,
+     "fair": 1.208
     },
     "away_over15": {
      "pick": "UTA",
-     "p": 0.7725,
-     "fair": 1.294
+     "p": 0.774,
+     "fair": 1.292
     },
     "p1_under25": {
-     "p": 0.7411,
-     "fair": 1.349
+     "p": 0.7377,
+     "fair": 1.356
     }
    },
    "analytic": {
@@ -5075,32 +5042,32 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0608,
-    0.0706,
-    0.0663,
-    0.0685,
-    0.0629,
-    0.0566,
-    0.0512,
-    0.0477,
-    0.0446,
-    0.0392
+    0.0599,
+    0.0718,
+    0.0668,
+    0.0683,
+    0.0616,
+    0.0558,
+    0.053,
+    0.0478,
+    0.0436,
+    0.0406
    ],
    "p1": {
-    "home": 0.3624,
-    "tie": 0.3346,
-    "away": 0.303,
+    "home": 0.3617,
+    "tie": 0.328,
+    "away": 0.3103,
     "total_dist": [
-     0.1717,
-     0.3001,
-     0.2693,
-     0.2589
+     0.1706,
+     0.3043,
+     0.2628,
+     0.2623
     ],
-    "mean_total": 1.764
+    "mean_total": 1.768
    },
    "projected": {
-    "home": 3.28,
-    "away": 2.91,
+    "home": 3.27,
+    "away": 2.92,
     "median": [
      3,
      3
@@ -6280,88 +6247,79 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6601,
-     "fair": 1.515
+     "p": 0.6587,
+     "fair": 1.518
     },
     "o05_first5": {
-     "p": 0.3399,
-     "fair": 2.942
+     "p": 0.3413,
+     "fair": 2.93
     },
     "u05_first10": {
-     "p": 0.4166,
-     "fair": 2.401
+     "p": 0.4151,
+     "fair": 2.409
     },
     "o05_first10": {
-     "p": 0.5834,
-     "fair": 1.714
+     "p": 0.5849,
+     "fair": 1.71
     },
     "p1_minus05": {
      "pick": "ANA",
-     "p": 0.3892,
-     "fair": 2.569
+     "p": 0.3888,
+     "fair": 2.572
     },
     "p1_plus05": {
      "pick": "ANA",
-     "p": 0.7132,
-     "fair": 1.402
+     "p": 0.7093,
+     "fair": 1.41
     },
     "p1_ml": {
      "pick": "ANA",
-     "p": 0.3892,
-     "fair": 2.569,
-     "home": 0.3892,
-     "tie": 0.3239,
-     "away": 0.2868
+     "p": 0.3888,
+     "fair": 2.572,
+     "home": 0.3888,
+     "tie": 0.3205,
+     "away": 0.2907
     },
     "fg_ml": {
      "pick": "ANA",
-     "p": 0.6231,
-     "fair": 1.605,
-     "book_name": "FanDuel",
-     "book": 1.73,
-     "edge": 0.0779,
-     "home": 0.6231,
-     "away": 0.3769,
-     "home_reg": 0.534,
-     "away_reg": 0.3017,
-     "reg_tie": 0.1643
+     "p": 0.6217,
+     "fair": 1.609,
+     "home": 0.6217,
+     "away": 0.3783,
+     "home_reg": 0.5329,
+     "away_reg": 0.304,
+     "reg_tie": 0.1632
     },
     "fg_spread": {
      "pick": "ANA",
      "line": -1.5,
-     "p": 0.414,
-     "fair": 2.415,
-     "book_name": "Bovada",
-     "book": 2.73,
-     "edge": 0.1303,
+     "p": 0.4118,
+     "fair": 2.429,
      "plus_pick": "ANA",
-     "plus_p": 0.7909
+     "plus_p": 0.7888
     },
     "fg_total": {
-     "mean": 6.405,
-     "over55": 0.5947,
-     "over65": 0.4798,
-     "book_line": 6.5,
-     "book_over": 1.8,
-     "book_under": 2.1
+     "mean": 6.404,
+     "over55": 0.5955,
+     "over65": 0.4777
     },
     "fg_over45": {
-     "p": 0.7933,
-     "fair": 1.261
+     "p": 0.7953,
+     "fair": 1.257
     },
     "home_over15": {
      "pick": "ANA",
-     "p": 0.8667,
-     "fair": 1.154
+     "p": 0.8683,
+     "fair": 1.152
     },
     "away_over15": {
      "pick": "NSH",
-     "p": 0.7537,
-     "fair": 1.327
+     "p": 0.7551,
+     "fair": 1.324
     },
     "p1_under25": {
-     "p": 0.722,
-     "fair": 1.385
+     "p": 0.7195,
+     "fair": 1.39
     }
    },
    "analytic": {
@@ -6387,32 +6345,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0621,
-    0.0748,
-    0.0678,
-    0.0705,
-    0.0647,
-    0.0591,
-    0.0536,
-    0.0477,
-    0.0436,
-    0.0395
+    0.0627,
+    0.0726,
+    0.0698,
+    0.0728,
+    0.0633,
+    0.057,
+    0.0535,
+    0.0484,
+    0.0439,
+    0.0409
    ],
    "p1": {
-    "home": 0.3892,
-    "tie": 0.3239,
-    "away": 0.2868,
+    "home": 0.3888,
+    "tie": 0.3205,
+    "away": 0.2907,
     "total_dist": [
-     0.16,
-     0.2903,
-     0.2718,
-     0.278
+     0.1579,
+     0.2927,
+     0.2689,
+     0.2805
     ],
-    "mean_total": 1.836
+    "mean_total": 1.842
    },
    "projected": {
     "home": 3.59,
-    "away": 2.81,
+    "away": 2.82,
     "median": [
      3,
      3
@@ -7557,7 +7515,7 @@
      }
     }
    },
-   "rank_u05_first5": 4,
+   "rank_u05_first5": 6,
    "rank_u05_first10": 4
   },
   {
@@ -7573,88 +7531,79 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6588,
-     "fair": 1.518
+     "p": 0.6598,
+     "fair": 1.516
     },
     "o05_first5": {
-     "p": 0.3412,
-     "fair": 2.93
+     "p": 0.3402,
+     "fair": 2.939
     },
     "u05_first10": {
-     "p": 0.4132,
-     "fair": 2.42
+     "p": 0.4126,
+     "fair": 2.423
     },
     "o05_first10": {
-     "p": 0.5868,
-     "fair": 1.704
+     "p": 0.5874,
+     "fair": 1.703
     },
     "p1_minus05": {
      "pick": "PIT",
-     "p": 0.3667,
-     "fair": 2.727
+     "p": 0.3662,
+     "fair": 2.731
     },
     "p1_plus05": {
      "pick": "PIT",
-     "p": 0.6881,
-     "fair": 1.453
+     "p": 0.6902,
+     "fair": 1.449
     },
     "p1_ml": {
      "pick": "PIT",
-     "p": 0.3667,
-     "fair": 2.727,
-     "home": 0.3119,
-     "tie": 0.3214,
-     "away": 0.3667
+     "p": 0.3662,
+     "fair": 2.731,
+     "home": 0.3098,
+     "tie": 0.324,
+     "away": 0.3662
     },
     "fg_ml": {
      "pick": "PIT",
-     "p": 0.5508,
-     "fair": 1.815,
-     "book_name": "BetRivers",
-     "book": 1.73,
-     "edge": -0.047,
-     "home": 0.4491,
-     "away": 0.5508,
-     "home_reg": 0.3675,
-     "away_reg": 0.4641,
-     "reg_tie": 0.1683
+     "p": 0.5519,
+     "fair": 1.812,
+     "home": 0.4481,
+     "away": 0.5519,
+     "home_reg": 0.3685,
+     "away_reg": 0.4651,
+     "reg_tie": 0.1664
     },
     "fg_spread": {
      "pick": "PIT",
      "line": -1.5,
-     "p": 0.3489,
-     "fair": 2.866,
-     "book_name": "BetRivers",
-     "book": 2.75,
-     "edge": -0.0406,
+     "p": 0.3499,
+     "fair": 2.858,
      "plus_pick": "PIT",
-     "plus_p": 0.7372
+     "plus_p": 0.7354
     },
     "fg_total": {
-     "mean": 6.407,
-     "over55": 0.593,
-     "over65": 0.4798,
-     "book_line": 6.5,
-     "book_over": 1.78,
-     "book_under": 2.15
+     "mean": 6.403,
+     "over55": 0.5931,
+     "over65": 0.4793
     },
     "fg_over45": {
-     "p": 0.7943,
-     "fair": 1.259
+     "p": 0.7964,
+     "fair": 1.256
     },
     "home_over15": {
      "pick": "SJS",
-     "p": 0.7918,
-     "fair": 1.263
+     "p": 0.793,
+     "fair": 1.261
     },
     "away_over15": {
      "pick": "PIT",
-     "p": 0.8401,
+     "p": 0.8402,
      "fair": 1.19
     },
     "p1_under25": {
-     "p": 0.7181,
-     "fair": 1.392
+     "p": 0.719,
+     "fair": 1.391
     }
    },
    "analytic": {
@@ -7680,32 +7629,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0625,
-    0.074,
-    0.0693,
-    0.0715,
-    0.064,
-    0.0598,
-    0.052,
-    0.0484,
-    0.0445,
-    0.0408
+    0.0619,
+    0.0744,
+    0.0685,
+    0.0702,
+    0.0653,
+    0.0591,
+    0.0544,
+    0.0497,
+    0.0425,
+    0.0413
    ],
    "p1": {
-    "home": 0.3119,
-    "tie": 0.3214,
-    "away": 0.3667,
+    "home": 0.3098,
+    "tie": 0.324,
+    "away": 0.3662,
     "total_dist": [
-     0.1574,
-     0.2909,
-     0.2698,
-     0.2818
+     0.1573,
+     0.2921,
+     0.2696,
+     0.281
     ],
     "mean_total": 1.846
    },
    "projected": {
     "home": 3.04,
-    "away": 3.37,
+    "away": 3.36,
     "median": [
      3,
      3
@@ -8787,7 +8736,7 @@
      }
     }
    },
-   "rank_u05_first5": 6,
+   "rank_u05_first5": 4,
    "rank_u05_first10": 6
   }
  ],
@@ -9253,27 +9202,8 @@
   }
  },
  "changes": {
-  "since": "2026-11-11 19:05 UTC",
-  "items": [
-   {
-    "game_id": 2026020296,
-    "game": "UTA @ VGK",
-    "kind": "status",
-    "text": "VGK Carter Hart now confirmed, was unconfirmed"
-   },
-   {
-    "game_id": 2026020296,
-    "game": "UTA @ VGK",
-    "kind": "status",
-    "text": "UTA Sebastian Cossa now expected, was unconfirmed"
-   },
-   {
-    "game_id": 2026020298,
-    "game": "PIT @ SJS",
-    "kind": "status",
-    "text": "PIT Sergei Murashov now confirmed, was unconfirmed"
-   }
-  ],
+  "since": "2026-11-11 21:12 UTC",
+  "items": [],
   "first_build": false,
   "data_through_before": "2026-11-10",
   "data_through_after": "2026-11-10"
