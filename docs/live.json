@@ -1,7 +1,7 @@
 {
  "date": "2026-11-10",
- "updated_utc": "2026-11-11 03:45 UTC",
- "updated_et": "10:45 PM ET",
+ "updated_utc": "2026-11-11 03:50 UTC",
+ "updated_et": "10:50 PM ET",
  "games": {
   "2026020286": {
    "state": "OFF",
@@ -195,7 +195,7 @@
    ]
   },
   "2026020289": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -239,21 +239,21 @@
    ]
   },
   "2026020290": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:30",
-   "elapsed_min": 58.5,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "STL",
    "away": "DET",
    "home_score": 3,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 19.783,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -274,6 +274,11 @@
      "period": 3,
      "minute": 55.967,
      "team": "STL"
+    },
+    {
+     "period": 3,
+     "minute": 58.767,
+     "team": "DET"
     }
    ]
   },
@@ -282,8 +287,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "00:56",
-   "elapsed_min": 19.07,
+   "time_remaining": "12:57",
+   "elapsed_min": 7.05,
    "home": "LAK",
    "away": "NSH",
    "home_score": 0,
