@@ -1,15 +1,15 @@
 {
  "date": "2026-11-10",
- "updated_utc": "2026-11-11 02:40 UTC",
- "updated_et": "9:40 PM ET",
+ "updated_utc": "2026-11-11 02:45 UTC",
+ "updated_et": "9:45 PM ET",
  "games": {
   "2026020286": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:38",
-   "elapsed_min": 59.37,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "TOR",
    "away": "COL",
    "home_score": 3,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -68,12 +68,12 @@
    ]
   },
   "2026020287": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:39",
-   "elapsed_min": 54.35,
+   "time_remaining": "03:11",
+   "elapsed_min": 56.82,
    "home": "MTL",
    "away": "MIN",
    "home_score": 0,
@@ -92,16 +92,16 @@
    ]
   },
   "2026020288": {
-   "state": "CRIT",
-   "live": true,
+   "state": "OVER",
+   "live": false,
    "final": false,
-   "period": 3,
-   "time_remaining": "00:11",
-   "elapsed_min": 59.82,
+   "period": 4,
+   "time_remaining": "03:46",
+   "elapsed_min": 52.52,
    "home": "OTT",
    "away": "WSH",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 0.583,
    "p1_done": true,
    "p1_home": 0,
@@ -126,6 +126,11 @@
     {
      "period": 3,
      "minute": 52.517,
+     "team": "WSH"
+    },
+    {
+     "period": 4,
+     "minute": 61.233,
      "team": "WSH"
     }
    ]
@@ -184,8 +189,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "15:39",
-   "elapsed_min": 44.35,
+   "time_remaining": "13:19",
+   "elapsed_min": 46.68,
    "home": "CBJ",
    "away": "FLA",
    "home_score": 1,
@@ -218,8 +223,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:15",
-   "elapsed_min": 36.75,
+   "time_remaining": "00:21",
+   "elapsed_min": 39.65,
    "home": "STL",
    "away": "DET",
    "home_score": 2,
