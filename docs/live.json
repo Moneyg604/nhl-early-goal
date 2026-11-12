@@ -1,7 +1,7 @@
 {
  "date": "2026-11-11",
- "updated_utc": "2026-11-12 05:10 UTC",
- "updated_et": "12:10 AM ET",
+ "updated_utc": "2026-11-12 05:15 UTC",
+ "updated_et": "12:15 AM ET",
  "games": {
   "2026020293": {
    "state": "OFF",
@@ -161,12 +161,12 @@
    ]
   },
   "2026020296": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:49",
-   "elapsed_min": 53.18,
+   "time_remaining": "04:45",
+   "elapsed_min": 55.25,
    "home": "VGK",
    "away": "UTA",
    "home_score": 5,
@@ -224,8 +224,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:35",
-   "elapsed_min": 45.42,
+   "time_remaining": "13:12",
+   "elapsed_min": 46.8,
    "home": "ANA",
    "away": "NSH",
    "home_score": 1,
@@ -258,12 +258,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "17:17",
-   "elapsed_min": 42.72,
+   "time_remaining": "15:59",
+   "elapsed_min": 44.02,
    "home": "SJS",
    "away": "PIT",
    "home_score": 0,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 8.95,
    "p1_done": true,
    "p1_home": 0,
@@ -273,6 +273,11 @@
     {
      "period": 1,
      "minute": 8.95,
+     "team": "PIT"
+    },
+    {
+     "period": 3,
+     "minute": 43.467,
      "team": "PIT"
     }
    ]
