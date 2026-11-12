@@ -1,7 +1,7 @@
 {
  "date": "2026-11-11",
- "updated_utc": "2026-11-12 02:50 UTC",
- "updated_et": "9:50 PM ET",
+ "updated_utc": "2026-11-12 02:55 UTC",
+ "updated_et": "9:55 PM ET",
  "games": {
   "2026020293": {
    "state": "FINAL",
@@ -82,11 +82,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:13",
-   "elapsed_min": 45.78,
+   "time_remaining": "12:12",
+   "elapsed_min": 47.8,
    "home": "CGY",
    "away": "NYR",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 2,
    "first_goal_min": 20.983,
    "p1_done": true,
@@ -103,6 +103,11 @@
      "period": 2,
      "minute": 30.867,
      "team": "NYR"
+    },
+    {
+     "period": 3,
+     "minute": 47.683,
+     "team": "CGY"
     }
    ]
   },
@@ -111,8 +116,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "16:08",
-   "elapsed_min": 3.87,
+   "time_remaining": "11:07",
+   "elapsed_min": 8.88,
    "home": "EDM",
    "away": "PHI",
    "home_score": 0,
@@ -129,18 +134,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:01",
-   "elapsed_min": 0.98,
+   "time_remaining": "15:10",
+   "elapsed_min": 4.83,
    "home": "VGK",
    "away": "UTA",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 2.25,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 2.25,
+     "team": "VGK"
+    }
+   ]
   },
   "2026020297": {
    "state": "PRE",
