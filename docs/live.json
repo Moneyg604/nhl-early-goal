@@ -1,7 +1,7 @@
 {
  "date": "2026-11-11",
- "updated_utc": "2026-11-12 05:20 UTC",
- "updated_et": "12:20 AM ET",
+ "updated_utc": "2026-11-12 05:25 UTC",
+ "updated_et": "12:25 AM ET",
  "games": {
   "2026020293": {
    "state": "OFF",
@@ -161,12 +161,12 @@
    ]
   },
   "2026020296": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:51",
-   "elapsed_min": 59.15,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "VGK",
    "away": "UTA",
    "home_score": 5,
@@ -175,7 +175,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -224,8 +224,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:25",
-   "elapsed_min": 48.58,
+   "time_remaining": "09:16",
+   "elapsed_min": 50.73,
    "home": "ANA",
    "away": "NSH",
    "home_score": 1,
@@ -263,8 +263,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:51",
-   "elapsed_min": 47.15,
+   "time_remaining": "10:49",
+   "elapsed_min": 49.18,
    "home": "SJS",
    "away": "PIT",
    "home_score": 0,
