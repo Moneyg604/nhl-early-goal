@@ -1,7 +1,7 @@
 {
  "date": "2026-11-11",
- "updated_utc": "2026-11-12 05:45 UTC",
- "updated_et": "12:45 AM ET",
+ "updated_utc": "2026-11-12 05:50 UTC",
+ "updated_et": "12:50 AM ET",
  "games": {
   "2026020293": {
    "state": "OFF",
@@ -220,12 +220,12 @@
    ]
   },
   "2026020297": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
-   "elapsed_min": 56.07,
+   "elapsed_min": 60.0,
    "home": "ANA",
    "away": "NSH",
    "home_score": 2,
@@ -234,7 +234,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -272,8 +272,8 @@
    "state": "CRIT",
    "live": true,
    "final": false,
-   "period": 3,
-   "time_remaining": "00:00",
+   "period": 4,
+   "time_remaining": "02:59",
    "elapsed_min": 60.0,
    "home": "SJS",
    "away": "PIT",
