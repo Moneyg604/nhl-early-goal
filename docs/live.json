@@ -1,10 +1,10 @@
 {
  "date": "2026-11-11",
- "updated_utc": "2026-11-12 03:15 UTC",
- "updated_et": "10:15 PM ET",
+ "updated_utc": "2026-11-12 03:20 UTC",
+ "updated_et": "10:20 PM ET",
  "games": {
   "2026020293": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -78,21 +78,21 @@
    ]
   },
   "2026020294": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:26",
-   "elapsed_min": 58.57,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "CGY",
    "away": "NYR",
    "home_score": 1,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 20.983,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 2,
@@ -108,6 +108,11 @@
      "period": 3,
      "minute": 47.683,
      "team": "CGY"
+    },
+    {
+     "period": 3,
+     "minute": 59.883,
+     "team": "NYR"
     }
    ]
   },
@@ -116,8 +121,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:20",
-   "elapsed_min": 24.67,
+   "time_remaining": "12:10",
+   "elapsed_min": 27.83,
    "home": "EDM",
    "away": "PHI",
    "home_score": 1,
@@ -140,8 +145,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "04:32",
-   "elapsed_min": 15.47,
+   "time_remaining": "02:35",
+   "elapsed_min": 17.42,
    "home": "VGK",
    "away": "UTA",
    "home_score": 1,
@@ -169,8 +174,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "16:47",
-   "elapsed_min": 3.22,
+   "time_remaining": "13:22",
+   "elapsed_min": 6.63,
    "home": "ANA",
    "away": "NSH",
    "home_score": 0,
@@ -187,8 +192,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "15:59",
-   "elapsed_min": 4.02,
+   "time_remaining": "13:14",
+   "elapsed_min": 6.77,
    "home": "SJS",
    "away": "PIT",
    "home_score": 0,
