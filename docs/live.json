@@ -1,7 +1,7 @@
 {
  "date": "2026-11-12",
- "updated_utc": "2026-11-13 03:30 UTC",
- "updated_et": "10:30 PM ET",
+ "updated_utc": "2026-11-13 03:35 UTC",
+ "updated_et": "10:35 PM ET",
  "games": {
   "2026020309": {
    "state": "OFF",
@@ -371,8 +371,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "02:46",
-   "elapsed_min": 57.23,
+   "time_remaining": "00:21",
+   "elapsed_min": 59.65,
    "home": "CHI",
    "away": "BUF",
    "home_score": 2,
@@ -406,16 +406,16 @@
    ]
   },
   "2026020306": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:39",
-   "elapsed_min": 53.35,
+   "time_remaining": "03:04",
+   "elapsed_min": 56.93,
    "home": "DAL",
    "away": "WPG",
    "home_score": 3,
-   "away_score": 6,
+   "away_score": 8,
    "first_goal_min": 4.317,
    "p1_done": true,
    "p1_home": 2,
@@ -466,6 +466,16 @@
      "period": 3,
      "minute": 41.0,
      "team": "WPG"
+    },
+    {
+     "period": 3,
+     "minute": 55.2,
+     "team": "WPG"
+    },
+    {
+     "period": 3,
+     "minute": 55.433,
+     "team": "WPG"
     }
    ]
   },
@@ -474,8 +484,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "10:25",
-   "elapsed_min": 29.58,
+   "time_remaining": "06:41",
+   "elapsed_min": 33.32,
    "home": "UTA",
    "away": "STL",
    "home_score": 0,
@@ -492,16 +502,16 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:27",
-   "elapsed_min": 12.55,
+   "time_remaining": "06:04",
+   "elapsed_min": 13.93,
    "home": "LAK",
    "away": "NYI",
    "home_score": 1,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 5.833,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 1,
+   "p1_away": 2,
    "ended_in": null,
    "goals": [
     {
@@ -513,6 +523,11 @@
      "period": 1,
      "minute": 8.917,
      "team": "LAK"
+    },
+    {
+     "period": 1,
+     "minute": 12.933,
+     "team": "NYI"
     }
    ]
   }
