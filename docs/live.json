@@ -1,7 +1,7 @@
 {
  "date": "2026-11-12",
- "updated_utc": "2026-11-13 03:15 UTC",
- "updated_et": "10:15 PM ET",
+ "updated_utc": "2026-11-13 03:20 UTC",
+ "updated_et": "10:20 PM ET",
  "games": {
   "2026020309": {
    "state": "OFF",
@@ -371,8 +371,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "10:49",
-   "elapsed_min": 49.18,
+   "time_remaining": "08:57",
+   "elapsed_min": 51.05,
    "home": "CHI",
    "away": "BUF",
    "home_score": 2,
@@ -410,8 +410,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "16:34",
-   "elapsed_min": 43.43,
+   "time_remaining": "13:34",
+   "elapsed_min": 46.43,
    "home": "DAL",
    "away": "WPG",
    "home_score": 3,
@@ -474,8 +474,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "16:34",
-   "elapsed_min": 23.43,
+   "time_remaining": "14:48",
+   "elapsed_min": 25.2,
    "home": "UTA",
    "away": "STL",
    "home_score": 0,
@@ -492,18 +492,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "14:51",
-   "elapsed_min": 5.15,
+   "time_remaining": "13:17",
+   "elapsed_min": 6.72,
    "home": "LAK",
    "away": "NYI",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 5.833,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 5.833,
+     "team": "NYI"
+    }
+   ]
   }
  }
 }
