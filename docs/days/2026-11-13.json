@@ -1,6 +1,6 @@
 {
  "date": "2026-11-13",
- "generated_utc": "2026-11-13 20:50 UTC",
+ "generated_utc": "2026-11-13 22:35 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -911,8 +911,8 @@
   "prior_season_games": 2624,
   "slate_offset_days": 0,
   "built_for": "2026-11-13",
-  "goalie_source": "dailyfaceoff + usage heuristic for the rest",
-  "dfo_teams": 4
+  "goalie_source": "usage heuristic for the rest",
+  "dfo_teams": 0
  },
  "league": {
   "games_in_profile": 2933,
@@ -944,13 +944,13 @@
  "pick_of_day": {
   "matchup": "NYR @ VAN",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6794,
-  "fair": 1.472,
+  "p": 0.6763,
+  "fair": 1.479,
   "tier": "B",
   "game_id": 2026020310,
   "runner_up": {
    "matchup": "NSH @ VGK",
-   "p": 0.6741,
+   "p": 0.674,
    "tier": "B"
   }
  },
@@ -959,14 +959,14 @@
    {
     "matchup": "NYR @ VAN",
     "pick": null,
-    "p": 0.6794,
+    "p": 0.6763,
     "tier": "B",
     "game_id": 2026020310
    },
    {
     "matchup": "NSH @ VGK",
     "pick": null,
-    "p": 0.6741,
+    "p": 0.674,
     "tier": "B",
     "game_id": 2026020311
    }
@@ -975,14 +975,14 @@
    {
     "matchup": "NYR @ VAN",
     "pick": null,
-    "p": 0.4405,
+    "p": 0.4349,
     "tier": "B",
     "game_id": 2026020310
    },
    {
     "matchup": "NSH @ VGK",
     "pick": null,
-    "p": 0.4331,
+    "p": 0.4343,
     "tier": "B",
     "game_id": 2026020311
    }
@@ -991,14 +991,14 @@
    {
     "matchup": "NSH @ VGK",
     "pick": null,
-    "p": 0.7698,
+    "p": 0.769,
     "tier": "B",
     "game_id": 2026020311
    },
    {
     "matchup": "NYR @ VAN",
     "pick": null,
-    "p": 0.7578,
+    "p": 0.7671,
     "tier": "B",
     "game_id": 2026020310
    }
@@ -1007,7 +1007,7 @@
    {
     "matchup": "NSH @ VGK",
     "pick": "VGK",
-    "p": 0.8482,
+    "p": 0.847,
     "tier": "B",
     "game_id": 2026020311,
     "market": "home_over15"
@@ -1015,7 +1015,7 @@
    {
     "matchup": "NYR @ VAN",
     "pick": "NYR",
-    "p": 0.795,
+    "p": 0.8034,
     "tier": "B",
     "game_id": 2026020310,
     "market": "away_over15"
@@ -1023,7 +1023,7 @@
    {
     "matchup": "NYR @ VAN",
     "pick": "VAN",
-    "p": 0.7948,
+    "p": 0.7962,
     "tier": "B",
     "game_id": 2026020310,
     "market": "home_over15"
@@ -1031,32 +1031,32 @@
   ],
   "p1_under25": [
    {
-    "matchup": "NYR @ VAN",
-    "pick": null,
-    "p": 0.7492,
-    "tier": "B",
-    "game_id": 2026020310
-   },
-   {
     "matchup": "NSH @ VGK",
     "pick": null,
-    "p": 0.7444,
+    "p": 0.744,
     "tier": "B",
     "game_id": 2026020311
+   },
+   {
+    "matchup": "NYR @ VAN",
+    "pick": null,
+    "p": 0.7437,
+    "tier": "B",
+    "game_id": 2026020310
    }
   ],
   "p1_plus05": [
    {
     "matchup": "NSH @ VGK",
     "pick": "VGK",
-    "p": 0.7171,
+    "p": 0.7164,
     "tier": "B",
     "game_id": 2026020311
    },
    {
     "matchup": "NYR @ VAN",
     "pick": "NYR",
-    "p": 0.6708,
+    "p": 0.674,
     "tier": "B",
     "game_id": 2026020310
    }
@@ -1065,14 +1065,14 @@
    {
     "matchup": "NSH @ VGK",
     "pick": "VGK",
-    "p": 0.3849,
+    "p": 0.3835,
     "tier": "B",
     "game_id": 2026020311
    },
    {
     "matchup": "NYR @ VAN",
     "pick": "NYR",
-    "p": 0.3338,
+    "p": 0.3399,
     "tier": "B",
     "game_id": 2026020310
    }
@@ -1081,14 +1081,14 @@
    {
     "matchup": "NSH @ VGK",
     "pick": "VGK",
-    "p": 0.3849,
+    "p": 0.3835,
     "tier": "B",
     "game_id": 2026020311
    },
    {
     "matchup": "NYR @ VAN",
     "pick": "NYR",
-    "p": 0.3338,
+    "p": 0.3399,
     "tier": "B",
     "game_id": 2026020310
    }
@@ -1097,14 +1097,14 @@
    {
     "matchup": "NSH @ VGK",
     "pick": "VGK",
-    "p": 0.6024,
+    "p": 0.6043,
     "tier": "B",
     "game_id": 2026020311
    },
    {
     "matchup": "NYR @ VAN",
-    "pick": "VAN",
-    "p": 0.5027,
+    "pick": "NYR",
+    "p": 0.5083,
     "tier": "B",
     "game_id": 2026020310
    }
@@ -1113,14 +1113,14 @@
    {
     "matchup": "NSH @ VGK",
     "pick": "VGK",
-    "p": 0.391,
+    "p": 0.3912,
     "tier": "B",
     "game_id": 2026020311
    },
    {
     "matchup": "NYR @ VAN",
-    "pick": "VAN",
-    "p": 0.3008,
+    "pick": "NYR",
+    "p": 0.3053,
     "tier": "B",
     "game_id": 2026020310
    }
@@ -1136,107 +1136,102 @@
    "time_et": "9:00 PM ET",
    "tier": "B",
    "tier_reasons": [
-    "VAN goalie expected"
+    "NYR goalie projected",
+    "VAN goalie projected"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6794,
-     "fair": 1.472
+     "p": 0.6763,
+     "fair": 1.479
     },
     "o05_first5": {
-     "p": 0.3206,
-     "fair": 3.119
+     "p": 0.3237,
+     "fair": 3.089
     },
     "u05_first10": {
-     "p": 0.4405,
-     "fair": 2.27
+     "p": 0.4349,
+     "fair": 2.3
     },
     "o05_first10": {
-     "p": 0.5595,
-     "fair": 1.787
+     "p": 0.5652,
+     "fair": 1.769
     },
     "p1_minus05": {
      "pick": "NYR",
-     "p": 0.3338,
-     "fair": 2.996
+     "p": 0.3399,
+     "fair": 2.942
     },
     "p1_plus05": {
      "pick": "NYR",
-     "p": 0.6708,
-     "fair": 1.491
+     "p": 0.674,
+     "fair": 1.484
     },
     "p1_ml": {
      "pick": "NYR",
-     "p": 0.3338,
-     "fair": 2.996,
-     "home": 0.3292,
-     "tie": 0.337,
-     "away": 0.3338
+     "p": 0.3399,
+     "fair": 2.942,
+     "home": 0.326,
+     "tie": 0.3341,
+     "away": 0.3399
     },
     "fg_ml": {
-     "pick": "VAN",
-     "p": 0.5027,
-     "fair": 1.989,
-     "book_name": "DraftKings",
-     "book": 2.85,
-     "edge": 0.4328,
-     "home": 0.5027,
-     "away": 0.4973,
-     "home_reg": 0.4148,
-     "away_reg": 0.411,
-     "reg_tie": 0.1742
+     "pick": "NYR",
+     "p": 0.5083,
+     "fair": 1.967,
+     "home": 0.4917,
+     "away": 0.5083,
+     "home_reg": 0.4049,
+     "away_reg": 0.419,
+     "reg_tie": 0.1761
     },
     "fg_spread": {
-     "pick": "VAN",
+     "pick": "NYR",
      "line": -1.5,
-     "p": 0.3008,
-     "fair": 3.325,
-     "plus_pick": "VAN",
-     "plus_p": 0.7023
+     "p": 0.3053,
+     "fair": 3.276,
+     "plus_pick": "NYR",
+     "plus_p": 0.708
     },
     "fg_total": {
-     "mean": 6.081,
-     "over55": 0.5428,
-     "over65": 0.4261,
-     "book_line": 6.5,
-     "book_over": 1.98,
-     "book_under": 1.9
+     "mean": 6.153,
+     "over55": 0.5531,
+     "over65": 0.4373
     },
     "fg_over45": {
-     "p": 0.7578,
-     "fair": 1.32
+     "p": 0.7671,
+     "fair": 1.304
     },
     "home_over15": {
      "pick": "VAN",
-     "p": 0.7948,
-     "fair": 1.258
+     "p": 0.7962,
+     "fair": 1.256
     },
     "away_over15": {
      "pick": "NYR",
-     "p": 0.795,
-     "fair": 1.258
+     "p": 0.8034,
+     "fair": 1.245
     },
     "p1_under25": {
-     "p": 0.7492,
-     "fair": 1.335
+     "p": 0.7437,
+     "fair": 1.345
     }
    },
    "analytic": {
-    "u05_first5": 0.6792,
-    "u05_first10": 0.4412
+    "u05_first5": 0.6763,
+    "u05_first10": 0.4372
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6792,
-     "lo": 0.6452,
-     "hi": 0.7132,
-     "se_log_hazard": 0.0787
+     "p": 0.6763,
+     "lo": 0.6409,
+     "hi": 0.7118,
+     "se_log_hazard": 0.0815
     },
     "first10": {
-     "p": 0.4412,
-     "lo": 0.3944,
-     "hi": 0.488,
-     "se_log_hazard": 0.0787
+     "p": 0.4372,
+     "lo": 0.3887,
+     "hi": 0.4857,
+     "se_log_hazard": 0.0815
     }
    },
    "mc_se": {
@@ -1244,32 +1239,32 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0566,
-    0.0704,
-    0.0643,
-    0.0672,
-    0.062,
-    0.0574,
-    0.0503,
-    0.0481,
-    0.0437,
-    0.0394
+    0.0575,
+    0.071,
+    0.0658,
+    0.0673,
+    0.0621,
+    0.0576,
+    0.052,
+    0.048,
+    0.0448,
+    0.039
    ],
    "p1": {
-    "home": 0.3292,
-    "tie": 0.337,
-    "away": 0.3338,
+    "home": 0.326,
+    "tie": 0.3341,
+    "away": 0.3399,
     "total_dist": [
-     0.1777,
-     0.3083,
-     0.2632,
-     0.2508
+     0.1732,
+     0.3051,
+     0.2654,
+     0.2563
     ],
-    "mean_total": 1.727
+    "mean_total": 1.749
    },
    "projected": {
     "home": 3.05,
-    "away": 3.03,
+    "away": 3.1,
     "median": [
      3,
      3
@@ -1277,26 +1272,26 @@
    },
    "goalies": {
     "home": {
-     "name": "Leevi Merilainen",
-     "id": 0,
-     "status": "expected",
-     "source": "dailyfaceoff",
-     "note": "Likely via Jeff Paterson 2026-11-13 17:27 UTC",
-     "sv_raw": null,
-     "sv_shrunk": 0.8959,
-     "sv_last5": null,
-     "e10_sv_raw": null,
-     "starts_cur": 0,
-     "shots_weighted": 0,
-     "xg_ratio": null,
-     "gsax_per_60": null
+     "name": "Leevi Meril\u00e4inen",
+     "id": 8482447,
+     "status": "projected",
+     "source": "usage-heuristic",
+     "note": "most-used goalie (12 starts this season)",
+     "sv_raw": 0.884,
+     "sv_shrunk": 0.8937,
+     "sv_last5": 0.864,
+     "e10_sv_raw": 0.889,
+     "starts_cur": 12,
+     "shots_weighted": 706,
+     "xg_ratio": 1.04,
+     "gsax_per_60": -0.35
     },
     "away": {
      "name": "Dylan Garand",
      "id": 8482193,
-     "status": "confirmed",
-     "source": "dailyfaceoff",
-     "note": "Confirmed via Vince Mercogliano 2026-11-13 18:31 UTC",
+     "status": "projected",
+     "source": "usage-heuristic",
+     "note": "most-used goalie (12 starts this season)",
      "sv_raw": 0.9134,
      "sv_shrunk": 0.8979,
      "sv_last5": 0.8943,
@@ -1459,9 +1454,9 @@
      "faces_goalie": {
       "name": "Dylan Garand",
       "id": 8482193,
-      "status": "confirmed",
-      "source": "dailyfaceoff",
-      "note": "Confirmed via Vince Mercogliano 2026-11-13 18:31 UTC",
+      "status": "projected",
+      "source": "usage-heuristic",
+      "note": "most-used goalie (12 starts this season)",
       "sv_raw": 0.9134,
       "sv_shrunk": 0.8979,
       "sv_last5": 0.8943,
@@ -1478,7 +1473,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "confirmed starter but thin sample (378 shots); shrunk toward league"
+       "note": "starter projected (378 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -1637,27 +1632,27 @@
       "opp_def_shot_early": 1.0342,
       "opp_def_shot_full": 1.03,
       "finish": 1.0165,
-      "opp_goalie": 1.0046,
-      "opp_goalie_sv_shrunk": 0.8959,
+      "opp_goalie": 1.0265,
+      "opp_goalie_sv_shrunk": 0.8937,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
      "context_detail": {},
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Leevi Merilainen",
-      "id": 0,
-      "status": "expected",
-      "source": "dailyfaceoff",
-      "note": "Likely via Jeff Paterson 2026-11-13 17:27 UTC",
-      "sv_raw": null,
-      "sv_shrunk": 0.8959,
-      "sv_last5": null,
-      "e10_sv_raw": null,
-      "starts_cur": 0,
-      "shots_weighted": 0,
-      "xg_ratio": null,
-      "gsax_per_60": null
+      "name": "Leevi Meril\u00e4inen",
+      "id": 8482447,
+      "status": "projected",
+      "source": "usage-heuristic",
+      "note": "most-used goalie (12 starts this season)",
+      "sv_raw": 0.884,
+      "sv_shrunk": 0.8937,
+      "sv_last5": 0.864,
+      "e10_sv_raw": 0.889,
+      "starts_cur": 12,
+      "shots_weighted": 706,
+      "xg_ratio": 1.04,
+      "gsax_per_60": -0.35
      },
      "labels": {
       "team_profile": {
@@ -1666,7 +1661,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter expected (0 shots of data); re-check before the puck drops"
+       "note": "starter projected (706 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -1674,16 +1669,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.02967,
-      0.03908,
-      0.03908,
-      0.04375,
-      0.04375,
-      0.04357,
-      0.04357,
-      0.04357,
-      0.04357,
-      0.04357
+      0.03032,
+      0.03993,
+      0.03993,
+      0.04471,
+      0.04471,
+      0.04452,
+      0.04452,
+      0.04452,
+      0.04452,
+      0.04452
      ]
     }
    },
@@ -2055,7 +2050,21 @@
      }
     },
     "goalie_workload": {
-     "home": null,
+     "home": {
+      "starts_on_record": 42,
+      "last_start": "2026-11-09",
+      "days_since_last_start": 4,
+      "started_last_night": false,
+      "shots_faced_last_start": 16,
+      "goals_against_last_start": 2,
+      "consecutive_team_starts": 3,
+      "starts_last_7_days": 2,
+      "shots_faced_last_3": [
+       29,
+       29,
+       16
+      ]
+     },
      "away": {
       "starts_on_record": 15,
       "last_start": "2026-11-09",
@@ -2400,110 +2409,103 @@
    "time_et": "10:00 PM ET",
    "tier": "B",
    "tier_reasons": [
-    "NSH profile partial: only 19 games this season; leaning on 164 games from last season"
+    "NSH goalie projected",
+    "NSH profile partial: only 19 games this season; leaning on 164 games from last season",
+    "VGK goalie projected"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6741,
-     "fair": 1.483
+     "p": 0.674,
+     "fair": 1.484
     },
     "o05_first5": {
-     "p": 0.3259,
-     "fair": 3.068
+     "p": 0.326,
+     "fair": 3.067
     },
     "u05_first10": {
-     "p": 0.4331,
-     "fair": 2.309
+     "p": 0.4343,
+     "fair": 2.303
     },
     "o05_first10": {
-     "p": 0.5669,
-     "fair": 1.764
+     "p": 0.5657,
+     "fair": 1.768
     },
     "p1_minus05": {
      "pick": "VGK",
-     "p": 0.3849,
-     "fair": 2.598
+     "p": 0.3835,
+     "fair": 2.608
     },
     "p1_plus05": {
      "pick": "VGK",
-     "p": 0.7171,
-     "fair": 1.395
+     "p": 0.7164,
+     "fair": 1.396
     },
     "p1_ml": {
      "pick": "VGK",
-     "p": 0.3849,
-     "fair": 2.598,
-     "home": 0.3849,
-     "tie": 0.3322,
-     "away": 0.2829
+     "p": 0.3835,
+     "fair": 2.608,
+     "home": 0.3835,
+     "tie": 0.3329,
+     "away": 0.2836
     },
     "fg_ml": {
      "pick": "VGK",
-     "p": 0.6024,
-     "fair": 1.66,
-     "book_name": "LowVig.ag",
-     "book": 1.66,
-     "edge": 0.0,
-     "home": 0.6024,
-     "away": 0.3976,
-     "home_reg": 0.5126,
-     "away_reg": 0.3196,
-     "reg_tie": 0.1678
+     "p": 0.6043,
+     "fair": 1.655,
+     "home": 0.6043,
+     "away": 0.3957,
+     "home_reg": 0.5122,
+     "away_reg": 0.3179,
+     "reg_tie": 0.1699
     },
     "fg_spread": {
      "pick": "VGK",
      "line": -1.5,
-     "p": 0.391,
-     "fair": 2.558,
-     "book_name": "LowVig.ag",
-     "book": 2.6,
-     "edge": 0.0165,
+     "p": 0.3912,
+     "fair": 2.556,
      "plus_pick": "VGK",
-     "plus_p": 0.7765
+     "plus_p": 0.7782
     },
     "fg_total": {
-     "mean": 6.168,
+     "mean": 6.166,
      "over55": 0.5571,
-     "over65": 0.4411,
-     "book_line": 6.0,
-     "book_over": 1.91,
-     "book_under": 1.95
+     "over65": 0.4402
     },
     "fg_over45": {
-     "p": 0.7698,
-     "fair": 1.299
+     "p": 0.769,
+     "fair": 1.3
     },
     "home_over15": {
      "pick": "VGK",
-     "p": 0.8482,
-     "fair": 1.179
+     "p": 0.847,
+     "fair": 1.181
     },
     "away_over15": {
      "pick": "NSH",
-     "p": 0.7454,
-     "fair": 1.341
+     "p": 0.7464,
+     "fair": 1.34
     },
     "p1_under25": {
-     "p": 0.7444,
-     "fair": 1.343
+     "p": 0.744,
+     "fair": 1.344
     }
    },
    "analytic": {
-    "u05_first5": 0.6724,
-    "u05_first10": 0.4319
+    "u05_first5": 0.6727,
+    "u05_first10": 0.4323
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6724,
-     "lo": 0.6346,
-     "hi": 0.7102,
-     "se_log_hazard": 0.0861
+     "p": 0.6727,
+     "lo": 0.6354,
+     "hi": 0.7101,
+     "se_log_hazard": 0.0851
     },
     "first10": {
-     "p": 0.4319,
-     "lo": 0.3806,
-     "hi": 0.4833,
-     "se_log_hazard": 0.0861
+     "p": 0.4323,
+     "lo": 0.3816,
+     "hi": 0.4831,
+     "se_log_hazard": 0.0851
     }
    },
    "mc_se": {
@@ -2511,32 +2513,32 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0575,
-    0.0711,
-    0.0661,
-    0.0687,
-    0.0625,
-    0.0566,
-    0.0531,
-    0.0478,
-    0.0436,
-    0.0398
+    0.059,
+    0.0705,
+    0.0662,
+    0.0684,
+    0.062,
+    0.0562,
+    0.0516,
+    0.0482,
+    0.0435,
+    0.0403
    ],
    "p1": {
-    "home": 0.3849,
-    "tie": 0.3322,
-    "away": 0.2829,
+    "home": 0.3835,
+    "tie": 0.3329,
+    "away": 0.2836,
     "total_dist": [
-     0.1732,
-     0.3044,
-     0.2667,
-     0.2556
+     0.1743,
+     0.3045,
+     0.2653,
+     0.256
     ],
     "mean_total": 1.749
    },
    "projected": {
-    "home": 3.4,
-    "away": 2.77,
+    "home": 3.41,
+    "away": 2.76,
     "median": [
      3,
      3
@@ -2544,26 +2546,26 @@
    },
    "goalies": {
     "home": {
-     "name": "Adin Hill",
-     "id": 8478499,
-     "status": "confirmed",
-     "source": "dailyfaceoff",
-     "note": "Confirmed via Jesse Granger 2026-11-13 19:29 UTC",
-     "sv_raw": 0.8921,
-     "sv_shrunk": 0.8951,
-     "sv_last5": 0.9014,
-     "e10_sv_raw": 0.8958,
-     "starts_cur": 9,
-     "shots_weighted": 866,
-     "xg_ratio": 1.018,
-     "gsax_per_60": -0.14
+     "name": "Carter Hart",
+     "id": 8479394,
+     "status": "projected",
+     "source": "usage-heuristic",
+     "note": "most-used goalie (11 starts this season)",
+     "sv_raw": 0.8917,
+     "sv_shrunk": 0.8954,
+     "sv_last5": 0.8774,
+     "e10_sv_raw": 0.8942,
+     "starts_cur": 11,
+     "shots_weighted": 482,
+     "xg_ratio": 1.016,
+     "gsax_per_60": -0.19
     },
     "away": {
      "name": "Juuse Saros",
      "id": 8477424,
-     "status": "confirmed",
-     "source": "dailyfaceoff",
-     "note": "Confirmed via Max Herz 2026-11-13 19:28 UTC",
+     "status": "projected",
+     "source": "usage-heuristic",
+     "note": "most-used goalie (13 starts this season)",
      "sv_raw": 0.9017,
      "sv_shrunk": 0.898,
      "sv_last5": 0.9366,
@@ -2726,9 +2728,9 @@
      "faces_goalie": {
       "name": "Juuse Saros",
       "id": 8477424,
-      "status": "confirmed",
-      "source": "dailyfaceoff",
-      "note": "Confirmed via Max Herz 2026-11-13 19:28 UTC",
+      "status": "projected",
+      "source": "usage-heuristic",
+      "note": "most-used goalie (13 starts this season)",
       "sv_raw": 0.9017,
       "sv_shrunk": 0.898,
       "sv_last5": 0.9366,
@@ -2744,8 +2746,8 @@
        "note": "20 games this season + 164 last season"
       },
       "opp_goalie": {
-       "label": "measured",
-       "note": "confirmed starter, 1693 weighted shots of data"
+       "label": "partial",
+       "note": "starter projected (1693 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -2904,27 +2906,27 @@
       "opp_def_shot_early": 0.9421,
       "opp_def_shot_full": 0.9406,
       "finish": 0.9707,
-      "opp_goalie": 1.0128,
-      "opp_goalie_sv_shrunk": 0.8951,
+      "opp_goalie": 1.0103,
+      "opp_goalie_sv_shrunk": 0.8954,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
      "context_detail": {},
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Adin Hill",
-      "id": 8478499,
-      "status": "confirmed",
-      "source": "dailyfaceoff",
-      "note": "Confirmed via Jesse Granger 2026-11-13 19:29 UTC",
-      "sv_raw": 0.8921,
-      "sv_shrunk": 0.8951,
-      "sv_last5": 0.9014,
-      "e10_sv_raw": 0.8958,
-      "starts_cur": 9,
-      "shots_weighted": 866,
-      "xg_ratio": 1.018,
-      "gsax_per_60": -0.14
+      "name": "Carter Hart",
+      "id": 8479394,
+      "status": "projected",
+      "source": "usage-heuristic",
+      "note": "most-used goalie (11 starts this season)",
+      "sv_raw": 0.8917,
+      "sv_shrunk": 0.8954,
+      "sv_last5": 0.8774,
+      "e10_sv_raw": 0.8942,
+      "starts_cur": 11,
+      "shots_weighted": 482,
+      "xg_ratio": 1.016,
+      "gsax_per_60": -0.19
      },
      "labels": {
       "team_profile": {
@@ -2932,8 +2934,8 @@
        "note": "only 19 games this season; leaning on 164 games from last season"
       },
       "opp_goalie": {
-       "label": "measured",
-       "note": "confirmed starter, 866 weighted shots of data"
+       "label": "partial",
+       "note": "starter projected (482 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -2941,16 +2943,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.02705,
-      0.03563,
-      0.03563,
-      0.03988,
-      0.03988,
-      0.03972,
-      0.03972,
-      0.03972,
-      0.03972,
-      0.03972
+      0.02698,
+      0.03554,
+      0.03554,
+      0.03978,
+      0.03978,
+      0.03962,
+      0.03962,
+      0.03962,
+      0.03962,
+      0.03962
      ]
     }
    },
@@ -3340,18 +3342,18 @@
     },
     "goalie_workload": {
      "home": {
-      "starts_on_record": 86,
-      "last_start": "2026-11-08",
-      "days_since_last_start": 5,
+      "starts_on_record": 29,
+      "last_start": "2026-11-11",
+      "days_since_last_start": 2,
       "started_last_night": false,
-      "shots_faced_last_start": 29,
-      "goals_against_last_start": 1,
-      "consecutive_team_starts": 0,
+      "shots_faced_last_start": 17,
+      "goals_against_last_start": 3,
+      "consecutive_team_starts": 1,
       "starts_last_7_days": 1,
       "shots_faced_last_3": [
-       31,
-       25,
-       29
+       24,
+       26,
+       17
       ]
      },
      "away": {
@@ -4104,19 +4106,31 @@
   }
  },
  "changes": {
-  "since": "2026-11-13 19:05 UTC",
+  "since": "2026-11-13 20:50 UTC",
   "items": [
+   {
+    "game_id": 2026020310,
+    "game": "NYR @ VAN",
+    "kind": "goalie",
+    "text": "VAN goalie now Leevi Meril\u00e4inen (projected), was Leevi Merilainen (expected)"
+   },
+   {
+    "game_id": 2026020310,
+    "game": "NYR @ VAN",
+    "kind": "status",
+    "text": "NYR Dylan Garand now projected, was confirmed"
+   },
    {
     "game_id": 2026020311,
     "game": "NSH @ VGK",
-    "kind": "status",
-    "text": "VGK Adin Hill now confirmed, was unconfirmed"
+    "kind": "goalie",
+    "text": "VGK goalie now Carter Hart (projected), was Adin Hill (confirmed)"
    },
    {
     "game_id": 2026020311,
     "game": "NSH @ VGK",
     "kind": "status",
-    "text": "NSH Juuse Saros now confirmed, was unconfirmed"
+    "text": "NSH Juuse Saros now projected, was confirmed"
    }
   ],
   "first_build": false,
