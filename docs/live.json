@@ -1,7 +1,7 @@
 {
  "date": "2026-11-12",
- "updated_utc": "2026-11-13 02:45 UTC",
- "updated_et": "9:45 PM ET",
+ "updated_utc": "2026-11-13 02:50 UTC",
+ "updated_et": "9:50 PM ET",
  "games": {
   "2026020309": {
    "state": "OFF",
@@ -156,21 +156,21 @@
    ]
   },
   "2026020301": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
-   "period": 3,
-   "time_remaining": "00:00",
+   "state": "FINAL",
+   "live": false,
+   "final": true,
+   "period": 4,
+   "time_remaining": "02:52",
    "elapsed_min": 60.0,
    "home": "OTT",
    "away": "COL",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 3,
    "first_goal_min": 7.183,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -200,6 +200,11 @@
     {
      "period": 3,
      "minute": 56.067,
+     "team": "OTT"
+    },
+    {
+     "period": 4,
+     "minute": 62.133,
      "team": "OTT"
     }
    ]
@@ -302,8 +307,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:59",
-   "elapsed_min": 48.02,
+   "time_remaining": "09:13",
+   "elapsed_min": 50.78,
    "home": "FLA",
    "away": "DET",
    "home_score": 3,
@@ -356,8 +361,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "11:37",
-   "elapsed_min": 28.38,
+   "time_remaining": "06:35",
+   "elapsed_min": 33.42,
    "home": "CHI",
    "away": "BUF",
    "home_score": 1,
@@ -390,12 +395,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "02:32",
-   "elapsed_min": 37.47,
+   "time_remaining": "00:08",
+   "elapsed_min": 39.87,
    "home": "DAL",
    "away": "WPG",
    "home_score": 3,
-   "away_score": 3,
+   "away_score": 5,
    "first_goal_min": 4.317,
    "p1_done": true,
    "p1_home": 2,
@@ -431,6 +436,16 @@
      "period": 2,
      "minute": 33.917,
      "team": "WPG"
+    },
+    {
+     "period": 2,
+     "minute": 38.2,
+     "team": "WPG"
+    },
+    {
+     "period": 2,
+     "minute": 39.867,
+     "team": "WPG"
     }
    ]
   },
@@ -439,8 +454,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "03:40",
-   "elapsed_min": 16.33,
+   "time_remaining": "00:06",
+   "elapsed_min": 19.9,
    "home": "UTA",
    "away": "STL",
    "home_score": 0,
