@@ -1,7 +1,7 @@
 {
  "date": "2026-11-12",
- "updated_utc": "2026-11-13 05:50 UTC",
- "updated_et": "12:50 AM ET",
+ "updated_utc": "2026-11-13 06:05 UTC",
+ "updated_et": "1:05 AM ET",
  "games": {
   "2026020309": {
    "state": "OFF",
@@ -503,12 +503,12 @@
    "goals": []
   },
   "2026020308": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:26",
-   "elapsed_min": 58.57,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "LAK",
    "away": "NYI",
    "home_score": 2,
@@ -517,7 +517,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
