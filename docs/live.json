@@ -1,7 +1,7 @@
 {
  "date": "2026-11-12",
- "updated_utc": "2026-11-13 00:30 UTC",
- "updated_et": "7:30 PM ET",
+ "updated_utc": "2026-11-13 00:35 UTC",
+ "updated_et": "7:35 PM ET",
  "games": {
   "2026020309": {
    "state": "OFF",
@@ -52,8 +52,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:41",
-   "elapsed_min": 12.32,
+   "time_remaining": "04:45",
+   "elapsed_min": 15.25,
    "home": "BOS",
    "away": "MTL",
    "home_score": 0,
@@ -81,8 +81,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:22",
-   "elapsed_min": 12.63,
+   "time_remaining": "04:53",
+   "elapsed_min": 15.12,
    "home": "TOR",
    "away": "MIN",
    "home_score": 0,
@@ -99,8 +99,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:36",
-   "elapsed_min": 10.4,
+   "time_remaining": "07:21",
+   "elapsed_min": 12.65,
    "home": "OTT",
    "away": "COL",
    "home_score": 1,
@@ -123,22 +123,27 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:16",
-   "elapsed_min": 12.73,
+   "time_remaining": "05:01",
+   "elapsed_min": 14.98,
    "home": "NJD",
    "away": "WSH",
    "home_score": 1,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 2.333,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 2.333,
      "team": "NJD"
+    },
+    {
+     "period": 1,
+     "minute": 14.167,
+     "team": "WSH"
     }
    ]
   },
@@ -147,15 +152,15 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "08:47",
-   "elapsed_min": 11.22,
+   "time_remaining": "07:36",
+   "elapsed_min": 12.4,
    "home": "CBJ",
    "away": "TBL",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 1,
    "first_goal_min": 2.95,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 1,
    "ended_in": null,
    "goals": [
@@ -163,6 +168,11 @@
      "period": 1,
      "minute": 2.95,
      "team": "TBL"
+    },
+    {
+     "period": 1,
+     "minute": 12.333,
+     "team": "CBJ"
     }
    ]
   },
