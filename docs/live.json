@@ -1,7 +1,7 @@
 {
  "date": "2026-11-12",
- "updated_utc": "2026-11-13 03:45 UTC",
- "updated_et": "10:45 PM ET",
+ "updated_utc": "2026-11-13 03:50 UTC",
+ "updated_et": "10:50 PM ET",
  "games": {
   "2026020309": {
    "state": "OFF",
@@ -367,9 +367,9 @@
    ]
   },
   "2026020305": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
    "time_remaining": "01:48",
    "elapsed_min": 60.0,
@@ -381,7 +381,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -489,8 +489,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:14",
-   "elapsed_min": 36.77,
+   "time_remaining": "01:34",
+   "elapsed_min": 38.43,
    "home": "UTA",
    "away": "STL",
    "home_score": 0,
@@ -507,8 +507,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "01:16",
-   "elapsed_min": 18.73,
+   "time_remaining": "13:48",
+   "elapsed_min": 12.93,
    "home": "LAK",
    "away": "NYI",
    "home_score": 1,
