@@ -1,0 +1,30 @@
+{
+ "updated_utc": "2026-10-15 06:26 UTC",
+ "tested": [
+  {
+   "name": "Recency half-life 60 games (instead of 20 or 35; 100 no better)",
+   "result": "2025-26: shots gain 0.0060 vs 0.0040 at 20 games, points 0.0067 vs 0.0044, anytime goal 0.0105 vs 0.0075, blocks 0.0085 vs 0.0059",
+   "kept": true
+  },
+  {
+   "name": "Lighter shrinkage toward the league skater (shots / blocks 3 pseudo-games, points / goals 5)",
+   "result": "shots 0.0064 vs 0.0060, points 0.0072 vs 0.0067 on top of the 60-game half-life; assists kept at 10 (5 was worse)",
+   "kept": true
+  },
+  {
+   "name": "Recent ice-time share moves the skater's rates (deployment weight 0.5)",
+   "result": "weight 0 and 0.25 both worse: points 0.0036 / 0.0068 vs 0.0072, blocks 0.0052 / 0.0082 vs 0.0084",
+   "kept": true
+  },
+  {
+   "name": "Negative binomial for shots and blocks, Poisson for points / assists / goals",
+   "result": "measured within-player variance / mean: shots 1.09, blocks 1.07, points 0.99, assists 0.99, goals 0.99",
+   "kept": true
+  },
+  {
+   "name": "Pregame candidates only (skaters who dressed in the team's previous game), a scratch is a void bet",
+   "result": "used for every number in the validation table; 3 seasons, 131,940 skater-games",
+   "kept": true
+  }
+ ]
+}
