@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 03:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-11-15 03:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -488,8 +488,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:22",
-   "elapsed_min": 46.63,
+   "time_remaining": "11:54",
+   "elapsed_min": 48.1,
    "home": "DAL",
    "away": "BUF",
    "home_score": 1,
@@ -512,8 +512,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "19:48",
-   "elapsed_min": 20.2,
+   "time_remaining": "18:17",
+   "elapsed_min": 21.72,
    "home": "UTA",
    "away": "SJS",
    "home_score": 3,
@@ -551,18 +551,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:20",
-   "elapsed_min": 0.67,
+   "time_remaining": "16:08",
+   "elapsed_min": 3.87,
    "home": "ANA",
    "away": "NYI",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 1.917,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 1.917,
+     "team": "NYI"
+    }
+   ]
   },
   "2026020325": {
    "state": "PRE",
