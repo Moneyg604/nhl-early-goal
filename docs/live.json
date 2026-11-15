@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 04:15 UTC",
- "updated_et": "11:15 PM ET",
+ "updated_utc": "2026-11-15 04:20 UTC",
+ "updated_et": "11:20 PM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -517,8 +517,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "19:04",
-   "elapsed_min": 40.93,
+   "time_remaining": "15:54",
+   "elapsed_min": 44.1,
    "home": "UTA",
    "away": "SJS",
    "home_score": 4,
@@ -571,12 +571,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:00",
-   "elapsed_min": 26.0,
+   "time_remaining": "10:07",
+   "elapsed_min": 29.88,
    "home": "ANA",
    "away": "NYI",
    "home_score": 1,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 1.917,
    "p1_done": true,
    "p1_home": 0,
@@ -602,6 +602,11 @@
      "period": 2,
      "minute": 23.017,
      "team": "NYI"
+    },
+    {
+     "period": 2,
+     "minute": 28.467,
+     "team": "NYI"
     }
    ]
   },
@@ -610,18 +615,24 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "20:00",
-   "elapsed_min": 20.0,
+   "time_remaining": "17:31",
+   "elapsed_min": 22.48,
    "home": "LAK",
    "away": "CGY",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 22.217,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 2,
+     "minute": 22.217,
+     "team": "CGY"
+    }
+   ]
   }
  }
 }
