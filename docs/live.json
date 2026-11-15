@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 02:10 UTC",
- "updated_et": "9:10 PM ET",
+ "updated_utc": "2026-11-15 02:15 UTC",
+ "updated_et": "9:15 PM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -116,11 +116,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "17:27",
-   "elapsed_min": 42.55,
+   "time_remaining": "14:04",
+   "elapsed_min": 45.93,
    "home": "BOS",
    "away": "MIN",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 4,
    "first_goal_min": 6.9,
    "p1_done": true,
@@ -152,6 +152,11 @@
      "period": 2,
      "minute": 30.0,
      "team": "MIN"
+    },
+    {
+     "period": 3,
+     "minute": 44.75,
+     "team": "BOS"
     }
    ]
   },
@@ -160,8 +165,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "18:24",
-   "elapsed_min": 41.6,
+   "time_remaining": "15:45",
+   "elapsed_min": 44.25,
    "home": "TOR",
    "away": "EDM",
    "home_score": 0,
@@ -183,9 +188,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "03:44",
-   "elapsed_min": 36.27,
+   "period": 3,
+   "time_remaining": "20:00",
+   "elapsed_min": 40.0,
    "home": "MTL",
    "away": "COL",
    "home_score": 1,
@@ -218,8 +223,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:08",
-   "elapsed_min": 46.87,
+   "time_remaining": "10:03",
+   "elapsed_min": 49.95,
    "home": "TBL",
    "away": "DET",
    "home_score": 0,
@@ -241,9 +246,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "04:58",
-   "elapsed_min": 36.2,
+   "period": 3,
+   "time_remaining": "20:00",
+   "elapsed_min": 40.0,
    "home": "PIT",
    "away": "OTT",
    "home_score": 1,
@@ -276,12 +281,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "18:38",
-   "elapsed_min": 41.37,
+   "time_remaining": "15:35",
+   "elapsed_min": 44.42,
    "home": "WSH",
    "away": "NJD",
    "home_score": 4,
-   "away_score": 5,
+   "away_score": 6,
    "first_goal_min": 5.217,
    "p1_done": true,
    "p1_home": 3,
@@ -332,6 +337,11 @@
      "period": 3,
      "minute": 41.367,
      "team": "WSH"
+    },
+    {
+     "period": 3,
+     "minute": 43.3,
+     "team": "NJD"
     }
    ]
   },
@@ -340,8 +350,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:07",
-   "elapsed_min": 45.88,
+   "time_remaining": "11:44",
+   "elapsed_min": 48.27,
    "home": "CBJ",
    "away": "PHI",
    "home_score": 3,
@@ -389,12 +399,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:32",
-   "elapsed_min": 45.47,
+   "time_remaining": "10:44",
+   "elapsed_min": 49.27,
    "home": "STL",
    "away": "FLA",
    "home_score": 0,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 5.2,
    "p1_done": true,
    "p1_home": 0,
@@ -415,6 +425,11 @@
      "period": 2,
      "minute": 23.467,
      "team": "FLA"
+    },
+    {
+     "period": 3,
+     "minute": 47.633,
+     "team": "FLA"
     }
    ]
   },
@@ -423,8 +438,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:51",
-   "elapsed_min": 24.15,
+   "time_remaining": "12:59",
+   "elapsed_min": 27.02,
    "home": "DAL",
    "away": "BUF",
    "home_score": 0,
@@ -441,18 +456,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:00",
-   "elapsed_min": 1.0,
+   "time_remaining": "16:09",
+   "elapsed_min": 3.85,
    "home": "UTA",
    "away": "SJS",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 0,
-   "first_goal_min": null,
+   "first_goal_min": 2.25,
    "p1_done": false,
-   "p1_home": 0,
+   "p1_home": 1,
    "p1_away": 0,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 2.25,
+     "team": "UTA"
+    }
+   ]
   },
   "2026020324": {
    "state": "FUT",
