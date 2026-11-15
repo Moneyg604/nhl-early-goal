@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 02:45 UTC",
- "updated_et": "9:45 PM ET",
+ "updated_utc": "2026-11-15 02:50 UTC",
+ "updated_et": "9:50 PM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -112,12 +112,12 @@
    ]
   },
   "2026020313": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:07",
-   "elapsed_min": 58.88,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "BOS",
    "away": "MIN",
    "home_score": 2,
@@ -126,7 +126,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -195,12 +195,12 @@
    ]
   },
   "2026020315": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:22",
-   "elapsed_min": 53.63,
+   "time_remaining": "03:59",
+   "elapsed_min": 56.02,
    "home": "MTL",
    "away": "COL",
    "home_score": 1,
@@ -263,16 +263,16 @@
    ]
   },
   "2026020317": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:42",
-   "elapsed_min": 54.3,
+   "time_remaining": "03:38",
+   "elapsed_min": 56.37,
    "home": "PIT",
    "away": "OTT",
    "home_score": 1,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 19.867,
    "p1_done": true,
    "p1_home": 1,
@@ -293,16 +293,21 @@
      "period": 2,
      "minute": 36.2,
      "team": "OTT"
+    },
+    {
+     "period": 3,
+     "minute": 54.3,
+     "team": "OTT"
     }
    ]
   },
   "2026020318": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:57",
-   "elapsed_min": 57.05,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "WSH",
    "away": "NJD",
    "home_score": 4,
@@ -311,7 +316,7 @@
    "p1_done": true,
    "p1_home": 3,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -473,7 +478,7 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "13:13",
+   "time_remaining": "08:16",
    "elapsed_min": 36.38,
    "home": "DAL",
    "away": "BUF",
@@ -497,8 +502,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "04:50",
-   "elapsed_min": 15.17,
+   "time_remaining": "00:58",
+   "elapsed_min": 19.03,
    "home": "UTA",
    "away": "SJS",
    "home_score": 3,
