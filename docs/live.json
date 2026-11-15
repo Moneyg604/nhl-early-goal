@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 05:35 UTC",
- "updated_et": "12:35 AM ET",
+ "updated_utc": "2026-11-15 05:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -513,7 +513,7 @@
    ]
   },
   "2026020323": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 5,
@@ -582,12 +582,12 @@
    ]
   },
   "2026020324": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:28",
-   "elapsed_min": 59.53,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "ANA",
    "away": "NYI",
    "home_score": 2,
@@ -596,7 +596,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -645,12 +645,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "09:05",
-   "elapsed_min": 50.92,
+   "time_remaining": "06:29",
+   "elapsed_min": 53.52,
    "home": "LAK",
    "away": "CGY",
    "home_score": 1,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 22.217,
    "p1_done": true,
    "p1_home": 0,
@@ -666,6 +666,11 @@
      "period": 3,
      "minute": 46.35,
      "team": "LAK"
+    },
+    {
+     "period": 3,
+     "minute": 51.35,
+     "team": "CGY"
     }
    ]
   }
