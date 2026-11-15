@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 05:25 UTC",
- "updated_et": "12:25 AM ET",
+ "updated_utc": "2026-11-15 05:30 UTC",
+ "updated_et": "12:30 AM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -582,12 +582,12 @@
    ]
   },
   "2026020324": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:41",
-   "elapsed_min": 54.32,
+   "time_remaining": "03:49",
+   "elapsed_min": 56.18,
    "home": "ANA",
    "away": "NYI",
    "home_score": 2,
@@ -645,11 +645,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:39",
-   "elapsed_min": 46.35,
+   "time_remaining": "11:03",
+   "elapsed_min": 48.95,
    "home": "LAK",
    "away": "CGY",
-   "home_score": 0,
+   "home_score": 1,
    "away_score": 1,
    "first_goal_min": 22.217,
    "p1_done": true,
@@ -661,6 +661,11 @@
      "period": 2,
      "minute": 22.217,
      "team": "CGY"
+    },
+    {
+     "period": 3,
+     "minute": 46.35,
+     "team": "LAK"
     }
    ]
   }
