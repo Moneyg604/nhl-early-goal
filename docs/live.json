@@ -1,7 +1,7 @@
 {
  "date": "2026-11-14",
- "updated_utc": "2026-11-15 05:05 UTC",
- "updated_et": "12:05 AM ET",
+ "updated_utc": "2026-11-15 05:10 UTC",
+ "updated_et": "12:10 AM ET",
  "games": {
   "2026020321": {
    "state": "OFF",
@@ -513,21 +513,21 @@
    ]
   },
   "2026020323": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 5,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
    "home": "UTA",
    "away": "SJS",
    "home_score": 5,
-   "away_score": 5,
+   "away_score": 6,
    "first_goal_min": 2.25,
    "p1_done": true,
    "p1_home": 3,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "SO",
    "goals": [
     {
      "period": 1,
@@ -586,8 +586,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "17:16",
-   "elapsed_min": 42.73,
+   "time_remaining": "14:14",
+   "elapsed_min": 45.77,
    "home": "ANA",
    "away": "NYI",
    "home_score": 2,
@@ -635,7 +635,7 @@
     },
     {
      "period": 3,
-     "minute": 42.667,
+     "minute": 42.683,
      "team": "NYI"
     }
    ]
@@ -645,8 +645,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "07:37",
-   "elapsed_min": 32.38,
+   "time_remaining": "02:37",
+   "elapsed_min": 37.38,
    "home": "LAK",
    "away": "CGY",
    "home_score": 0,
