@@ -1,7 +1,7 @@
 {
  "date": "2026-11-15",
- "updated_utc": "2026-11-16 04:35 UTC",
- "updated_et": "11:35 PM ET",
+ "updated_utc": "2026-11-16 04:40 UTC",
+ "updated_et": "11:40 PM ET",
  "games": {
   "2026020326": {
    "state": "OFF",
@@ -146,12 +146,12 @@
    ]
   },
   "2026020329": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:46",
-   "elapsed_min": 54.23,
+   "time_remaining": "02:58",
+   "elapsed_min": 57.03,
    "home": "VGK",
    "away": "VAN",
    "home_score": 3,
@@ -205,12 +205,12 @@
    ]
   },
   "2026020330": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:19",
-   "elapsed_min": 58.68,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "SJS",
    "away": "NSH",
    "home_score": 4,
@@ -219,7 +219,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
