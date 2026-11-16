@@ -1,10 +1,10 @@
 {
  "date": "2026-11-15",
- "updated_utc": "2026-11-16 03:35 UTC",
- "updated_et": "10:35 PM ET",
+ "updated_utc": "2026-11-16 03:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020326": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -58,21 +58,21 @@
    ]
   },
   "2026020327": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
-   "period": 3,
-   "time_remaining": "01:16",
-   "elapsed_min": 58.73,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
+   "period": 4,
+   "time_remaining": "02:04",
+   "elapsed_min": 60.0,
    "home": "DAL",
    "away": "FLA",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 1,
    "first_goal_min": 24.45,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 2,
@@ -82,6 +82,11 @@
     {
      "period": 2,
      "minute": 29.317,
+     "team": "DAL"
+    },
+    {
+     "period": 4,
+     "minute": 62.933,
      "team": "DAL"
     }
    ]
@@ -145,8 +150,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "05:52",
-   "elapsed_min": 34.13,
+   "time_remaining": "00:51",
+   "elapsed_min": 39.15,
    "home": "VGK",
    "away": "VAN",
    "home_score": 2,
@@ -194,12 +199,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "02:47",
-   "elapsed_min": 37.22,
+   "time_remaining": "12:14",
+   "elapsed_min": 37.72,
    "home": "SJS",
    "away": "NSH",
    "home_score": 3,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 12.417,
    "p1_done": true,
    "p1_home": 2,
@@ -220,6 +225,11 @@
      "period": 2,
      "minute": 24.75,
      "team": "SJS"
+    },
+    {
+     "period": 2,
+     "minute": 37.717,
+     "team": "NSH"
     }
    ]
   }
