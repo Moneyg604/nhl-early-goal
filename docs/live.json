@@ -1,7 +1,7 @@
 {
  "date": "2026-11-15",
- "updated_utc": "2026-11-16 03:25 UTC",
- "updated_et": "10:25 PM ET",
+ "updated_utc": "2026-11-16 03:30 UTC",
+ "updated_et": "10:30 PM ET",
  "games": {
   "2026020326": {
    "state": "FINAL",
@@ -58,12 +58,12 @@
    ]
   },
   "2026020327": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:00",
-   "elapsed_min": 54.0,
+   "time_remaining": "04:08",
+   "elapsed_min": 55.87,
    "home": "DAL",
    "away": "FLA",
    "home_score": 1,
@@ -87,21 +87,21 @@
    ]
   },
   "2026020328": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "03:24",
-   "elapsed_min": 56.6,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "ANA",
    "away": "CGY",
-   "home_score": 5,
+   "home_score": 6,
    "away_score": 1,
    "first_goal_min": 1.267,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -132,6 +132,11 @@
      "period": 3,
      "minute": 56.233,
      "team": "ANA"
+    },
+    {
+     "period": 3,
+     "minute": 57.1,
+     "team": "ANA"
     }
    ]
   },
@@ -140,11 +145,11 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "12:27",
-   "elapsed_min": 27.55,
+   "time_remaining": "08:03",
+   "elapsed_min": 31.95,
    "home": "VGK",
    "away": "VAN",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 4,
    "first_goal_min": 5.333,
    "p1_done": true,
@@ -176,6 +181,11 @@
      "period": 2,
      "minute": 22.233,
      "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 31.95,
+     "team": "VGK"
     }
    ]
   },
@@ -184,8 +194,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "07:38",
-   "elapsed_min": 32.37,
+   "time_remaining": "05:49",
+   "elapsed_min": 34.18,
    "home": "SJS",
    "away": "NSH",
    "home_score": 3,
