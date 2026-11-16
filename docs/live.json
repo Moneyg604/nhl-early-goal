@@ -1,24 +1,24 @@
 {
  "date": "2026-11-15",
- "updated_utc": "2026-11-16 03:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-11-16 03:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020326": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:15",
-   "elapsed_min": 58.75,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "PHI",
    "away": "EDM",
    "home_score": 2,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 8.133,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 3,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -49,6 +49,11 @@
      "period": 3,
      "minute": 41.117,
      "team": "EDM"
+    },
+    {
+     "period": 3,
+     "minute": 58.867,
+     "team": "EDM"
     }
    ]
   },
@@ -57,8 +62,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:36",
-   "elapsed_min": 47.4,
+   "time_remaining": "10:18",
+   "elapsed_min": 49.7,
    "home": "DAL",
    "away": "FLA",
    "home_score": 1,
@@ -86,8 +91,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:55",
-   "elapsed_min": 48.08,
+   "time_remaining": "09:19",
+   "elapsed_min": 50.68,
    "home": "ANA",
    "away": "CGY",
    "home_score": 4,
@@ -130,12 +135,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "18:00",
-   "elapsed_min": 22.0,
+   "time_remaining": "16:45",
+   "elapsed_min": 23.25,
    "home": "VGK",
    "away": "VAN",
    "home_score": 1,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 5.333,
    "p1_done": true,
    "p1_home": 1,
@@ -161,6 +166,11 @@
      "period": 1,
      "minute": 17.6,
      "team": "VAN"
+    },
+    {
+     "period": 2,
+     "minute": 22.233,
+     "team": "VAN"
     }
    ]
   },
@@ -169,11 +179,11 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:34",
-   "elapsed_min": 24.43,
+   "time_remaining": "13:32",
+   "elapsed_min": 26.47,
    "home": "SJS",
    "away": "NSH",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 0,
    "first_goal_min": 12.417,
    "p1_done": true,
@@ -189,6 +199,11 @@
     {
      "period": 1,
      "minute": 16.167,
+     "team": "SJS"
+    },
+    {
+     "period": 2,
+     "minute": 24.75,
      "team": "SJS"
     }
    ]
