@@ -1,7 +1,7 @@
 {
  "date": "2026-11-16",
- "updated_utc": "2026-11-17 05:20 UTC",
- "updated_et": "12:20 AM ET",
+ "updated_utc": "2026-11-17 05:25 UTC",
+ "updated_et": "12:25 AM ET",
  "games": {
   "2026020331": {
    "state": "OFF",
@@ -43,12 +43,12 @@
    ]
   },
   "2026020332": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
-   "elapsed_min": 55.62,
+   "elapsed_min": 60.0,
    "home": "UTA",
    "away": "VAN",
    "home_score": 2,
@@ -57,7 +57,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 2,
