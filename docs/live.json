@@ -1,15 +1,15 @@
 {
  "date": "2026-11-17",
- "updated_utc": "2026-11-18 02:40 UTC",
- "updated_et": "9:40 PM ET",
+ "updated_utc": "2026-11-18 02:45 UTC",
+ "updated_et": "9:45 PM ET",
  "games": {
   "2026020333": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:05",
-   "elapsed_min": 59.92,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "BOS",
    "away": "LAK",
    "home_score": 0,
@@ -18,7 +18,7 @@
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -233,12 +233,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "15:50",
-   "elapsed_min": 44.17,
+   "time_remaining": "11:34",
+   "elapsed_min": 48.43,
    "home": "TBL",
    "away": "WSH",
    "home_score": 4,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 2.183,
    "p1_done": true,
    "p1_home": 3,
@@ -269,6 +269,11 @@
      "period": 2,
      "minute": 31.567,
      "team": "TBL"
+    },
+    {
+     "period": 3,
+     "minute": 44.883,
+     "team": "WSH"
     }
    ]
   },
@@ -277,8 +282,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "15:20",
-   "elapsed_min": 44.67,
+   "time_remaining": "12:19",
+   "elapsed_min": 47.68,
    "home": "CHI",
    "away": "TOR",
    "home_score": 3,
@@ -321,12 +326,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:49",
-   "elapsed_min": 36.18,
+   "time_remaining": "00:55",
+   "elapsed_min": 39.08,
    "home": "STL",
    "away": "ANA",
    "home_score": 4,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 2.217,
    "p1_done": true,
    "p1_home": 2,
@@ -362,6 +367,11 @@
      "period": 2,
      "minute": 33.617,
      "team": "STL"
+    },
+    {
+     "period": 2,
+     "minute": 36.317,
+     "team": "ANA"
     }
    ]
   },
@@ -370,12 +380,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "03:02",
-   "elapsed_min": 36.97,
+   "time_remaining": "00:23",
+   "elapsed_min": 39.62,
    "home": "MIN",
    "away": "NSH",
    "home_score": 6,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 4.333,
    "p1_done": true,
    "p1_home": 4,
@@ -420,6 +430,11 @@
     {
      "period": 2,
      "minute": 27.217,
+     "team": "NSH"
+    },
+    {
+     "period": 2,
+     "minute": 38.683,
      "team": "NSH"
     }
    ]
