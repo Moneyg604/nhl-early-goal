@@ -1,7 +1,7 @@
 {
  "date": "2026-11-17",
- "updated_utc": "2026-11-18 03:40 UTC",
- "updated_et": "10:40 PM ET",
+ "updated_utc": "2026-11-18 03:45 UTC",
+ "updated_et": "10:45 PM ET",
  "games": {
   "2026020333": {
    "state": "OFF",
@@ -351,12 +351,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "01:25",
-   "elapsed_min": 58.58,
+   "time_remaining": "00:36",
+   "elapsed_min": 59.4,
    "home": "STL",
    "away": "ANA",
-   "home_score": 7,
-   "away_score": 4,
+   "home_score": 8,
+   "away_score": 6,
    "first_goal_min": 2.217,
    "p1_done": true,
    "p1_home": 2,
@@ -417,16 +417,31 @@
      "period": 3,
      "minute": 54.983,
      "team": "ANA"
+    },
+    {
+     "period": 3,
+     "minute": 58.583,
+     "team": "ANA"
+    },
+    {
+     "period": 3,
+     "minute": 59.317,
+     "team": "ANA"
+    },
+    {
+     "period": 3,
+     "minute": 59.383,
+     "team": "STL"
     }
    ]
   },
   "2026020340": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:23",
-   "elapsed_min": 58.62,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "MIN",
    "away": "NSH",
    "home_score": 7,
@@ -435,7 +450,7 @@
    "p1_done": true,
    "p1_home": 4,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -494,8 +509,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:19",
-   "elapsed_min": 12.68,
+   "time_remaining": "05:35",
+   "elapsed_min": 14.42,
    "home": "VGK",
    "away": "DAL",
    "home_score": 0,
@@ -512,8 +527,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "00:37",
-   "elapsed_min": 19.38,
+   "time_remaining": "13:41",
+   "elapsed_min": 19.37,
    "home": "SJS",
    "away": "CGY",
    "home_score": 1,
