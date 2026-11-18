@@ -1,7 +1,7 @@
 {
  "date": "2026-11-17",
- "updated_utc": "2026-11-18 05:40 UTC",
- "updated_et": "12:40 AM ET",
+ "updated_utc": "2026-11-18 05:45 UTC",
+ "updated_et": "12:45 AM ET",
  "games": {
   "2026020333": {
    "state": "OFF",
@@ -509,12 +509,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "02:45",
-   "elapsed_min": 57.25,
+   "time_remaining": "00:53",
+   "elapsed_min": 59.12,
    "home": "VGK",
    "away": "DAL",
    "home_score": 3,
-   "away_score": 1,
+   "away_score": 2,
    "first_goal_min": 20.667,
    "p1_done": true,
    "p1_home": 0,
@@ -540,16 +540,21 @@
      "period": 3,
      "minute": 52.717,
      "team": "VGK"
+    },
+    {
+     "period": 3,
+     "minute": 58.7,
+     "team": "DAL"
     }
    ]
   },
   "2026020343": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
-   "elapsed_min": 59.0,
+   "elapsed_min": 60.0,
    "home": "SJS",
    "away": "CGY",
    "home_score": 2,
@@ -558,7 +563,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
