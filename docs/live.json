@@ -1,7 +1,7 @@
 {
  "date": "2026-11-17",
- "updated_utc": "2026-11-18 05:25 UTC",
- "updated_et": "12:25 AM ET",
+ "updated_utc": "2026-11-18 05:30 UTC",
+ "updated_et": "12:30 AM ET",
  "games": {
   "2026020333": {
    "state": "OFF",
@@ -509,11 +509,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "09:01",
-   "elapsed_min": 50.98,
+   "time_remaining": "07:17",
+   "elapsed_min": 52.72,
    "home": "VGK",
    "away": "DAL",
-   "home_score": 2,
+   "home_score": 3,
    "away_score": 1,
    "first_goal_min": 20.667,
    "p1_done": true,
@@ -535,19 +535,24 @@
      "period": 3,
      "minute": 50.983,
      "team": "DAL"
+    },
+    {
+     "period": 3,
+     "minute": 52.717,
+     "team": "VGK"
     }
    ]
   },
   "2026020343": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:35",
-   "elapsed_min": 54.42,
+   "time_remaining": "02:58",
+   "elapsed_min": 57.03,
    "home": "SJS",
    "away": "CGY",
-   "home_score": 1,
+   "home_score": 2,
    "away_score": 4,
    "first_goal_min": 3.883,
    "p1_done": true,
@@ -579,6 +584,11 @@
      "period": 3,
      "minute": 44.25,
      "team": "CGY"
+    },
+    {
+     "period": 3,
+     "minute": 55.367,
+     "team": "SJS"
     }
    ]
   }
