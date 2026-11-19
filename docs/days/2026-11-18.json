@@ -1,6 +1,6 @@
 {
  "date": "2026-11-18",
- "generated_utc": "2026-11-19 01:02 UTC",
+ "generated_utc": "2026-11-19 03:48 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -911,8 +911,8 @@
   "prior_season_games": 2624,
   "slate_offset_days": 0,
   "built_for": "2026-11-18",
-  "goalie_source": "usage heuristic for the rest",
-  "dfo_teams": 0
+  "goalie_source": "dailyfaceoff + usage heuristic for the rest",
+  "dfo_teams": 6
  },
  "league": {
   "games_in_profile": 2967,
@@ -944,14 +944,14 @@
  "pick_of_day": {
   "matchup": "MTL @ NJD",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6759,
-  "fair": 1.479,
-  "tier": "B",
+  "p": 0.6843,
+  "fair": 1.461,
+  "tier": "A",
   "game_id": 2026020345,
   "runner_up": {
    "matchup": "BOS @ DET",
-   "p": 0.6755,
-   "tier": "B"
+   "p": 0.6757,
+   "tier": "A"
   }
  },
  "top": {
@@ -959,45 +959,45 @@
    {
     "matchup": "MTL @ NJD",
     "pick": null,
-    "p": 0.6759,
-    "tier": "B",
+    "p": 0.6843,
+    "tier": "A",
     "game_id": 2026020345
    },
    {
     "matchup": "BOS @ DET",
     "pick": null,
-    "p": 0.6755,
-    "tier": "B",
+    "p": 0.6757,
+    "tier": "A",
     "game_id": 2026020344
    },
    {
     "matchup": "COL @ UTA",
     "pick": null,
-    "p": 0.6633,
-    "tier": "B",
+    "p": 0.6612,
+    "tier": "A",
     "game_id": 2026020346
    }
   ],
   "u05_first10": [
    {
-    "matchup": "BOS @ DET",
-    "pick": null,
-    "p": 0.4377,
-    "tier": "B",
-    "game_id": 2026020344
-   },
-   {
     "matchup": "MTL @ NJD",
     "pick": null,
-    "p": 0.4375,
-    "tier": "B",
+    "p": 0.4454,
+    "tier": "A",
     "game_id": 2026020345
+   },
+   {
+    "matchup": "BOS @ DET",
+    "pick": null,
+    "p": 0.4381,
+    "tier": "A",
+    "game_id": 2026020344
    },
    {
     "matchup": "COL @ UTA",
     "pick": null,
-    "p": 0.4155,
-    "tier": "B",
+    "p": 0.4158,
+    "tier": "A",
     "game_id": 2026020346
    }
   ],
@@ -1005,22 +1005,22 @@
    {
     "matchup": "COL @ UTA",
     "pick": null,
-    "p": 0.8005,
-    "tier": "B",
+    "p": 0.8029,
+    "tier": "A",
     "game_id": 2026020346
    },
    {
     "matchup": "MTL @ NJD",
     "pick": null,
-    "p": 0.7647,
-    "tier": "B",
+    "p": 0.7559,
+    "tier": "A",
     "game_id": 2026020345
    },
    {
     "matchup": "BOS @ DET",
     "pick": null,
-    "p": 0.7572,
-    "tier": "B",
+    "p": 0.754,
+    "tier": "A",
     "game_id": 2026020344
    }
   ],
@@ -1028,94 +1028,94 @@
    {
     "matchup": "COL @ UTA",
     "pick": "COL",
-    "p": 0.8416,
-    "tier": "B",
+    "p": 0.8403,
+    "tier": "A",
     "game_id": 2026020346,
     "market": "away_over15"
    },
    {
     "matchup": "BOS @ DET",
     "pick": "DET",
-    "p": 0.8208,
-    "tier": "B",
+    "p": 0.8224,
+    "tier": "A",
     "game_id": 2026020344,
     "market": "home_over15"
    },
    {
     "matchup": "MTL @ NJD",
     "pick": "NJD",
-    "p": 0.8092,
-    "tier": "B",
+    "p": 0.8136,
+    "tier": "A",
     "game_id": 2026020345,
     "market": "home_over15"
    }
   ],
   "p1_under25": [
    {
-    "matchup": "BOS @ DET",
-    "pick": null,
-    "p": 0.7517,
-    "tier": "B",
-    "game_id": 2026020344
-   },
-   {
     "matchup": "MTL @ NJD",
     "pick": null,
-    "p": 0.749,
-    "tier": "B",
+    "p": 0.7589,
+    "tier": "A",
     "game_id": 2026020345
+   },
+   {
+    "matchup": "BOS @ DET",
+    "pick": null,
+    "p": 0.7539,
+    "tier": "A",
+    "game_id": 2026020344
    },
    {
     "matchup": "COL @ UTA",
     "pick": null,
-    "p": 0.7186,
-    "tier": "B",
+    "p": 0.717,
+    "tier": "A",
     "game_id": 2026020346
    }
   ],
   "p1_plus05": [
    {
-    "matchup": "COL @ UTA",
-    "pick": "COL",
-    "p": 0.6823,
-    "tier": "B",
-    "game_id": 2026020346
+    "matchup": "MTL @ NJD",
+    "pick": "NJD",
+    "p": 0.6917,
+    "tier": "A",
+    "game_id": 2026020345
    },
    {
     "matchup": "BOS @ DET",
     "pick": "DET",
-    "p": 0.6813,
-    "tier": "B",
+    "p": 0.6855,
+    "tier": "A",
     "game_id": 2026020344
    },
    {
-    "matchup": "MTL @ NJD",
-    "pick": "NJD",
-    "p": 0.681,
-    "tier": "B",
-    "game_id": 2026020345
+    "matchup": "COL @ UTA",
+    "pick": "COL",
+    "p": 0.683,
+    "tier": "A",
+    "game_id": 2026020346
    }
   ],
   "p1_minus05": [
    {
     "matchup": "COL @ UTA",
     "pick": "COL",
-    "p": 0.3596,
-    "tier": "B",
+    "p": 0.3593,
+    "tier": "A",
     "game_id": 2026020346
    },
    {
     "matchup": "MTL @ NJD",
     "pick": "NJD",
-    "p": 0.3435,
-    "tier": "B",
+    "p": 0.353,
+    "tier": "A",
     "game_id": 2026020345
    },
    {
     "matchup": "BOS @ DET",
     "pick": "DET",
-    "p": 0.3427,
-    "tier": "B",
+    "p": 0.3473,
+    "tier": "A",
     "game_id": 2026020344
    }
   ],
@@ -1123,22 +1123,22 @@
    {
     "matchup": "COL @ UTA",
     "pick": "COL",
-    "p": 0.3596,
-    "tier": "B",
+    "p": 0.3593,
+    "tier": "A",
     "game_id": 2026020346
    },
    {
     "matchup": "MTL @ NJD",
     "pick": "NJD",
-    "p": 0.3435,
-    "tier": "B",
+    "p": 0.353,
+    "tier": "A",
     "game_id": 2026020345
    },
    {
     "matchup": "BOS @ DET",
     "pick": "DET",
-    "p": 0.3427,
-    "tier": "B",
+    "p": 0.3473,
+    "tier": "A",
     "game_id": 2026020344
    }
   ],
@@ -1146,22 +1146,22 @@
    {
     "matchup": "BOS @ DET",
     "pick": "DET",
-    "p": 0.5591,
-    "tier": "B",
+    "p": 0.567,
+    "tier": "A",
     "game_id": 2026020344
    },
    {
     "matchup": "COL @ UTA",
     "pick": "COL",
-    "p": 0.5484,
-    "tier": "B",
+    "p": 0.5493,
+    "tier": "A",
     "game_id": 2026020346
    },
    {
     "matchup": "MTL @ NJD",
     "pick": "NJD",
-    "p": 0.5273,
-    "tier": "B",
+    "p": 0.5427,
+    "tier": "A",
     "game_id": 2026020345
    }
   ],
@@ -1169,22 +1169,22 @@
    {
     "matchup": "BOS @ DET",
     "pick": "DET",
-    "p": 0.3491,
-    "tier": "B",
+    "p": 0.3558,
+    "tier": "A",
     "game_id": 2026020344
    },
    {
     "matchup": "COL @ UTA",
     "pick": "COL",
-    "p": 0.3455,
-    "tier": "B",
+    "p": 0.3491,
+    "tier": "A",
     "game_id": 2026020346
    },
    {
     "matchup": "MTL @ NJD",
     "pick": "NJD",
-    "p": 0.3221,
-    "tier": "B",
+    "p": 0.3343,
+    "tier": "A",
     "game_id": 2026020345
    }
   ]
@@ -1197,104 +1197,103 @@
    "home": "DET",
    "away": "BOS",
    "time_et": "7:30 PM ET",
-   "tier": "B",
+   "tier": "A",
    "tier_reasons": [
-    "BOS goalie projected",
-    "DET goalie projected"
+    "both profiles measured, both goalies confirmed"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6755,
+     "p": 0.6757,
      "fair": 1.48
     },
     "o05_first5": {
-     "p": 0.3245,
-     "fair": 3.082
+     "p": 0.3243,
+     "fair": 3.084
     },
     "u05_first10": {
-     "p": 0.4377,
-     "fair": 2.285
+     "p": 0.4381,
+     "fair": 2.283
     },
     "o05_first10": {
-     "p": 0.5623,
-     "fair": 1.778
+     "p": 0.5619,
+     "fair": 1.78
     },
     "p1_minus05": {
      "pick": "DET",
-     "p": 0.3427,
-     "fair": 2.918
+     "p": 0.3473,
+     "fair": 2.879
     },
     "p1_plus05": {
      "pick": "DET",
-     "p": 0.6813,
-     "fair": 1.468
+     "p": 0.6855,
+     "fair": 1.459
     },
     "p1_ml": {
      "pick": "DET",
-     "p": 0.3427,
-     "fair": 2.918,
-     "home": 0.3427,
-     "tie": 0.3386,
-     "away": 0.3187
+     "p": 0.3473,
+     "fair": 2.879,
+     "home": 0.3473,
+     "tie": 0.3382,
+     "away": 0.3145
     },
     "fg_ml": {
      "pick": "DET",
-     "p": 0.5591,
-     "fair": 1.788,
-     "home": 0.5591,
-     "away": 0.4409,
-     "home_reg": 0.4684,
-     "away_reg": 0.3552,
-     "reg_tie": 0.1764
+     "p": 0.567,
+     "fair": 1.764,
+     "home": 0.567,
+     "away": 0.433,
+     "home_reg": 0.4763,
+     "away_reg": 0.349,
+     "reg_tie": 0.1747
     },
     "fg_spread": {
      "pick": "DET",
      "line": -1.5,
-     "p": 0.3491,
-     "fair": 2.864,
+     "p": 0.3558,
+     "fair": 2.811,
      "plus_pick": "DET",
-     "plus_p": 0.7481
+     "plus_p": 0.7538
     },
     "fg_total": {
-     "mean": 6.069,
-     "over55": 0.538,
-     "over65": 0.4231
+     "mean": 6.04,
+     "over55": 0.536,
+     "over65": 0.4198
     },
     "fg_over45": {
-     "p": 0.7572,
-     "fair": 1.321
+     "p": 0.754,
+     "fair": 1.326
     },
     "home_over15": {
      "pick": "DET",
-     "p": 0.8208,
-     "fair": 1.218
+     "p": 0.8224,
+     "fair": 1.216
     },
     "away_over15": {
      "pick": "BOS",
-     "p": 0.7642,
-     "fair": 1.309
+     "p": 0.758,
+     "fair": 1.319
     },
     "p1_under25": {
-     "p": 0.7517,
-     "fair": 1.33
+     "p": 0.7539,
+     "fair": 1.326
     }
    },
    "analytic": {
-    "u05_first5": 0.6753,
-    "u05_first10": 0.436
+    "u05_first5": 0.6773,
+    "u05_first10": 0.4388
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6753,
-     "lo": 0.6354,
-     "hi": 0.7152,
-     "se_log_hazard": 0.0915
+     "p": 0.6773,
+     "lo": 0.6378,
+     "hi": 0.7168,
+     "se_log_hazard": 0.091
     },
     "first10": {
-     "p": 0.436,
-     "lo": 0.3815,
-     "hi": 0.4905,
-     "se_log_hazard": 0.0915
+     "p": 0.4388,
+     "lo": 0.3847,
+     "hi": 0.4929,
+     "se_log_hazard": 0.091
     }
    },
    "mc_se": {
@@ -1302,32 +1301,32 @@
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0574,
-    0.071,
-    0.0657,
-    0.0676,
-    0.0627,
-    0.0562,
-    0.0521,
-    0.0462,
-    0.0431,
-    0.0403
+    0.0571,
+    0.0717,
+    0.0665,
+    0.0672,
+    0.0618,
+    0.056,
+    0.0507,
+    0.0467,
+    0.0433,
+    0.041
    ],
    "p1": {
-    "home": 0.3427,
-    "tie": 0.3386,
-    "away": 0.3187,
+    "home": 0.3473,
+    "tie": 0.3382,
+    "away": 0.3145,
     "total_dist": [
-     0.1781,
-     0.3091,
-     0.2645,
-     0.2483
+     0.1787,
+     0.3099,
+     0.2653,
+     0.2461
     ],
-    "mean_total": 1.723
+    "mean_total": 1.717
    },
    "projected": {
-    "home": 3.22,
-    "away": 2.85,
+    "home": 3.23,
+    "away": 2.81,
     "median": [
      3,
      3
@@ -1335,26 +1334,26 @@
    },
    "goalies": {
     "home": {
-     "name": "John Gibson",
-     "id": 8476434,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (13 starts this season)",
-     "sv_raw": 0.8948,
-     "sv_shrunk": 0.8956,
-     "sv_last5": 0.8532,
-     "e10_sv_raw": 0.914,
-     "starts_cur": 13,
-     "shots_weighted": 1289,
-     "xg_ratio": 0.986,
-     "gsax_per_60": 0.08
+     "name": "Daniil Tarasov",
+     "id": 8480193,
+     "status": "confirmed",
+     "source": "dailyfaceoff",
+     "note": "Confirmed via Helene St. James 2026-11-17 17:25 UTC",
+     "sv_raw": 0.9016,
+     "sv_shrunk": 0.8971,
+     "sv_last5": 0.9178,
+     "e10_sv_raw": 0.9301,
+     "starts_cur": 7,
+     "shots_weighted": 851,
+     "xg_ratio": 0.974,
+     "gsax_per_60": 0.2
     },
     "away": {
      "name": "Jeremy Swayman",
      "id": 8480280,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (15 starts this season)",
+     "status": "confirmed",
+     "source": "dailyfaceoff",
+     "note": "Confirmed via Jim McBride 2026-11-19 00:03 UTC",
      "sv_raw": 0.9036,
      "sv_shrunk": 0.8986,
      "sv_last5": 0.8678,
@@ -1518,9 +1517,9 @@
      "faces_goalie": {
       "name": "Jeremy Swayman",
       "id": 8480280,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (15 starts this season)",
+      "status": "confirmed",
+      "source": "dailyfaceoff",
+      "note": "Confirmed via Jim McBride 2026-11-19 00:03 UTC",
       "sv_raw": 0.9036,
       "sv_shrunk": 0.8986,
       "sv_last5": 0.8678,
@@ -1536,8 +1535,8 @@
        "note": "21 games this season + 164 last season"
       },
       "opp_goalie": {
-       "label": "partial",
-       "note": "starter projected (1647 shots of data); re-check before the puck drops"
+       "label": "measured",
+       "note": "confirmed starter, 1647 weighted shots of data"
       },
       "rest_travel": {
        "label": "measured",
@@ -1696,8 +1695,8 @@
       "opp_def_shot_early": 1.0019,
       "opp_def_shot_full": 0.9944,
       "finish": 1.0291,
-      "opp_goalie": 1.0074,
-      "opp_goalie_sv_shrunk": 0.8956,
+      "opp_goalie": 0.9921,
+      "opp_goalie_sv_shrunk": 0.8971,
       "context_total": 0.9176,
       "early_context_total": 1.0
      },
@@ -1707,19 +1706,19 @@
      },
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "John Gibson",
-      "id": 8476434,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (13 starts this season)",
-      "sv_raw": 0.8948,
-      "sv_shrunk": 0.8956,
-      "sv_last5": 0.8532,
-      "e10_sv_raw": 0.914,
-      "starts_cur": 13,
-      "shots_weighted": 1289,
-      "xg_ratio": 0.986,
-      "gsax_per_60": 0.08
+      "name": "Daniil Tarasov",
+      "id": 8480193,
+      "status": "confirmed",
+      "source": "dailyfaceoff",
+      "note": "Confirmed via Helene St. James 2026-11-17 17:25 UTC",
+      "sv_raw": 0.9016,
+      "sv_shrunk": 0.8971,
+      "sv_last5": 0.9178,
+      "e10_sv_raw": 0.9301,
+      "starts_cur": 7,
+      "shots_weighted": 851,
+      "xg_ratio": 0.974,
+      "gsax_per_60": 0.2
      },
      "labels": {
       "team_profile": {
@@ -1727,8 +1726,8 @@
        "note": "21 games this season + 164 last season"
       },
       "opp_goalie": {
-       "label": "partial",
-       "note": "starter projected (1289 shots of data); re-check before the puck drops"
+       "label": "measured",
+       "note": "confirmed starter, 851 weighted shots of data"
       },
       "rest_travel": {
        "label": "measured",
@@ -1736,16 +1735,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.02986,
-      0.04002,
-      0.04002,
-      0.04466,
-      0.04466,
-      0.0444,
-      0.0444,
-      0.0444,
-      0.0444,
-      0.0444
+      0.02941,
+      0.03941,
+      0.03941,
+      0.04398,
+      0.04398,
+      0.04372,
+      0.04372,
+      0.04372,
+      0.04372,
+      0.04372
      ]
     }
    },
@@ -2135,18 +2134,18 @@
     },
     "goalie_workload": {
      "home": {
-      "starts_on_record": 98,
-      "last_start": "2026-11-12",
-      "days_since_last_start": 6,
+      "starts_on_record": 57,
+      "last_start": "2026-11-14",
+      "days_since_last_start": 4,
       "started_last_night": false,
-      "shots_faced_last_start": 29,
-      "goals_against_last_start": 5,
-      "consecutive_team_starts": 0,
+      "shots_faced_last_start": 31,
+      "goals_against_last_start": 0,
+      "consecutive_team_starts": 1,
       "starts_last_7_days": 1,
       "shots_faced_last_3": [
-       13,
-       33,
-       29
+       34,
+       29,
+       31
       ]
      },
      "away": {
@@ -2458,7 +2457,7 @@
     }
    },
    "rank_u05_first5": 2,
-   "rank_u05_first10": 1
+   "rank_u05_first10": 2
   },
   {
    "game_id": 2026020345,
@@ -2467,137 +2466,136 @@
    "home": "NJD",
    "away": "MTL",
    "time_et": "7:30 PM ET",
-   "tier": "B",
+   "tier": "A",
    "tier_reasons": [
-    "MTL goalie projected",
-    "NJD goalie projected"
+    "both profiles measured, both goalies confirmed"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6759,
-     "fair": 1.479
+     "p": 0.6843,
+     "fair": 1.461
     },
     "o05_first5": {
-     "p": 0.3241,
-     "fair": 3.086
+     "p": 0.3157,
+     "fair": 3.167
     },
     "u05_first10": {
-     "p": 0.4375,
-     "fair": 2.285
+     "p": 0.4454,
+     "fair": 2.245
     },
     "o05_first10": {
-     "p": 0.5625,
-     "fair": 1.778
+     "p": 0.5546,
+     "fair": 1.803
     },
     "p1_minus05": {
      "pick": "NJD",
-     "p": 0.3435,
-     "fair": 2.911
+     "p": 0.353,
+     "fair": 2.833
     },
     "p1_plus05": {
      "pick": "NJD",
-     "p": 0.681,
-     "fair": 1.468
+     "p": 0.6917,
+     "fair": 1.446
     },
     "p1_ml": {
      "pick": "NJD",
-     "p": 0.3435,
-     "fair": 2.911,
-     "home": 0.3435,
-     "tie": 0.3375,
-     "away": 0.319
+     "p": 0.353,
+     "fair": 2.833,
+     "home": 0.353,
+     "tie": 0.3387,
+     "away": 0.3083
     },
     "fg_ml": {
      "pick": "NJD",
-     "p": 0.5273,
-     "fair": 1.897,
-     "home": 0.5273,
-     "away": 0.4727,
-     "home_reg": 0.4382,
-     "away_reg": 0.3895,
-     "reg_tie": 0.1723
+     "p": 0.5427,
+     "fair": 1.843,
+     "home": 0.5427,
+     "away": 0.4573,
+     "home_reg": 0.4511,
+     "away_reg": 0.3723,
+     "reg_tie": 0.1766
     },
     "fg_spread": {
      "pick": "NJD",
      "line": -1.5,
-     "p": 0.3221,
-     "fair": 3.105,
+     "p": 0.3343,
+     "fair": 2.991,
      "plus_pick": "NJD",
-     "plus_p": 0.7187
+     "plus_p": 0.7346
     },
     "fg_total": {
-     "mean": 6.138,
-     "over55": 0.5497,
-     "over65": 0.4351
+     "mean": 6.06,
+     "over55": 0.5378,
+     "over65": 0.4223
     },
     "fg_over45": {
-     "p": 0.7647,
-     "fair": 1.308
+     "p": 0.7559,
+     "fair": 1.323
     },
     "home_over15": {
      "pick": "NJD",
-     "p": 0.8092,
-     "fair": 1.236
+     "p": 0.8136,
+     "fair": 1.229
     },
     "away_over15": {
      "pick": "MTL",
-     "p": 0.7859,
-     "fair": 1.272
+     "p": 0.7723,
+     "fair": 1.295
     },
     "p1_under25": {
-     "p": 0.749,
-     "fair": 1.335
+     "p": 0.7589,
+     "fair": 1.318
     }
    },
    "analytic": {
-    "u05_first5": 0.6781,
-    "u05_first10": 0.4399
+    "u05_first5": 0.6826,
+    "u05_first10": 0.446
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6781,
-     "lo": 0.6418,
-     "hi": 0.7144,
-     "se_log_hazard": 0.0838
+     "p": 0.6826,
+     "lo": 0.6462,
+     "hi": 0.719,
+     "se_log_hazard": 0.0848
     },
     "first10": {
-     "p": 0.4399,
-     "lo": 0.3901,
-     "hi": 0.4897,
-     "se_log_hazard": 0.0838
+     "p": 0.446,
+     "lo": 0.3958,
+     "hi": 0.4963,
+     "se_log_hazard": 0.0848
     }
    },
    "mc_se": {
-    "first5": 0.00148,
+    "first5": 0.00147,
     "first10": 0.00157
    },
    "first_goal_hist": [
-    0.0572,
-    0.071,
-    0.0655,
-    0.0694,
-    0.061,
-    0.0563,
-    0.0517,
-    0.0471,
-    0.0433,
+    0.0561,
+    0.0696,
+    0.0629,
+    0.0661,
+    0.0611,
+    0.0569,
+    0.0513,
+    0.0465,
+    0.0443,
     0.04
    ],
    "p1": {
-    "home": 0.3435,
-    "tie": 0.3375,
-    "away": 0.319,
+    "home": 0.353,
+    "tie": 0.3387,
+    "away": 0.3083,
     "total_dist": [
-     0.1774,
-     0.3058,
-     0.2658,
-     0.251
+     0.1813,
+     0.3126,
+     0.2649,
+     0.2411
     ],
-    "mean_total": 1.731
+    "mean_total": 1.697
    },
    "projected": {
-    "home": 3.15,
-    "away": 2.99,
+    "home": 3.16,
+    "away": 2.9,
     "median": [
      3,
      3
@@ -2605,26 +2603,26 @@
    },
    "goalies": {
     "home": {
-     "name": "Jake Allen",
-     "id": 8474596,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (10 starts this season)",
-     "sv_raw": 0.8975,
-     "sv_shrunk": 0.8963,
-     "sv_last5": 0.8841,
-     "e10_sv_raw": 0.9006,
-     "starts_cur": 10,
-     "shots_weighted": 1028,
-     "xg_ratio": 0.998,
-     "gsax_per_60": 0.01
+     "name": "Connor Hellebuyck",
+     "id": 8476945,
+     "status": "confirmed",
+     "source": "dailyfaceoff",
+     "note": "Confirmed via Amanda Stein 2026-11-18 16:03 UTC",
+     "sv_raw": 0.9082,
+     "sv_shrunk": 0.8999,
+     "sv_last5": 0.9122,
+     "e10_sv_raw": 0.9291,
+     "starts_cur": 7,
+     "shots_weighted": 1431,
+     "xg_ratio": 0.943,
+     "gsax_per_60": 0.33
     },
     "away": {
      "name": "Jacob Fowler",
      "id": 8484170,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (13 starts this season)",
+     "status": "confirmed",
+     "source": "dailyfaceoff",
+     "note": "Confirmed via Eric Engels 2026-11-18 16:59 UTC",
      "sv_raw": 0.9201,
      "sv_shrunk": 0.9,
      "sv_last5": 0.9211,
@@ -2787,9 +2785,9 @@
      "faces_goalie": {
       "name": "Jacob Fowler",
       "id": 8484170,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (13 starts this season)",
+      "status": "confirmed",
+      "source": "dailyfaceoff",
+      "note": "Confirmed via Eric Engels 2026-11-18 16:59 UTC",
       "sv_raw": 0.9201,
       "sv_shrunk": 0.9,
       "sv_last5": 0.9211,
@@ -2805,8 +2803,8 @@
        "note": "21 games this season + 164 last season"
       },
       "opp_goalie": {
-       "label": "partial",
-       "note": "starter projected (613 shots of data); re-check before the puck drops"
+       "label": "measured",
+       "note": "confirmed starter, 613 weighted shots of data"
       },
       "rest_travel": {
        "label": "measured",
@@ -2965,27 +2963,27 @@
       "opp_def_shot_early": 0.9651,
       "opp_def_shot_full": 0.9785,
       "finish": 1.0529,
-      "opp_goalie": 1.0005,
-      "opp_goalie_sv_shrunk": 0.8963,
+      "opp_goalie": 0.966,
+      "opp_goalie_sv_shrunk": 0.8999,
       "context_total": 1.0,
       "early_context_total": 1.0
      },
      "context_detail": {},
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Jake Allen",
-      "id": 8474596,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (10 starts this season)",
-      "sv_raw": 0.8975,
-      "sv_shrunk": 0.8963,
-      "sv_last5": 0.8841,
-      "e10_sv_raw": 0.9006,
-      "starts_cur": 10,
-      "shots_weighted": 1028,
-      "xg_ratio": 0.998,
-      "gsax_per_60": 0.01
+      "name": "Connor Hellebuyck",
+      "id": 8476945,
+      "status": "confirmed",
+      "source": "dailyfaceoff",
+      "note": "Confirmed via Amanda Stein 2026-11-18 16:03 UTC",
+      "sv_raw": 0.9082,
+      "sv_shrunk": 0.8999,
+      "sv_last5": 0.9122,
+      "e10_sv_raw": 0.9291,
+      "starts_cur": 7,
+      "shots_weighted": 1431,
+      "xg_ratio": 0.943,
+      "gsax_per_60": 0.33
      },
      "labels": {
       "team_profile": {
@@ -2993,8 +2991,8 @@
        "note": "21 games this season + 164 last season"
       },
       "opp_goalie": {
-       "label": "partial",
-       "note": "starter projected (1028 shots of data); re-check before the puck drops"
+       "label": "measured",
+       "note": "confirmed starter, 1431 weighted shots of data"
       },
       "rest_travel": {
        "label": "measured",
@@ -3002,16 +3000,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.02855,
-      0.03827,
-      0.03827,
-      0.0427,
-      0.0427,
-      0.04245,
-      0.04245,
-      0.04245,
-      0.04245,
-      0.04245
+      0.02757,
+      0.03695,
+      0.03695,
+      0.04123,
+      0.04123,
+      0.04099,
+      0.04099,
+      0.04099,
+      0.04099,
+      0.04099
      ]
     }
    },
@@ -3401,18 +3399,18 @@
     },
     "goalie_workload": {
      "home": {
-      "starts_on_record": 75,
-      "last_start": "2026-11-10",
-      "days_since_last_start": 8,
+      "starts_on_record": 126,
+      "last_start": "2026-11-14",
+      "days_since_last_start": 4,
       "started_last_night": false,
-      "shots_faced_last_start": 24,
-      "goals_against_last_start": 3,
-      "consecutive_team_starts": 0,
-      "starts_last_7_days": 0,
+      "shots_faced_last_start": 47,
+      "goals_against_last_start": 4,
+      "consecutive_team_starts": 2,
+      "starts_last_7_days": 2,
       "shots_faced_last_3": [
-       44,
        23,
-       24
+       28,
+       47
       ]
      },
      "away": {
@@ -3772,7 +3770,7 @@
     }
    },
    "rank_u05_first5": 1,
-   "rank_u05_first10": 2
+   "rank_u05_first10": 1
   },
   {
    "game_id": 2026020346,
@@ -3781,137 +3779,136 @@
    "home": "UTA",
    "away": "COL",
    "time_et": "10:00 PM ET",
-   "tier": "B",
+   "tier": "A",
    "tier_reasons": [
-    "COL goalie projected",
-    "UTA goalie projected"
+    "both profiles measured, both goalies confirmed"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6633,
-     "fair": 1.508
+     "p": 0.6612,
+     "fair": 1.512
     },
     "o05_first5": {
-     "p": 0.3367,
-     "fair": 2.97
+     "p": 0.3388,
+     "fair": 2.952
     },
     "u05_first10": {
-     "p": 0.4155,
-     "fair": 2.407
+     "p": 0.4158,
+     "fair": 2.405
     },
     "o05_first10": {
-     "p": 0.5845,
-     "fair": 1.711
+     "p": 0.5842,
+     "fair": 1.712
     },
     "p1_minus05": {
      "pick": "COL",
-     "p": 0.3596,
-     "fair": 2.781
+     "p": 0.3593,
+     "fair": 2.783
     },
     "p1_plus05": {
      "pick": "COL",
-     "p": 0.6823,
-     "fair": 1.466
+     "p": 0.683,
+     "fair": 1.464
     },
     "p1_ml": {
      "pick": "COL",
-     "p": 0.3596,
-     "fair": 2.781,
-     "home": 0.3177,
-     "tie": 0.3227,
-     "away": 0.3596
+     "p": 0.3593,
+     "fair": 2.783,
+     "home": 0.317,
+     "tie": 0.3237,
+     "away": 0.3593
     },
     "fg_ml": {
      "pick": "COL",
-     "p": 0.5484,
-     "fair": 1.823,
-     "home": 0.4516,
-     "away": 0.5484,
-     "home_reg": 0.369,
-     "away_reg": 0.4604,
-     "reg_tie": 0.1706
+     "p": 0.5493,
+     "fair": 1.821,
+     "home": 0.4507,
+     "away": 0.5493,
+     "home_reg": 0.3695,
+     "away_reg": 0.4634,
+     "reg_tie": 0.1672
     },
     "fg_spread": {
      "pick": "COL",
      "line": -1.5,
-     "p": 0.3455,
-     "fair": 2.894,
+     "p": 0.3491,
+     "fair": 2.864,
      "plus_pick": "COL",
-     "plus_p": 0.7342
+     "plus_p": 0.7337
     },
     "fg_total": {
-     "mean": 6.447,
-     "over55": 0.6012,
-     "over65": 0.4867
+     "mean": 6.463,
+     "over55": 0.6038,
+     "over65": 0.4899
     },
     "fg_over45": {
-     "p": 0.8005,
-     "fair": 1.249
+     "p": 0.8029,
+     "fair": 1.246
     },
     "home_over15": {
      "pick": "UTA",
-     "p": 0.7997,
-     "fair": 1.25
+     "p": 0.798,
+     "fair": 1.253
     },
     "away_over15": {
      "pick": "COL",
-     "p": 0.8416,
-     "fair": 1.188
+     "p": 0.8403,
+     "fair": 1.19
     },
     "p1_under25": {
-     "p": 0.7186,
-     "fair": 1.392
+     "p": 0.717,
+     "fair": 1.395
     }
    },
    "analytic": {
-    "u05_first5": 0.6618,
-    "u05_first10": 0.4178
+    "u05_first5": 0.6611,
+    "u05_first10": 0.4169
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6618,
-     "lo": 0.622,
-     "hi": 0.7016,
-     "se_log_hazard": 0.0885
+     "p": 0.6611,
+     "lo": 0.6228,
+     "hi": 0.6995,
+     "se_log_hazard": 0.0852
     },
     "first10": {
-     "p": 0.4178,
-     "lo": 0.3647,
-     "hi": 0.4709,
-     "se_log_hazard": 0.0885
+     "p": 0.4169,
+     "lo": 0.3658,
+     "hi": 0.468,
+     "se_log_hazard": 0.0852
     }
    },
    "mc_se": {
-    "first5": 0.00149,
+    "first5": 0.0015,
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0596,
-    0.0747,
-    0.0681,
-    0.0705,
-    0.0639,
-    0.0587,
-    0.0538,
-    0.05,
-    0.0444,
-    0.0409
+    0.0602,
+    0.0743,
+    0.0702,
+    0.0703,
+    0.0637,
+    0.0565,
+    0.0548,
+    0.0487,
+    0.0443,
+    0.0411
    ],
    "p1": {
-    "home": 0.3177,
-    "tie": 0.3227,
-    "away": 0.3596,
+    "home": 0.317,
+    "tie": 0.3237,
+    "away": 0.3593,
     "total_dist": [
-     0.1574,
-     0.2938,
-     0.2674,
-     0.2814
+     0.1583,
+     0.2907,
+     0.268,
+     0.283
     ],
-    "mean_total": 1.844
+    "mean_total": 1.846
    },
    "projected": {
     "home": 3.07,
-    "away": 3.38,
+    "away": 3.39,
     "median": [
      3,
      3
@@ -3919,26 +3916,26 @@
    },
    "goalies": {
     "home": {
-     "name": "Karel Vejmelka",
-     "id": 8478872,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (15 starts this season)",
-     "sv_raw": 0.8926,
-     "sv_shrunk": 0.8947,
-     "sv_last5": 0.8462,
-     "e10_sv_raw": 0.9196,
-     "starts_cur": 15,
-     "shots_weighted": 1622,
-     "xg_ratio": 0.996,
-     "gsax_per_60": 0.02
+     "name": "Sebastian Cossa",
+     "id": 8482657,
+     "status": "confirmed",
+     "source": "dailyfaceoff",
+     "note": "Confirmed via NHL.com 2026-11-19 02:59 UTC",
+     "sv_raw": 0.8661,
+     "sv_shrunk": 0.8942,
+     "sv_last5": 0.8723,
+     "e10_sv_raw": 0.913,
+     "starts_cur": 7,
+     "shots_weighted": 175,
+     "xg_ratio": 1.026,
+     "gsax_per_60": -0.65
     },
     "away": {
      "name": "Mackenzie Blackwood",
      "id": 8478406,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (15 starts this season)",
+     "status": "confirmed",
+     "source": "dailyfaceoff",
+     "note": "Confirmed via Aarif Deen 2026-11-18 20:09 UTC",
      "sv_raw": 0.9077,
      "sv_shrunk": 0.8995,
      "sv_last5": 0.9389,
@@ -4102,9 +4099,9 @@
      "faces_goalie": {
       "name": "Mackenzie Blackwood",
       "id": 8478406,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (15 starts this season)",
+      "status": "confirmed",
+      "source": "dailyfaceoff",
+      "note": "Confirmed via Aarif Deen 2026-11-18 20:09 UTC",
       "sv_raw": 0.9077,
       "sv_shrunk": 0.8995,
       "sv_last5": 0.9389,
@@ -4120,8 +4117,8 @@
        "note": "22 games this season + 164 last season"
       },
       "opp_goalie": {
-       "label": "partial",
-       "note": "starter projected (1302 shots of data); re-check before the puck drops"
+       "label": "measured",
+       "note": "confirmed starter, 1302 weighted shots of data"
       },
       "rest_travel": {
        "label": "measured",
@@ -4280,8 +4277,8 @@
       "opp_def_shot_early": 0.9658,
       "opp_def_shot_full": 0.9648,
       "finish": 1.0297,
-      "opp_goalie": 1.0157,
-      "opp_goalie_sv_shrunk": 0.8947,
+      "opp_goalie": 1.0203,
+      "opp_goalie_sv_shrunk": 0.8942,
       "context_total": 1.0302,
       "early_context_total": 1.0
      },
@@ -4290,19 +4287,19 @@
      },
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Karel Vejmelka",
-      "id": 8478872,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (15 starts this season)",
-      "sv_raw": 0.8926,
-      "sv_shrunk": 0.8947,
-      "sv_last5": 0.8462,
-      "e10_sv_raw": 0.9196,
-      "starts_cur": 15,
-      "shots_weighted": 1622,
-      "xg_ratio": 0.996,
-      "gsax_per_60": 0.02
+      "name": "Sebastian Cossa",
+      "id": 8482657,
+      "status": "confirmed",
+      "source": "dailyfaceoff",
+      "note": "Confirmed via NHL.com 2026-11-19 02:59 UTC",
+      "sv_raw": 0.8661,
+      "sv_shrunk": 0.8942,
+      "sv_last5": 0.8723,
+      "e10_sv_raw": 0.913,
+      "starts_cur": 7,
+      "shots_weighted": 175,
+      "xg_ratio": 1.026,
+      "gsax_per_60": -0.65
      },
      "labels": {
       "team_profile": {
@@ -4311,7 +4308,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter projected (1622 shots of data); re-check before the puck drops"
+       "note": "confirmed starter but thin sample (175 shots); shrunk toward league"
       },
       "rest_travel": {
        "label": "measured",
@@ -4319,16 +4316,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.03207,
-      0.04298,
-      0.04298,
-      0.04796,
-      0.04796,
-      0.04768,
-      0.04768,
-      0.04768,
-      0.04768,
-      0.04768
+      0.03221,
+      0.04317,
+      0.04317,
+      0.04817,
+      0.04817,
+      0.0479,
+      0.0479,
+      0.0479,
+      0.0479,
+      0.0479
      ]
     }
    },
@@ -4718,18 +4715,18 @@
     },
     "goalie_workload": {
      "home": {
-      "starts_on_record": 133,
-      "last_start": "2026-11-16",
-      "days_since_last_start": 2,
+      "starts_on_record": 7,
+      "last_start": "2026-11-11",
+      "days_since_last_start": 7,
       "started_last_night": false,
-      "shots_faced_last_start": 24,
-      "goals_against_last_start": 3,
-      "consecutive_team_starts": 3,
-      "starts_last_7_days": 3,
+      "shots_faced_last_start": 28,
+      "goals_against_last_start": 5,
+      "consecutive_team_starts": 0,
+      "starts_last_7_days": 1,
       "shots_faced_last_3": [
-       21,
-       19,
-       24
+       29,
+       34,
+       28
       ]
      },
      "away": {
@@ -5546,73 +5543,77 @@
   }
  },
  "changes": {
-  "since": "2026-11-18 22:35 UTC",
+  "since": "2026-11-19 01:02 UTC",
   "items": [
    {
     "game_id": 2026020344,
     "game": "BOS @ DET",
     "kind": "goalie",
-    "text": "DET goalie now John Gibson (projected), was Daniil Tarasov (confirmed)"
+    "text": "DET goalie now Daniil Tarasov (confirmed), was John Gibson (projected)"
    },
    {
     "game_id": 2026020344,
     "game": "BOS @ DET",
     "kind": "status",
-    "text": "BOS Jeremy Swayman now projected, was unconfirmed"
+    "text": "BOS Jeremy Swayman now confirmed, was projected"
+   },
+   {
+    "game_id": 2026020344,
+    "game": "BOS @ DET",
+    "kind": "tier",
+    "text": "tier B to A"
    },
    {
     "game_id": 2026020345,
     "game": "MTL @ NJD",
     "kind": "goalie",
-    "text": "NJD goalie now Jake Allen (projected), was Connor Hellebuyck (confirmed)"
+    "text": "NJD goalie now Connor Hellebuyck (confirmed), was Jake Allen (projected)"
    },
    {
     "game_id": 2026020345,
     "game": "MTL @ NJD",
     "kind": "status",
-    "text": "MTL Jacob Fowler now projected, was confirmed"
+    "text": "MTL Jacob Fowler now confirmed, was projected"
    },
    {
     "game_id": 2026020345,
     "game": "MTL @ NJD",
     "kind": "tier",
-    "text": "tier A to B"
+    "text": "tier B to A"
    },
    {
     "game_id": 2026020345,
     "game": "MTL @ NJD",
     "kind": "move",
-    "text": "FG moneyline NJD 54.1% to 52.7%",
-    "delta": -0.0141,
+    "text": "FG moneyline NJD 52.7% to 54.3%",
+    "delta": 0.0154,
     "market": "fg_ml"
    },
    {
     "game_id": 2026020345,
     "game": "MTL @ NJD",
     "kind": "move",
-    "text": "over 4.5 75.4% to 76.5%",
-    "delta": 0.0106,
-    "market": "fg_over45"
-   },
-   {
-    "game_id": 2026020345,
-    "game": "MTL @ NJD",
-    "kind": "move",
-    "text": "away over 1.5 77.3% to 78.6%",
-    "delta": 0.0131,
+    "text": "away over 1.5 78.6% to 77.2%",
+    "delta": -0.0136,
     "market": "away_over15"
    },
    {
     "game_id": 2026020346,
     "game": "COL @ UTA",
     "kind": "goalie",
-    "text": "UTA goalie now Karel Vejmelka (projected), was Sebastian Cossa (expected)"
+    "text": "UTA goalie now Sebastian Cossa (confirmed), was Karel Vejmelka (projected)"
    },
    {
     "game_id": 2026020346,
     "game": "COL @ UTA",
     "kind": "status",
-    "text": "COL Mackenzie Blackwood now projected, was confirmed"
+    "text": "COL Mackenzie Blackwood now confirmed, was projected"
+   },
+   {
+    "game_id": 2026020346,
+    "game": "COL @ UTA",
+    "kind": "tier",
+    "text": "tier B to A"
    }
   ],
   "first_build": false,
