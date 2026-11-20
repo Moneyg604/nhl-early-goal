@@ -1,7 +1,7 @@
 {
  "date": "2026-11-19",
- "updated_utc": "2026-11-20 03:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-11-20 03:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020347": {
    "state": "FINAL",
@@ -376,8 +376,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:45",
-   "elapsed_min": 45.25,
+   "time_remaining": "13:07",
+   "elapsed_min": 46.88,
    "home": "CHI",
    "away": "CBJ",
    "home_score": 2,
@@ -420,8 +420,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "18:45",
-   "elapsed_min": 41.25,
+   "time_remaining": "15:38",
+   "elapsed_min": 44.37,
    "home": "CGY",
    "away": "MIN",
    "home_score": 1,
@@ -459,8 +459,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "16:35",
-   "elapsed_min": 23.42,
+   "time_remaining": "13:22",
+   "elapsed_min": 26.63,
    "home": "COL",
    "away": "ANA",
    "home_score": 2,
@@ -488,22 +488,27 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:59",
-   "elapsed_min": 10.02,
+   "time_remaining": "08:04",
+   "elapsed_min": 11.93,
    "home": "SEA",
    "away": "VAN",
    "home_score": 1,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 7.617,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 7.617,
      "team": "SEA"
+    },
+    {
+     "period": 1,
+     "minute": 11.517,
+     "team": "VAN"
     }
    ]
   },
@@ -512,18 +517,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "19:05",
-   "elapsed_min": 0.92,
+   "time_remaining": "16:38",
+   "elapsed_min": 3.37,
    "home": "VGK",
    "away": "DAL",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 3.3,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 3.3,
+     "team": "DAL"
+    }
+   ]
   }
  }
 }
