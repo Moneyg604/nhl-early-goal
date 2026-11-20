@@ -1,7 +1,7 @@
 {
  "date": "2026-11-19",
- "updated_utc": "2026-11-20 05:25 UTC",
- "updated_et": "12:25 AM ET",
+ "updated_utc": "2026-11-20 05:30 UTC",
+ "updated_et": "12:30 AM ET",
  "games": {
   "2026020347": {
    "state": "OFF",
@@ -504,21 +504,21 @@
    ]
   },
   "2026020357": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:04",
-   "elapsed_min": 58.93,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "SEA",
    "away": "VAN",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 1,
    "first_goal_min": 7.617,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -544,16 +544,21 @@
      "period": 3,
      "minute": 50.617,
      "team": "SEA"
+    },
+    {
+     "period": 3,
+     "minute": 59.283,
+     "team": "SEA"
     }
    ]
   },
   "2026020358": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:36",
-   "elapsed_min": 54.4,
+   "time_remaining": "03:22",
+   "elapsed_min": 56.63,
    "home": "VGK",
    "away": "DAL",
    "home_score": 3,
