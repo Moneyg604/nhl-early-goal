@@ -1,7 +1,7 @@
 {
  "date": "2026-11-21",
- "updated_utc": "2026-11-21 23:25 UTC",
- "updated_et": "6:25 PM ET",
+ "updated_utc": "2026-11-21 23:30 UTC",
+ "updated_et": "6:30 PM ET",
  "games": {
   "2026020359": {
    "state": "OFF",
@@ -78,21 +78,21 @@
    ]
   },
   "2026020360": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 4,
-   "time_remaining": "00:14",
+   "time_remaining": "00:15",
    "elapsed_min": 60.0,
    "home": "CGY",
    "away": "CHI",
    "home_score": 3,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 10.75,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "OT",
    "goals": [
     {
      "period": 1,
@@ -123,6 +123,11 @@
      "period": 3,
      "minute": 41.233,
      "team": "CGY"
+    },
+    {
+     "period": 4,
+     "minute": 64.75,
+     "team": "CHI"
     }
    ]
   },
@@ -131,22 +136,27 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "10:04",
-   "elapsed_min": 9.93,
+   "time_remaining": "08:31",
+   "elapsed_min": 11.48,
    "home": "FLA",
    "away": "BUF",
    "home_score": 1,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 3.0,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 3.0,
      "team": "FLA"
+    },
+    {
+     "period": 1,
+     "minute": 9.933,
+     "team": "BUF"
     }
    ]
   },
@@ -155,8 +165,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "11:01",
-   "elapsed_min": 8.98,
+   "time_remaining": "09:12",
+   "elapsed_min": 10.8,
    "home": "NSH",
    "away": "PIT",
    "home_score": 0,
@@ -175,7 +185,7 @@
    ]
   },
   "2026020363": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -193,7 +203,7 @@
    "goals": []
   },
   "2026020364": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -211,7 +221,7 @@
    "goals": []
   },
   "2026020365": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -229,7 +239,7 @@
    "goals": []
   },
   "2026020366": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -247,7 +257,7 @@
    "goals": []
   },
   "2026020367": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -265,7 +275,7 @@
    "goals": []
   },
   "2026020368": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
@@ -283,7 +293,7 @@
    "goals": []
   },
   "2026020369": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
