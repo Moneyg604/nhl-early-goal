@@ -1,605 +1,259 @@
 {
- "date": "2026-11-19",
- "updated_utc": "2026-11-20 06:55 UTC",
- "updated_et": "1:55 AM ET",
+ "date": "2026-11-21",
+ "updated_utc": "2026-11-21 05:00 UTC",
+ "updated_et": "12:00 AM ET",
  "games": {
-  "2026020347": {
-   "state": "OFF",
+  "2026020359": {
+   "state": "FUT",
    "live": false,
-   "final": true,
-   "period": 5,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "TOR",
-   "away": "LAK",
-   "home_score": 3,
-   "away_score": 4,
-   "first_goal_min": 13.9,
-   "p1_done": true,
-   "p1_home": 2,
-   "p1_away": 0,
-   "ended_in": "SO",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 13.9,
-     "team": "TOR"
-    },
-    {
-     "period": 1,
-     "minute": 18.8,
-     "team": "TOR"
-    },
-    {
-     "period": 2,
-     "minute": 22.567,
-     "team": "TOR"
-    },
-    {
-     "period": 2,
-     "minute": 22.917,
-     "team": "LAK"
-    },
-    {
-     "period": 2,
-     "minute": 30.183,
-     "team": "LAK"
-    },
-    {
-     "period": 2,
-     "minute": 34.85,
-     "team": "LAK"
-    }
-   ]
-  },
-  "2026020348": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 4,
-   "time_remaining": "04:21",
-   "elapsed_min": 60.0,
-   "home": "OTT",
-   "away": "PHI",
-   "home_score": 5,
-   "away_score": 6,
-   "first_goal_min": 1.733,
-   "p1_done": true,
-   "p1_home": 1,
-   "p1_away": 1,
-   "ended_in": "OT",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 1.733,
-     "team": "OTT"
-    },
-    {
-     "period": 1,
-     "minute": 3.867,
-     "team": "PHI"
-    },
-    {
-     "period": 2,
-     "minute": 23.35,
-     "team": "OTT"
-    },
-    {
-     "period": 2,
-     "minute": 33.067,
-     "team": "OTT"
-    },
-    {
-     "period": 2,
-     "minute": 38.65,
-     "team": "PHI"
-    },
-    {
-     "period": 3,
-     "minute": 40.633,
-     "team": "OTT"
-    },
-    {
-     "period": 3,
-     "minute": 45.45,
-     "team": "OTT"
-    },
-    {
-     "period": 3,
-     "minute": 46.417,
-     "team": "PHI"
-    },
-    {
-     "period": 3,
-     "minute": 46.667,
-     "team": "PHI"
-    },
-    {
-     "period": 3,
-     "minute": 57.45,
-     "team": "PHI"
-    },
-    {
-     "period": 4,
-     "minute": 60.65,
-     "team": "PHI"
-    }
-   ]
-  },
-  "2026020350": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "PIT",
-   "away": "STL",
-   "home_score": 2,
-   "away_score": 5,
-   "first_goal_min": 7.633,
-   "p1_done": true,
-   "p1_home": 1,
-   "p1_away": 0,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 7.633,
-     "team": "PIT"
-    },
-    {
-     "period": 2,
-     "minute": 24.967,
-     "team": "STL"
-    },
-    {
-     "period": 2,
-     "minute": 29.233,
-     "team": "STL"
-    },
-    {
-     "period": 2,
-     "minute": 37.333,
-     "team": "STL"
-    },
-    {
-     "period": 3,
-     "minute": 47.15,
-     "team": "STL"
-    },
-    {
-     "period": 3,
-     "minute": 55.4,
-     "team": "PIT"
-    },
-    {
-     "period": 3,
-     "minute": 57.267,
-     "team": "STL"
-    }
-   ]
-  },
-  "2026020351": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "WSH",
-   "away": "BUF",
-   "home_score": 3,
-   "away_score": 6,
-   "first_goal_min": 5.417,
-   "p1_done": true,
-   "p1_home": 1,
-   "p1_away": 4,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 5.417,
-     "team": "BUF"
-    },
-    {
-     "period": 1,
-     "minute": 9.767,
-     "team": "BUF"
-    },
-    {
-     "period": 1,
-     "minute": 10.183,
-     "team": "BUF"
-    },
-    {
-     "period": 1,
-     "minute": 10.9,
-     "team": "WSH"
-    },
-    {
-     "period": 1,
-     "minute": 15.917,
-     "team": "BUF"
-    },
-    {
-     "period": 2,
-     "minute": 39.85,
-     "team": "BUF"
-    },
-    {
-     "period": 3,
-     "minute": 48.867,
-     "team": "WSH"
-    },
-    {
-     "period": 3,
-     "minute": 49.733,
-     "team": "WSH"
-    },
-    {
-     "period": 3,
-     "minute": 59.283,
-     "team": "BUF"
-    }
-   ]
-  },
-  "2026020352": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 4,
-   "time_remaining": "04:22",
-   "elapsed_min": 60.0,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
    "home": "CAR",
-   "away": "MTL",
-   "home_score": 1,
-   "away_score": 2,
-   "first_goal_min": 53.683,
-   "p1_done": true,
-   "p1_home": 0,
-   "p1_away": 0,
-   "ended_in": "OT",
-   "goals": [
-    {
-     "period": 3,
-     "minute": 53.683,
-     "team": "CAR"
-    },
-    {
-     "period": 3,
-     "minute": 55.017,
-     "team": "MTL"
-    },
-    {
-     "period": 4,
-     "minute": 60.633,
-     "team": "MTL"
-    }
-   ]
-  },
-  "2026020354": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 4,
-   "time_remaining": "03:02",
-   "elapsed_min": 60.0,
-   "home": "WPG",
-   "away": "NYI",
-   "home_score": 4,
-   "away_score": 3,
-   "first_goal_min": 2.583,
-   "p1_done": true,
-   "p1_home": 2,
-   "p1_away": 2,
-   "ended_in": "OT",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 2.583,
-     "team": "NYI"
-    },
-    {
-     "period": 1,
-     "minute": 3.1,
-     "team": "WPG"
-    },
-    {
-     "period": 1,
-     "minute": 8.733,
-     "team": "NYI"
-    },
-    {
-     "period": 1,
-     "minute": 17.783,
-     "team": "WPG"
-    },
-    {
-     "period": 2,
-     "minute": 20.333,
-     "team": "NYI"
-    },
-    {
-     "period": 2,
-     "minute": 32.15,
-     "team": "WPG"
-    },
-    {
-     "period": 4,
-     "minute": 61.967,
-     "team": "WPG"
-    }
-   ]
-  },
-  "2026020349": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "TBL",
    "away": "EDM",
-   "home_score": 3,
-   "away_score": 1,
-   "first_goal_min": 33.483,
-   "p1_done": true,
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 2,
-     "minute": 33.483,
-     "team": "TBL"
-    },
-    {
-     "period": 3,
-     "minute": 50.767,
-     "team": "TBL"
-    },
-    {
-     "period": 3,
-     "minute": 54.483,
-     "team": "TBL"
-    },
-    {
-     "period": 3,
-     "minute": 58.4,
-     "team": "EDM"
-    }
-   ]
+   "ended_in": null,
+   "goals": []
   },
-  "2026020353": {
-   "state": "OFF",
+  "2026020360": {
+   "state": "FUT",
    "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "CHI",
-   "away": "CBJ",
-   "home_score": 2,
-   "away_score": 4,
-   "first_goal_min": 1.983,
-   "p1_done": true,
-   "p1_home": 0,
-   "p1_away": 2,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 1.983,
-     "team": "CBJ"
-    },
-    {
-     "period": 1,
-     "minute": 15.4,
-     "team": "CBJ"
-    },
-    {
-     "period": 2,
-     "minute": 31.967,
-     "team": "CHI"
-    },
-    {
-     "period": 2,
-     "minute": 33.95,
-     "team": "CBJ"
-    },
-    {
-     "period": 3,
-     "minute": 43.867,
-     "team": "CHI"
-    },
-    {
-     "period": 3,
-     "minute": 59.483,
-     "team": "CBJ"
-    }
-   ]
-  },
-  "2026020355": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
    "home": "CGY",
-   "away": "MIN",
-   "home_score": 1,
-   "away_score": 4,
-   "first_goal_min": 0.417,
-   "p1_done": true,
-   "p1_home": 1,
-   "p1_away": 2,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 0.417,
-     "team": "MIN"
-    },
-    {
-     "period": 1,
-     "minute": 8.15,
-     "team": "MIN"
-    },
-    {
-     "period": 1,
-     "minute": 15.85,
-     "team": "CGY"
-    },
-    {
-     "period": 2,
-     "minute": 22.517,
-     "team": "MIN"
-    },
-    {
-     "period": 3,
-     "minute": 59.183,
-     "team": "MIN"
-    }
-   ]
-  },
-  "2026020356": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "COL",
-   "away": "ANA",
-   "home_score": 4,
-   "away_score": 0,
-   "first_goal_min": 20.133,
-   "p1_done": true,
+   "away": "CHI",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 2,
-     "minute": 20.133,
-     "team": "COL"
-    },
-    {
-     "period": 2,
-     "minute": 23.417,
-     "team": "COL"
-    },
-    {
-     "period": 2,
-     "minute": 30.067,
-     "team": "COL"
-    },
-    {
-     "period": 3,
-     "minute": 50.55,
-     "team": "COL"
-    }
-   ]
+   "ended_in": null,
+   "goals": []
   },
-  "2026020357": {
-   "state": "OFF",
+  "2026020361": {
+   "state": "FUT",
    "live": false,
-   "final": true,
-   "period": 3,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "SEA",
-   "away": "VAN",
-   "home_score": 5,
-   "away_score": 1,
-   "first_goal_min": 7.617,
-   "p1_done": true,
-   "p1_home": 1,
-   "p1_away": 1,
-   "ended_in": "REG",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 7.617,
-     "team": "SEA"
-    },
-    {
-     "period": 1,
-     "minute": 11.517,
-     "team": "VAN"
-    },
-    {
-     "period": 2,
-     "minute": 28.0,
-     "team": "SEA"
-    },
-    {
-     "period": 2,
-     "minute": 28.9,
-     "team": "SEA"
-    },
-    {
-     "period": 3,
-     "minute": 50.617,
-     "team": "SEA"
-    },
-    {
-     "period": 3,
-     "minute": 59.283,
-     "team": "SEA"
-    }
-   ]
-  },
-  "2026020358": {
-   "state": "OFF",
-   "live": false,
-   "final": true,
-   "period": 5,
-   "time_remaining": "00:00",
-   "elapsed_min": 60.0,
-   "home": "VGK",
-   "away": "DAL",
-   "home_score": 3,
-   "away_score": 4,
-   "first_goal_min": 3.3,
-   "p1_done": true,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "FLA",
+   "away": "BUF",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
    "p1_home": 0,
-   "p1_away": 2,
-   "ended_in": "SO",
-   "goals": [
-    {
-     "period": 1,
-     "minute": 3.3,
-     "team": "DAL"
-    },
-    {
-     "period": 1,
-     "minute": 14.583,
-     "team": "DAL"
-    },
-    {
-     "period": 2,
-     "minute": 27.6,
-     "team": "VGK"
-    },
-    {
-     "period": 2,
-     "minute": 30.283,
-     "team": "VGK"
-    },
-    {
-     "period": 3,
-     "minute": 45.567,
-     "team": "VGK"
-    },
-    {
-     "period": 3,
-     "minute": 56.967,
-     "team": "DAL"
-    }
-   ]
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020362": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "NSH",
+   "away": "PIT",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020363": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "BOS",
+   "away": "WSH",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020364": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "TOR",
+   "away": "CBJ",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020365": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "MTL",
+   "away": "PHI",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020366": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "OTT",
+   "away": "LAK",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020367": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "DET",
+   "away": "NYI",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020368": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "STL",
+   "away": "NJD",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020369": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "WPG",
+   "away": "VGK",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020370": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "UTA",
+   "away": "ANA",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020371": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "VAN",
+   "away": "MIN",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
+  },
+  "2026020372": {
+   "state": "FUT",
+   "live": false,
+   "final": false,
+   "period": null,
+   "time_remaining": null,
+   "elapsed_min": 0.0,
+   "home": "SJS",
+   "away": "SEA",
+   "home_score": null,
+   "away_score": null,
+   "first_goal_min": null,
+   "p1_done": false,
+   "p1_home": 0,
+   "p1_away": 0,
+   "ended_in": null,
+   "goals": []
   }
  }
 }
