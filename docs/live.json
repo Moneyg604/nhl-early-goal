@@ -1,7 +1,7 @@
 {
  "date": "2026-11-21",
- "updated_utc": "2026-11-21 23:15 UTC",
- "updated_et": "6:15 PM ET",
+ "updated_utc": "2026-11-21 23:20 UTC",
+ "updated_et": "6:20 PM ET",
  "games": {
   "2026020359": {
    "state": "OFF",
@@ -82,12 +82,12 @@
    "live": true,
    "final": false,
    "period": 4,
-   "time_remaining": "04:05",
+   "time_remaining": "01:37",
    "elapsed_min": 60.0,
    "home": "CGY",
    "away": "CHI",
    "home_score": 3,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 10.75,
    "p1_done": true,
    "p1_home": 1,
@@ -123,6 +123,11 @@
      "period": 3,
      "minute": 41.233,
      "team": "CGY"
+    },
+    {
+     "period": 4,
+     "minute": 63.383,
+     "team": "CHI"
     }
    ]
   },
@@ -131,8 +136,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "15:47",
-   "elapsed_min": 4.22,
+   "time_remaining": "13:01",
+   "elapsed_min": 6.98,
    "home": "FLA",
    "away": "BUF",
    "home_score": 1,
@@ -155,18 +160,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "16:02",
-   "elapsed_min": 3.97,
+   "time_remaining": "13:36",
+   "elapsed_min": 6.4,
    "home": "NSH",
    "away": "PIT",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 3.967,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 3.967,
+     "team": "PIT"
+    }
+   ]
   },
   "2026020363": {
    "state": "FUT",
