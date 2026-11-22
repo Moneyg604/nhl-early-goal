@@ -1,7 +1,7 @@
 {
  "date": "2026-11-22",
- "updated_utc": "2026-11-22 22:15 UTC",
- "updated_et": "5:15 PM ET",
+ "updated_utc": "2026-11-22 22:20 UTC",
+ "updated_et": "5:20 PM ET",
  "games": {
   "2026020373": {
    "state": "OFF",
@@ -62,18 +62,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "17:47",
-   "elapsed_min": 2.22,
+   "time_remaining": "14:36",
+   "elapsed_min": 5.4,
    "home": "TBL",
    "away": "BUF",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 3.583,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 3.583,
+     "team": "BUF"
+    }
+   ]
   },
   "2026020375": {
    "state": "FUT",
