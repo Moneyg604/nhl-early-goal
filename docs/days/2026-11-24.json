@@ -1,6 +1,6 @@
 {
  "date": "2026-11-24",
- "generated_utc": "2026-11-22 14:05 UTC",
+ "generated_utc": "2026-11-22 15:30 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -911,8 +911,8 @@
   "prior_season_games": 2624,
   "slate_offset_days": 2,
   "built_for": "2026-11-22",
-  "goalie_source": "usage heuristic for the rest",
-  "dfo_teams": 0
+  "goalie_source": "dailyfaceoff + usage heuristic for the rest",
+  "dfo_teams": 2
  },
  "league": {
   "games_in_profile": 2996,
@@ -944,8 +944,8 @@
  "pick_of_day": {
   "matchup": "VGK @ EDM",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6661,
-  "fair": 1.501,
+  "p": 0.6676,
+  "fair": 1.498,
   "tier": "B",
   "game_id": 2026020385,
   "runner_up": null
@@ -955,7 +955,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.6661,
+    "p": 0.6676,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -964,7 +964,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.4245,
+    "p": 0.4234,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -973,7 +973,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.7898,
+    "p": 0.7891,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -982,7 +982,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.8284,
+    "p": 0.8272,
     "tier": "B",
     "game_id": 2026020385,
     "market": "home_over15"
@@ -990,7 +990,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "VGK",
-    "p": 0.8001,
+    "p": 0.7987,
     "tier": "B",
     "game_id": 2026020385,
     "market": "away_over15"
@@ -1000,7 +1000,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.7286,
+    "p": 0.7306,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1009,7 +1009,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.6804,
+    "p": 0.6827,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1018,7 +1018,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3525,
+    "p": 0.3528,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1027,7 +1027,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3525,
+    "p": 0.3528,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1036,7 +1036,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.53,
+    "p": 0.5303,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1045,7 +1045,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3294,
+    "p": 0.3307,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1061,102 +1061,102 @@
    "time_et": "8:00 PM ET",
    "tier": "B",
    "tier_reasons": [
-    "VGK goalie projected",
-    "EDM goalie projected"
+    "VGK goalie unconfirmed",
+    "EDM goalie unconfirmed"
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6661,
-     "fair": 1.501
+     "p": 0.6676,
+     "fair": 1.498
     },
     "o05_first5": {
-     "p": 0.3339,
-     "fair": 2.995
+     "p": 0.3324,
+     "fair": 3.008
     },
     "u05_first10": {
-     "p": 0.4245,
-     "fair": 2.355
+     "p": 0.4234,
+     "fair": 2.362
     },
     "o05_first10": {
-     "p": 0.5755,
-     "fair": 1.738
+     "p": 0.5766,
+     "fair": 1.734
     },
     "p1_minus05": {
      "pick": "EDM",
-     "p": 0.3525,
-     "fair": 2.837
+     "p": 0.3528,
+     "fair": 2.835
     },
     "p1_plus05": {
      "pick": "EDM",
-     "p": 0.6804,
-     "fair": 1.47
+     "p": 0.6827,
+     "fair": 1.465
     },
     "p1_ml": {
      "pick": "EDM",
-     "p": 0.3525,
-     "fair": 2.837,
-     "home": 0.3525,
-     "tie": 0.3278,
-     "away": 0.3196
+     "p": 0.3528,
+     "fair": 2.835,
+     "home": 0.3528,
+     "tie": 0.33,
+     "away": 0.3173
     },
     "fg_ml": {
      "pick": "EDM",
-     "p": 0.53,
-     "fair": 1.887,
-     "home": 0.53,
-     "away": 0.47,
-     "home_reg": 0.4426,
-     "away_reg": 0.3855,
-     "reg_tie": 0.1719
+     "p": 0.5303,
+     "fair": 1.886,
+     "home": 0.5303,
+     "away": 0.4697,
+     "home_reg": 0.4436,
+     "away_reg": 0.3848,
+     "reg_tie": 0.1716
     },
     "fg_spread": {
      "pick": "EDM",
      "line": -1.5,
-     "p": 0.3294,
-     "fair": 3.036,
+     "p": 0.3307,
+     "fair": 3.024,
      "plus_pick": "EDM",
-     "plus_p": 0.7205
+     "plus_p": 0.7204
     },
     "fg_total": {
-     "mean": 6.358,
-     "over55": 0.5871,
-     "over65": 0.4725
+     "mean": 6.351,
+     "over55": 0.5852,
+     "over65": 0.4707
     },
     "fg_over45": {
-     "p": 0.7898,
-     "fair": 1.266
+     "p": 0.7891,
+     "fair": 1.267
     },
     "home_over15": {
      "pick": "EDM",
-     "p": 0.8284,
-     "fair": 1.207
+     "p": 0.8272,
+     "fair": 1.209
     },
     "away_over15": {
      "pick": "VGK",
-     "p": 0.8001,
-     "fair": 1.25
+     "p": 0.7987,
+     "fair": 1.252
     },
     "p1_under25": {
-     "p": 0.7286,
-     "fair": 1.372
+     "p": 0.7306,
+     "fair": 1.369
     }
    },
    "analytic": {
-    "u05_first5": 0.6649,
-    "u05_first10": 0.421
+    "u05_first5": 0.6655,
+    "u05_first10": 0.4219
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6649,
-     "lo": 0.6274,
-     "hi": 0.7023,
-     "se_log_hazard": 0.084
+     "p": 0.6655,
+     "lo": 0.6273,
+     "hi": 0.7036,
+     "se_log_hazard": 0.0856
     },
     "first10": {
-     "p": 0.421,
-     "lo": 0.3707,
-     "hi": 0.4713,
-     "se_log_hazard": 0.084
+     "p": 0.4219,
+     "lo": 0.3706,
+     "hi": 0.4731,
+     "se_log_hazard": 0.0856
     }
    },
    "mc_se": {
@@ -1164,32 +1164,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0594,
-    0.0746,
-    0.0679,
-    0.0689,
-    0.0631,
-    0.0569,
-    0.0522,
-    0.0478,
-    0.0443,
-    0.0403
+    0.0587,
+    0.0727,
+    0.0674,
+    0.0699,
+    0.0637,
+    0.059,
+    0.0524,
+    0.0489,
+    0.0439,
+    0.0399
    ],
    "p1": {
-    "home": 0.3525,
-    "tie": 0.3278,
-    "away": 0.3196,
+    "home": 0.3528,
+    "tie": 0.33,
+    "away": 0.3173,
     "total_dist": [
-     0.1649,
-     0.2962,
-     0.2675,
-     0.2714
+     0.1663,
+     0.297,
+     0.2674,
+     0.2694
     ],
-    "mean_total": 1.806
+    "mean_total": 1.799
    },
    "projected": {
     "home": 3.27,
-    "away": 3.09,
+    "away": 3.08,
     "median": [
      3,
      3
@@ -1197,26 +1197,26 @@
    },
    "goalies": {
     "home": {
-     "name": "Devon Levi",
-     "id": 8482221,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (13 starts this season)",
-     "sv_raw": 0.8881,
-     "sv_shrunk": 0.8946,
-     "sv_last5": 0.8968,
-     "e10_sv_raw": 0.9366,
-     "starts_cur": 13,
-     "shots_weighted": 404,
-     "xg_ratio": 1.011,
-     "gsax_per_60": -0.14
+     "name": "Tristan Jarry",
+     "id": 8477465,
+     "status": "unconfirmed",
+     "source": "dailyfaceoff",
+     "note": "Unconfirmed on DailyFaceoff",
+     "sv_raw": 0.894,
+     "sv_shrunk": 0.8951,
+     "sv_last5": 0.9507,
+     "e10_sv_raw": 0.9151,
+     "starts_cur": 10,
+     "shots_weighted": 964,
+     "xg_ratio": 0.999,
+     "gsax_per_60": 0.01
     },
     "away": {
      "name": "Carter Hart",
      "id": 8479394,
-     "status": "projected",
-     "source": "usage-heuristic",
-     "note": "most-used goalie (13 starts this season)",
+     "status": "unconfirmed",
+     "source": "dailyfaceoff",
+     "note": "Unconfirmed on DailyFaceoff",
      "sv_raw": 0.8858,
      "sv_shrunk": 0.894,
      "sv_last5": 0.876,
@@ -1377,9 +1377,9 @@
      "faces_goalie": {
       "name": "Carter Hart",
       "id": 8479394,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (13 starts this season)",
+      "status": "unconfirmed",
+      "source": "dailyfaceoff",
+      "note": "Unconfirmed on DailyFaceoff",
       "sv_raw": 0.8858,
       "sv_shrunk": 0.894,
       "sv_last5": 0.876,
@@ -1396,7 +1396,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter projected (536 shots of data); re-check before the puck drops"
+       "note": "starter unconfirmed (536 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -1555,8 +1555,8 @@
       "opp_def_shot_early": 0.9663,
       "opp_def_shot_full": 0.9774,
       "finish": 1.0026,
-      "opp_goalie": 1.0129,
-      "opp_goalie_sv_shrunk": 0.8946,
+      "opp_goalie": 1.0081,
+      "opp_goalie_sv_shrunk": 0.8951,
       "context_total": 1.0021,
       "early_context_total": 1.0
      },
@@ -1566,19 +1566,19 @@
      },
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Devon Levi",
-      "id": 8482221,
-      "status": "projected",
-      "source": "usage-heuristic",
-      "note": "most-used goalie (13 starts this season)",
-      "sv_raw": 0.8881,
-      "sv_shrunk": 0.8946,
-      "sv_last5": 0.8968,
-      "e10_sv_raw": 0.9366,
-      "starts_cur": 13,
-      "shots_weighted": 404,
-      "xg_ratio": 1.011,
-      "gsax_per_60": -0.14
+      "name": "Tristan Jarry",
+      "id": 8477465,
+      "status": "unconfirmed",
+      "source": "dailyfaceoff",
+      "note": "Unconfirmed on DailyFaceoff",
+      "sv_raw": 0.894,
+      "sv_shrunk": 0.8951,
+      "sv_last5": 0.9507,
+      "e10_sv_raw": 0.9151,
+      "starts_cur": 10,
+      "shots_weighted": 964,
+      "xg_ratio": 0.999,
+      "gsax_per_60": 0.01
      },
      "labels": {
       "team_profile": {
@@ -1587,7 +1587,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter projected (404 shots of data); re-check before the puck drops"
+       "note": "starter unconfirmed (964 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -1595,16 +1595,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.02949,
-      0.03945,
-      0.03945,
-      0.0441,
-      0.0441,
-      0.04401,
-      0.04401,
-      0.04401,
-      0.04401,
-      0.04401
+      0.02935,
+      0.03926,
+      0.03926,
+      0.04389,
+      0.04389,
+      0.0438,
+      0.0438,
+      0.0438,
+      0.0438,
+      0.0438
      ]
     }
    },
@@ -1994,17 +1994,17 @@
     },
     "goalie_workload": {
      "home": {
-      "starts_on_record": 21,
-      "last_start": "2026-11-21",
-      "days_since_last_start": 3,
+      "starts_on_record": 74,
+      "last_start": "2026-11-15",
+      "days_since_last_start": 9,
       "started_last_night": false,
       "shots_faced_last_start": 36,
-      "goals_against_last_start": 7,
-      "consecutive_team_starts": 3,
-      "starts_last_7_days": 3,
+      "goals_against_last_start": 2,
+      "consecutive_team_starts": 0,
+      "starts_last_7_days": 0,
       "shots_faced_last_3": [
-       22,
-       20,
+       32,
+       32,
        36
       ]
      },
@@ -2072,7 +2072,249 @@
      "officials",
      "coaching or tactical changes",
      "market prices (type your book's price into the price check)"
-    ]
+    ],
+    "lineups": {
+     "home": {
+      "updated_at": "2026-11-21T17:39:44.056Z",
+      "source_name": "Jack Michaels",
+      "fetched_utc": "2026-11-22 15:30 UTC",
+      "lines": {
+       "f1": [
+        "Vasily Podkolzin",
+        "Connor McDavid",
+        "Leon Draisaitl"
+       ],
+       "f2": [
+        "Kasperi Kapanen",
+        "Colton Dach",
+        "Zach Hyman"
+       ],
+       "f3": [
+        "Filip Hallander",
+        "Jason Dickinson",
+        "Mathieu Joseph"
+       ],
+       "f4": [
+        "Alex Formenton",
+        "Owen Michaels",
+        "Trent Frederic"
+       ],
+       "d1": [
+        "Mattias Ekholm",
+        "Evan Bouchard"
+       ],
+       "d2": [
+        "Ryan Shea",
+        "Connor Murphy"
+       ],
+       "d3": [
+        "Shakir Mukhamadullin",
+        "Ty Emberson"
+       ],
+       "g": [
+        "Tristan Jarry",
+        "Devon Levi"
+       ],
+       "pp1": [
+        "Zach Hyman",
+        "Leon Draisaitl",
+        "Vasily Podkolzin",
+        "Connor McDavid",
+        "Evan Bouchard"
+       ],
+       "pp2": [
+        "Trent Frederic",
+        "Colton Dach",
+        "Kasperi Kapanen",
+        "Filip Hallander",
+        "Ryan Shea"
+       ]
+      },
+      "injuries": [
+       {
+        "name": "Alec Regula",
+        "pos": "IR1",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "Regula (undisclosed) has been placed on LTIR.",
+        "news_at": "2026-10-01T10:14:49.493-04:00"
+       },
+       {
+        "name": "Frederik Andersen",
+        "pos": "IR2",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "Andersen (undisclosed) is expected to be out until December.",
+        "news_at": "2026-09-29T14:03:55.556-04:00"
+       },
+       {
+        "name": "Mattias Janmark",
+        "pos": "IR3",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "Janmark (undisclosed) has no timeline to return.",
+        "news_at": "2026-09-29T14:04:38.081-04:00"
+       },
+       {
+        "name": "Matthew Savoie",
+        "pos": "IR4",
+        "status": "ir",
+        "game_time_decision": false,
+        "news": "Savoie (undisclosed) has been placed on LTIR.",
+        "news_at": "2026-10-01T10:14:19.207-04:00"
+       },
+       {
+        "name": "Ryan Nugent-Hopkins",
+        "pos": "IR5",
+        "status": "dtd",
+        "game_time_decision": false,
+        "news": "Nugent-Hopkins (undisclosed) is out vs. Philadelphia on Sunday.",
+        "news_at": "2026-11-15T18:15:44.551-05:00"
+       }
+      ],
+      "top_unit": [
+       {
+        "name": "Vasily Podkolzin",
+        "pos": "LW",
+        "group": "f1",
+        "shots_last10_pg": 1.8,
+        "toi_last5": 18.4
+       },
+       {
+        "name": "Connor McDavid",
+        "pos": "C",
+        "group": "f1",
+        "shots_last10_pg": 2.4,
+        "toi_last5": 22.8
+       },
+       {
+        "name": "Leon Draisaitl",
+        "pos": "RW",
+        "group": "f1",
+        "shots_last10_pg": 4.3,
+        "toi_last5": 21.4
+       },
+       {
+        "name": "Mattias Ekholm",
+        "pos": "LD",
+        "group": "d1",
+        "shots_last10_pg": 1.4,
+        "toi_last5": 20.4
+       },
+       {
+        "name": "Evan Bouchard",
+        "pos": "RD",
+        "group": "d1",
+        "shots_last10_pg": 2.0,
+        "toi_last5": 24.0
+       }
+      ]
+     },
+     "away": {
+      "updated_at": "2026-11-20T17:21:00.632Z",
+      "source_name": "Last Game (2026-11-19)",
+      "fetched_utc": "2026-11-22 15:30 UTC",
+      "lines": {
+       "f1": [
+        "Brett Howden",
+        "Jack Eichel",
+        "Mark Stone"
+       ],
+       "f2": [
+        "Trevor Connelly",
+        "William Karlsson",
+        "Mitch Marner"
+       ],
+       "f3": [
+        "Ivan Barbashev",
+        "Tomas Hertl",
+        "Victor Olofsson"
+       ],
+       "f4": [
+        "Braeden Bowman",
+        "Nic Dowd",
+        "Marc Gatcomb"
+       ],
+       "d1": [
+        "Brayden McNabb",
+        "Shea Theodore"
+       ],
+       "d2": [
+        "Parker Wotherspoon",
+        "Rasmus Andersson"
+       ],
+       "d3": [
+        "Jeremy Lauzon",
+        "Dylan Coghlan"
+       ],
+       "g": [
+        "Carter Hart",
+        "Adin Hill"
+       ],
+       "pp1": [
+        "Mark Stone",
+        "Tomas Hertl",
+        "Victor Olofsson",
+        "Jack Eichel",
+        "Mitch Marner"
+       ],
+       "pp2": [
+        "Braeden Bowman",
+        "William Karlsson",
+        "Trevor Connelly",
+        "Rasmus Andersson",
+        "Shea Theodore"
+       ]
+      },
+      "injuries": [
+       {
+        "name": "Noah Hanifin",
+        "pos": "IR2",
+        "status": "out",
+        "game_time_decision": false,
+        "news": "Hanifin (undisclosed) is considered week-to-week.",
+        "news_at": "2026-11-10T15:28:22.855-05:00"
+       }
+      ],
+      "top_unit": [
+       {
+        "name": "Brett Howden",
+        "pos": "LW",
+        "group": "f1",
+        "shots_last10_pg": 2.1,
+        "toi_last5": 14.2
+       },
+       {
+        "name": "Jack Eichel",
+        "pos": "C",
+        "group": "f1",
+        "shots_last10_pg": 3.0,
+        "toi_last5": 22.6
+       },
+       {
+        "name": "Mark Stone",
+        "pos": "RW",
+        "group": "f1",
+        "shots_last10_pg": 1.3,
+        "toi_last5": 20.6
+       },
+       {
+        "name": "Brayden McNabb",
+        "pos": "LD",
+        "group": "d1",
+        "shots_last10_pg": 0.9,
+        "toi_last5": 20.4
+       },
+       {
+        "name": "Shea Theodore",
+        "pos": "RD",
+        "group": "d1",
+        "shots_last10_pg": 0.9,
+        "toi_last5": 22.6
+       }
+      ]
+     }
+    }
    },
    "rank_u05_first5": 1,
    "rank_u05_first10": 1
@@ -2540,8 +2782,23 @@
   }
  },
  "changes": {
-  "since": null,
-  "items": [],
-  "first_build": true
+  "since": "2026-11-22 14:05 UTC",
+  "items": [
+   {
+    "game_id": 2026020385,
+    "game": "VGK @ EDM",
+    "kind": "goalie",
+    "text": "EDM goalie now Tristan Jarry (unconfirmed), was Devon Levi (projected)"
+   },
+   {
+    "game_id": 2026020385,
+    "game": "VGK @ EDM",
+    "kind": "status",
+    "text": "VGK Carter Hart now unconfirmed, was projected"
+   }
+  ],
+  "first_build": false,
+  "data_through_before": "2026-11-21",
+  "data_through_after": "2026-11-21"
  }
 }
