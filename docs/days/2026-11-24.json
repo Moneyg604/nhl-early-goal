@@ -1,6 +1,6 @@
 {
  "date": "2026-11-24",
- "generated_utc": "2026-11-22 15:30 UTC",
+ "generated_utc": "2026-11-22 20:39 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -944,8 +944,8 @@
  "pick_of_day": {
   "matchup": "VGK @ EDM",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6676,
-  "fair": 1.498,
+  "p": 0.6644,
+  "fair": 1.505,
   "tier": "B",
   "game_id": 2026020385,
   "runner_up": null
@@ -955,7 +955,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.6676,
+    "p": 0.6644,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -964,7 +964,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.4234,
+    "p": 0.4196,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -973,7 +973,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.7891,
+    "p": 0.7894,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -990,7 +990,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "VGK",
-    "p": 0.7987,
+    "p": 0.7978,
     "tier": "B",
     "game_id": 2026020385,
     "market": "away_over15"
@@ -1000,7 +1000,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.7306,
+    "p": 0.7275,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1009,7 +1009,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.6827,
+    "p": 0.6838,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1018,7 +1018,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3528,
+    "p": 0.3546,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1027,7 +1027,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3528,
+    "p": 0.3546,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1036,7 +1036,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.5303,
+    "p": 0.5321,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1045,7 +1045,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3307,
+    "p": 0.3301,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1066,64 +1066,64 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6676,
-     "fair": 1.498
+     "p": 0.6644,
+     "fair": 1.505
     },
     "o05_first5": {
-     "p": 0.3324,
-     "fair": 3.008
+     "p": 0.3356,
+     "fair": 2.979
     },
     "u05_first10": {
-     "p": 0.4234,
-     "fair": 2.362
+     "p": 0.4196,
+     "fair": 2.383
     },
     "o05_first10": {
-     "p": 0.5766,
-     "fair": 1.734
+     "p": 0.5804,
+     "fair": 1.723
     },
     "p1_minus05": {
      "pick": "EDM",
-     "p": 0.3528,
-     "fair": 2.835
+     "p": 0.3546,
+     "fair": 2.82
     },
     "p1_plus05": {
      "pick": "EDM",
-     "p": 0.6827,
-     "fair": 1.465
+     "p": 0.6838,
+     "fair": 1.462
     },
     "p1_ml": {
      "pick": "EDM",
-     "p": 0.3528,
-     "fair": 2.835,
-     "home": 0.3528,
-     "tie": 0.33,
-     "away": 0.3173
+     "p": 0.3546,
+     "fair": 2.82,
+     "home": 0.3546,
+     "tie": 0.3292,
+     "away": 0.3162
     },
     "fg_ml": {
      "pick": "EDM",
-     "p": 0.5303,
-     "fair": 1.886,
-     "home": 0.5303,
-     "away": 0.4697,
-     "home_reg": 0.4436,
-     "away_reg": 0.3848,
-     "reg_tie": 0.1716
+     "p": 0.5321,
+     "fair": 1.879,
+     "home": 0.5321,
+     "away": 0.4679,
+     "home_reg": 0.4454,
+     "away_reg": 0.3846,
+     "reg_tie": 0.17
     },
     "fg_spread": {
      "pick": "EDM",
      "line": -1.5,
-     "p": 0.3307,
-     "fair": 3.024,
+     "p": 0.3301,
+     "fair": 3.029,
      "plus_pick": "EDM",
-     "plus_p": 0.7204
+     "plus_p": 0.7225
     },
     "fg_total": {
-     "mean": 6.351,
-     "over55": 0.5852,
-     "over65": 0.4707
+     "mean": 6.342,
+     "over55": 0.5859,
+     "over65": 0.4717
     },
     "fg_over45": {
-     "p": 0.7891,
+     "p": 0.7894,
      "fair": 1.267
     },
     "home_over15": {
@@ -1133,12 +1133,12 @@
     },
     "away_over15": {
      "pick": "VGK",
-     "p": 0.7987,
-     "fair": 1.252
+     "p": 0.7978,
+     "fair": 1.253
     },
     "p1_under25": {
-     "p": 0.7306,
-     "fair": 1.369
+     "p": 0.7275,
+     "fair": 1.375
     }
    },
    "analytic": {
@@ -1164,32 +1164,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0587,
-    0.0727,
-    0.0674,
-    0.0699,
+    0.0585,
+    0.0745,
+    0.0683,
+    0.0706,
     0.0637,
-    0.059,
-    0.0524,
-    0.0489,
-    0.0439,
-    0.0399
+    0.0563,
+    0.054,
+    0.0493,
+    0.0447,
+    0.0405
    ],
    "p1": {
-    "home": 0.3528,
-    "tie": 0.33,
-    "away": 0.3173,
+    "home": 0.3546,
+    "tie": 0.3292,
+    "away": 0.3162,
     "total_dist": [
-     0.1663,
-     0.297,
-     0.2674,
-     0.2694
+     0.1631,
+     0.2945,
+     0.2699,
+     0.2725
     ],
-    "mean_total": 1.799
+    "mean_total": 1.81
    },
    "projected": {
     "home": 3.27,
-    "away": 3.08,
+    "away": 3.07,
     "median": [
      3,
      3
@@ -2782,21 +2782,8 @@
   }
  },
  "changes": {
-  "since": "2026-11-22 14:05 UTC",
-  "items": [
-   {
-    "game_id": 2026020385,
-    "game": "VGK @ EDM",
-    "kind": "goalie",
-    "text": "EDM goalie now Tristan Jarry (unconfirmed), was Devon Levi (projected)"
-   },
-   {
-    "game_id": 2026020385,
-    "game": "VGK @ EDM",
-    "kind": "status",
-    "text": "VGK Carter Hart now unconfirmed, was projected"
-   }
-  ],
+  "since": "2026-11-22 15:30 UTC",
+  "items": [],
   "first_build": false,
   "data_through_before": "2026-11-21",
   "data_through_after": "2026-11-21"
