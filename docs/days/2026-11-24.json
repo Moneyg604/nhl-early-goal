@@ -1,6 +1,6 @@
 {
  "date": "2026-11-24",
- "generated_utc": "2026-11-23 14:05 UTC",
+ "generated_utc": "2026-11-23 19:05 UTC",
  "model_version": "0.5.0",
  "meta": {
   "sims": 100000,
@@ -944,8 +944,8 @@
  "pick_of_day": {
   "matchup": "VGK @ EDM",
   "market": "Under 0.5 goals, first 5:00",
-  "p": 0.6681,
-  "fair": 1.497,
+  "p": 0.6642,
+  "fair": 1.506,
   "tier": "B",
   "game_id": 2026020385,
   "runner_up": null
@@ -955,7 +955,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.6681,
+    "p": 0.6642,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -964,7 +964,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.4239,
+    "p": 0.4191,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -973,7 +973,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.7891,
+    "p": 0.7914,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -982,7 +982,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.8262,
+    "p": 0.8276,
     "tier": "B",
     "game_id": 2026020385,
     "market": "home_over15"
@@ -990,7 +990,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "VGK",
-    "p": 0.7975,
+    "p": 0.8006,
     "tier": "B",
     "game_id": 2026020385,
     "market": "away_over15"
@@ -1000,7 +1000,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": null,
-    "p": 0.7296,
+    "p": 0.7286,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1009,7 +1009,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.6836,
+    "p": 0.6817,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1018,7 +1018,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3555,
+    "p": 0.3528,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1027,7 +1027,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3555,
+    "p": 0.3528,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1045,7 +1045,7 @@
    {
     "matchup": "VGK @ EDM",
     "pick": "EDM",
-    "p": 0.3286,
+    "p": 0.3272,
     "tier": "B",
     "game_id": 2026020385
    }
@@ -1066,97 +1066,97 @@
    ],
    "markets": {
     "u05_first5": {
-     "p": 0.6681,
-     "fair": 1.497
+     "p": 0.6642,
+     "fair": 1.506
     },
     "o05_first5": {
-     "p": 0.3319,
-     "fair": 3.013
+     "p": 0.3358,
+     "fair": 2.978
     },
     "u05_first10": {
-     "p": 0.4239,
-     "fair": 2.359
+     "p": 0.4191,
+     "fair": 2.386
     },
     "o05_first10": {
-     "p": 0.5761,
-     "fair": 1.736
+     "p": 0.5809,
+     "fair": 1.722
     },
     "p1_minus05": {
      "pick": "EDM",
-     "p": 0.3555,
-     "fair": 2.813
+     "p": 0.3528,
+     "fair": 2.834
     },
     "p1_plus05": {
      "pick": "EDM",
-     "p": 0.6836,
-     "fair": 1.463
+     "p": 0.6817,
+     "fair": 1.467
     },
     "p1_ml": {
      "pick": "EDM",
-     "p": 0.3555,
-     "fair": 2.813,
-     "home": 0.3555,
-     "tie": 0.3281,
-     "away": 0.3164
+     "p": 0.3528,
+     "fair": 2.834,
+     "home": 0.3528,
+     "tie": 0.3289,
+     "away": 0.3183
     },
     "fg_ml": {
      "pick": "EDM",
      "p": 0.5305,
      "fair": 1.885,
      "home": 0.5305,
-     "away": 0.4695,
-     "home_reg": 0.4435,
-     "away_reg": 0.3856,
-     "reg_tie": 0.1708
+     "away": 0.4694,
+     "home_reg": 0.4428,
+     "away_reg": 0.387,
+     "reg_tie": 0.1702
     },
     "fg_spread": {
      "pick": "EDM",
      "line": -1.5,
-     "p": 0.3286,
-     "fair": 3.043,
+     "p": 0.3272,
+     "fair": 3.056,
      "plus_pick": "EDM",
-     "plus_p": 0.7216
+     "plus_p": 0.7198
     },
     "fg_total": {
-     "mean": 6.336,
-     "over55": 0.582,
-     "over65": 0.4684
+     "mean": 6.367,
+     "over55": 0.5879,
+     "over65": 0.4724
     },
     "fg_over45": {
-     "p": 0.7891,
-     "fair": 1.267
+     "p": 0.7914,
+     "fair": 1.264
     },
     "home_over15": {
      "pick": "EDM",
-     "p": 0.8262,
-     "fair": 1.21
+     "p": 0.8276,
+     "fair": 1.208
     },
     "away_over15": {
      "pick": "VGK",
-     "p": 0.7975,
-     "fair": 1.254
+     "p": 0.8006,
+     "fair": 1.249
     },
     "p1_under25": {
-     "p": 0.7296,
-     "fair": 1.371
+     "p": 0.7286,
+     "fair": 1.372
     }
    },
    "analytic": {
-    "u05_first5": 0.6646,
-    "u05_first10": 0.4215
+    "u05_first5": 0.6644,
+    "u05_first10": 0.4212
    },
    "uncertainty": {
     "first5": {
-     "p": 0.6646,
-     "lo": 0.6264,
-     "hi": 0.7028,
-     "se_log_hazard": 0.0856
+     "p": 0.6644,
+     "lo": 0.6269,
+     "hi": 0.7019,
+     "se_log_hazard": 0.084
     },
     "first10": {
-     "p": 0.4215,
-     "lo": 0.3703,
-     "hi": 0.4728,
-     "se_log_hazard": 0.0856
+     "p": 0.4212,
+     "lo": 0.3709,
+     "hi": 0.4715,
+     "se_log_hazard": 0.084
     }
    },
    "mc_se": {
@@ -1164,32 +1164,32 @@
     "first10": 0.00156
    },
    "first_goal_hist": [
-    0.0586,
-    0.073,
-    0.0675,
-    0.0701,
-    0.0627,
-    0.0576,
-    0.0539,
-    0.0478,
-    0.045,
-    0.0399
+    0.0597,
+    0.0738,
+    0.0685,
+    0.0712,
+    0.0626,
+    0.059,
+    0.0541,
+    0.0482,
+    0.0435,
+    0.0403
    ],
    "p1": {
-    "home": 0.3555,
-    "tie": 0.3281,
-    "away": 0.3164,
+    "home": 0.3528,
+    "tie": 0.3289,
+    "away": 0.3183,
     "total_dist": [
-     0.1652,
-     0.2984,
-     0.266,
-     0.2704
+     0.1646,
+     0.2965,
+     0.2676,
+     0.2714
     ],
-    "mean_total": 1.801
+    "mean_total": 1.81
    },
    "projected": {
-    "home": 3.26,
-    "away": 3.07,
+    "home": 3.27,
+    "away": 3.09,
     "median": [
      3,
      3
@@ -1197,19 +1197,19 @@
    },
    "goalies": {
     "home": {
-     "name": "Tristan Jarry",
-     "id": 8477465,
+     "name": "Devon Levi",
+     "id": 8482221,
      "status": "unconfirmed",
      "source": "dailyfaceoff",
      "note": "Unconfirmed on DailyFaceoff",
-     "sv_raw": 0.8927,
-     "sv_shrunk": 0.8948,
-     "sv_last5": 0.9236,
-     "e10_sv_raw": 0.9157,
-     "starts_cur": 11,
-     "shots_weighted": 990,
-     "xg_ratio": 1.004,
-     "gsax_per_60": -0.03
+     "sv_raw": 0.8881,
+     "sv_shrunk": 0.8946,
+     "sv_last5": 0.8968,
+     "e10_sv_raw": 0.9366,
+     "starts_cur": 13,
+     "shots_weighted": 404,
+     "xg_ratio": 1.011,
+     "gsax_per_60": -0.14
     },
     "away": {
      "name": "Carter Hart",
@@ -1555,8 +1555,8 @@
       "opp_def_shot_early": 0.9649,
       "opp_def_shot_full": 0.9772,
       "finish": 1.0025,
-      "opp_goalie": 1.0113,
-      "opp_goalie_sv_shrunk": 0.8948,
+      "opp_goalie": 1.0131,
+      "opp_goalie_sv_shrunk": 0.8946,
       "context_total": 1.0011,
       "early_context_total": 1.0
      },
@@ -1566,19 +1566,19 @@
      },
      "early_context_detail": {},
      "faces_goalie": {
-      "name": "Tristan Jarry",
-      "id": 8477465,
+      "name": "Devon Levi",
+      "id": 8482221,
       "status": "unconfirmed",
       "source": "dailyfaceoff",
       "note": "Unconfirmed on DailyFaceoff",
-      "sv_raw": 0.8927,
-      "sv_shrunk": 0.8948,
-      "sv_last5": 0.9236,
-      "e10_sv_raw": 0.9157,
-      "starts_cur": 11,
-      "shots_weighted": 990,
-      "xg_ratio": 1.004,
-      "gsax_per_60": -0.03
+      "sv_raw": 0.8881,
+      "sv_shrunk": 0.8946,
+      "sv_last5": 0.8968,
+      "e10_sv_raw": 0.9366,
+      "starts_cur": 13,
+      "shots_weighted": 404,
+      "xg_ratio": 1.011,
+      "gsax_per_60": -0.14
      },
      "labels": {
       "team_profile": {
@@ -1587,7 +1587,7 @@
       },
       "opp_goalie": {
        "label": "partial",
-       "note": "starter unconfirmed (990 shots of data); re-check before the puck drops"
+       "note": "starter unconfirmed (404 shots of data); re-check before the puck drops"
       },
       "rest_travel": {
        "label": "measured",
@@ -1595,16 +1595,16 @@
       }
      },
      "lambda_first_10_per_min": [
-      0.0297,
-      0.03941,
-      0.03941,
-      0.04404,
-      0.04404,
-      0.04383,
-      0.04383,
-      0.04383,
-      0.04383,
-      0.04383
+      0.02976,
+      0.03948,
+      0.03948,
+      0.04411,
+      0.04411,
+      0.04391,
+      0.04391,
+      0.04391,
+      0.04391,
+      0.04391
      ]
     }
    },
@@ -1994,18 +1994,18 @@
     },
     "goalie_workload": {
      "home": {
-      "starts_on_record": 75,
-      "last_start": "2026-11-22",
-      "days_since_last_start": 2,
+      "starts_on_record": 21,
+      "last_start": "2026-11-21",
+      "days_since_last_start": 3,
       "started_last_night": false,
-      "shots_faced_last_start": 26,
-      "goals_against_last_start": 4,
-      "consecutive_team_starts": 1,
-      "starts_last_7_days": 1,
+      "shots_faced_last_start": 36,
+      "goals_against_last_start": 7,
+      "consecutive_team_starts": 0,
+      "starts_last_7_days": 3,
       "shots_faced_last_3": [
-       32,
-       36,
-       26
+       22,
+       20,
+       36
       ]
      },
      "away": {
@@ -2790,10 +2790,17 @@
   }
  },
  "changes": {
-  "since": "2026-11-23 03:02 UTC",
-  "items": [],
+  "since": "2026-11-23 14:05 UTC",
+  "items": [
+   {
+    "game_id": 2026020385,
+    "game": "VGK @ EDM",
+    "kind": "goalie",
+    "text": "EDM goalie now Devon Levi (unconfirmed), was Tristan Jarry (unconfirmed)"
+   }
+  ],
   "first_build": false,
-  "data_through_before": "2026-11-21",
+  "data_through_before": "2026-11-22",
   "data_through_after": "2026-11-22"
  }
 }
