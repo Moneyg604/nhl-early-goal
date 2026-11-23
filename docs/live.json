@@ -1,7 +1,7 @@
 {
  "date": "2026-11-22",
- "updated_utc": "2026-11-23 01:10 UTC",
- "updated_et": "8:10 PM ET",
+ "updated_utc": "2026-11-23 01:15 UTC",
+ "updated_et": "8:15 PM ET",
  "games": {
   "2026020373": {
    "state": "OFF",
@@ -121,8 +121,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "15:16",
-   "elapsed_min": 24.73,
+   "time_remaining": "11:15",
+   "elapsed_min": 28.75,
    "home": "STL",
    "away": "EDM",
    "home_score": 0,
@@ -145,8 +145,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:18",
-   "elapsed_min": 25.7,
+   "time_remaining": "12:05",
+   "elapsed_min": 27.92,
    "home": "DAL",
    "away": "PIT",
    "home_score": 0,
@@ -163,18 +163,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "20:00",
-   "elapsed_min": 0.0,
+   "time_remaining": "18:27",
+   "elapsed_min": 1.55,
    "home": "VAN",
    "away": "CHI",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 0.583,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 0.583,
+     "team": "CHI"
+    }
+   ]
   }
  }
 }
