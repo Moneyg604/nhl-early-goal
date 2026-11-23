@@ -1,7 +1,7 @@
 {
  "date": "2026-11-22",
- "updated_utc": "2026-11-23 03:45 UTC",
- "updated_et": "10:45 PM ET",
+ "updated_utc": "2026-11-23 03:50 UTC",
+ "updated_et": "10:50 PM ET",
  "games": {
   "2026020373": {
    "state": "OFF",
@@ -200,12 +200,12 @@
    ]
   },
   "2026020377": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:06",
-   "elapsed_min": 59.9,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "VAN",
    "away": "CHI",
    "home_score": 3,
@@ -214,7 +214,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 4,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
