@@ -1,7 +1,7 @@
 {
  "date": "2026-11-22",
- "updated_utc": "2026-11-23 00:35 UTC",
- "updated_et": "7:35 PM ET",
+ "updated_utc": "2026-11-23 00:40 UTC",
+ "updated_et": "7:40 PM ET",
  "games": {
   "2026020373": {
    "state": "OFF",
@@ -58,12 +58,12 @@
    ]
   },
   "2026020374": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:07",
-   "elapsed_min": 58.88,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "TBL",
    "away": "BUF",
    "home_score": 2,
@@ -72,7 +72,7 @@
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -108,6 +108,11 @@
      "period": 3,
      "minute": 46.833,
      "team": "BUF"
+    },
+    {
+     "period": 3,
+     "minute": 58.883,
+     "team": "BUF"
     }
    ]
   },
@@ -116,8 +121,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "03:38",
-   "elapsed_min": 16.37,
+   "time_remaining": "01:08",
+   "elapsed_min": 18.87,
    "home": "STL",
    "away": "EDM",
    "home_score": 0,
@@ -140,8 +145,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "05:02",
-   "elapsed_min": 14.97,
+   "time_remaining": "01:52",
+   "elapsed_min": 18.13,
    "home": "DAL",
    "away": "PIT",
    "home_score": 0,
