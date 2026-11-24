@@ -1,7 +1,7 @@
 {
  "date": "2026-11-23",
- "updated_utc": "2026-11-24 03:10 UTC",
- "updated_et": "10:10 PM ET",
+ "updated_utc": "2026-11-24 03:15 UTC",
+ "updated_et": "10:15 PM ET",
  "games": {
   "2026020378": {
    "state": "OFF",
@@ -48,12 +48,12 @@
    ]
   },
   "2026020379": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "07:30",
-   "elapsed_min": 52.5,
+   "time_remaining": "04:39",
+   "elapsed_min": 55.35,
    "home": "MTL",
    "away": "LAK",
    "home_score": 1,
@@ -86,12 +86,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:28",
-   "elapsed_min": 55.53,
+   "time_remaining": "03:21",
+   "elapsed_min": 56.65,
    "home": "OTT",
    "away": "CGY",
    "home_score": 2,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 12.267,
    "p1_done": true,
    "p1_home": 2,
@@ -107,6 +107,11 @@
      "period": 1,
      "minute": 17.617,
      "team": "OTT"
+    },
+    {
+     "period": 3,
+     "minute": 55.667,
+     "team": "CGY"
     }
    ]
   },
@@ -160,12 +165,12 @@
    ]
   },
   "2026020382": {
-   "state": "OVER",
+   "state": "FINAL",
    "live": false,
-   "final": false,
+   "final": true,
    "period": 3,
    "time_remaining": "00:00",
-   "elapsed_min": 59.88,
+   "elapsed_min": 60.0,
    "home": "WPG",
    "away": "UTA",
    "home_score": 4,
@@ -174,7 +179,7 @@
    "p1_done": true,
    "p1_home": 3,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -213,8 +218,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "07:17",
-   "elapsed_min": 12.72,
+   "time_remaining": "05:25",
+   "elapsed_min": 14.58,
    "home": "SEA",
    "away": "ANA",
    "home_score": 0,
@@ -231,8 +236,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "18:38",
-   "elapsed_min": 1.37,
+   "time_remaining": "15:02",
+   "elapsed_min": 4.97,
    "home": "SJS",
    "away": "MIN",
    "home_score": 0,
