@@ -1,7 +1,7 @@
 {
  "date": "2026-11-23",
- "updated_utc": "2026-11-24 05:35 UTC",
- "updated_et": "12:35 AM ET",
+ "updated_utc": "2026-11-24 05:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020378": {
    "state": "OFF",
@@ -258,21 +258,21 @@
    ]
   },
   "2026020384": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:09",
-   "elapsed_min": 58.85,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "SJS",
    "away": "MIN",
    "home_score": 2,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 7.617,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -302,6 +302,11 @@
     {
      "period": 3,
      "minute": 58.4,
+     "team": "MIN"
+    },
+    {
+     "period": 3,
+     "minute": 59.1,
      "team": "MIN"
     }
    ]
