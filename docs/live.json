@@ -1,7 +1,7 @@
 {
  "date": "2026-11-23",
- "updated_utc": "2026-11-24 03:20 UTC",
- "updated_et": "10:20 PM ET",
+ "updated_utc": "2026-11-24 03:25 UTC",
+ "updated_et": "10:25 PM ET",
  "games": {
   "2026020378": {
    "state": "OFF",
@@ -52,8 +52,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "02:39",
-   "elapsed_min": 57.35,
+   "time_remaining": "00:10",
+   "elapsed_min": 59.83,
    "home": "MTL",
    "away": "LAK",
    "home_score": 1,
@@ -82,12 +82,12 @@
    ]
   },
   "2026020380": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "00:54",
-   "elapsed_min": 59.1,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "OTT",
    "away": "CGY",
    "home_score": 2,
@@ -96,7 +96,7 @@
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -218,8 +218,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "02:01",
-   "elapsed_min": 17.98,
+   "time_remaining": "14:50",
+   "elapsed_min": 5.17,
    "home": "SEA",
    "away": "ANA",
    "home_score": 0,
@@ -236,18 +236,24 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "12:30",
-   "elapsed_min": 7.5,
+   "time_remaining": "10:18",
+   "elapsed_min": 9.7,
    "home": "SJS",
    "away": "MIN",
    "home_score": 0,
-   "away_score": 0,
-   "first_goal_min": null,
+   "away_score": 1,
+   "first_goal_min": 7.617,
    "p1_done": false,
    "p1_home": 0,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
-   "goals": []
+   "goals": [
+    {
+     "period": 1,
+     "minute": 7.617,
+     "team": "MIN"
+    }
+   ]
   }
  }
 }
