@@ -1,24 +1,24 @@
 {
  "date": "2026-11-24",
- "updated_utc": "2026-11-25 03:35 UTC",
- "updated_et": "10:35 PM ET",
+ "updated_utc": "2026-11-25 03:40 UTC",
+ "updated_et": "10:40 PM ET",
  "games": {
   "2026020385": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:32",
-   "elapsed_min": 57.47,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "EDM",
    "away": "VGK",
    "home_score": 3,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 6.217,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -54,6 +54,11 @@
      "period": 3,
      "minute": 45.75,
      "team": "EDM"
+    },
+    {
+     "period": 3,
+     "minute": 57.467,
+     "team": "VGK"
     }
    ]
   }
