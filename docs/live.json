@@ -1,7 +1,7 @@
 {
  "date": "2026-11-25",
- "updated_utc": "2026-11-26 03:25 UTC",
- "updated_et": "10:25 PM ET",
+ "updated_utc": "2026-11-26 03:30 UTC",
+ "updated_et": "10:30 PM ET",
  "games": {
   "2026020386": {
    "state": "OFF",
@@ -460,21 +460,21 @@
    ]
   },
   "2026020395": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:01",
-   "elapsed_min": 58.98,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "DAL",
    "away": "NSH",
-   "home_score": 0,
-   "away_score": 2,
+   "home_score": 1,
+   "away_score": 3,
    "first_goal_min": 19.033,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -485,6 +485,16 @@
      "period": 3,
      "minute": 58.65,
      "team": "NSH"
+    },
+    {
+     "period": 3,
+     "minute": 59.417,
+     "team": "DAL"
+    },
+    {
+     "period": 3,
+     "minute": 59.75,
+     "team": "NSH"
     }
    ]
   },
@@ -493,8 +503,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "13:01",
-   "elapsed_min": 46.98,
+   "time_remaining": "11:09",
+   "elapsed_min": 48.85,
    "home": "MIN",
    "away": "UTA",
    "home_score": 2,
@@ -542,8 +552,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "05:34",
-   "elapsed_min": 14.43,
+   "time_remaining": "00:55",
+   "elapsed_min": 19.08,
    "home": "COL",
    "away": "MTL",
    "home_score": 1,
@@ -566,8 +576,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "02:53",
-   "elapsed_min": 17.12,
+   "time_remaining": "00:27",
+   "elapsed_min": 19.55,
    "home": "SEA",
    "away": "CHI",
    "home_score": 0,
@@ -584,8 +594,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "09:55",
-   "elapsed_min": 10.08,
+   "time_remaining": "07:38",
+   "elapsed_min": 12.37,
    "home": "ANA",
    "away": "SJS",
    "home_score": 0,
