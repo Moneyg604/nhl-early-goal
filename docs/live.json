@@ -1,15 +1,15 @@
 {
  "date": "2026-11-25",
- "updated_utc": "2026-11-26 02:25 UTC",
- "updated_et": "9:25 PM ET",
+ "updated_utc": "2026-11-26 02:30 UTC",
+ "updated_et": "9:30 PM ET",
  "games": {
   "2026020386": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:41",
-   "elapsed_min": 54.32,
+   "time_remaining": "03:25",
+   "elapsed_min": 56.58,
    "home": "BOS",
    "away": "WPG",
    "home_score": 2,
@@ -48,12 +48,12 @@
    ]
   },
   "2026020387": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "08:03",
-   "elapsed_min": 51.95,
+   "time_remaining": "04:03",
+   "elapsed_min": 55.95,
    "home": "BUF",
    "away": "NYR",
    "home_score": 5,
@@ -88,16 +88,21 @@
      "period": 3,
      "minute": 49.267,
      "team": "BUF"
+    },
+    {
+     "period": 3,
+     "minute": 51.817,
+     "team": "BUF"
     }
    ]
   },
   "2026020388": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:27",
-   "elapsed_min": 53.55,
+   "time_remaining": "03:46",
+   "elapsed_min": 56.23,
    "home": "TBL",
    "away": "CAR",
    "home_score": 1,
@@ -130,11 +135,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "11:15",
-   "elapsed_min": 48.75,
+   "time_remaining": "09:39",
+   "elapsed_min": 50.35,
    "home": "FLA",
    "away": "OTT",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 2,
    "first_goal_min": 16.267,
    "p1_done": true,
@@ -166,6 +171,11 @@
      "period": 2,
      "minute": 38.917,
      "team": "FLA"
+    },
+    {
+     "period": 3,
+     "minute": 49.283,
+     "team": "FLA"
     }
    ]
   },
@@ -174,8 +184,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "08:08",
-   "elapsed_min": 51.87,
+   "time_remaining": "06:30",
+   "elapsed_min": 53.5,
    "home": "NYI",
    "away": "STL",
    "home_score": 1,
@@ -203,8 +213,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "09:25",
-   "elapsed_min": 50.58,
+   "time_remaining": "06:54",
+   "elapsed_min": 53.1,
    "home": "PIT",
    "away": "CGY",
    "home_score": 3,
@@ -252,7 +262,7 @@
     },
     {
      "period": 3,
-     "minute": 49.267,
+     "minute": 49.3,
      "team": "CGY"
     }
    ]
@@ -262,8 +272,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "10:13",
-   "elapsed_min": 49.78,
+   "time_remaining": "09:04",
+   "elapsed_min": 50.93,
    "home": "WSH",
    "away": "PHI",
    "home_score": 3,
@@ -302,12 +312,12 @@
    ]
   },
   "2026020393": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "06:49",
-   "elapsed_min": 53.18,
+   "time_remaining": "04:22",
+   "elapsed_min": 55.63,
    "home": "CBJ",
    "away": "NJD",
    "home_score": 2,
@@ -345,8 +355,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "09:22",
-   "elapsed_min": 30.63,
+   "time_remaining": "04:04",
+   "elapsed_min": 35.93,
    "home": "DET",
    "away": "VAN",
    "home_score": 4,
@@ -384,8 +394,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "04:53",
-   "elapsed_min": 35.12,
+   "time_remaining": "01:12",
+   "elapsed_min": 38.8,
    "home": "DAL",
    "away": "NSH",
    "home_score": 0,
@@ -408,12 +418,12 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:34",
-   "elapsed_min": 25.43,
+   "time_remaining": "12:45",
+   "elapsed_min": 27.25,
    "home": "MIN",
    "away": "UTA",
-   "home_score": 0,
-   "away_score": 2,
+   "home_score": 1,
+   "away_score": 3,
    "first_goal_min": 6.283,
    "p1_done": true,
    "p1_home": 0,
@@ -428,6 +438,16 @@
     {
      "period": 2,
      "minute": 22.733,
+     "team": "UTA"
+    },
+    {
+     "period": 2,
+     "minute": 25.783,
+     "team": "MIN"
+    },
+    {
+     "period": 2,
+     "minute": 26.517,
      "team": "UTA"
     }
    ]
@@ -469,7 +489,7 @@
    "goals": []
   },
   "2026020398": {
-   "state": "FUT",
+   "state": "PRE",
    "live": false,
    "final": false,
    "period": null,
