@@ -1,7 +1,7 @@
 {
  "date": "2026-11-25",
- "updated_utc": "2026-11-26 02:45 UTC",
- "updated_et": "9:45 PM ET",
+ "updated_utc": "2026-11-26 02:50 UTC",
+ "updated_et": "9:50 PM ET",
  "games": {
   "2026020386": {
    "state": "FINAL",
@@ -145,11 +145,11 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "04:23",
-   "elapsed_min": 55.62,
+   "time_remaining": "01:39",
+   "elapsed_min": 58.35,
    "home": "FLA",
    "away": "OTT",
-   "home_score": 4,
+   "home_score": 5,
    "away_score": 2,
    "first_goal_min": 16.267,
    "p1_done": true,
@@ -186,6 +186,11 @@
      "period": 3,
      "minute": 49.283,
      "team": "FLA"
+    },
+    {
+     "period": 3,
+     "minute": 56.133,
+     "team": "FLA"
     }
    ]
   },
@@ -194,7 +199,7 @@
    "live": true,
    "final": false,
    "period": 4,
-   "time_remaining": "05:00",
+   "time_remaining": "00:48",
    "elapsed_min": 60.0,
    "home": "NYI",
    "away": "STL",
@@ -293,21 +298,21 @@
    ]
   },
   "2026020392": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "01:12",
-   "elapsed_min": 58.8,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "WSH",
    "away": "PHI",
-   "home_score": 5,
-   "away_score": 2,
+   "home_score": 7,
+   "away_score": 3,
    "first_goal_min": 0.283,
    "p1_done": true,
    "p1_home": 1,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -343,25 +348,40 @@
      "period": 3,
      "minute": 57.633,
      "team": "WSH"
+    },
+    {
+     "period": 3,
+     "minute": 58.8,
+     "team": "WSH"
+    },
+    {
+     "period": 3,
+     "minute": 59.3,
+     "team": "PHI"
+    },
+    {
+     "period": 3,
+     "minute": 59.817,
+     "team": "WSH"
     }
    ]
   },
   "2026020393": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 5,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
    "home": "CBJ",
    "away": "NJD",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 8.1,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 1,
-   "ended_in": null,
+   "ended_in": "SO",
    "goals": [
     {
      "period": 1,
@@ -390,12 +410,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:57",
-   "elapsed_min": 47.05,
+   "time_remaining": "09:40",
+   "elapsed_min": 50.33,
    "home": "DET",
    "away": "VAN",
-   "home_score": 4,
-   "away_score": 0,
+   "home_score": 5,
+   "away_score": 1,
    "first_goal_min": 1.267,
    "p1_done": true,
    "p1_home": 3,
@@ -421,6 +441,16 @@
      "period": 2,
      "minute": 26.4,
      "team": "DET"
+    },
+    {
+     "period": 3,
+     "minute": 47.433,
+     "team": "VAN"
+    },
+    {
+     "period": 3,
+     "minute": 48.133,
+     "team": "DET"
     }
    ]
   },
@@ -428,9 +458,9 @@
    "state": "LIVE",
    "live": true,
    "final": false,
-   "period": 2,
-   "time_remaining": "04:43",
-   "elapsed_min": 35.28,
+   "period": 3,
+   "time_remaining": "20:00",
+   "elapsed_min": 40.0,
    "home": "DAL",
    "away": "NSH",
    "home_score": 0,
@@ -453,8 +483,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "06:46",
-   "elapsed_min": 33.23,
+   "time_remaining": "05:38",
+   "elapsed_min": 34.37,
    "home": "MIN",
    "away": "UTA",
    "home_score": 2,
@@ -497,8 +527,8 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "16:05",
-   "elapsed_min": 3.92,
+   "time_remaining": "13:32",
+   "elapsed_min": 6.47,
    "home": "COL",
    "away": "MTL",
    "home_score": 0,
@@ -511,16 +541,16 @@
    "goals": []
   },
   "2026020399": {
-   "state": "PRE",
-   "live": false,
+   "state": "LIVE",
+   "live": true,
    "final": false,
-   "period": null,
-   "time_remaining": null,
-   "elapsed_min": 0.0,
+   "period": 1,
+   "time_remaining": "19:31",
+   "elapsed_min": 0.48,
    "home": "SEA",
    "away": "CHI",
-   "home_score": null,
-   "away_score": null,
+   "home_score": 0,
+   "away_score": 0,
    "first_goal_min": null,
    "p1_done": false,
    "p1_home": 0,
