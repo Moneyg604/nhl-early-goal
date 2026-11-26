@@ -1,7 +1,7 @@
 {
  "date": "2026-11-25",
- "updated_utc": "2026-11-26 05:35 UTC",
- "updated_et": "12:35 AM ET",
+ "updated_utc": "2026-11-26 05:40 UTC",
+ "updated_et": "12:40 AM ET",
  "games": {
   "2026020386": {
    "state": "OFF",
@@ -641,12 +641,12 @@
    ]
   },
   "2026020398": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:34",
-   "elapsed_min": 57.43,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "ANA",
    "away": "SJS",
    "home_score": 7,
@@ -655,7 +655,7 @@
    "p1_done": true,
    "p1_home": 3,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
