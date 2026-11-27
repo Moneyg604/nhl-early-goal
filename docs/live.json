@@ -1,7 +1,7 @@
 {
  "date": "2026-11-27",
- "updated_utc": "2026-11-27 23:50 UTC",
- "updated_et": "6:50 PM ET",
+ "updated_utc": "2026-11-27 23:55 UTC",
+ "updated_et": "6:55 PM ET",
  "games": {
   "2026020400": {
    "state": "OFF",
@@ -416,21 +416,21 @@
    ]
   },
   "2026020408": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
-   "period": 4,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
+   "period": 5,
    "time_remaining": "00:00",
    "elapsed_min": 60.0,
    "home": "MIN",
    "away": "COL",
    "home_score": 3,
-   "away_score": 3,
+   "away_score": 4,
    "first_goal_min": 7.817,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "SO",
    "goals": [
     {
      "period": 1,
@@ -572,8 +572,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "14:01",
-   "elapsed_min": 25.98,
+   "time_remaining": "10:47",
+   "elapsed_min": 29.22,
    "home": "CHI",
    "away": "NYR",
    "home_score": 2,
