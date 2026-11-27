@@ -1,7 +1,7 @@
 {
  "date": "2026-11-27",
- "updated_utc": "2026-11-27 23:35 UTC",
- "updated_et": "6:35 PM ET",
+ "updated_utc": "2026-11-27 23:40 UTC",
+ "updated_et": "6:40 PM ET",
  "games": {
   "2026020400": {
    "state": "OFF",
@@ -420,12 +420,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "02:20",
-   "elapsed_min": 57.67,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "MIN",
    "away": "COL",
    "home_score": 3,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 7.817,
    "p1_done": true,
    "p1_home": 2,
@@ -456,6 +456,11 @@
      "period": 3,
      "minute": 56.017,
      "team": "COL"
+    },
+    {
+     "period": 3,
+     "minute": 59.0,
+     "team": "COL"
     }
    ]
   },
@@ -464,12 +469,12 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "03:21",
-   "elapsed_min": 56.65,
+   "time_remaining": "01:21",
+   "elapsed_min": 58.65,
    "home": "ANA",
    "away": "LAK",
    "home_score": 3,
-   "away_score": 4,
+   "away_score": 5,
    "first_goal_min": 14.333,
    "p1_done": true,
    "p1_home": 2,
@@ -510,25 +515,30 @@
      "period": 3,
      "minute": 42.267,
      "team": "LAK"
+    },
+    {
+     "period": 3,
+     "minute": 58.65,
+     "team": "LAK"
     }
    ]
   },
   "2026020410": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "03:34",
-   "elapsed_min": 56.43,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "SJS",
    "away": "VGK",
-   "home_score": 3,
+   "home_score": 4,
    "away_score": 1,
    "first_goal_min": 35.85,
    "p1_done": true,
    "p1_home": 0,
    "p1_away": 0,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 2,
@@ -549,6 +559,11 @@
      "period": 3,
      "minute": 54.067,
      "team": "SJS"
+    },
+    {
+     "period": 3,
+     "minute": 57.817,
+     "team": "SJS"
     }
    ]
   },
@@ -557,8 +572,8 @@
    "live": true,
    "final": false,
    "period": 2,
-   "time_remaining": "20:00",
-   "elapsed_min": 20.0,
+   "time_remaining": "18:15",
+   "elapsed_min": 21.75,
    "home": "CHI",
    "away": "NYR",
    "home_score": 2,
