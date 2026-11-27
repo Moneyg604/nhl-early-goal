@@ -1,7 +1,7 @@
 {
  "date": "2026-11-27",
- "updated_utc": "2026-11-27 23:10 UTC",
- "updated_et": "6:10 PM ET",
+ "updated_utc": "2026-11-27 23:15 UTC",
+ "updated_et": "6:15 PM ET",
  "games": {
   "2026020400": {
    "state": "OFF",
@@ -289,7 +289,7 @@
    ]
   },
   "2026020405": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -420,8 +420,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "12:30",
-   "elapsed_min": 47.5,
+   "time_remaining": "10:09",
+   "elapsed_min": 49.85,
    "home": "MIN",
    "away": "COL",
    "home_score": 3,
@@ -454,8 +454,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "15:51",
-   "elapsed_min": 44.15,
+   "time_remaining": "12:04",
+   "elapsed_min": 47.93,
    "home": "ANA",
    "away": "LAK",
    "home_score": 3,
@@ -508,8 +508,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "14:38",
-   "elapsed_min": 45.37,
+   "time_remaining": "12:09",
+   "elapsed_min": 47.85,
    "home": "SJS",
    "away": "VGK",
    "home_score": 2,
@@ -537,22 +537,27 @@
    "live": true,
    "final": false,
    "period": 1,
-   "time_remaining": "03:28",
-   "elapsed_min": 16.53,
+   "time_remaining": "01:45",
+   "elapsed_min": 18.25,
    "home": "CHI",
    "away": "NYR",
    "home_score": 1,
-   "away_score": 0,
+   "away_score": 1,
    "first_goal_min": 4.383,
    "p1_done": false,
    "p1_home": 1,
-   "p1_away": 0,
+   "p1_away": 1,
    "ended_in": null,
    "goals": [
     {
      "period": 1,
      "minute": 4.383,
      "team": "CHI"
+    },
+    {
+     "period": 1,
+     "minute": 17.683,
+     "team": "NYR"
     }
    ]
   },
