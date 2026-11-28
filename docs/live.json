@@ -1,7 +1,7 @@
 {
  "date": "2026-11-27",
- "updated_utc": "2026-11-28 03:50 UTC",
- "updated_et": "10:50 PM ET",
+ "updated_utc": "2026-11-28 03:55 UTC",
+ "updated_et": "10:55 PM ET",
  "games": {
   "2026020400": {
    "state": "OFF",
@@ -641,21 +641,21 @@
    ]
   },
   "2026020413": {
-   "state": "CRIT",
-   "live": true,
-   "final": false,
+   "state": "FINAL",
+   "live": false,
+   "final": true,
    "period": 3,
-   "time_remaining": "02:32",
-   "elapsed_min": 57.47,
+   "time_remaining": "00:00",
+   "elapsed_min": 60.0,
    "home": "BUF",
    "away": "PIT",
    "home_score": 3,
-   "away_score": 5,
+   "away_score": 6,
    "first_goal_min": 0.517,
    "p1_done": true,
    "p1_home": 2,
    "p1_away": 2,
-   "ended_in": null,
+   "ended_in": "REG",
    "goals": [
     {
      "period": 1,
@@ -695,6 +695,11 @@
     {
      "period": 2,
      "minute": 38.733,
+     "team": "PIT"
+    },
+    {
+     "period": 3,
+     "minute": 57.983,
      "team": "PIT"
     }
    ]
