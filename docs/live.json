@@ -1,7 +1,7 @@
 {
  "date": "2026-11-27",
- "updated_utc": "2026-11-28 03:35 UTC",
- "updated_et": "10:35 PM ET",
+ "updated_utc": "2026-11-28 03:40 UTC",
+ "updated_et": "10:40 PM ET",
  "games": {
   "2026020400": {
    "state": "OFF",
@@ -602,7 +602,7 @@
    ]
   },
   "2026020412": {
-   "state": "FINAL",
+   "state": "OFF",
    "live": false,
    "final": true,
    "period": 3,
@@ -645,8 +645,8 @@
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "08:41",
-   "elapsed_min": 51.32,
+   "time_remaining": "06:32",
+   "elapsed_min": 53.47,
    "home": "BUF",
    "away": "PIT",
    "home_score": 3,
@@ -700,16 +700,16 @@
    ]
   },
   "2026020414": {
-   "state": "LIVE",
+   "state": "CRIT",
    "live": true,
    "final": false,
    "period": 3,
-   "time_remaining": "05:39",
-   "elapsed_min": 54.35,
+   "time_remaining": "02:22",
+   "elapsed_min": 57.63,
    "home": "EDM",
    "away": "SEA",
    "home_score": 2,
-   "away_score": 2,
+   "away_score": 3,
    "first_goal_min": 11.35,
    "p1_done": true,
    "p1_home": 0,
@@ -734,6 +734,11 @@
     {
      "period": 3,
      "minute": 52.8,
+     "team": "SEA"
+    },
+    {
+     "period": 3,
+     "minute": 54.8,
      "team": "SEA"
     }
    ]
