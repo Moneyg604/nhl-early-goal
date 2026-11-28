@@ -1,0 +1,2141 @@
+{
+ "seasons": [
+  2024,
+  2025,
+  2026
+ ],
+ "minutes": 7.3,
+ "cfg": {
+  "half_life_games": 60.0,
+  "prior_season_weight": 0.5,
+  "k_sog": 3.0,
+  "k_pts": 5.0,
+  "k_ast": 10.0,
+  "k_goal": 5.0,
+  "k_blk": 3.0,
+  "k_oi": 4.0,
+  "k_team": 25.0,
+  "k_pp": 30.0,
+  "nb_size_sog": 15.0,
+  "nb_size_blk": 11.0,
+  "deploy_weight": 0.5,
+  "goals_elasticity": 1.0,
+  "recent_games": 3,
+  "sims": 50000
+ },
+ "pooled": {
+  "sog": {
+   "name": "Shots on goal (line = his trailing average)",
+   "n": 125088,
+   "ll_model": 0.64584,
+   "ll_base": 0.65217,
+   "brier_model": 0.22716,
+   "brier_base": 0.23007,
+   "gain": 0.00633,
+   "se": 0.00039,
+   "accuracy": 0.6287,
+   "verdict": "beats baseline",
+   "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 12509,
+     "pred": 0.2205,
+     "actual": 0.2253
+    },
+    {
+     "n": 12509,
+     "pred": 0.291,
+     "actual": 0.2816
+    },
+    {
+     "n": 12509,
+     "pred": 0.3329,
+     "actual": 0.3221
+    },
+    {
+     "n": 12509,
+     "pred": 0.3703,
+     "actual": 0.3611
+    },
+    {
+     "n": 12509,
+     "pred": 0.4078,
+     "actual": 0.3839
+    },
+    {
+     "n": 12509,
+     "pred": 0.4481,
+     "actual": 0.4291
+    },
+    {
+     "n": 12509,
+     "pred": 0.4933,
+     "actual": 0.475
+    },
+    {
+     "n": 12509,
+     "pred": 0.5453,
+     "actual": 0.5275
+    },
+    {
+     "n": 12508,
+     "pred": 0.6049,
+     "actual": 0.5861
+    },
+    {
+     "n": 12508,
+     "pred": 0.6924,
+     "actual": 0.6605
+    }
+   ],
+   "mae_model": 1.065,
+   "mae_recent_avg": 1.097
+  },
+  "blk": {
+   "name": "Blocked shots (line = his trailing average)",
+   "n": 78390,
+   "ll_model": 0.63892,
+   "ll_base": 0.64756,
+   "brier_model": 0.22431,
+   "brier_base": 0.22824,
+   "gain": 0.00864,
+   "se": 0.00048,
+   "accuracy": 0.6285,
+   "verdict": "beats baseline",
+   "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 7839,
+     "pred": 0.1674,
+     "actual": 0.1721
+    },
+    {
+     "n": 7839,
+     "pred": 0.2541,
+     "actual": 0.2674
+    },
+    {
+     "n": 7839,
+     "pred": 0.3127,
+     "actual": 0.3272
+    },
+    {
+     "n": 7839,
+     "pred": 0.3551,
+     "actual": 0.3543
+    },
+    {
+     "n": 7839,
+     "pred": 0.3906,
+     "actual": 0.3986
+    },
+    {
+     "n": 7839,
+     "pred": 0.4237,
+     "actual": 0.4189
+    },
+    {
+     "n": 7839,
+     "pred": 0.4574,
+     "actual": 0.4561
+    },
+    {
+     "n": 7839,
+     "pred": 0.4949,
+     "actual": 0.485
+    },
+    {
+     "n": 7839,
+     "pred": 0.5434,
+     "actual": 0.5339
+    },
+    {
+     "n": 7839,
+     "pred": 0.6458,
+     "actual": 0.6404
+    }
+   ],
+   "mae_model": 0.862,
+   "mae_recent_avg": 0.902
+  },
+  "pts": {
+   "name": "Points over 0.5",
+   "n": 131940,
+   "ll_model": 0.59866,
+   "ll_base": 0.60705,
+   "brier_model": 0.2055,
+   "brier_base": 0.20883,
+   "gain": 0.00838,
+   "se": 0.00038,
+   "accuracy": 0.6845,
+   "verdict": "beats baseline",
+   "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 13194,
+     "pred": 0.1469,
+     "actual": 0.158
+    },
+    {
+     "n": 13194,
+     "pred": 0.2028,
+     "actual": 0.1997
+    },
+    {
+     "n": 13194,
+     "pred": 0.2401,
+     "actual": 0.2217
+    },
+    {
+     "n": 13194,
+     "pred": 0.2767,
+     "actual": 0.261
+    },
+    {
+     "n": 13194,
+     "pred": 0.3157,
+     "actual": 0.3005
+    },
+    {
+     "n": 13194,
+     "pred": 0.3571,
+     "actual": 0.3483
+    },
+    {
+     "n": 13194,
+     "pred": 0.4042,
+     "actual": 0.3989
+    },
+    {
+     "n": 13194,
+     "pred": 0.4609,
+     "actual": 0.4554
+    },
+    {
+     "n": 13194,
+     "pred": 0.5319,
+     "actual": 0.5415
+    },
+    {
+     "n": 13194,
+     "pred": 0.6429,
+     "actual": 0.6498
+    }
+   ]
+  },
+  "ast": {
+   "name": "Assists over 0.5",
+   "n": 131940,
+   "ll_model": 0.52394,
+   "ll_base": 0.53426,
+   "brier_model": 0.17242,
+   "brier_base": 0.17563,
+   "gain": 0.01032,
+   "se": 0.00041,
+   "accuracy": 0.7586,
+   "verdict": "beats baseline",
+   "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 13194,
+     "pred": 0.1002,
+     "actual": 0.1059
+    },
+    {
+     "n": 13194,
+     "pred": 0.1399,
+     "actual": 0.1384
+    },
+    {
+     "n": 13194,
+     "pred": 0.1661,
+     "actual": 0.1585
+    },
+    {
+     "n": 13194,
+     "pred": 0.1901,
+     "actual": 0.1765
+    },
+    {
+     "n": 13194,
+     "pred": 0.215,
+     "actual": 0.2046
+    },
+    {
+     "n": 13194,
+     "pred": 0.2425,
+     "actual": 0.2359
+    },
+    {
+     "n": 13194,
+     "pred": 0.2746,
+     "actual": 0.2687
+    },
+    {
+     "n": 13194,
+     "pred": 0.3146,
+     "actual": 0.3155
+    },
+    {
+     "n": 13194,
+     "pred": 0.3674,
+     "actual": 0.3647
+    },
+    {
+     "n": 13194,
+     "pred": 0.4734,
+     "actual": 0.4815
+    }
+   ]
+  },
+  "goal": {
+   "name": "Anytime goal",
+   "n": 131940,
+   "ll_model": 0.39917,
+   "ll_base": 0.40981,
+   "brier_model": 0.12224,
+   "brier_base": 0.12452,
+   "gain": 0.01063,
+   "se": 0.00041,
+   "accuracy": 0.8452,
+   "verdict": "beats baseline",
+   "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 13194,
+     "pred": 0.0376,
+     "actual": 0.0461
+    },
+    {
+     "n": 13194,
+     "pred": 0.0607,
+     "actual": 0.058
+    },
+    {
+     "n": 13194,
+     "pred": 0.0805,
+     "actual": 0.0794
+    },
+    {
+     "n": 13194,
+     "pred": 0.1015,
+     "actual": 0.0957
+    },
+    {
+     "n": 13194,
+     "pred": 0.1246,
+     "actual": 0.1225
+    },
+    {
+     "n": 13194,
+     "pred": 0.1501,
+     "actual": 0.1474
+    },
+    {
+     "n": 13194,
+     "pred": 0.179,
+     "actual": 0.1743
+    },
+    {
+     "n": 13194,
+     "pred": 0.2152,
+     "actual": 0.2143
+    },
+    {
+     "n": 13194,
+     "pred": 0.2647,
+     "actual": 0.2636
+    },
+    {
+     "n": 13194,
+     "pred": 0.3538,
+     "actual": 0.3468
+    }
+   ]
+  },
+  "team_total": {
+   "name": "Team total (line = trailing average)",
+   "n": 7864,
+   "ll_model": 0.67253,
+   "ll_base": 0.68304,
+   "brier_model": 0.23982,
+   "brier_base": 0.24497,
+   "gain": 0.01052,
+   "se": 0.00199,
+   "accuracy": 0.5851,
+   "verdict": "beats baseline",
+   "baseline": "a Poisson at the team's 20-game average (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 787,
+     "pred": 0.2795,
+     "actual": 0.3304
+    },
+    {
+     "n": 787,
+     "pred": 0.3419,
+     "actual": 0.3583
+    },
+    {
+     "n": 787,
+     "pred": 0.379,
+     "actual": 0.3964
+    },
+    {
+     "n": 787,
+     "pred": 0.4108,
+     "actual": 0.4257
+    },
+    {
+     "n": 786,
+     "pred": 0.4441,
+     "actual": 0.472
+    },
+    {
+     "n": 786,
+     "pred": 0.4763,
+     "actual": 0.4593
+    },
+    {
+     "n": 786,
+     "pred": 0.5102,
+     "actual": 0.5013
+    },
+    {
+     "n": 786,
+     "pred": 0.5463,
+     "actual": 0.5331
+    },
+    {
+     "n": 786,
+     "pred": 0.5876,
+     "actual": 0.6018
+    },
+    {
+     "n": 786,
+     "pred": 0.6579,
+     "actual": 0.6539
+    }
+   ]
+  },
+  "ppg05": {
+   "name": "Power-play goals over 0.5",
+   "n": 7864,
+   "ll_model": 0.68639,
+   "ll_base": 0.6957,
+   "brier_model": 0.24665,
+   "brier_base": 0.25104,
+   "gain": 0.00931,
+   "se": 0.00175,
+   "accuracy": 0.5439,
+   "verdict": "beats baseline",
+   "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 787,
+     "pred": 0.362,
+     "actual": 0.3659
+    },
+    {
+     "n": 787,
+     "pred": 0.3973,
+     "actual": 0.4219
+    },
+    {
+     "n": 787,
+     "pred": 0.4171,
+     "actual": 0.4307
+    },
+    {
+     "n": 787,
+     "pred": 0.4329,
+     "actual": 0.4778
+    },
+    {
+     "n": 786,
+     "pred": 0.4477,
+     "actual": 0.4453
+    },
+    {
+     "n": 786,
+     "pred": 0.4612,
+     "actual": 0.4949
+    },
+    {
+     "n": 786,
+     "pred": 0.4755,
+     "actual": 0.4491
+    },
+    {
+     "n": 786,
+     "pred": 0.4919,
+     "actual": 0.528
+    },
+    {
+     "n": 786,
+     "pred": 0.5125,
+     "actual": 0.4936
+    },
+    {
+     "n": 786,
+     "pred": 0.5552,
+     "actual": 0.5496
+    }
+   ]
+  },
+  "ppg15": {
+   "name": "Power-play goals over 1.5",
+   "n": 7864,
+   "ll_model": 0.35877,
+   "ll_base": 0.36851,
+   "brier_model": 0.10308,
+   "brier_base": 0.10537,
+   "gain": 0.00974,
+   "se": 0.0016,
+   "accuracy": 0.8825,
+   "verdict": "beats baseline",
+   "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+   "calibration": [
+    {
+     "n": 787,
+     "pred": 0.0755,
+     "actual": 0.0712
+    },
+    {
+     "n": 787,
+     "pred": 0.0922,
+     "actual": 0.0851
+    },
+    {
+     "n": 787,
+     "pred": 0.1025,
+     "actual": 0.1055
+    },
+    {
+     "n": 787,
+     "pred": 0.1112,
+     "actual": 0.1017
+    },
+    {
+     "n": 786,
+     "pred": 0.1198,
+     "actual": 0.1094
+    },
+    {
+     "n": 786,
+     "pred": 0.128,
+     "actual": 0.1285
+    },
+    {
+     "n": 786,
+     "pred": 0.1371,
+     "actual": 0.1285
+    },
+    {
+     "n": 786,
+     "pred": 0.1479,
+     "actual": 0.1412
+    },
+    {
+     "n": 786,
+     "pred": 0.1623,
+     "actual": 0.145
+    },
+    {
+     "n": 786,
+     "pred": 0.1955,
+     "actual": 0.159
+    }
+   ]
+  },
+  "team_games": 7872,
+  "skater_games": 131940
+ },
+ "by_season": {
+  "2024": {
+   "sog": {
+    "name": "Shots on goal (line = his trailing average)",
+    "n": 42135,
+    "ll_model": 0.64717,
+    "ll_base": 0.65373,
+    "brier_model": 0.22785,
+    "brier_base": 0.23083,
+    "gain": 0.00656,
+    "se": 0.00067,
+    "accuracy": 0.6263,
+    "verdict": "beats baseline",
+    "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4214,
+      "pred": 0.2199,
+      "actual": 0.2269
+     },
+     {
+      "n": 4214,
+      "pred": 0.2912,
+      "actual": 0.2791
+     },
+     {
+      "n": 4214,
+      "pred": 0.3345,
+      "actual": 0.3253
+     },
+     {
+      "n": 4214,
+      "pred": 0.3727,
+      "actual": 0.3733
+     },
+     {
+      "n": 4214,
+      "pred": 0.4093,
+      "actual": 0.4001
+     },
+     {
+      "n": 4213,
+      "pred": 0.4477,
+      "actual": 0.4303
+     },
+     {
+      "n": 4213,
+      "pred": 0.4903,
+      "actual": 0.4788
+     },
+     {
+      "n": 4213,
+      "pred": 0.5412,
+      "actual": 0.5326
+     },
+     {
+      "n": 4213,
+      "pred": 0.6024,
+      "actual": 0.5948
+     },
+     {
+      "n": 4213,
+      "pred": 0.6922,
+      "actual": 0.6556
+     }
+    ],
+    "mae_model": 1.086,
+    "mae_recent_avg": 1.118
+   },
+   "blk": {
+    "name": "Blocked shots (line = his trailing average)",
+    "n": 26046,
+    "ll_model": 0.64324,
+    "ll_base": 0.65184,
+    "brier_model": 0.22624,
+    "brier_base": 0.23017,
+    "gain": 0.0086,
+    "se": 0.00086,
+    "accuracy": 0.6261,
+    "verdict": "beats baseline",
+    "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 2605,
+      "pred": 0.1601,
+      "actual": 0.1774
+     },
+     {
+      "n": 2605,
+      "pred": 0.2428,
+      "actual": 0.2791
+     },
+     {
+      "n": 2605,
+      "pred": 0.2965,
+      "actual": 0.3336
+     },
+     {
+      "n": 2605,
+      "pred": 0.3381,
+      "actual": 0.3631
+     },
+     {
+      "n": 2605,
+      "pred": 0.374,
+      "actual": 0.4038
+     },
+     {
+      "n": 2605,
+      "pred": 0.4077,
+      "actual": 0.4234
+     },
+     {
+      "n": 2604,
+      "pred": 0.4412,
+      "actual": 0.4508
+     },
+     {
+      "n": 2604,
+      "pred": 0.4786,
+      "actual": 0.4812
+     },
+     {
+      "n": 2604,
+      "pred": 0.5276,
+      "actual": 0.533
+     },
+     {
+      "n": 2604,
+      "pred": 0.6282,
+      "actual": 0.6409
+     }
+    ],
+    "mae_model": 0.879,
+    "mae_recent_avg": 0.924
+   },
+   "pts": {
+    "name": "Points over 0.5",
+    "n": 44010,
+    "ll_model": 0.59874,
+    "ll_base": 0.60751,
+    "brier_model": 0.20553,
+    "brier_base": 0.20903,
+    "gain": 0.00877,
+    "se": 0.00066,
+    "accuracy": 0.6846,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4401,
+      "pred": 0.1503,
+      "actual": 0.1586
+     },
+     {
+      "n": 4401,
+      "pred": 0.2063,
+      "actual": 0.2002
+     },
+     {
+      "n": 4401,
+      "pred": 0.2425,
+      "actual": 0.2259
+     },
+     {
+      "n": 4401,
+      "pred": 0.2781,
+      "actual": 0.2561
+     },
+     {
+      "n": 4401,
+      "pred": 0.3179,
+      "actual": 0.3033
+     },
+     {
+      "n": 4401,
+      "pred": 0.361,
+      "actual": 0.3447
+     },
+     {
+      "n": 4401,
+      "pred": 0.4091,
+      "actual": 0.4008
+     },
+     {
+      "n": 4401,
+      "pred": 0.4663,
+      "actual": 0.4554
+     },
+     {
+      "n": 4401,
+      "pred": 0.5384,
+      "actual": 0.5374
+     },
+     {
+      "n": 4401,
+      "pred": 0.6501,
+      "actual": 0.6546
+     }
+    ]
+   },
+   "ast": {
+    "name": "Assists over 0.5",
+    "n": 44010,
+    "ll_model": 0.5233,
+    "ll_base": 0.53404,
+    "brier_model": 0.17227,
+    "brier_base": 0.17571,
+    "gain": 0.01074,
+    "se": 0.00072,
+    "accuracy": 0.7584,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4401,
+      "pred": 0.0998,
+      "actual": 0.0991
+     },
+     {
+      "n": 4401,
+      "pred": 0.1403,
+      "actual": 0.1418
+     },
+     {
+      "n": 4401,
+      "pred": 0.167,
+      "actual": 0.1541
+     },
+     {
+      "n": 4401,
+      "pred": 0.1913,
+      "actual": 0.1791
+     },
+     {
+      "n": 4401,
+      "pred": 0.2168,
+      "actual": 0.207
+     },
+     {
+      "n": 4401,
+      "pred": 0.2456,
+      "actual": 0.2327
+     },
+     {
+      "n": 4401,
+      "pred": 0.2794,
+      "actual": 0.277
+     },
+     {
+      "n": 4401,
+      "pred": 0.3203,
+      "actual": 0.3045
+     },
+     {
+      "n": 4401,
+      "pred": 0.3742,
+      "actual": 0.3756
+     },
+     {
+      "n": 4401,
+      "pred": 0.4787,
+      "actual": 0.4897
+     }
+    ]
+   },
+   "goal": {
+    "name": "Anytime goal",
+    "n": 44010,
+    "ll_model": 0.39934,
+    "ll_base": 0.40951,
+    "brier_model": 0.1222,
+    "brier_base": 0.12442,
+    "gain": 0.01017,
+    "se": 0.0007,
+    "accuracy": 0.8453,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4401,
+      "pred": 0.0389,
+      "actual": 0.0454
+     },
+     {
+      "n": 4401,
+      "pred": 0.0622,
+      "actual": 0.0611
+     },
+     {
+      "n": 4401,
+      "pred": 0.083,
+      "actual": 0.0832
+     },
+     {
+      "n": 4401,
+      "pred": 0.1041,
+      "actual": 0.0943
+     },
+     {
+      "n": 4401,
+      "pred": 0.1266,
+      "actual": 0.1216
+     },
+     {
+      "n": 4401,
+      "pred": 0.1508,
+      "actual": 0.1461
+     },
+     {
+      "n": 4401,
+      "pred": 0.1794,
+      "actual": 0.167
+     },
+     {
+      "n": 4401,
+      "pred": 0.2161,
+      "actual": 0.2159
+     },
+     {
+      "n": 4401,
+      "pred": 0.2678,
+      "actual": 0.2661
+     },
+     {
+      "n": 4401,
+      "pred": 0.3619,
+      "actual": 0.3492
+     }
+    ]
+   },
+   "team_total": {
+    "name": "Team total (line = trailing average)",
+    "n": 2624,
+    "ll_model": 0.67201,
+    "ll_base": 0.68631,
+    "brier_model": 0.23963,
+    "brier_base": 0.2466,
+    "gain": 0.01431,
+    "se": 0.00347,
+    "accuracy": 0.5785,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 263,
+      "pred": 0.2817,
+      "actual": 0.3384
+     },
+     {
+      "n": 263,
+      "pred": 0.3446,
+      "actual": 0.3384
+     },
+     {
+      "n": 263,
+      "pred": 0.3828,
+      "actual": 0.4183
+     },
+     {
+      "n": 263,
+      "pred": 0.4132,
+      "actual": 0.4411
+     },
+     {
+      "n": 262,
+      "pred": 0.446,
+      "actual": 0.4924
+     },
+     {
+      "n": 262,
+      "pred": 0.4763,
+      "actual": 0.4542
+     },
+     {
+      "n": 262,
+      "pred": 0.51,
+      "actual": 0.4733
+     },
+     {
+      "n": 262,
+      "pred": 0.5445,
+      "actual": 0.5191
+     },
+     {
+      "n": 262,
+      "pred": 0.5857,
+      "actual": 0.584
+     },
+     {
+      "n": 262,
+      "pred": 0.6648,
+      "actual": 0.6832
+     }
+    ]
+   },
+   "ppg05": {
+    "name": "Power-play goals over 0.5",
+    "n": 2624,
+    "ll_model": 0.68471,
+    "ll_base": 0.69445,
+    "brier_model": 0.24581,
+    "brier_base": 0.25041,
+    "gain": 0.00974,
+    "se": 0.00319,
+    "accuracy": 0.5537,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 263,
+      "pred": 0.3638,
+      "actual": 0.3688
+     },
+     {
+      "n": 263,
+      "pred": 0.3977,
+      "actual": 0.3878
+     },
+     {
+      "n": 263,
+      "pred": 0.4187,
+      "actual": 0.4259
+     },
+     {
+      "n": 263,
+      "pred": 0.4354,
+      "actual": 0.5057
+     },
+     {
+      "n": 262,
+      "pred": 0.4518,
+      "actual": 0.4313
+     },
+     {
+      "n": 262,
+      "pred": 0.4662,
+      "actual": 0.4809
+     },
+     {
+      "n": 262,
+      "pred": 0.4824,
+      "actual": 0.4924
+     },
+     {
+      "n": 262,
+      "pred": 0.5001,
+      "actual": 0.5267
+     },
+     {
+      "n": 262,
+      "pred": 0.5233,
+      "actual": 0.5344
+     },
+     {
+      "n": 262,
+      "pred": 0.5693,
+      "actual": 0.5916
+     }
+    ]
+   },
+   "ppg15": {
+    "name": "Power-play goals over 1.5",
+    "n": 2624,
+    "ll_model": 0.37818,
+    "ll_base": 0.39139,
+    "brier_model": 0.11083,
+    "brier_base": 0.11405,
+    "gain": 0.01322,
+    "se": 0.00313,
+    "accuracy": 0.8712,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 263,
+      "pred": 0.0763,
+      "actual": 0.0722
+     },
+     {
+      "n": 263,
+      "pred": 0.0924,
+      "actual": 0.0989
+     },
+     {
+      "n": 263,
+      "pred": 0.1034,
+      "actual": 0.0989
+     },
+     {
+      "n": 263,
+      "pred": 0.1127,
+      "actual": 0.1141
+     },
+     {
+      "n": 262,
+      "pred": 0.1223,
+      "actual": 0.0954
+     },
+     {
+      "n": 262,
+      "pred": 0.1312,
+      "actual": 0.1489
+     },
+     {
+      "n": 262,
+      "pred": 0.1416,
+      "actual": 0.1489
+     },
+     {
+      "n": 262,
+      "pred": 0.1535,
+      "actual": 0.1679
+     },
+     {
+      "n": 262,
+      "pred": 0.1702,
+      "actual": 0.1336
+     },
+     {
+      "n": 262,
+      "pred": 0.2072,
+      "actual": 0.2099
+     }
+    ]
+   },
+   "team_games": 2624,
+   "skater_games": 44010
+  },
+  "2025": {
+   "sog": {
+    "name": "Shots on goal (line = his trailing average)",
+    "n": 41569,
+    "ll_model": 0.64555,
+    "ll_base": 0.65163,
+    "brier_model": 0.22694,
+    "brier_base": 0.22977,
+    "gain": 0.00608,
+    "se": 0.00067,
+    "accuracy": 0.6315,
+    "verdict": "beats baseline",
+    "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4157,
+      "pred": 0.2222,
+      "actual": 0.2314
+     },
+     {
+      "n": 4157,
+      "pred": 0.2914,
+      "actual": 0.2846
+     },
+     {
+      "n": 4157,
+      "pred": 0.333,
+      "actual": 0.3159
+     },
+     {
+      "n": 4157,
+      "pred": 0.3709,
+      "actual": 0.3486
+     },
+     {
+      "n": 4157,
+      "pred": 0.4097,
+      "actual": 0.3801
+     },
+     {
+      "n": 4157,
+      "pred": 0.4515,
+      "actual": 0.4227
+     },
+     {
+      "n": 4157,
+      "pred": 0.4978,
+      "actual": 0.4684
+     },
+     {
+      "n": 4157,
+      "pred": 0.5501,
+      "actual": 0.5237
+     },
+     {
+      "n": 4157,
+      "pred": 0.6095,
+      "actual": 0.5843
+     },
+     {
+      "n": 4156,
+      "pred": 0.6971,
+      "actual": 0.6667
+     }
+    ],
+    "mae_model": 1.059,
+    "mae_recent_avg": 1.09
+   },
+   "blk": {
+    "name": "Blocked shots (line = his trailing average)",
+    "n": 27082,
+    "ll_model": 0.63862,
+    "ll_base": 0.64749,
+    "brier_model": 0.22412,
+    "brier_base": 0.22814,
+    "gain": 0.00887,
+    "se": 0.00081,
+    "accuracy": 0.6269,
+    "verdict": "beats baseline",
+    "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 2709,
+      "pred": 0.1678,
+      "actual": 0.1764
+     },
+     {
+      "n": 2709,
+      "pred": 0.2548,
+      "actual": 0.2551
+     },
+     {
+      "n": 2708,
+      "pred": 0.3167,
+      "actual": 0.3246
+     },
+     {
+      "n": 2708,
+      "pred": 0.3607,
+      "actual": 0.3615
+     },
+     {
+      "n": 2708,
+      "pred": 0.3955,
+      "actual": 0.3903
+     },
+     {
+      "n": 2708,
+      "pred": 0.4267,
+      "actual": 0.4247
+     },
+     {
+      "n": 2708,
+      "pred": 0.4592,
+      "actual": 0.459
+     },
+     {
+      "n": 2708,
+      "pred": 0.497,
+      "actual": 0.5007
+     },
+     {
+      "n": 2708,
+      "pred": 0.5437,
+      "actual": 0.5277
+     },
+     {
+      "n": 2708,
+      "pred": 0.646,
+      "actual": 0.6407
+     }
+    ],
+    "mae_model": 0.862,
+    "mae_recent_avg": 0.899
+   },
+   "pts": {
+    "name": "Points over 0.5",
+    "n": 44094,
+    "ll_model": 0.59719,
+    "ll_base": 0.6064,
+    "brier_model": 0.20489,
+    "brier_base": 0.20855,
+    "gain": 0.00921,
+    "se": 0.00068,
+    "accuracy": 0.685,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4410,
+      "pred": 0.1438,
+      "actual": 0.1553
+     },
+     {
+      "n": 4410,
+      "pred": 0.1997,
+      "actual": 0.1993
+     },
+     {
+      "n": 4410,
+      "pred": 0.2368,
+      "actual": 0.2147
+     },
+     {
+      "n": 4410,
+      "pred": 0.2736,
+      "actual": 0.2644
+     },
+     {
+      "n": 4409,
+      "pred": 0.3125,
+      "actual": 0.296
+     },
+     {
+      "n": 4409,
+      "pred": 0.3543,
+      "actual": 0.3552
+     },
+     {
+      "n": 4409,
+      "pred": 0.4012,
+      "actual": 0.3983
+     },
+     {
+      "n": 4409,
+      "pred": 0.4578,
+      "actual": 0.443
+     },
+     {
+      "n": 4409,
+      "pred": 0.5279,
+      "actual": 0.5301
+     },
+     {
+      "n": 4409,
+      "pred": 0.6387,
+      "actual": 0.6496
+     }
+    ]
+   },
+   "ast": {
+    "name": "Assists over 0.5",
+    "n": 44094,
+    "ll_model": 0.52151,
+    "ll_base": 0.53208,
+    "brier_model": 0.17132,
+    "brier_base": 0.17463,
+    "gain": 0.01056,
+    "se": 0.00072,
+    "accuracy": 0.7611,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4410,
+      "pred": 0.0989,
+      "actual": 0.1052
+     },
+     {
+      "n": 4410,
+      "pred": 0.1378,
+      "actual": 0.1363
+     },
+     {
+      "n": 4410,
+      "pred": 0.1644,
+      "actual": 0.1587
+     },
+     {
+      "n": 4410,
+      "pred": 0.1882,
+      "actual": 0.176
+     },
+     {
+      "n": 4409,
+      "pred": 0.2121,
+      "actual": 0.203
+     },
+     {
+      "n": 4409,
+      "pred": 0.2392,
+      "actual": 0.2345
+     },
+     {
+      "n": 4409,
+      "pred": 0.2711,
+      "actual": 0.2586
+     },
+     {
+      "n": 4409,
+      "pred": 0.3115,
+      "actual": 0.3148
+     },
+     {
+      "n": 4409,
+      "pred": 0.3642,
+      "actual": 0.3593
+     },
+     {
+      "n": 4409,
+      "pred": 0.4706,
+      "actual": 0.4727
+     }
+    ]
+   },
+   "goal": {
+    "name": "Anytime goal",
+    "n": 44094,
+    "ll_model": 0.39639,
+    "ll_base": 0.40766,
+    "brier_model": 0.1213,
+    "brier_base": 0.12371,
+    "gain": 0.01127,
+    "se": 0.00073,
+    "accuracy": 0.8465,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4410,
+      "pred": 0.0366,
+      "actual": 0.0424
+     },
+     {
+      "n": 4410,
+      "pred": 0.0595,
+      "actual": 0.0612
+     },
+     {
+      "n": 4410,
+      "pred": 0.0784,
+      "actual": 0.0707
+     },
+     {
+      "n": 4410,
+      "pred": 0.0991,
+      "actual": 0.0943
+     },
+     {
+      "n": 4409,
+      "pred": 0.1231,
+      "actual": 0.125
+     },
+     {
+      "n": 4409,
+      "pred": 0.149,
+      "actual": 0.1479
+     },
+     {
+      "n": 4409,
+      "pred": 0.1782,
+      "actual": 0.1721
+     },
+     {
+      "n": 4409,
+      "pred": 0.2156,
+      "actual": 0.2164
+     },
+     {
+      "n": 4409,
+      "pred": 0.2642,
+      "actual": 0.2581
+     },
+     {
+      "n": 4409,
+      "pred": 0.3485,
+      "actual": 0.3454
+     }
+    ]
+   },
+   "team_total": {
+    "name": "Team total (line = trailing average)",
+    "n": 2616,
+    "ll_model": 0.66511,
+    "ll_base": 0.67847,
+    "brier_model": 0.23628,
+    "brier_base": 0.2427,
+    "gain": 0.01336,
+    "se": 0.00358,
+    "accuracy": 0.5979,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 262,
+      "pred": 0.2769,
+      "actual": 0.2557
+     },
+     {
+      "n": 262,
+      "pred": 0.3421,
+      "actual": 0.3626
+     },
+     {
+      "n": 262,
+      "pred": 0.3829,
+      "actual": 0.374
+     },
+     {
+      "n": 262,
+      "pred": 0.4175,
+      "actual": 0.4466
+     },
+     {
+      "n": 262,
+      "pred": 0.4496,
+      "actual": 0.4466
+     },
+     {
+      "n": 262,
+      "pred": 0.4829,
+      "actual": 0.4885
+     },
+     {
+      "n": 261,
+      "pred": 0.5163,
+      "actual": 0.5134
+     },
+     {
+      "n": 261,
+      "pred": 0.5526,
+      "actual": 0.5824
+     },
+     {
+      "n": 261,
+      "pred": 0.5964,
+      "actual": 0.5862
+     },
+     {
+      "n": 261,
+      "pred": 0.6654,
+      "actual": 0.659
+     }
+    ]
+   },
+   "ppg05": {
+    "name": "Power-play goals over 0.5",
+    "n": 2616,
+    "ll_model": 0.6837,
+    "ll_base": 0.69386,
+    "brier_model": 0.24535,
+    "brier_base": 0.25018,
+    "gain": 0.01017,
+    "se": 0.00311,
+    "accuracy": 0.5443,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 262,
+      "pred": 0.3545,
+      "actual": 0.3015
+     },
+     {
+      "n": 262,
+      "pred": 0.3919,
+      "actual": 0.4427
+     },
+     {
+      "n": 262,
+      "pred": 0.4119,
+      "actual": 0.3931
+     },
+     {
+      "n": 262,
+      "pred": 0.4288,
+      "actual": 0.4656
+     },
+     {
+      "n": 262,
+      "pred": 0.4435,
+      "actual": 0.4542
+     },
+     {
+      "n": 262,
+      "pred": 0.4579,
+      "actual": 0.5229
+     },
+     {
+      "n": 261,
+      "pred": 0.4712,
+      "actual": 0.4521
+     },
+     {
+      "n": 261,
+      "pred": 0.4873,
+      "actual": 0.5057
+     },
+     {
+      "n": 261,
+      "pred": 0.5071,
+      "actual": 0.4751
+     },
+     {
+      "n": 261,
+      "pred": 0.5463,
+      "actual": 0.5211
+     }
+    ]
+   },
+   "ppg15": {
+    "name": "Power-play goals over 1.5",
+    "n": 2616,
+    "ll_model": 0.3406,
+    "ll_base": 0.34769,
+    "brier_model": 0.09615,
+    "brier_base": 0.0977,
+    "gain": 0.00709,
+    "se": 0.0027,
+    "accuracy": 0.8922,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 262,
+      "pred": 0.0722,
+      "actual": 0.0496
+     },
+     {
+      "n": 262,
+      "pred": 0.0895,
+      "actual": 0.0916
+     },
+     {
+      "n": 262,
+      "pred": 0.0997,
+      "actual": 0.0763
+     },
+     {
+      "n": 262,
+      "pred": 0.1089,
+      "actual": 0.1031
+     },
+     {
+      "n": 262,
+      "pred": 0.1174,
+      "actual": 0.1298
+     },
+     {
+      "n": 262,
+      "pred": 0.126,
+      "actual": 0.1336
+     },
+     {
+      "n": 261,
+      "pred": 0.1343,
+      "actual": 0.1034
+     },
+     {
+      "n": 261,
+      "pred": 0.1448,
+      "actual": 0.1379
+     },
+     {
+      "n": 261,
+      "pred": 0.1585,
+      "actual": 0.1264
+     },
+     {
+      "n": 261,
+      "pred": 0.1884,
+      "actual": 0.1264
+     }
+    ]
+   },
+   "team_games": 2624,
+   "skater_games": 44094
+  },
+  "2026": {
+   "sog": {
+    "name": "Shots on goal (line = his trailing average)",
+    "n": 41384,
+    "ll_model": 0.64477,
+    "ll_base": 0.65113,
+    "brier_model": 0.22668,
+    "brier_base": 0.22958,
+    "gain": 0.00636,
+    "se": 0.00066,
+    "accuracy": 0.6284,
+    "verdict": "beats baseline",
+    "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4139,
+      "pred": 0.2195,
+      "actual": 0.2213
+     },
+     {
+      "n": 4139,
+      "pred": 0.2903,
+      "actual": 0.2757
+     },
+     {
+      "n": 4139,
+      "pred": 0.3314,
+      "actual": 0.3254
+     },
+     {
+      "n": 4139,
+      "pred": 0.3674,
+      "actual": 0.3583
+     },
+     {
+      "n": 4138,
+      "pred": 0.4042,
+      "actual": 0.377
+     },
+     {
+      "n": 4138,
+      "pred": 0.4453,
+      "actual": 0.4285
+     },
+     {
+      "n": 4138,
+      "pred": 0.492,
+      "actual": 0.4804
+     },
+     {
+      "n": 4138,
+      "pred": 0.5445,
+      "actual": 0.523
+     },
+     {
+      "n": 4138,
+      "pred": 0.6027,
+      "actual": 0.5824
+     },
+     {
+      "n": 4138,
+      "pred": 0.6877,
+      "actual": 0.6607
+     }
+    ],
+    "mae_model": 1.05,
+    "mae_recent_avg": 1.084
+   },
+   "blk": {
+    "name": "Blocked shots (line = his trailing average)",
+    "n": 25262,
+    "ll_model": 0.63479,
+    "ll_base": 0.64322,
+    "brier_model": 0.22252,
+    "brier_base": 0.22635,
+    "gain": 0.00843,
+    "se": 0.00083,
+    "accuracy": 0.6327,
+    "verdict": "beats baseline",
+    "baseline": "a negative binomial at his 25-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 2527,
+      "pred": 0.1753,
+      "actual": 0.1579
+     },
+     {
+      "n": 2527,
+      "pred": 0.2683,
+      "actual": 0.2592
+     },
+     {
+      "n": 2526,
+      "pred": 0.3268,
+      "actual": 0.3215
+     },
+     {
+      "n": 2526,
+      "pred": 0.3673,
+      "actual": 0.3511
+     },
+     {
+      "n": 2526,
+      "pred": 0.4027,
+      "actual": 0.3876
+     },
+     {
+      "n": 2526,
+      "pred": 0.4372,
+      "actual": 0.4303
+     },
+     {
+      "n": 2526,
+      "pred": 0.4713,
+      "actual": 0.4572
+     },
+     {
+      "n": 2526,
+      "pred": 0.5081,
+      "actual": 0.4604
+     },
+     {
+      "n": 2526,
+      "pred": 0.5576,
+      "actual": 0.542
+     },
+     {
+      "n": 2526,
+      "pred": 0.6607,
+      "actual": 0.6461
+     }
+    ],
+    "mae_model": 0.846,
+    "mae_recent_avg": 0.881
+   },
+   "pts": {
+    "name": "Points over 0.5",
+    "n": 43836,
+    "ll_model": 0.60007,
+    "ll_base": 0.60723,
+    "brier_model": 0.20608,
+    "brier_base": 0.20891,
+    "gain": 0.00716,
+    "se": 0.00064,
+    "accuracy": 0.6838,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4384,
+      "pred": 0.1468,
+      "actual": 0.1576
+     },
+     {
+      "n": 4384,
+      "pred": 0.2024,
+      "actual": 0.2005
+     },
+     {
+      "n": 4384,
+      "pred": 0.241,
+      "actual": 0.227
+     },
+     {
+      "n": 4384,
+      "pred": 0.2785,
+      "actual": 0.2653
+     },
+     {
+      "n": 4384,
+      "pred": 0.3165,
+      "actual": 0.3018
+     },
+     {
+      "n": 4384,
+      "pred": 0.3563,
+      "actual": 0.3442
+     },
+     {
+      "n": 4383,
+      "pred": 0.4022,
+      "actual": 0.3956
+     },
+     {
+      "n": 4383,
+      "pred": 0.4587,
+      "actual": 0.4679
+     },
+     {
+      "n": 4383,
+      "pred": 0.5295,
+      "actual": 0.5542
+     },
+     {
+      "n": 4383,
+      "pred": 0.6395,
+      "actual": 0.6477
+     }
+    ]
+   },
+   "ast": {
+    "name": "Assists over 0.5",
+    "n": 43836,
+    "ll_model": 0.52702,
+    "ll_base": 0.53668,
+    "brier_model": 0.17367,
+    "brier_base": 0.17655,
+    "gain": 0.00966,
+    "se": 0.0007,
+    "accuracy": 0.7565,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4384,
+      "pred": 0.1022,
+      "actual": 0.1145
+     },
+     {
+      "n": 4384,
+      "pred": 0.1416,
+      "actual": 0.1401
+     },
+     {
+      "n": 4384,
+      "pred": 0.1668,
+      "actual": 0.159
+     },
+     {
+      "n": 4384,
+      "pred": 0.1911,
+      "actual": 0.174
+     },
+     {
+      "n": 4384,
+      "pred": 0.2162,
+      "actual": 0.2026
+     },
+     {
+      "n": 4384,
+      "pred": 0.2429,
+      "actual": 0.2393
+     },
+     {
+      "n": 4383,
+      "pred": 0.2735,
+      "actual": 0.2708
+     },
+     {
+      "n": 4383,
+      "pred": 0.3119,
+      "actual": 0.3231
+     },
+     {
+      "n": 4383,
+      "pred": 0.3637,
+      "actual": 0.3685
+     },
+     {
+      "n": 4383,
+      "pred": 0.4705,
+      "actual": 0.4796
+     }
+    ]
+   },
+   "goal": {
+    "name": "Anytime goal",
+    "n": 43836,
+    "ll_model": 0.40181,
+    "ll_base": 0.41227,
+    "brier_model": 0.12323,
+    "brier_base": 0.12543,
+    "gain": 0.01046,
+    "se": 0.00069,
+    "accuracy": 0.8438,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at his 25-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 4384,
+      "pred": 0.0373,
+      "actual": 0.0493
+     },
+     {
+      "n": 4384,
+      "pred": 0.0605,
+      "actual": 0.0541
+     },
+     {
+      "n": 4384,
+      "pred": 0.0803,
+      "actual": 0.0798
+     },
+     {
+      "n": 4384,
+      "pred": 0.1014,
+      "actual": 0.1038
+     },
+     {
+      "n": 4384,
+      "pred": 0.1242,
+      "actual": 0.1166
+     },
+     {
+      "n": 4384,
+      "pred": 0.1506,
+      "actual": 0.1535
+     },
+     {
+      "n": 4383,
+      "pred": 0.1795,
+      "actual": 0.1802
+     },
+     {
+      "n": 4383,
+      "pred": 0.2141,
+      "actual": 0.2133
+     },
+     {
+      "n": 4383,
+      "pred": 0.2623,
+      "actual": 0.264
+     },
+     {
+      "n": 4383,
+      "pred": 0.3506,
+      "actual": 0.3466
+     }
+    ]
+   },
+   "team_total": {
+    "name": "Team total (line = trailing average)",
+    "n": 2624,
+    "ll_model": 0.68044,
+    "ll_base": 0.68433,
+    "brier_model": 0.24356,
+    "brier_base": 0.24559,
+    "gain": 0.00389,
+    "se": 0.00332,
+    "accuracy": 0.5789,
+    "verdict": "marginal",
+    "baseline": "a Poisson at the team's 20-game average (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 263,
+      "pred": 0.2803,
+      "actual": 0.3764
+     },
+     {
+      "n": 263,
+      "pred": 0.3394,
+      "actual": 0.403
+     },
+     {
+      "n": 263,
+      "pred": 0.3732,
+      "actual": 0.403
+     },
+     {
+      "n": 263,
+      "pred": 0.4019,
+      "actual": 0.384
+     },
+     {
+      "n": 262,
+      "pred": 0.4367,
+      "actual": 0.4618
+     },
+     {
+      "n": 262,
+      "pred": 0.4702,
+      "actual": 0.4542
+     },
+     {
+      "n": 262,
+      "pred": 0.5046,
+      "actual": 0.5229
+     },
+     {
+      "n": 262,
+      "pred": 0.5423,
+      "actual": 0.5038
+     },
+     {
+      "n": 262,
+      "pred": 0.5817,
+      "actual": 0.6183
+     },
+     {
+      "n": 262,
+      "pred": 0.6421,
+      "actual": 0.6145
+     }
+    ]
+   },
+   "ppg05": {
+    "name": "Power-play goals over 0.5",
+    "n": 2624,
+    "ll_model": 0.69077,
+    "ll_base": 0.69879,
+    "brier_model": 0.24879,
+    "brier_base": 0.25253,
+    "gain": 0.00802,
+    "se": 0.00277,
+    "accuracy": 0.5335,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 263,
+      "pred": 0.3691,
+      "actual": 0.4335
+     },
+     {
+      "n": 263,
+      "pred": 0.4026,
+      "actual": 0.4335
+     },
+     {
+      "n": 263,
+      "pred": 0.4204,
+      "actual": 0.4677
+     },
+     {
+      "n": 263,
+      "pred": 0.4346,
+      "actual": 0.4601
+     },
+     {
+      "n": 262,
+      "pred": 0.448,
+      "actual": 0.4504
+     },
+     {
+      "n": 262,
+      "pred": 0.4603,
+      "actual": 0.4695
+     },
+     {
+      "n": 262,
+      "pred": 0.4738,
+      "actual": 0.4046
+     },
+     {
+      "n": 262,
+      "pred": 0.489,
+      "actual": 0.5573
+     },
+     {
+      "n": 262,
+      "pred": 0.5078,
+      "actual": 0.4847
+     },
+     {
+      "n": 262,
+      "pred": 0.5465,
+      "actual": 0.5305
+     }
+    ]
+   },
+   "ppg15": {
+    "name": "Power-play goals over 1.5",
+    "n": 2624,
+    "ll_model": 0.35748,
+    "ll_base": 0.3664,
+    "brier_model": 0.10225,
+    "brier_base": 0.10433,
+    "gain": 0.00892,
+    "se": 0.00245,
+    "accuracy": 0.8841,
+    "verdict": "beats baseline",
+    "baseline": "a Poisson at the team's 20-game rate (shrunk toward the league)",
+    "calibration": [
+     {
+      "n": 263,
+      "pred": 0.0787,
+      "actual": 0.0798
+     },
+     {
+      "n": 263,
+      "pred": 0.0949,
+      "actual": 0.1065
+     },
+     {
+      "n": 263,
+      "pred": 0.1043,
+      "actual": 0.1065
+     },
+     {
+      "n": 263,
+      "pred": 0.1122,
+      "actual": 0.0684
+     },
+     {
+      "n": 262,
+      "pred": 0.12,
+      "actual": 0.1145
+     },
+     {
+      "n": 262,
+      "pred": 0.1275,
+      "actual": 0.1336
+     },
+     {
+      "n": 262,
+      "pred": 0.1359,
+      "actual": 0.1221
+     },
+     {
+      "n": 262,
+      "pred": 0.146,
+      "actual": 0.1374
+     },
+     {
+      "n": 262,
+      "pred": 0.1589,
+      "actual": 0.1527
+     },
+     {
+      "n": 262,
+      "pred": 0.1884,
+      "actual": 0.1374
+     }
+    ]
+   },
+   "team_games": 2624,
+   "skater_games": 43836
+  }
+ },
+ "generated_utc": "2026-10-15 06:26 UTC"
+}
